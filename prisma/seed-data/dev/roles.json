@@ -1,0 +1,18 @@
+[
+    {
+      "name": "owner",
+      "built_in": true,
+      "permission_codes": ["000"]
+    },
+    {
+      "name": "client",
+      "built_in": true,
+      "permission_codes": ["001"]
+    },
+    {
+      "name": "staff",
+      "built_in": true,
+      "permission_codes": ["002"]
+    }
+  ]
+  

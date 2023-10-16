@@ -1,0 +1,413 @@
+generator client {
+    provider = "prisma-client-js"
+}
+
+datasource db {
+    provider = "postgresql"
+    url      = env("POSTGRES_URL")
+}
+
+model User {
+    id              String          @id @unique @default(uuid())
+    name            String
+    email           String          @unique
+    password_hash   String
+    first_seen      DateTime        @default(now())
+    last_seen       DateTime        @default(now())
+    deleted_at      DateTime?
+    created_at      DateTime        @default(now())
+    book            Book[]
+    discount        Discount[]
+    book_variant    Book_variant[]
+    order           Order[]
+    transactions    Transactions[]
+    log             Log[]
+    claims          Claim[]
+    addresses       Address[]
+    contact_details ContactDetail[]
+}
+
+model Address {
+    id             String    @id @default(uuid())
+    active         Boolean
+    type           String?
+    house_number   String?
+    address_line_1 String
+    address_line_2 String?
+    city           String?
+    state          String?
+    country        String
+    user_id        String?
+    postal_code    String?
+    user           User?     @relation(fields: [user_id], references: [id])
+    created_at     DateTime  @default(now())
+    updated_at     DateTime  @updatedAt
+    deleted_at     DateTime?
+
+    @@map(name: "addresses")
+}
+
+model ContactDetail {
+    id         String    @id @default(uuid())
+    active     Boolean
+    type       String // Possible values: "EMAIL", "PHONE_NUMBER"
+    label      String?
+    value      String
+    created_at DateTime  @default(now())
+    updated_at DateTime  @updatedAt
+    deleted_at DateTime?
+    user_id    String?
+    user       User?     @relation(fields: [user_id], references: [id])
+
+    @@map(name: "contacts_details")
+}
+
+model Temp_Book {
+    id                    String    @id @unique @default(uuid())
+    email                 String
+    book_name             String?
+    title                 String
+    name                  String
+    created_at            DateTime  @default(now())
+    deleted_at            DateTime?
+    phone_number          Int?
+    paper_type            String?
+    number_of_words       Int?
+    status                String
+    hard_cover            Boolean?  @default(false)
+    BW_print              Boolean?  @default(false)
+    both_print            Boolean?  @default(false)
+    color_print           Boolean?  @default(false)
+    cream_paper           Boolean?  @default(false)
+    glossy_paper          Boolean?  @default(false)
+    news_print            Boolean?  @default(false)
+    hard_binding          Boolean?  @default(false)
+    paper_binding         Boolean?  @default(false)
+    staple_binding        Boolean?  @default(false)
+    white_paper           Boolean?  @default(false)
+    no_of_books           Int?
+    portrait              Boolean?  @default(false)
+    quantity_of_color     Int?
+    quantity_of_BW        Int?
+    book_size             String?
+    number_of_pages       Int?
+    inside_layout         Boolean?  @default(false)
+    proof_reading         Boolean?  @default(false)
+    cover_design          Boolean?  @default(false)
+    cover_design_type     String?
+    editing               Boolean?  @default(false)
+    ISBN                  Boolean?  @default(false)
+    online_sale           Boolean?  @default(false)
+    embossing             Boolean?  @default(false)
+    spot_lamination       Boolean?  @default(false)
+    foiling               Boolean?  @default(false)
+    glossy_lamination     Boolean?  @default(false)
+    delivery_name         String?
+    delivery_phone        Int?
+    pick_up               Boolean?  @default(false)
+    shipping_address      String?
+    shipping_state        String?
+    shipping_instruction  String?
+    project_type          String?
+    ready_to_print        Boolean?  @default(false)
+    published             Boolean?  @default(false)
+    work_in_progress      Boolean?  @default(false)
+    word_count            Int?
+    current_book_format   String?
+    inside_layout_type    String?
+    art_illustration      Boolean?  @default(false)
+    art_illustration_type String?
+
+    @@map("temp_books")
+}
+
+model Invoice {
+    id                    String    @id @unique @default(uuid())
+    email                 String
+    book_name             String?
+    title                 String
+    name                  String
+    created_at            DateTime  @default(now())
+    invoice_no            String
+    phone_number          Int?
+    paper_type            String?
+    number_of_words       Int?
+    status                String
+    hard_cover            Boolean?  @default(false)
+    BW_print              Boolean?  @default(false)
+    both_print            Boolean?  @default(false)
+    color_print           Boolean?  @default(false)
+    cream_paper           Boolean?  @default(false)
+    glossy_paper          Boolean?  @default(false)
+    news_print            Boolean?  @default(false)
+    hard_binding          Boolean?  @default(false)
+    paper_binding         Boolean?  @default(false)
+    staple_binding        Boolean?  @default(false)
+    white_paper           Boolean?  @default(false)
+    no_of_books           Int?
+    portrait              Boolean?  @default(false)
+    quantity_of_Color     Int?
+    quantity_of_BW        Int?
+    book_size             String?
+    number_of_pages       Int?
+    inside_layout         Boolean?  @default(false)
+    proof_reading         Boolean?  @default(false)
+    cover_design          Boolean?  @default(false)
+    cover_design_type     String?
+    editing               Boolean?  @default(false)
+    ISBN                  Boolean?  @default(false)
+    online_sale           Boolean?  @default(false)
+    embossing             Boolean?  @default(false)
+    spot_lamination       Boolean?  @default(false)
+    foiling               Boolean?  @default(false)
+    glossy_lamination     Boolean?  @default(false)
+    delivery_name         String?
+    delivery_phone        Int?
+    pick_up               Boolean?  @default(false)
+    shipping_address      String?
+    shipping_state        String?
+    shipping_instruction  String?
+    project_type          String?
+    ready_to_print        Boolean?  @default(false)
+    published             Boolean?  @default(false)
+    work_in_progress      Boolean?  @default(false)
+    word_count            Int?
+    current_book_format   String?
+    inside_layout_type    String?
+    art_illustration      Boolean?  @default(false)
+    art_illustration_type String?
+    deleted_at            DateTime?
+
+    @@map("invoices")
+}
+
+model Book {
+    id              String         @id @unique @default(uuid())
+    title           String
+    deleted_at      DateTime?
+    createdBy       String
+    created_by_user User           @relation(fields: [createdBy], references: [id])
+    description     String?
+    created_at      DateTime       @default(now())
+    transactions    Transactions[]
+
+    @@map("books")
+}
+
+model Discount {
+    id              String    @id @unique @default(uuid())
+    percentage      Int
+    name            String
+    deleted_at      DateTime?
+    expires_at      DateTime  @default(now())
+    created_at      DateTime  @default(now())
+    created_by      String
+    created_by_user User      @relation(fields: [created_by], references: [id])
+    order           Order[]
+
+    @@map("discounts")
+}
+
+model Book_variant {
+    id                    String    @id @unique @default(uuid())
+    book_id               String
+    created_by            String
+    created_by_user       User      @relation(fields: [created_by], references: [id])
+    created_at            DateTime  @default(now())
+    deleted_at            DateTime?
+    tempbook_id           String
+    paper_type            String?
+    number_of_words       Int?
+    status                String
+    hard_cover            Boolean?  @default(false)
+    BW_print              Boolean?  @default(false)
+    both_print            Boolean?  @default(false)
+    color_print           Boolean?  @default(false)
+    cream_paper           Boolean?  @default(false)
+    glossy_paper          Boolean?  @default(false)
+    news_print            Boolean?  @default(false)
+    hard_binding          Boolean?  @default(false)
+    paper_binding         Boolean?  @default(false)
+    staple_binding        Boolean?  @default(false)
+    white_paper           Boolean?  @default(false)
+    no_of_books           Int?
+    portrait              Boolean?  @default(false)
+    quantity_of_Color     Int?
+    quantity_of_BW        Int?
+    book_size             String?
+    number_of_pages       Int?
+    inside_layout         Boolean?  @default(false)
+    proof_reading         Boolean?  @default(false)
+    cover_design          Boolean?  @default(false)
+    cover_design_type     String?
+    editing               Boolean?  @default(false)
+    ISBN                  Boolean?  @default(false)
+    online_sale           Boolean?  @default(false)
+    embossing             Boolean?  @default(false)
+    spot_lamination       Boolean?  @default(false)
+    foiling               Boolean?  @default(false)
+    glossy_lamination     Boolean?  @default(false)
+    delivery_name         String?
+    delivery_phone        Int?
+    pick_up               Boolean?  @default(false)
+    shipping_address      String?
+    shipping_state        String?
+    shipping_instruction  String?
+    project_type          String?
+    readyToPrint          Boolean?  @default(false)
+    published             Boolean?  @default(false)
+    workInProgress        Boolean?  @default(false)
+    word_count            Int?
+    current_book_format   String?
+    inside_layout_type    String?
+    art_illustration      Boolean?  @default(false)
+    art_illustration_type String?
+    order                 Order[]
+
+    @@map("book_variants")
+}
+
+model Coupon {
+    id         String    @id @unique @default(uuid())
+    percentage Int
+    name       String
+    expires_at DateTime?
+    created_at DateTime  @default(now())
+    created_by String
+    deleted_at DateTime?
+    status     Boolean?
+    order      Order[]
+
+    @@map("coupons")
+}
+
+model Order {
+    id                   String         @id @unique @default(uuid())
+    book_id              String?
+    book_name            String?
+    temp_book_id         String?
+    created_by           String
+    created_by_user      User           @relation(fields: [created_by], references: [id])
+    deleted_at           DateTime?
+    timestamp            DateTime       @default(now())
+    book_variant_id      String?
+    book_variant_by_id   Book_variant?  @relation(fields: [book_variant_id], references: [id])
+    delivery_address     String?
+    total                Int
+    status               String
+    payment_reference    String?
+    cover_total          Int
+    inner_total          Int
+    delivery_fee         Int
+    discount_id          String?
+    discount_by_id       Discount?      @relation(fields: [discount_id], references: [id])
+    coupon_id            String?
+    coupon_by_id         Coupon?        @relation(fields: [coupon_id], references: [id])
+    inner_page_cost      Int
+    cover_cost           Int
+    perfect_binding_cost Int
+    lamination_cost      Int
+    wrapping_cost        Int
+    trim_cost            Int
+    embossing_cost       Int
+    spot_lamination_cost Int
+    foil_cost            Int
+    book_cost            Int
+    service_cost         Int
+    markup               Int
+    created_at           DateTime
+    transactions         Transactions[]
+
+    @@map("orders")
+}
+
+model Transactions {
+    id              String    @id @unique @default(uuid())
+    created_at      DateTime  @default(now())
+    status          String
+    order_id        String
+    ordered_by_id   Order     @relation(fields: [order_id], references: [id])
+    book_id         String
+    book_by_id      Book      @relation(fields: [book_id], references: [id])
+    user_id         String
+    created_by_user User      @relation(fields: [user_id], references: [id])
+    deleted_at      DateTime?
+
+    @@map("transactions")
+}
+
+model Constants {
+    id          String @unique @default(uuid())
+    shortcode   String @id
+    name        String
+    type        String
+    description String
+    value       Int?
+
+    @@map("constants")
+}
+
+model Log {
+    id              String   @id @unique @default(uuid())
+    object_modified String
+    action_type     String
+    old_value       String?
+    new_value       String?
+    created_at      DateTime @default(now())
+    modified_by     String
+    created_by_user User     @relation(fields: [modified_by], references: [id])
+
+    @@map("logs")
+}
+
+model Permission {
+    id          String           @id @default(uuid())
+    active      Boolean
+    code        String           @unique
+    module      String
+    action      String
+    resource_id String?
+    roles       PermissionRole[]
+    users       Claim[]
+
+    @@map(name: "permissions")
+}
+
+model Role {
+    id          String           @id @default(uuid())
+    active      Boolean          @default(true)
+    name        String           @unique
+    built_in    Boolean          @default(false)
+    permissions PermissionRole[]
+    users       Claim[]
+
+    @@map(name: "roles")
+}
+
+model PermissionRole {
+    id            String     @id @default(uuid())
+    active        Boolean
+    permission_id String
+    permission    Permission @relation(fields: [permission_id], references: [id])
+    role_id       String
+    role          Role       @relation(fields: [role_id], references: [id])
+
+    @@unique([permission_id, role_id], name: "unique_permission_role")
+    @@map(name: "permission_role")
+}
+
+model Claim {
+    id            String      @id @default(uuid())
+    active        Boolean     @default(true)
+    type          String // Possible values: "ROLE", "PERMISSION"
+    permission_id String?
+    permission    Permission? @relation(fields: [permission_id], references: [id])
+    role_id       String?
+    role          Role?       @relation(fields: [role_id], references: [id])
+    user_id       String
+    user          User        @relation(fields: [user_id], references: [id])
+
+    @@unique([user_id, role_id], name: "unique_claim_role")
+    @@unique([user_id, permission_id], name: "unique_claim_permission")
+    @@map(name: "claims")
+}

@@ -1,0 +1,38 @@
+[
+    {
+      "module": "system",
+      "action": "owner",
+      "code": "000",
+      "resource_id" : ""
+    },
+    {
+      "module": "system",
+      "action": "client",
+      "code": "001",
+      "resource_id" : ""
+    },
+    {
+      "module": "user",
+      "action": "create",
+      "code": "100",
+      "resource_id" : ""
+    },
+    {
+      "module": "user",
+      "action": "delete",
+      "code": "101",
+      "resource_id" : ""
+    },
+    {
+      "module": "user",
+      "action": "update",
+      "code": "102",
+      "resource_id" : ""
+    },
+    {
+      "module": "user",
+      "action": "read",
+      "code": "103",
+      "resource_id" : ""
+    }
+]
