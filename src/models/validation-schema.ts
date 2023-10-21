@@ -1,0 +1,147 @@
+import z from "zod";
+
+export const userSchema = z.object({
+  name: z.string().min(2, { message: "Name must be at least 2 characters long" })
+    .max(25, { message: "Name must be at most 25 characters long" }),
+  password: z.string().min(8, { message: "Password must be at least 8 characters long" })
+    .max(25, { message: "Password must be at most 25 characters long" }),
+  email: z.string().email({ message: "Please enter a valid email" })
+    .min(8, { message: "Email must be at least 8 characters long" })
+    .max(45, { message: "Email must be at most 45 characters long" }),
+
+});
+
+export const tempBookSchema = z.object({
+  email: z.string().email({ message: "Please enter a valid email" }),
+  book_name: z.string().optional(),
+  title: z.string(),
+  name: z.string(),
+  phone_number: z.number().int()
+    .optional(),
+  paper_type: z.string().optional(),
+  number_of_words: z.number().int()
+    .optional(),
+  status: z.string(),
+  hard_cover: z.boolean().optional(),
+  BW_print: z.boolean().optional(),
+  both_print: z.boolean().optional(),
+  color_print: z.boolean().optional(),
+  cream_paper: z.boolean().optional(),
+  glossy_paper: z.boolean().optional(),
+  news_print: z.boolean().optional(),
+  hard_binding: z.boolean().optional(),
+  paper_binding: z.boolean().optional(),
+  staple_binding: z.boolean().optional(),
+  white_paper: z.boolean().optional(),
+  no_of_books: z.number().int()
+    .optional(),
+  portrait: z.boolean().optional(),
+  quantity_of_color: z.number().int()
+    .optional(),
+  quantity_of_BW: z.number().int()
+    .optional(),
+  book_size: z.string().optional(),
+  number_of_pages: z.number().int()
+    .optional(),
+  inside_layout: z.boolean().optional(),
+  proof_reading: z.boolean().optional(),
+  cover_design: z.boolean().optional(),
+  cover_design_type: z.string().optional(),
+  editing: z.boolean().optional(),
+  ISBN: z.boolean().optional(),
+  online_sale: z.boolean().optional(),
+  embossing: z.boolean().optional(),
+  spot_lamination: z.boolean().optional(),
+  foiling: z.boolean().optional(),
+  glossy_lamination: z.boolean().optional(),
+  delivery_name: z.string().optional(),
+  delivery_phone: z.number().int()
+    .optional(),
+  pick_up: z.boolean().optional(),
+  shipping_address: z.string().optional(),
+  shipping_state: z.string().optional(),
+  shipping_instruction: z.string().optional(),
+  project_type: z.string().optional(),
+  ready_to_print: z.boolean().optional(),
+  published: z.boolean().optional(),
+  work_in_progress: z.boolean().optional(),
+  word_count: z.number().int()
+    .optional(),
+  current_book_format: z.string().optional(),
+  inside_layout_type: z.string().optional(),
+  art_illustration: z.boolean().optional(),
+  art_illustration_type: z.string().optional(),
+});
+
+export const invoiceSchema = z.object({
+  email: z.string().email({ message: "Please enter a valid email" }),
+  book_name: z.string().optional(),
+  title: z.string(),
+  name: z.string(),
+  phone_number: z.number().int()
+    .min(1000000000)
+    .max(9999999999)
+    .optional(),
+  paper_type: z.string().optional(),
+  number_of_words: z.number().int()
+    .optional(),
+  status: z.string(),
+  hard_cover: z.boolean().optional(),
+  BW_print: z.boolean().optional(),
+  both_print: z.boolean().optional(),
+  color_print: z.boolean().optional(),
+  cream_paper: z.boolean().optional(),
+  glossy_paper: z.boolean().optional(),
+  news_print: z.boolean().optional(),
+  hard_binding: z.boolean().optional(),
+  paper_binding: z.boolean().optional(),
+  staple_binding: z.boolean().optional(),
+  white_paper: z.boolean().optional(),
+  no_of_books: z.number().int()
+    .optional(),
+  portrait: z.boolean().optional(),
+  quantity_of_Color: z.number().int()
+    .optional(),
+  quantity_of_BW: z.number().int()
+    .optional(),
+  book_size: z.string().optional(),
+  number_of_pages: z.number().int()
+    .optional(),
+  inside_layout: z.boolean().optional(),
+  proof_reading: z.boolean().optional(),
+  cover_design: z.boolean().optional(),
+  cover_design_type: z.string().optional(),
+  editing: z.boolean().optional(),
+  ISBN: z.boolean().optional(),
+  online_sale: z.boolean().optional(),
+  embossing: z.boolean().optional(),
+  spot_lamination: z.boolean().optional(),
+  foiling: z.boolean().optional(),
+  glossy_lamination: z.boolean().optional(),
+  delivery_name: z.string().optional(),
+  delivery_phone: z.number().int()
+    .min(1000000000)
+    .max(9999999999)
+    .optional(),
+  pick_up: z.boolean().optional(),
+  shipping_address: z.string().optional(),
+  shipping_state: z.string().optional(),
+  shipping_instruction: z.string().optional(),
+  project_type: z.string().optional(),
+  ready_to_print: z.boolean().optional(),
+  published: z.boolean().optional(),
+  work_in_progress: z.boolean().optional(),
+  word_count: z.number().int()
+    .optional(),
+  current_book_format: z.string().optional(),
+  inside_layout_type: z.string().optional(),
+  art_illustration: z.boolean().optional(),
+  art_illustration_type: z.string().optional(),
+});
+
+export const bookSchema = z.object({
+  title: z.string().min(2, { message: "Title must be at least 2 characters long" })
+    .max(100, { message: "Title must be at most 100 characters long" }),
+  createdBy: z.string(),
+  description: z.string().optional(),
+});

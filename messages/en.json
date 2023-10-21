@@ -1,0 +1,21 @@
+{
+  "login": {
+    "title": "Log In",
+    "username" : "Username",
+    "password" : "Password",
+    "email-label" : "Email Address",
+    "email-placeholder" : "Enter your email",
+    "password-label" : "Password",
+    "login" : "Log In",
+    "signin" : "Sign In",
+    "no_auth" : "You are not logged in!",
+    "user_min" : "Username must be at least 2 characters long!",
+    "pass_min" : "Password must be at least 5 characters long!",
+    "user_max" : "Username must be at most 25 characters long!",
+    "pass_max" : "Password must be at most 20 characters long!",
+    "signed_in" : "Yay! You are now signed in!",
+    "error_title" : "Uh oh! Something went wrong.",
+    "error_desc" : "Please check your username and password and try again."
+  }
+
+}

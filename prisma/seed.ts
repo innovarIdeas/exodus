@@ -13,7 +13,7 @@ async function seedUsers () {
   const testOwnerData = {
     name: "John Doe",
     email: "okoh.test@yopmail.com",
-    password_hash: "secret"
+    password: "secret"
   };
 
   const ownerRole = await prisma.role.findUnique({ where: { name: ROLE_OWNER } });
@@ -23,7 +23,7 @@ async function seedUsers () {
       where: { email: testOwnerData.email },
       update: {
         name: testOwnerData.name,
-        password_hash: bcrypt.hashSync(testOwnerData.password_hash),
+        password: bcrypt.hashSync(testOwnerData.password),
         claims: {
           createMany: {
             data: [{ role_id: ownerRole?.id, type: "ROLE" }],
@@ -33,7 +33,7 @@ async function seedUsers () {
       },
       create: {
         ...testOwnerData,
-        password_hash: bcrypt.hashSync(testOwnerData.password_hash),
+        password: bcrypt.hashSync(testOwnerData.password),
         claims: { create: { role_id: ownerRole?.id, type: "ROLE" } },
       }
     }

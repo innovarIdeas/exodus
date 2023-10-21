@@ -58,7 +58,7 @@ export const options: NextAuthOptions = {
           return null;
         }
 
-        const isPasswordValid = await compare(password, user.password_hash);
+        const isPasswordValid = await compare(password, user.password);
 
         if (isPasswordValid) return user;
 
