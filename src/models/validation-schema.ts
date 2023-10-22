@@ -1,5 +1,12 @@
 import z from "zod";
 
+export const loginSchema = z.object({
+  username: z.string().min(2, { message: "user_min" })
+    .max(25, { message: "user_max" }),
+  password: z.string().min(5, { message: "pass_min" })
+    .max(20, { message: "pass_max" }),
+});
+
 export const userSchema = z.object({
   name: z.string().min(2, { message: "Name must be at least 2 characters long" })
     .max(25, { message: "Name must be at most 25 characters long" }),
