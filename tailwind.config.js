@@ -8,39 +8,10 @@ module.exports = {
     "./src/**/*.{ts,tsx}",
   ],
   theme: {
-    colors: {
-      gray: "#EFEFEF",
-      gray2: "#909090",
-      danger: "#EB5757",
-      bblack: "#C4C4C4",
-      black: "#0E1726",
-      gblue: "#253B4B",
-      red: "#FF0000",
-      blue: "#2F80ED",
-      navshadow: "#1E1E1E33",
-      loginshadow: "#D1CDC733",
-      transwhite: "#FCFCFD80",
-      white: "#FFFFFF",
-      green: "#027A48",
-      green2: "#ECFDF3",
-      lightgreen: "#4CBB17",
-      lightgreen2: "#EAFCE3",
-      lightred: "#fad4d4",
-    },
-    screens: {
-
-      "2xl": "1400px",
-      "3xl": "1600px",
-      "xl": { "max": "1279px" },
-      "lg": { "max": "1023px" },
-      "md": { "max": "767px" },
-      "sm": { "max": "639px" },
-
-    },
     container: {
       center: true,
       padding: "2rem",
-
+      screens: { "2xl": "1400px" },
     },
     extend: {
       colors: {
@@ -99,6 +70,5 @@ module.exports = {
       },
     },
   },
-
   plugins: [require("tailwindcss-animate")],
 };

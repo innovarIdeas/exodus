@@ -12,7 +12,7 @@ const config: ParseArgsConfig = { options: { environment: { type: "string" } } }
 async function seedUsers () {
   const testOwnerData = {
     name: "John Doe",
-    email: "okoh.test@yopmail.com",
+    email: "exodus.test@yopmail.com",
     password: "secret"
   };
 
@@ -104,22 +104,19 @@ async function seedPermissionsAndRoles () {
   console.log("Roles seeding complete");
 }
 
-
 async function seedDev () {
-    try {
-
-      await seedPermissionsAndRoles();
-      await seedUsers();
-    } catch (error) {
-      console.error("Error seeding data:", error);
-    } finally {
-      await prisma.$disconnect();
-    }
+  try {
+    await seedPermissionsAndRoles();
+    await seedUsers();
+  } catch (error) {
+    console.error("Error seeding data:", error);
+  } finally {
+    await prisma.$disconnect();
   }
+}
 
 async function seedProd () {
   try {
- 
     await seedPermissionsAndRoles();
     await seedUsers();
   } catch (error) {
