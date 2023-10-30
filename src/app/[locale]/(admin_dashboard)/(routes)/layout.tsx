@@ -1,18 +1,17 @@
 "use client";
 
-import { AiFillCaretDown } from "react-icons/ai";
-import { BiPlusCircle } from "react-icons/bi";
-import { CiSearch } from "react-icons/ci";
-import Link from "next/link";
-import React from "react";
-import { titleCase } from "../../../../utils/formatText";
-import { formatDateText } from "../../../../utils/formatDate";
 import {
   DropdownMenu,
   DropdownMenuContent,
   DropdownMenuItem,
   DropdownMenuTrigger,
 } from "@/components/ui/dropdown-menu";
+import { AiFillCaretDown } from "react-icons/ai";
+import { CiSearch } from "react-icons/ci";
+import Link from "next/link";
+import React from "react";
+import { formatDateText } from "@/utils/formatDate";
+import { titleCase } from "@/utils/formatText";
 import { usePathname } from "next/navigation";
 
 interface adminRouteLayoutProps {
@@ -66,10 +65,7 @@ const adminRouteLayout: React.FC<adminRouteLayoutProps> = ({ children }) => {
               </DropdownMenuItem>
             </DropdownMenuContent>
           </DropdownMenu>
-          <button className="rounded-full h-[50px] w-fit bg-main text-white text-xl flex items-center justify-center gap-2 cursor-pointer px-4">
-            <BiPlusCircle className="text-white text-2xl" />{" "}
-            <h1>Add New {titleCase(pathName)}</h1>
-          </button>
+
         </div>
         <div className="w-full h-[50%] flex items-center justify-between px-5">
           <div>Menu</div>

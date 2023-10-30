@@ -2,7 +2,7 @@ import { AdminNavLinks } from "@/utils/AdminNavLinks";
 import Link from "next/link";
 import React from "react";
 
-export default function AdminDashboard() {
+export default function AdminDashboard () {
   return (
     <div className="w-full h-fit bg-main">
       <h1 className="text-[30px] text-center text-white pt-5">

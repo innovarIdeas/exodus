@@ -1,10 +1,5 @@
 "use client";
 
-import { Button } from "@/components/ui/button";
-import { Checkbox } from "@/components/ui/checkbox";
-import { ColumnDef } from "@tanstack/react-table";
-import { MoreHorizontal } from "lucide-react";
-import React from "react";
 import {
   DropdownMenu,
   DropdownMenuContent,
@@ -13,18 +8,14 @@ import {
   DropdownMenuSeparator,
   DropdownMenuTrigger,
 } from "@/components/ui/dropdown-menu";
+import { Button } from "@/components/ui/button";
+import { Checkbox } from "@/components/ui/checkbox";
+import { ColumnDef } from "@tanstack/react-table";
+import { IUser } from "@/models/models";
+import { MoreHorizontal } from "lucide-react";
+import React from "react";
 
-export type user = {
-  userId: string;
-  name: string;
-  email: string;
-  phoneNumber: string;
-  type: string;
-  dateJoined: string;
-  discount: string;
-};
-
-export const columns: ColumnDef<user>[] = [
+export const columns: ColumnDef<IUser>[] = [
   {
     id: "select",
     header: ({ table }) => (
@@ -45,7 +36,7 @@ export const columns: ColumnDef<user>[] = [
     enableHiding: false,
   },
   {
-    accessorKey: "userId",
+    accessorKey: "id",
     header: "User ID",
   },
   {
@@ -65,7 +56,7 @@ export const columns: ColumnDef<user>[] = [
     header: "Type",
   },
   {
-    accessorKey: "dateJoined",
+    accessorKey: "created_at",
     header: "Date Joined",
   },
   {
@@ -88,7 +79,7 @@ export const columns: ColumnDef<user>[] = [
           <DropdownMenuContent align="end">
             <DropdownMenuLabel>Actions</DropdownMenuLabel>
             <DropdownMenuItem
-              onClick={() => navigator.clipboard.writeText(user.userId)}
+              onClick={() => navigator.clipboard.writeText(user.id)}
             >
               Copy payment ID
             </DropdownMenuItem>

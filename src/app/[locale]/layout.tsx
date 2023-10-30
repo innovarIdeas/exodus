@@ -8,7 +8,7 @@ import { notFound } from "next/navigation";
 
 const nunito = Nunito({ subsets: ["latin"] });
 
-export default async function RootLayout({
+export default async function RootLayout ({
   params,
   children,
 }: {
@@ -38,8 +38,8 @@ export default async function RootLayout({
       </head>
       <body className={`${nunito}`}>
         <NextIntlClientProvider locale={locale} messages={messages}>
-          {children}
           <Toaster />
+          {children}
         </NextIntlClientProvider>
       </body>
     </html>
