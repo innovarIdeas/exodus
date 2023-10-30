@@ -1,4 +1,6 @@
-import { IApiError, IApiResponse, IUser, IValidationError } from "@/models/models";
+import { IApiError, IApiResponse, IBook, IUser, IValidationError } from "@/models/models";
+import { userSchema } from "@/models/validation-schema";
+import { z } from "zod";
 
 async function handleValidationResponse (response: Response) {
   const issues = await response.json() as IValidationError[];
@@ -42,4 +44,50 @@ async function handleApiCalls<T> (response: Response): Promise<IApiResponse<T>> 
 
 export const getAllUsers = async (): Promise<IApiResponse<IUser[]>> => {
   return handleApiCalls(await fetch(process.env.NEXT_PUBLIC_BROWSER_URL + "/api/users", { method: "GET" }));
+};
+
+export const createUser = async (data: z.infer <typeof userSchema>): Promise<IApiResponse<IUser[]>> => {
+  return handleApiCalls(await fetch(process.env.NEXT_PUBLIC_BROWSER_URL + "/api/users",
+    {
+      method: "POST",
+      body: JSON.stringify(data)
+    }));
+};
+
+export const editUser = async (id: string, data: z.infer <typeof userSchema>): Promise<IApiResponse<IUser[]>> => {
+  return handleApiCalls(await fetch(process.env.NEXT_PUBLIC_BROWSER_URL + "/api/users" + id,
+    {
+      method: "PATCH",
+      body: JSON.stringify(data)
+    }));
+};
+
+export const deleteUser = async (id: string): Promise<IApiResponse<IUser[]>> => {
+  return handleApiCalls(await fetch(process.env.NEXT_PUBLIC_BROWSER_URL + "/api/users" + id,
+    { method: "DELETE" }));
+};
+
+export const getAllBooks = async (): Promise<IApiResponse<IBook[]>> => {
+  return handleApiCalls(await fetch(process.env.NEXT_PUBLIC_BROWSER_URL + "/api/books", { method: "GET" }));
+};
+
+export const createBook = async (data: z.infer <typeof userSchema>): Promise<IApiResponse<IBook[]>> => {
+  return handleApiCalls(await fetch(process.env.NEXT_PUBLIC_BROWSER_URL + "/api/books",
+    {
+      method: "POST",
+      body: JSON.stringify(data)
+    }));
+};
+
+export const editBook = async (id: string, data: z.infer <typeof userSchema>): Promise<IApiResponse<IBook[]>> => {
+  return handleApiCalls(await fetch(process.env.NEXT_PUBLIC_BROWSER_URL + "/api/books" + id,
+    {
+      method: "PATCH",
+      body: JSON.stringify(data)
+    }));
+};
+
+export const deleteBook = async (id: string): Promise<IApiResponse<IBook[]>> => {
+  return handleApiCalls(await fetch(process.env.NEXT_PUBLIC_BROWSER_URL + "/api/books" + id,
+    { method: "DELETE" }));
 };

@@ -72,5 +72,15 @@
   }
   body {
     @apply bg-background text-foreground;
+    
+  }
+  .create-button {
+    @apply bg-main shadow-lg hover:shadow-none  whitespace-nowrap text-white font-semibold  rounded !important;
+  }
+  .delete-button {
+    @apply bg-lightred text-red shadow-lg  hover:shadow-none whitespace-nowrap font-semibold  rounded !important;
+  }
+  .edit-button {
+    @apply bg-lightblue text-main shadow-lg  hover:shadow-none whitespace-nowrap font-semibold  rounded !important;
   }
 }

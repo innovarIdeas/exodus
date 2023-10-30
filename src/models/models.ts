@@ -65,3 +65,11 @@ export interface IUser extends IBase {
   email: string;
   password: string;
 }
+
+export interface IBook extends IBase {
+  title: string;
+  createdBy: string;
+  created_by_user: IUser;
+  description: string | null;
+
+}

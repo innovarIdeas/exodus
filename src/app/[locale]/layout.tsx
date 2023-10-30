@@ -8,13 +8,23 @@ import { notFound } from "next/navigation";
 
 const nunito = Nunito({ subsets: ["latin"] });
 
-export default async function RootLayout ({ params, children }: { params: { locale: string }; children: React.ReactNode }) {
+export default async function RootLayout ({
+  params,
+  children,
+}: {
+  params: { locale: string };
+  children: React.ReactNode;
+}) {
   const { locale } = params;
   const t = await getTranslator("en", "index");
   let messages: Record<string, string>;
 
   try {
-    messages = (await import(`../../../messages/${locale}.json`) as {default: Record<string, string>}).default;
+    messages = (
+      (await import(`../../../messages/${locale}.json`)) as {
+        default: Record<string, string>;
+      }
+    ).default;
   } catch (error) {
     console.error(error);
     notFound();
@@ -27,14 +37,11 @@ export default async function RootLayout ({ params, children }: { params: { loca
         <meta name="description" content={t("description")} />
       </head>
       <body className={`${nunito}`}>
-
         <NextIntlClientProvider locale={locale} messages={messages}>
-          {children}
           <Toaster />
+          {children}
         </NextIntlClientProvider>
       </body>
     </html>
-
   );
 }
-
