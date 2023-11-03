@@ -23,8 +23,7 @@ export const tempBookSchema = z.object({
   book_name: z.string().optional(),
   title: z.string(),
   name: z.string(),
-  phone_number: z.number().int()
-    .optional(),
+  phone_number: z.string(),
   paper_type: z.string().optional(),
   number_of_words: z.number().int()
     .optional(),

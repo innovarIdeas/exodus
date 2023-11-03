@@ -70,7 +70,7 @@ model Temp_Book {
     name                  String
     created_at            DateTime  @default(now())
     deleted_at            DateTime?
-    phone_number          Int?
+    phone_number          String
     paper_type            String?
     number_of_words       Int?
     status                String
