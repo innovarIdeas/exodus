@@ -103,7 +103,7 @@ model Temp_Book {
     foiling               Boolean?  @default(false)
     glossy_lamination     Boolean?  @default(false)
     delivery_name         String?
-    delivery_phone        Int?
+    delivery_phone        String?
     pick_up               Boolean?  @default(false)
     shipping_address      String?
     shipping_state        String?
