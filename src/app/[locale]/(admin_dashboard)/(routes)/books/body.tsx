@@ -3,19 +3,19 @@
 import { Dialog, DialogContent, DialogDescription, DialogHeader, DialogTitle, DialogTrigger } from "@/components/ui/dialog";
 import React, { useEffect, useState } from "react";
 import { BiPlusCircle } from "react-icons/bi";
-import { IUser } from "@/models/models";
-import { UserDataTable } from "./data-table";
-import UserForm from "@/components/UserForm";
+import { BookDataTable } from "./data-table";
+import BookForm from "@/components/BookForm";
+import { IBook } from "@/models/models";
 import { columns } from "./columns";
-import { getAllUsers } from "@/lib/api-call";
+import { getAllBooks } from "@/lib/api-call";
 
-export default function UserBody () {
-  const [usersData, setUsersData] = useState<IUser[]>([]);
+export default function BookBody () {
+  const [bookData, setBookData] = useState<IBook[]>([]);
 
   const fetchData = async ()=>{
-    const { data, error, validationErrors } = await getAllUsers();
+    const { data, error, validationErrors } = await getAllBooks();
 
-    if (data) setUsersData(data);
+    if (data) setBookData(data);
 
     if (validationErrors?.length) {
       console.error(validationErrors);
@@ -39,16 +39,16 @@ export default function UserBody () {
         <Dialog>
           <DialogTrigger className="rounded-full h-[40px] w-fit bg-main text-white text-x flex items-center justify-center gap-2 cursor-pointer px-4 shadow-lg hover:shadow-none">
             <BiPlusCircle className="text-white text-2xl" />{" "}
-            <span className="text-white">Add New User</span>
+            <span className="text-white">Add New Book</span>
 
           </DialogTrigger>
           <DialogContent>
             <DialogHeader>
-              <DialogTitle>Add User</DialogTitle>
+              <DialogTitle>Add Book</DialogTitle>
               <DialogDescription>
-              Kindly fill the form with your information
+              Kindly fill the form with the book information
               </DialogDescription>
-              <UserForm/>
+              <BookForm />
             </DialogHeader>
 
           </DialogContent>
@@ -56,7 +56,7 @@ export default function UserBody () {
 
       </div>
       <div>
-        <UserDataTable columns={columns} data={usersData} />
+        <BookDataTable columns={columns} data={bookData} />
       </div>
 
     </div>

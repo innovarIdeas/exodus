@@ -8,7 +8,7 @@ import { userSchema } from "@/models/validation-schema";
 export async function GET () {
   try {
     const staff = await prisma.user.findMany({
-      where: { claims: { some: { role: { name: ROLE_STAFF } } } },
+      where: { claims: { some: { role: { name: ROLE_STAFF } } }, deleted_at: null },
       select: { id: true, name: true, email: true, claims: { select: { role: true } }, created_at: true },
     });
 

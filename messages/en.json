@@ -33,7 +33,8 @@
     "pass_max" : "Password must be at most 20 characters long!",
     "signed_in" : "Yay! You are now signed in!",
     "error_title" : "Uh oh! Something went wrong.",
-    "error_desc" : "Please check your username and password and try again."
+    "error_desc" : "Please check your username and password and try again.",
+    "description": "Exodus"
   }
 
 }
