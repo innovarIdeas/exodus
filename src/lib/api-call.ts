@@ -1,5 +1,5 @@
-import { IApiError, IApiResponse, IBook, IUser, IValidationError } from "@/models/models";
-import { UpdateUserSchema, bookSchema, updateBookSchema, userSchema } from "@/models/validation-schema";
+import { IApiError, IApiResponse, IBook, IOrder, IUser, IValidationError } from "@/models/models";
+import { UpdateUserSchema, bookSchema, orderSchema, updateBookSchema, userSchema } from "@/models/validation-schema";
 import { z } from "zod";
 
 async function handleValidationResponse (response: Response) {
@@ -91,3 +91,16 @@ export const deleteBook = async (id: string): Promise<IApiResponse<IBook[]>> => 
   return handleApiCalls(await fetch(process.env.NEXT_PUBLIC_BROWSER_URL + "/api/books/" + id,
     { method: "DELETE" }));
 };
+
+export const createOrder = async (data: z.infer <typeof orderSchema>): Promise<IApiResponse<IOrder[]>> => {
+  return handleApiCalls(await fetch(process.env.NEXT_PUBLIC_BROWSER_URL + "/api/order",
+    {
+      method: "POST",
+      body: JSON.stringify(data)
+    }));
+};
+
+export const getAllOrders = async (): Promise<IApiResponse<IOrder[]>> => {
+  return handleApiCalls(await fetch(process.env.NEXT_PUBLIC_BROWSER_URL + "/api/order", { method: "GET" }));
+};
+

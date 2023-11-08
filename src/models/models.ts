@@ -73,3 +73,36 @@ export interface IBook extends IBase {
   description: string | null;
 
 }
+
+export interface IBookVariant extends IBase {}
+
+export interface IOrder extends IBase {
+  book_id: string;
+  book_name: string;
+  created_by: IUser;
+  client: IUser;
+  timestamp: string;
+  book_variant: IBookVariant;
+  delivery_address: string;
+  total: number;
+  status: string;
+  payment_reference: string;
+  cover_total: number;
+  inner_total: number;
+  delivery_fee: number;
+  discount_id: string | null;
+  coupon_id: string | null;
+  inner_page_cost: number;
+  cover_cost: number;
+  perfect_binding_cost:  number;
+  lamination_cost: number;
+  wrapping_cost: number;
+  trim_cost: number;
+  embossing_cost: number;
+  spot_lamination_cost: number;
+  foil_cost: number;
+  book_cost: number;
+  service_cost: number;
+  markup: number;
+  created_at: string;
+}
