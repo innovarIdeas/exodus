@@ -1,13 +1,17 @@
 import { NextRequest, NextResponse } from "next/server";
 import prisma from "@/lib/prisma";
-import { tempBookSchema } from "@/models/validation-schema";
+import {  updateTempBookSchema } from "@/models/validation-schema";
 
 export async function PATCH (req: NextRequest, { params }: { params: { id: string } }) {
   const { id } = params;
-  const validation = tempBookSchema.safeParse(await req.json());
+  const validation = updateTempBookSchema.safeParse(await req.json());
+
+  if(!validation.success) {
+    return NextResponse.json({ error: validation.error.issues }, { status: 400 });
+  }
 
   try {
-    const tempBook = await prisma.temp_Book.update({ where: { id }, data: validation });
+    const tempBook = await prisma.temp_Book.update({ where: { id }, data: validation.data });
 
     return NextResponse.json(tempBook);
   } catch (error) {
