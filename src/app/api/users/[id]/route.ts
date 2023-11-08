@@ -1,10 +1,9 @@
 import { NextRequest, NextResponse } from "next/server";
-import bcrypt from "bcryptjs";
+import { UpdateUserSchema } from "@/models/validation-schema";
 import prisma from "@/lib/prisma";
-import { userSchema } from "@/models/validation-schema";
 
 export async function PATCH (req: NextRequest, { params }: { params: { id: string } }) {
-  const validation = userSchema.safeParse(await req.json());
+  const validation = UpdateUserSchema.safeParse(await req.json());
 
   if (!validation.success) {
     return NextResponse.json({ error: "Validation error" }, { status: 400 });
@@ -13,22 +12,19 @@ export async function PATCH (req: NextRequest, { params }: { params: { id: strin
   const { id } = params;
   const updateData: { [key: string]: string | boolean } = {};
 
-  if (validation.data.password) {
-    validation.data.password = await bcrypt.hash(validation.data.password, 10);
-  }
-
   for (const [field, value] of Object.entries(validation.data)) {
     updateData[field] = value;
   }
 
-  await prisma.user.update({
+  const user = await prisma.user.update({
     where: { id },
     data: {
       name: validation.data?.name,
       email: validation.data?.email,
-      password: validation.data?.password
     }
   });
+
+  return NextResponse.json(user, { status: 200 });
 }
 
 export async function DELETE (req: NextRequest, { params }: { params: { id: string } }) {

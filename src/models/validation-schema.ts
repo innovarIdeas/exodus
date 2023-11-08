@@ -18,6 +18,17 @@ export const userSchema = z.object({
 
 });
 
+export const UpdateUserSchema = z.object({
+  name: z.string().min(2, { message: "Name must be at least 2 characters long" })
+    .max(25, { message: "Name must be at most 25 characters long" })
+    .optional(),
+  email: z.string().email({ message: "Please enter a valid email" })
+    .min(8, { message: "Email must be at least 8 characters long" })
+    .max(45, { message: "Email must be at most 45 characters long" })
+    .optional(),
+
+});
+
 export const tempBookSchema = z.object({
   email: z.string().email({ message: "Please enter a valid email" }),
   book_name: z.string().optional(),
@@ -210,6 +221,43 @@ export const invoiceSchema = z.object({
 export const bookSchema = z.object({
   title: z.string().min(2, { message: "Title must be at least 2 characters long" })
     .max(100, { message: "Title must be at most 100 characters long" }),
-  createdBy: z.string(),
   description: z.string().optional(),
+});
+
+export const updateBookSchema = z.object({
+  title: z.string().min(2, { message: "Title must be at least 2 characters long" })
+    .max(100, { message: "Title must be at most 100 characters long" })
+    .optional(),
+  description: z.string().optional(),
+});
+
+export const orderSchema = z.object({
+  book_id: z.string().nullable(),
+  client_id: z.string(),
+  book_name: z.string().nullable(),
+  created_by: z.string(),
+  timestamp: z.string(),
+  book_variant_id: z.string().nullable(),
+  delivery_address: z.string().nullable(),
+  total: z.number().int(),
+  status: z.string(),
+  payment_reference: z.string().nullable(),
+  cover_total: z.number().int(),
+  inner_total: z.number().int(),
+  delivery_fee: z.number().int(),
+  discount_id: z.string().nullable(),
+  coupon_id: z.string().nullable(),
+  inner_page_cost: z.number().int(),
+  cover_cost: z.number().int(),
+  perfect_binding_cost: z.number().int(),
+  lamination_cost: z.number().int(),
+  wrapping_cost: z.number().int(),
+  trim_cost: z.number().int(),
+  embossing_cost: z.number().int(),
+  spot_lamination_cost: z.number().int(),
+  foil_cost: z.number().int(),
+  book_cost: z.number().int(),
+  service_cost: z.number().int(),
+  markup: z.number().int(),
+  created_at: z.string(),
 });

@@ -16,15 +16,17 @@ model User {
     last_seen       DateTime        @default(now())
     deleted_at      DateTime?
     created_at      DateTime        @default(now())
-    book            Book[]
     discount        Discount[]
     book_variant    Book_variant[]
-    order           Order[]
+    order           Order[] @relation(name: "Client")
+    created_by_user Order[] @relation(name: "CreatedBy")
     transactions    Transactions[]
     log             Log[]
     claims          Claim[]
     addresses       Address[]
     contact_details ContactDetail[]
+    created_books   Book[]          @relation(name: "CreatedBooks")
+
 }
 
 model Address {
@@ -186,7 +188,7 @@ model Book {
     title           String
     deleted_at      DateTime?
     createdBy       String
-    created_by_user User           @relation(fields: [createdBy], references: [id])
+    created_by_user User           @relation(name: "CreatedBooks", fields: [createdBy], references: [id])
     description     String?
     created_at      DateTime       @default(now())
     transactions    Transactions[]
@@ -287,7 +289,9 @@ model Order {
     book_name            String?
     temp_book_id         String?
     created_by           String
-    created_by_user      User           @relation(fields: [created_by], references: [id])
+    client_id            String
+    client               User           @relation(fields: [client_id], references: [id], name: "Client")
+    created_by_user      User           @relation(fields: [created_by], references: [id], name: "CreatedBy")
     deleted_at           DateTime?
     timestamp            DateTime       @default(now())
     book_variant_id      String?

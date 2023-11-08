@@ -7,7 +7,6 @@ import {
   DropdownMenuTrigger,
 } from "@/components/ui/dropdown-menu";
 import { AiFillCaretDown } from "react-icons/ai";
-import { CiSearch } from "react-icons/ci";
 import Link from "next/link";
 import React from "react";
 import { formatDateText } from "@/utils/formatDate";
@@ -68,16 +67,6 @@ const adminRouteLayout: React.FC<adminRouteLayoutProps> = ({ children }) => {
 
         </div>
         <div className="w-full h-[50%] flex items-center justify-between px-5">
-          <div>Menu</div>
-          <div className="w-[35%] h-[50px] rounded-full bg-[#F9F9F9] flex items-center px-5 justify-between">
-            <CiSearch className="text-3xl" />
-            <input
-              type="text"
-              placeholder={`Search ${titleCase(pathName)}`}
-              className="border-none bg-transparent text-black placeholder-black w-[80%] h-[40px] outline-none"
-            />
-            <img src="/img/settings.png" className="h-[25px]" />
-          </div>
 
           <h1> {formatDateText(new Date().toISOString())}</h1>
         </div>

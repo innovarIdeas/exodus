@@ -1,19 +1,14 @@
-import { NextRequest, NextResponse } from "next/server";import { bookSchema } from "@/models/validation-schema";
+import { NextRequest, NextResponse } from "next/server";
 import { getServerSession } from "next-auth/next";
 import { options } from "@/app/api/auth/[...nextauth]/options";
+import { orderSchema } from "@/models/validation-schema";
 import prisma from "@/lib/prisma";
 
 export async function GET () {
-  const session = await getServerSession(options);
-
   try {
-    const books = await prisma.book.findMany({ where: { deleted_at: null } });
+    const orders = await prisma.order.findMany();
 
-    if (!session) {
-      return NextResponse.json({ error: "Unauthorized" }, { status: 401 });
-    }
-
-    return NextResponse.json(books);
+    return NextResponse.json(orders);
   } catch (error) {
     console.error("Error in GET request:", error);
 
@@ -25,7 +20,7 @@ export async function POST (req: NextRequest) {
   const session = await getServerSession(options);
 
   try {
-    const validation = bookSchema.safeParse(await req.json());
+    const validation = orderSchema.safeParse(await req.json());
 
     if (!validation.success) {
       return NextResponse.json({ error: validation.error.issues }, { status: 400 });
@@ -35,13 +30,17 @@ export async function POST (req: NextRequest) {
       return NextResponse.json({ error: "Unauthorized" }, { status: 401 });
     }
 
-    const book = await prisma.book.create({ data: { ...validation.data, createdBy: session.user.id } });
+    const order = await prisma.order.create({
+      data: {
+        ...validation.data,
+        created_by: session?.user.id ?? "",
+      }
+    });
 
-    return NextResponse.json(book, { status: 201 });
+    return NextResponse.json(order, { status: 200 });
   } catch (error) {
     console.error("Error in POST request:", error);
 
     return NextResponse.json({ error: "Internal server error" }, { status: 500 });
   }
 }
-

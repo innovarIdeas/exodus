@@ -3,19 +3,19 @@
 import { Dialog, DialogContent, DialogDescription, DialogHeader, DialogTitle, DialogTrigger } from "@/components/ui/dialog";
 import React, { useEffect, useState } from "react";
 import { BiPlusCircle } from "react-icons/bi";
-import { IUser } from "@/models/models";
-import { UserDataTable } from "./data-table";
-import UserForm from "@/components/UserForm";
+import BookForm from "@/components/BookForm";
+import { IOrder } from "@/models/models";
+import { OrderDataTable } from "./data-table";
 import { columns } from "./columns";
-import { getAllUsers } from "@/lib/api-call";
+import { getAllOrders } from "@/lib/api-call";
 
-export default function UserBody () {
-  const [usersData, setUsersData] = useState<IUser[]>([]);
+export default function OrderBody () {
+  const [bookData, setBookData] = useState<IOrder[]>([]);
 
   const fetchData = async ()=>{
-    const { data, error, validationErrors } = await getAllUsers();
+    const { data, error, validationErrors } = await getAllOrders();
 
-    if (data) setUsersData(data);
+    if (data) setBookData(data);
 
     if (validationErrors?.length) {
       console.error(validationErrors);
@@ -39,16 +39,16 @@ export default function UserBody () {
         <Dialog>
           <DialogTrigger className="rounded-full h-[40px] w-fit bg-main text-white text-x flex items-center justify-center gap-2 cursor-pointer px-4 shadow-lg hover:shadow-none">
             <BiPlusCircle className="text-white text-2xl" />{" "}
-            <span className="text-white">Add New User</span>
+            <span className="text-white">Create New Order</span>
 
           </DialogTrigger>
           <DialogContent>
             <DialogHeader>
-              <DialogTitle>Add User</DialogTitle>
+              <DialogTitle>Add a new order</DialogTitle>
               <DialogDescription>
-              Kindly fill the form with your information
+              Kindly fill the form with the order information
               </DialogDescription>
-              <UserForm/>
+              <BookForm />
             </DialogHeader>
 
           </DialogContent>
@@ -56,7 +56,7 @@ export default function UserBody () {
 
       </div>
       <div>
-        <UserDataTable columns={columns} data={usersData} />
+        <OrderDataTable columns={columns} data={bookData} />
       </div>
 
     </div>
