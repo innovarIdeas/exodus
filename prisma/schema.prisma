@@ -70,7 +70,7 @@ model Temp_Book {
     name                  String
     created_at            DateTime  @default(now())
     deleted_at            DateTime?
-    phone_number          Int?
+    phone_number          String
     paper_type            String?
     number_of_words       Int?
     status                String
@@ -103,7 +103,7 @@ model Temp_Book {
     foiling               Boolean?  @default(false)
     glossy_lamination     Boolean?  @default(false)
     delivery_name         String?
-    delivery_phone        Int?
+    delivery_phone        String?
     pick_up               Boolean?  @default(false)
     shipping_address      String?
     shipping_state        String?
