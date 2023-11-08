@@ -233,6 +233,7 @@ export const updateBookSchema = z.object({
 
 export const orderSchema = z.object({
   book_id: z.string().nullable(),
+  client_id: z.string(),
   book_name: z.string().nullable(),
   created_by: z.string(),
   timestamp: z.string(),
