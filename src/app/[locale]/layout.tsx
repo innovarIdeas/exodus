@@ -8,7 +8,7 @@ import { notFound } from "next/navigation";
 
 const nunito = Nunito({ subsets: ["latin"] });
 
-export default async function RootLayout ({
+export default async function RootLayout({
   params,
   children,
 }: {

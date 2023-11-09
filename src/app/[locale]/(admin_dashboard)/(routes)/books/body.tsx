@@ -11,15 +11,32 @@ import {
 import React, { useEffect, useState } from "react";
 import { BiPlusCircle } from "react-icons/bi";
 import { DataTable } from "@/components/data-table";
-import { IUser } from "@/models/models";
-import UserForm from "@/components/UserForm";
+import { IBook, IUser } from "@/models/models";
+import BookForm from "@/components/BookForm";
 import { columns } from "./columns";
-import { getAllUsers } from "@/lib/api-call";
+import { getAllBooks, getAllUsers } from "@/lib/api-call";
 
-export default function UserBody() {
+const BooksBody = () => {
+  const [booksData, setBooksData] = useState<IBook[]>([]);
   const [usersData, setUsersData] = useState<IUser[]>([]);
 
   const fetchData = async () => {
+    const { data, error, validationErrors } = await getAllBooks();
+
+    if (data) setBooksData(data);
+
+    if (validationErrors?.length) {
+      console.error(validationErrors);
+
+      return;
+    }
+
+    if (error) {
+      console.error(error);
+    }
+  };
+
+  const fetchUsers = async () => {
     const { data, error, validationErrors } = await getAllUsers();
 
     if (data) setUsersData(data);
@@ -37,7 +54,8 @@ export default function UserBody() {
 
   useEffect(() => {
     fetchData();
-  }, [fetchData]);
+    fetchUsers();
+  }, [fetchData, fetchUsers]);
 
   return (
     <div>
@@ -46,23 +64,25 @@ export default function UserBody() {
           <DialogTrigger>
             <div className="rounded-full h-[40px] w-fit bg-main text-white text-x flex items-center justify-center gap-2 cursor-pointer px-4 shadow-lg hover:shadow-none">
               <BiPlusCircle className="text-white text-2xl" />{" "}
-              <h1>Add New User</h1>
+              <h1>Add New Book</h1>
             </div>
           </DialogTrigger>
           <DialogContent>
             <DialogHeader>
-              <DialogTitle>Add User</DialogTitle>
+              <DialogTitle>Add Book</DialogTitle>
               <DialogDescription>
-                Kindly fill the form with your information
+                Kindly fill the form with the book information
               </DialogDescription>
-              <UserForm />
+              <BookForm usersData={usersData} />
             </DialogHeader>
           </DialogContent>
         </Dialog>
       </div>
       <div>
-        <DataTable columns={columns} data={usersData} />
+        <DataTable columns={columns} data={booksData} />
       </div>
     </div>
   );
-}
+};
+
+export default BooksBody;

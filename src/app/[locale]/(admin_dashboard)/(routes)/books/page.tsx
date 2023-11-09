@@ -1,9 +1,10 @@
+import BooksBody from "./body";
 import React from "react";
 
 const page = () => {
   return (
-    <div>
-      <h1>this is books route</h1>
+    <div className="mx-5">
+      <BooksBody />
     </div>
   );
 };

@@ -1,5 +1,6 @@
 import { IApiError, IApiResponse, IBook, IUser, IValidationError } from "@/models/models";
 import { userSchema } from "@/models/validation-schema";
+import {  bookSchema } from "@/models/validation-schema";
 import { z } from "zod";
 
 async function handleValidationResponse (response: Response) {
@@ -63,7 +64,7 @@ export const editUser = async (id: string, data: z.infer <typeof userSchema>): P
 };
 
 export const deleteUser = async (id: string): Promise<IApiResponse<IUser[]>> => {
-  return handleApiCalls(await fetch(process.env.NEXT_PUBLIC_BROWSER_URL + "/api/users" + id,
+  return handleApiCalls(await fetch(process.env.NEXT_PUBLIC_BROWSER_URL + "/api/users/" + id,
     { method: "DELETE" }));
 };
 
@@ -71,7 +72,7 @@ export const getAllBooks = async (): Promise<IApiResponse<IBook[]>> => {
   return handleApiCalls(await fetch(process.env.NEXT_PUBLIC_BROWSER_URL + "/api/books", { method: "GET" }));
 };
 
-export const createBook = async (data: z.infer <typeof userSchema>): Promise<IApiResponse<IBook[]>> => {
+export const createBook = async (data: z.infer <typeof bookSchema>): Promise<IApiResponse<IBook[]>> => {
   return handleApiCalls(await fetch(process.env.NEXT_PUBLIC_BROWSER_URL + "/api/books",
     {
       method: "POST",

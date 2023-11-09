@@ -20,9 +20,8 @@ export const userSchema = z.object({
 
 export const tempBookSchema = z.object({
   email: z.string().email({ message: "Please enter a valid email" }),
-  book_name: z.string().optional(),
-  title: z.string(),
-  name: z.string(),
+  book_name: z.string(),
+  name: z.string().optional(),
   phone_number: z.number().int()
     .optional(),
   paper_type: z.string().optional(),
@@ -55,7 +54,7 @@ export const tempBookSchema = z.object({
   cover_design: z.boolean().optional(),
   cover_design_type: z.string().optional(),
   editing: z.boolean().optional(),
-  ISBN: z.boolean().optional(),
+  ISBN: z.string().optional(),
   online_sale: z.boolean().optional(),
   embossing: z.boolean().optional(),
   spot_lamination: z.boolean().optional(),

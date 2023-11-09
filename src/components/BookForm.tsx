@@ -6,31 +6,42 @@ import {
   FormLabel,
   FormMessage,
 } from "@/components/ui/form";
+import {
+  Select,
+  SelectContent,
+  SelectItem,
+  SelectTrigger,
+  SelectValue,
+} from "@/components/ui/select";
 import { Button } from "./ui/button";
 import { DialogClose } from "./ui/dialog";
 import { Input } from "@/components/ui/input";
 import React from "react";
-import { createUser } from "@/lib/api-call";
+import { createBook } from "@/lib/api-call";
 import { useForm } from "react-hook-form";
 import { useToast } from "@/components/ui/use-toast";
-import { userSchema } from "@/models/validation-schema";
+import { bookSchema } from "@/models/validation-schema";
+import { Textarea } from "@/components/ui/textarea";
+import { IUser } from "@/models/models";
 import z from "zod";
 import { zodResolver } from "@hookform/resolvers/zod";
 
-const UserForm = () => {
+const BookForm = ({ usersData }: { usersData: IUser[] }) => {
   const { toast } = useToast();
 
-  type TFormData = z.infer<typeof userSchema>;
+  type TFormData = z.infer<typeof bookSchema>;
 
-  const form = useForm<TFormData>({ resolver: zodResolver(userSchema) });
+  const form = useForm<TFormData>({ resolver: zodResolver(bookSchema) });
 
   const onSubmit = async (input: TFormData) => {
-    const { data, error, validationErrors } = await createUser(input);
+    const { data, error, validationErrors } = await createBook(input);
+
+    console.log(input);
 
     if (data) {
       toast({
         variant: "default",
-        description: "User created successfully!",
+        description: "Book created successfully!",
         title: "Success",
       });
 
@@ -39,7 +50,7 @@ const UserForm = () => {
       toast({
         variant: "destructive",
         title: "Error",
-        description: "Failed to create User.",
+        description: "Failed to create Book.",
       });
     }
 
@@ -58,32 +69,19 @@ const UserForm = () => {
 
   return (
     <Form {...form}>
-      <form onSubmit={form.handleSubmit(onSubmit)} className="form">
+      <form
+        onSubmit={form.handleSubmit(onSubmit, (error) => console.error(error))}
+        className="form"
+      >
         <div className="py-1">
           <FormField
             control={form.control}
-            name="name"
+            name="title"
             render={({ field }) => (
               <FormItem>
-                <FormLabel> Name </FormLabel>
+                <FormLabel> Title </FormLabel>
                 <FormControl>
-                  <Input placeholder="Please enter a Name" {...field} />
-                </FormControl>
-                <FormMessage />
-              </FormItem>
-            )}
-          />
-        </div>
-        <div className="py-1"></div>
-        <div>
-          <FormField
-            control={form.control}
-            name="email"
-            render={({ field }) => (
-              <FormItem>
-                <FormLabel> Email</FormLabel>
-                <FormControl>
-                  <Input placeholder="Please enter your email" {...field} />
+                  <Input placeholder="Please enter book title" {...field} />
                 </FormControl>
                 <FormMessage />
               </FormItem>
@@ -93,29 +91,63 @@ const UserForm = () => {
         <div className="py-1">
           <FormField
             control={form.control}
-            name="password"
+            name="createdBy"
             render={({ field }) => (
               <FormItem>
-                <FormLabel> Password</FormLabel>
+                <FormLabel>Author Name</FormLabel>
+                <Select
+                  onValueChange={field.onChange}
+                  defaultValue={field.value}
+                >
+                  <FormControl>
+                    <SelectTrigger>
+                      <SelectValue placeholder="Select User" />
+                    </SelectTrigger>
+                  </FormControl>
+                  <SelectContent>
+                    {usersData &&
+                      usersData.map((user) => (
+                        <SelectItem value={user.id} key={user.id}>
+                          {user.name}
+                        </SelectItem>
+                      ))}
+                  </SelectContent>
+                </Select>
+                <FormMessage />
+              </FormItem>
+            )}
+          />
+        </div>
+        <div className="py-1">
+          <FormField
+            control={form.control}
+            name="description"
+            render={({ field }) => (
+              <FormItem>
+                <FormLabel> Description </FormLabel>
                 <FormControl>
-                  <Input placeholder="Please a valid password" {...field} />
+                  <Textarea
+                    placeholder="Please enter book description"
+                    {...field}
+                  />
                 </FormControl>
                 <FormMessage />
               </FormItem>
             )}
           />
         </div>
-
         <div className="flex gap-5 py-1">
           <div className="py-2 ">
             <Button
               type="button"
               disabled={form.formState.isSubmitting}
-              onClick={form.handleSubmit(onSubmit)}
+              onClick={form.handleSubmit(onSubmit, (error) =>
+                console.error(error)
+              )}
               className="text-sm bg-blue py-2 px-4 create-button border border-1 border-blue rounded-sm   hover:font-semibold hover:bg-green"
             >
               {" "}
-              Create User
+              Add Book
             </Button>
           </div>
 
@@ -135,4 +167,4 @@ const UserForm = () => {
   );
 };
 
-export default UserForm;
+export default BookForm;
