@@ -24,7 +24,7 @@ interface DataTableProps<TData, TValue> {
   data: TData[];
 }
 
-export function OrderDataTable<TData, TValue> ({
+export function BookDataTable<TData, TValue> ({
   columns,
   data,
 }: DataTableProps<TData, TValue>) {
@@ -44,10 +44,10 @@ export function OrderDataTable<TData, TValue> ({
     <div className="rounded-md border">
       <div className="flex items-center py-4 px-4">
         <Input
-          placeholder="Search Clients order..."
-          value={(table.getColumn("client")?.getFilterValue() as string) ?? ""}
+          placeholder="Search books..."
+          value={(table.getColumn("book")?.getFilterValue() as string) ?? ""}
           onChange={(event) =>
-            table.getColumn("client")?.setFilterValue(event.target.value)
+            table.getColumn("book")?.setFilterValue(event.target.value)
           }
           className="max-w-sm"
         />

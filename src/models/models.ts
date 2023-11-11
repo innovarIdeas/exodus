@@ -74,7 +74,56 @@ export interface IBook extends IBase {
 
 }
 
-export interface IBookVariant extends IBase {}
+export interface IBookVariant extends IBase {
+  book: IBook;
+  created_by_user: IUser;
+  paper_type: string;
+  number_of_words: number;
+  status: string;
+  hard_cover: boolean;
+  BW_print: boolean;
+  both_print: boolean;
+  color_print: boolean;
+  cream_paper: boolean;
+  glossy_paper: boolean;
+  news_print: boolean;
+  hard_binding: boolean;
+  paper_binding: boolean;
+  staple_binding: boolean;
+  white_paper: boolean;
+  no_of_books: number;
+  portrait: boolean;
+  quantity_of_Color: number;
+  quantity_of_BW: number;
+  book_size: string;
+  number_of_pages: number;
+  inside_layout: boolean;
+  proof_reading: boolean;
+  cover_design: boolean;
+  cover_design_type: string;
+  editing: boolean;
+  ISBN: boolean;
+  online_sale: boolean;
+  embossing: boolean;
+  spot_lamination: boolean;
+  foiling: boolean;
+  glossy_lamination: boolean;
+  delivery_name: string;
+  delivery_phone: number;
+  pick_up: boolean;
+  shipping_address: string;
+  shipping_state: string;
+  shipping_instruction: string;
+  project_type: string;
+  readyToPrint: boolean;
+  published: boolean;
+  workInProgress: boolean;
+  word_count: number;
+  current_book_format: string;
+  inside_layout_type: string;
+  art_illustration: boolean;
+  art_illustration_type: string;
+}
 
 export interface IOrder extends IBase {
   book_id: string;

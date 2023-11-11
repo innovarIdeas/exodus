@@ -2,6 +2,7 @@ import "./globals.css";
 import { NextIntlClientProvider } from "next-intl";
 import { Nunito } from "next/font/google";
 import React from "react";
+import ReactQueryProvider from "./react-query-context";
 import { Toaster } from "@/components/ui/toaster";
 import { getTranslator } from "next-intl/server";
 import { notFound } from "next/navigation";
@@ -37,10 +38,12 @@ export default async function RootLayout ({
         <meta name="description" content={t("description")} />
       </head>
       <body className={`${nunito}`}>
-        <NextIntlClientProvider locale={locale} messages={messages}>
-          <Toaster />
-          {children}
-        </NextIntlClientProvider>
+        <ReactQueryProvider>
+          <NextIntlClientProvider locale={locale} messages={messages}>
+            <Toaster />
+            {children}
+          </NextIntlClientProvider>
+        </ReactQueryProvider>
       </body>
     </html>
   );

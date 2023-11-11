@@ -1,5 +1,5 @@
-import { IApiError, IApiResponse, IBook, IOrder, IUser, IValidationError } from "@/models/models";
-import { UpdateUserSchema, bookSchema, orderSchema, updateBookSchema, userSchema } from "@/models/validation-schema";
+import { IApiError, IApiResponse, IBook, IBookVariant, IOrder, IUser, IValidationError } from "@/models/models";
+import { UpdateUserSchema, bookSchema, bookVariantSchema, orderSchema, updateBookSchema, userSchema } from "@/models/validation-schema";
 import { z } from "zod";
 
 async function handleValidationResponse (response: Response) {
@@ -90,6 +90,18 @@ export const editBook = async (id: string, data: z.infer <typeof updateBookSchem
 export const deleteBook = async (id: string): Promise<IApiResponse<IBook[]>> => {
   return handleApiCalls(await fetch(process.env.NEXT_PUBLIC_BROWSER_URL + "/api/books/" + id,
     { method: "DELETE" }));
+};
+
+export const getAllBookVariants = async (): Promise<IApiResponse<IBookVariant[]>> => {
+  return handleApiCalls(await fetch(process.env.NEXT_PUBLIC_BROWSER_URL + "/api/book-variant", { method: "GET" }));
+};
+
+export const createBookVariant = async (data: z.infer <typeof bookVariantSchema>): Promise<IApiResponse<IBookVariant>> => {
+  return handleApiCalls(await fetch(process.env.NEXT_PUBLIC_BROWSER_URL + "/api/book-variant",
+    {
+      method: "POST",
+      body: JSON.stringify(data)
+    }));
 };
 
 export const createOrder = async (data: z.infer <typeof orderSchema>): Promise<IApiResponse<IOrder[]>> => {

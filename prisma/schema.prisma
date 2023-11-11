@@ -192,6 +192,7 @@ model Book {
     description     String?
     created_at      DateTime       @default(now())
     transactions    Transactions[]
+    book_variants   Book_variant[]
 
     @@map("books")
 }
@@ -213,11 +214,12 @@ model Discount {
 model Book_variant {
     id                    String    @id @unique @default(uuid())
     book_id               String
+    book                  Book      @relation(fields: [book_id], references: [id])
     created_by            String
     created_by_user       User      @relation(fields: [created_by], references: [id])
     created_at            DateTime  @default(now())
     deleted_at            DateTime?
-    tempbook_id           String
+    tempbook_id           String?
     paper_type            String?
     number_of_words       Int?
     status                String
@@ -228,9 +230,7 @@ model Book_variant {
     cream_paper           Boolean?  @default(false)
     glossy_paper          Boolean?  @default(false)
     news_print            Boolean?  @default(false)
-    hard_binding          Boolean?  @default(false)
-    paper_binding         Boolean?  @default(false)
-    staple_binding        Boolean?  @default(false)
+    binding               String?
     white_paper           Boolean?  @default(false)
     no_of_books           Int?
     portrait              Boolean?  @default(false)
@@ -248,7 +248,7 @@ model Book_variant {
     embossing             Boolean?  @default(false)
     spot_lamination       Boolean?  @default(false)
     foiling               Boolean?  @default(false)
-    glossy_lamination     Boolean?  @default(false)
+    lamination            String?
     delivery_name         String?
     delivery_phone        Int?
     pick_up               Boolean?  @default(false)
