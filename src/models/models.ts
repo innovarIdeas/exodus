@@ -75,6 +75,7 @@ export interface IBook extends IBase {
 }
 
 export interface IBookVariant extends IBase {
+  variant_name: string;
   book: IBook;
   created_by_user: IUser;
   paper_type: string;

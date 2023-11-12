@@ -213,6 +213,7 @@ model Discount {
 
 model Book_variant {
     id                    String    @id @unique @default(uuid())
+    variant_name          String    @unique
     book_id               String
     book                  Book      @relation(fields: [book_id], references: [id])
     created_by            String
@@ -318,8 +319,7 @@ model Order {
     foil_cost            Int
     book_cost            Int
     service_cost         Int
-    markup               Int
-    created_at           DateTime
+    markup               Int?
     transactions         Transactions[]
 
     @@map("orders")

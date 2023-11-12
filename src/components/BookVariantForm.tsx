@@ -19,6 +19,7 @@ import { Input } from "@/components/ui/input";
 import { Switch } from "./ui/switch";
 import { bookVariantSchema } from "@/models/validation-schema";
 import { createBookVariant } from "@/lib/api-call";
+import { generateVariantName } from "@/lib/uuid-helper";
 import { useForm } from "react-hook-form";
 import { useGetAllBook } from "@/lib/hook";
 import { useToast } from "@/components/ui/use-toast";
@@ -30,7 +31,7 @@ const BookVariantForm = () => {
 
         type TFormData = z.infer<typeof bookVariantSchema>;
 
-        const form = useForm<TFormData>({ resolver: zodResolver(bookVariantSchema) });
+        const form = useForm<TFormData>({ resolver: zodResolver(bookVariantSchema), defaultValues: { variant_name: generateVariantName() } });
         const books  = useGetAllBook();
         const [step, setStep] = useState(1);
 

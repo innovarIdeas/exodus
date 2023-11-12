@@ -232,6 +232,7 @@ export const updateBookSchema = z.object({
 });
 
 export const bookVariantSchema = z.object({
+  variant_name: z.string(),
   book_id: z.string(),
   paper_type: z.string().optional(),
   status: z.string(),
@@ -280,21 +281,16 @@ export const bookVariantSchema = z.object({
 });
 
 export const orderSchema = z.object({
-  book_id: z.string().nullable(),
   client_id: z.string(),
-  book_name: z.string().nullable(),
-  created_by: z.string(),
-  timestamp: z.string(),
-  book_variant_id: z.string().nullable(),
-  delivery_address: z.string().nullable(),
+  book_variant_id: z.string().optional(),
   total: z.number().int(),
-  status: z.string(),
-  payment_reference: z.string().nullable(),
+  status: z.string().default("pending_payment"),
+  payment_reference: z.string().optional(),
   cover_total: z.number().int(),
   inner_total: z.number().int(),
   delivery_fee: z.number().int(),
-  discount_id: z.string().nullable(),
-  coupon_id: z.string().nullable(),
+  discount_id: z.string().optional(),
+  coupon_id: z.string().optional(),
   inner_page_cost: z.number().int(),
   cover_cost: z.number().int(),
   perfect_binding_cost: z.number().int(),
@@ -306,6 +302,7 @@ export const orderSchema = z.object({
   foil_cost: z.number().int(),
   book_cost: z.number().int(),
   service_cost: z.number().int(),
-  markup: z.number().int(),
-  created_at: z.string(),
+  markup: z.number().int()
+    .optional(),
+  delivery_address: z.string().optional(),
 });

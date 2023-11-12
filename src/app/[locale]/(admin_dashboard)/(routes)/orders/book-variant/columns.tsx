@@ -28,6 +28,10 @@ export const columns: ColumnDef<IBookVariant>[] = [
     enableHiding: false,
   },
   {
+    accessorKey: "variant_name",
+    header: "Variant Name",
+  },
+  {
     accessorKey: "book",
     header: "Book Name",
 

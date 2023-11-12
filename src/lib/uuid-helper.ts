@@ -10,3 +10,13 @@ export async function generateInvoiceNumber () {
 
   return `INV-${newNumber}`;
 }
+
+export function generateVariantName (): string {
+  const prefix: string = "VRNT_";
+
+  const randomNumbers: string = Math.floor(Math.random() * 10000000000).toString()
+    .padStart(10, "0");
+  const code: string = `${prefix}${randomNumbers}`;
+
+  return code;
+}
