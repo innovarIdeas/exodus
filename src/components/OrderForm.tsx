@@ -68,7 +68,7 @@ const OrderForm = () => {
           return (
             <Form {...form}>
               <form onSubmit={form.handleSubmit(onSubmit, (error) => console.error(error))} className="form">
-                <div className="flex flex-col items-center">
+                <div className="flex flex-col gap-4 items-center">
                   <FormField
                     control={form.control}
                     name="book_variant_id"
@@ -79,7 +79,7 @@ const OrderForm = () => {
                         <Select onValueChange={field.onChange} defaultValue={field.value}>
                           <FormControl>
                             <SelectTrigger>
-                              <SelectValue placeholder="Select a book to create a variant" />
+                              <SelectValue placeholder="Select a book variant" />
                             </SelectTrigger>
                           </FormControl>
                           <SelectContent>
@@ -144,7 +144,7 @@ const OrderForm = () => {
                         className="w-full">
                         <FormLabel> Inner Page Cost </FormLabel>
                         <FormControl>
-                          <Input placeholder="Please enter the cover cost" {...field} />
+                          <Input placeholder="Please enter the inner page cost" {...field} />
                         </FormControl>
                         <FormMessage />
                       </FormItem>
@@ -157,9 +157,9 @@ const OrderForm = () => {
                     render={({ field }) => (
                       <FormItem
                         className="w-full">
-                        <FormLabel> Binding Cost </FormLabel>
+                        <FormLabel> Perfect Binding Cost </FormLabel>
                         <FormControl>
-                          <Input placeholder="Please enter the cover cost" {...field} />
+                          <Input placeholder="Please enter the perfect binding cost" {...field} />
                         </FormControl>
                         <FormMessage />
                       </FormItem>
@@ -174,7 +174,7 @@ const OrderForm = () => {
                         className="w-full">
                         <FormLabel> Lamination Cost </FormLabel>
                         <FormControl>
-                          <Input placeholder="Please enter the cover cost" {...field} />
+                          <Input placeholder="Please enter the lamination cost" {...field} />
                         </FormControl>
                         <FormMessage />
                       </FormItem>
@@ -189,7 +189,7 @@ const OrderForm = () => {
                         className="w-full">
                         <FormLabel> Wrapping Cost </FormLabel>
                         <FormControl>
-                          <Input placeholder="Please enter the cover cost" {...field} />
+                          <Input placeholder="Please enter the wrapping cost" {...field} />
                         </FormControl>
                         <FormMessage />
                       </FormItem>
@@ -204,7 +204,7 @@ const OrderForm = () => {
                         className="w-full">
                         <FormLabel> Trim Cost </FormLabel>
                         <FormControl>
-                          <Input placeholder="Please enter the cover cost" {...field} />
+                          <Input placeholder="Please enter the trim cost" {...field} />
                         </FormControl>
                         <FormMessage />
                       </FormItem>
@@ -219,7 +219,7 @@ const OrderForm = () => {
                         className="w-full">
                         <FormLabel> Binding Cost </FormLabel>
                         <FormControl>
-                          <Input placeholder="Please enter the cover cost" {...field} />
+                          <Input placeholder="Please enter the binding cost" {...field} />
                         </FormControl>
                         <FormMessage />
                       </FormItem>
@@ -232,9 +232,9 @@ const OrderForm = () => {
                     render={({ field }) => (
                       <FormItem
                         className="w-full">
-                        <FormLabel> Binding Cost </FormLabel>
+                        <FormLabel> Spot lamination Cost </FormLabel>
                         <FormControl>
-                          <Input placeholder="Please enter the cover cost" {...field} />
+                          <Input placeholder="Please enter the spot lamination cost" {...field} />
                         </FormControl>
                         <FormMessage />
                       </FormItem>
@@ -247,9 +247,9 @@ const OrderForm = () => {
                     render={({ field }) => (
                       <FormItem
                         className="w-full">
-                        <FormLabel> Binding Cost </FormLabel>
+                        <FormLabel> Foil Cost </FormLabel>
                         <FormControl>
-                          <Input placeholder="Please enter the cover cost" {...field} />
+                          <Input placeholder="Please enter the foil cost" {...field} />
                         </FormControl>
                         <FormMessage />
                       </FormItem>
@@ -262,9 +262,9 @@ const OrderForm = () => {
                     render={({ field }) => (
                       <FormItem
                         className="w-full">
-                        <FormLabel> Binding Cost </FormLabel>
+                        <FormLabel> Book Cost </FormLabel>
                         <FormControl>
-                          <Input placeholder="Please enter the cover cost" {...field} />
+                          <Input placeholder="Please enter the book cost" {...field} />
                         </FormControl>
                         <FormMessage />
                       </FormItem>
@@ -277,9 +277,9 @@ const OrderForm = () => {
                     render={({ field }) => (
                       <FormItem
                         className="w-full">
-                        <FormLabel> Binding Cost </FormLabel>
+                        <FormLabel> Service Cost </FormLabel>
                         <FormControl>
-                          <Input placeholder="Please enter the cover cost" {...field} />
+                          <Input placeholder="Please enter the service cost" {...field} />
                         </FormControl>
                         <FormMessage />
                       </FormItem>
@@ -292,9 +292,9 @@ const OrderForm = () => {
                     render={({ field }) => (
                       <FormItem
                         className="w-full">
-                        <FormLabel> Binding Cost </FormLabel>
+                        <FormLabel> Inner Page Total Cost </FormLabel>
                         <FormControl>
-                          <Input placeholder="Please enter the cover cost" {...field} />
+                          <Input placeholder="Please enter the inner page total cost" {...field} />
                         </FormControl>
                         <FormMessage />
                       </FormItem>
@@ -307,9 +307,9 @@ const OrderForm = () => {
                     render={({ field }) => (
                       <FormItem
                         className="w-full">
-                        <FormLabel> Binding Cost </FormLabel>
+                        <FormLabel> Cover Total Cost </FormLabel>
                         <FormControl>
-                          <Input placeholder="Please enter the cover cost" {...field} />
+                          <Input placeholder="Please enter the cover total cost" {...field} />
                         </FormControl>
                         <FormMessage />
                       </FormItem>
@@ -322,9 +322,9 @@ const OrderForm = () => {
                     render={({ field }) => (
                       <FormItem
                         className="w-full">
-                        <FormLabel> Binding Cost </FormLabel>
+                        <FormLabel> Delivery Address </FormLabel>
                         <FormControl>
-                          <Input placeholder="Please enter the cover cost" {...field} />
+                          <Input placeholder="Please enter the delivery address" {...field} />
                         </FormControl>
                         <FormMessage />
                       </FormItem>
@@ -337,9 +337,9 @@ const OrderForm = () => {
                     render={({ field }) => (
                       <FormItem
                         className="w-full">
-                        <FormLabel> Binding Cost </FormLabel>
+                        <FormLabel> Delivery Fee</FormLabel>
                         <FormControl>
-                          <Input placeholder="Please enter the cover cost" {...field} />
+                          <Input placeholder="Please enter the delivery cost" {...field} />
                         </FormControl>
                         <FormMessage />
                       </FormItem>
@@ -352,9 +352,9 @@ const OrderForm = () => {
                     render={({ field }) => (
                       <FormItem
                         className="w-full">
-                        <FormLabel> Binding Cost </FormLabel>
+                        <FormLabel> Total Cost </FormLabel>
                         <FormControl>
-                          <Input placeholder="Please enter the cover cost" {...field} />
+                          <Input placeholder="Please enter the total cost" {...field} />
                         </FormControl>
                         <FormMessage />
                       </FormItem>
@@ -363,7 +363,7 @@ const OrderForm = () => {
 
                   <div className="flex items-end justify-end my-3">
                     <Button type="submit" className="text-sm bg-blue py-2 px-4 create-button border border-1 border-blue rounded-sm   hover:font-semibold hover:bg-green">
-                      Next
+                      Create Order
                     </Button>
                   </div>
 

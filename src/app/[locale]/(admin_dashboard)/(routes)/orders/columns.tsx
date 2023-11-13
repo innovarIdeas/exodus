@@ -35,14 +35,38 @@ export const columns: ColumnDef<IOrder>[] = [
 
       return (
         <div className="flex items-center gap-2">
-          <span>{book.client.name}</span>
+          <span>{book.client?.name}</span>
         </div>
       );
     }
   },
   {
-    accessorKey: "total",
-    header: "Total",
+    accessorKey: "book_name",
+    header: "Book Name",
+
+    cell: ({ row }) => {
+      const book = row.original;
+
+      return (
+        <div className="flex items-center gap-2">
+          <span>{book.book_variant.book.title}</span>
+        </div>
+      );
+    }
+  },
+  {
+    accessorKey: "book_variant",
+    header: "Book Variant",
+
+    cell: ({ row }) => {
+      const book = row.original;
+
+      return (
+        <div className="flex items-center gap-2">
+          <span>{book.book_variant.variant_name}</span>
+        </div>
+      );
+    }
   },
   {
     accessorKey: "total",
@@ -53,7 +77,7 @@ export const columns: ColumnDef<IOrder>[] = [
     header: "Status",
   },
   {
-    accessorKey: "created_at",
+    accessorKey: "timestamp",
     header: "Date added",
   },
   {

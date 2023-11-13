@@ -6,7 +6,12 @@ import prisma from "@/lib/prisma";
 
 export async function GET () {
   try {
-    const orders = await prisma.order.findMany();
+    const orders = await prisma.order.findMany({
+      include: {
+        client: true,
+        book_variant: { include: { book: true } }
+      }
+    });
 
     return NextResponse.json(orders);
   } catch (error) {

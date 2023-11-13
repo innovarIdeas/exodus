@@ -296,7 +296,7 @@ model Order {
     deleted_at           DateTime?
     timestamp            DateTime       @default(now())
     book_variant_id      String?
-    book_variant_by_id   Book_variant?  @relation(fields: [book_variant_id], references: [id])
+    book_variant         Book_variant?  @relation(fields: [book_variant_id], references: [id])
     delivery_address     String?
     total                Int
     status               String
