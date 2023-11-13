@@ -1,10 +1,9 @@
 "use client";
 
-import { Dialog, DialogContent, DialogDescription, DialogHeader, DialogTitle, DialogTrigger } from "@/components/ui/dialog";
 import { Checkbox } from "@/components/ui/checkbox";
 import { ColumnDef } from "@tanstack/react-table";
-import DeleteBook from "@/components/DeleteBook";
 import { IBookVariant } from "@/models/models";
+import Link from "next/link";
 import React from "react";
 
 export const columns: ColumnDef<IBookVariant>[] = [
@@ -71,47 +70,9 @@ export const columns: ColumnDef<IBookVariant>[] = [
       console.log(book);
 
       return (
-        <Dialog>
-          <DialogTrigger className="rounded-full h-[40px] w-fit bg-main text-white text-x flex items-center justify-center gap-2 cursor-pointer px-4 shadow-lg hover:shadow-none">
-            <span className="text-white">Edit Book</span>
-          </DialogTrigger>
-          <DialogContent>
-            <DialogHeader>
-              <DialogTitle>View Book Variant</DialogTitle>
-              <DialogDescription>
-                      Kindly view the book`s` information
-              </DialogDescription>
-              {/* <EditBookForm id={book.id} title={book.book.title} description={book.book.description ? book.book.description : "no description"}/> */}
-            </DialogHeader>
-
-          </DialogContent>
-        </Dialog>
-      );
-    },
-  },
-  {
-    id: "Delete",
-    cell: ({ row }) => {
-      const book = row.original;
-
-      console.log(book);
-
-      return (
-        <Dialog>
-          <DialogTrigger className="rounded-full h-[40px] w-fit bg-red text-white text-x flex items-center justify-center gap-2 cursor-pointer px-4 shadow-lg hover:shadow-none">
-            <span className="text-white">Delete Book</span>
-          </DialogTrigger>
-          <DialogContent>
-            <DialogHeader>
-              <DialogTitle>Delete User</DialogTitle>
-              <DialogDescription>
-                      Are you sure you want to delete this book?
-              </DialogDescription>
-              <DeleteBook id={book.id}/>
-            </DialogHeader>
-
-          </DialogContent>
-        </Dialog>
+        <Link href={`/orders/${book.id}`} className="rounded-full h-[40px] w-fit bg-main text-white text-x flex items-center justify-center gap-2 cursor-pointer px-4 shadow-lg hover:shadow-none">
+          View Variant
+        </Link>
       );
     },
   },

@@ -1,9 +1,9 @@
 "use client";
 
-import { Dialog, DialogContent, DialogDescription, DialogHeader, DialogTitle, DialogTrigger } from "@/components/ui/dialog";
 import { Checkbox } from "@/components/ui/checkbox";
 import { ColumnDef } from "@tanstack/react-table";
 import { IOrder } from "@/models/models";
+import Link from "next/link";
 import React from "react";
 
 export const columns: ColumnDef<IOrder>[] = [
@@ -88,21 +88,9 @@ export const columns: ColumnDef<IOrder>[] = [
       console.log(book);
 
       return (
-        <Dialog>
-          <DialogTrigger className="rounded-full h-[40px] w-fit bg-main text-white text-x flex items-center justify-center gap-2 cursor-pointer px-4 shadow-lg hover:shadow-none">
-            <span className="text-white">View Order</span>
-          </DialogTrigger>
-          <DialogContent>
-            <DialogHeader>
-              <DialogTitle>View Order</DialogTitle>
-              <DialogDescription>
-                      View Order information
-              </DialogDescription>
-              {/* <EditBookForm id={book.id} title={book.title} description={book.description ? book.description : "no description"}/> */}
-            </DialogHeader>
-
-          </DialogContent>
-        </Dialog>
+        <Link href={`/orders/${book.id}`} className="rounded-full h-[40px] w-fit bg-main text-white text-x flex items-center justify-center gap-2 cursor-pointer px-4 shadow-lg hover:shadow-none">
+          View Order
+        </Link>
       );
     },
   },
