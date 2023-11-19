@@ -104,6 +104,11 @@ export const createBookVariant = async (data: z.infer <typeof bookVariantSchema>
     }));
 };
 
+export const getBookVariant = async (id: string): Promise<IApiResponse<IBookVariant>> => {
+  return handleApiCalls(await fetch(process.env.NEXT_PUBLIC_BROWSER_URL + "/api/book-variant/" + id,
+    { method: "GET" }));
+};
+
 export const createOrder = async (data: z.infer <typeof orderSchema>): Promise<IApiResponse<IOrder[]>> => {
   return handleApiCalls(await fetch(process.env.NEXT_PUBLIC_BROWSER_URL + "/api/order",
     {

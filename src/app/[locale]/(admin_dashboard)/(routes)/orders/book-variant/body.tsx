@@ -34,7 +34,7 @@ export default function BookBody () {
 
   return(
     <div>
-      <div className="flex justify-end items-end float-right mx-5 my-5">
+      <div className="flex justify-end items-end float-right mx-5 my-5 overflow-hidden">
 
         <Dialog>
           <DialogTrigger className="rounded-full h-[40px] w-fit bg-main text-white text-x flex items-center justify-center gap-2 cursor-pointer px-4 shadow-lg hover:shadow-none">

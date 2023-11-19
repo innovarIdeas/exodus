@@ -41,7 +41,7 @@ export function BookDataTable<TData, TValue> ({
   });
 
   return (
-    <div className="rounded-md border">
+    <div className="rounded-md border w-screen h-screen">
       <div className="flex items-center py-4 px-4">
         <Input
           placeholder="Search books..."

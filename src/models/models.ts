@@ -88,9 +88,7 @@ export interface IBookVariant extends IBase {
   cream_paper: boolean;
   glossy_paper: boolean;
   news_print: boolean;
-  hard_binding: boolean;
-  paper_binding: boolean;
-  staple_binding: boolean;
+  binding: string;
   white_paper: boolean;
   no_of_books: number;
   portrait: boolean;
@@ -106,15 +104,8 @@ export interface IBookVariant extends IBase {
   ISBN: boolean;
   online_sale: boolean;
   embossing: boolean;
-  spot_lamination: boolean;
+  lamination: string;
   foiling: boolean;
-  glossy_lamination: boolean;
-  delivery_name: string;
-  delivery_phone: number;
-  pick_up: boolean;
-  shipping_address: string;
-  shipping_state: string;
-  shipping_instruction: string;
   project_type: string;
   readyToPrint: boolean;
   published: boolean;
