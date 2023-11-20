@@ -260,7 +260,6 @@ export const bookVariantSchema = z.object({
   ISBN: z.boolean().default(false),
   online_sale: z.boolean().default(false),
   embossing: z.boolean().default(false),
-  spot_lamination: z.boolean().default(false),
   foiling: z.boolean().default(false),
   lamination: z.string().optional(),
   delivery_name: z.string().optional(),
