@@ -121,3 +121,7 @@ export const getAllOrders = async (): Promise<IApiResponse<IOrder[]>> => {
   return handleApiCalls(await fetch(process.env.NEXT_PUBLIC_BROWSER_URL + "/api/order", { method: "GET" }));
 };
 
+export const getSingleOrder = async (id: string): Promise<IApiResponse<IOrder>> => {
+  return handleApiCalls(await fetch(process.env.NEXT_PUBLIC_BROWSER_URL + "/api/order/" + id, { method: "GET" }));
+};
+

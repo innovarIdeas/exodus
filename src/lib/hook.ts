@@ -1,6 +1,6 @@
 "use client";
 
-import { getAllBookVariants, getAllBooks, getAllUsers } from "./api-call";
+import { getAllBookVariants, getAllBooks, getAllUsers, getSingleOrder } from "./api-call";
 import { IPermission } from "@/models/models";
 import { QUERY_KEY } from "./rbac";
 import { useQuery } from "@tanstack/react-query";
@@ -92,3 +92,30 @@ export const useGetAllUser = () => {
 
   return data;
 };
+
+export const useGetSingleOrder = (id: string) => {
+  const { data } = useQuery({
+    queryKey: [QUERY_KEY.GET_SINGLE_ORDER],
+    queryFn: async () => {
+      const { data, validationErrors, error } = await getSingleOrder(id);
+
+      if (validationErrors?.length) {
+        console.error(validationErrors[0].message);
+
+        return;
+      }
+
+      if (error) {
+        console.log(error);
+
+        return;
+      }
+
+      return data;
+    }
+  });
+
+  // Return undefined when there's no data
+  return data || undefined;
+};
+

@@ -88,7 +88,7 @@ export const columns: ColumnDef<IOrder>[] = [
       console.log(book);
 
       return (
-        <Link href={`/orders/${book.id}`} className="rounded-full h-[40px] w-fit bg-main text-white text-x flex items-center justify-center gap-2 cursor-pointer px-4 shadow-lg hover:shadow-none">
+        <Link href={`/order/${book.id}`} className="rounded-full h-[40px] w-fit bg-main text-white text-x flex items-center justify-center gap-2 cursor-pointer px-4 shadow-lg hover:shadow-none">
           View Order
         </Link>
       );
