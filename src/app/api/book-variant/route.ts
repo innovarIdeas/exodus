@@ -8,7 +8,7 @@ export async function GET () {
   const session = await getServerSession(options);
 
   try {
-    const books = await prisma.book_variant.findMany({ where: { deleted_at: null }, include: { book: true } });
+    const books = await prisma.book_variant.findMany({ where: { deleted_at: null }, include: { book: { include: { client: true } } } });
 
     if (!session) {
       return NextResponse.json({ error: "Unauthorized" }, { status: 401 });

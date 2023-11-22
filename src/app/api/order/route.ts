@@ -1,4 +1,5 @@
 import { NextRequest, NextResponse } from "next/server";
+import { calculateOrderCost } from "@/lib/utils";
 import { getServerSession } from "next-auth/next";
 import { options } from "@/app/api/auth/[...nextauth]/options";
 import { orderSchema } from "@/models/validation-schema";
@@ -35,12 +36,14 @@ export async function POST (req: NextRequest) {
       return NextResponse.json({ error: "Unauthorized" }, { status: 401 });
     }
 
-    const order = await prisma.order.create({
-      data: {
-        ...validation.data,
-        created_by: session?.user.id ?? "",
-      }
-    });
+    const book_variant = await prisma.book_variant.findUnique({ where: { id: validation.data.book_variant_id } });
+
+    if (book_variant == null) {
+      return NextResponse.json({ error: "Book variant not found" }, { status: 404 });
+    }
+
+    const data = calculateOrderCost(book_variant);
+    const order = await prisma.order.create({ data: { ...data, ...validation.data, created_by: session?.user.id ?? "" } });
 
     return NextResponse.json(order, { status: 200 });
   } catch (error) {

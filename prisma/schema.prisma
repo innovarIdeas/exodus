@@ -225,35 +225,35 @@ model Book_variant {
     created_at            DateTime  @default(now())
     deleted_at            DateTime?
     tempbook_id           String?
-    paper_type            String?
-    number_of_words       Int?
+    paper_type            String
+    number_of_words       Int
     status                String
-    hard_cover            Boolean?  @default(false)
+    hard_cover            Boolean  @default(false)
     BW_print              Boolean?  @default(false)
     both_print            Boolean?  @default(false)
-    color_print           Boolean?  @default(false)
+    color_print           Boolean  @default(false)
     cream_paper           Boolean?  @default(false)
     glossy_paper          Boolean?  @default(false)
     news_print            Boolean?  @default(false)
-    binding               String?
+    binding               String
     white_paper           Boolean?  @default(false)
-    no_of_books           Int?
+    no_of_books           Int
     portrait              Boolean?  @default(false)
     quantity_of_Color     Int?
     quantity_of_BW        Int?
     book_size             String?
-    number_of_pages       Int?
-    inside_layout         Boolean?  @default(false)
+    number_of_pages       Int
+    inside_layout         Boolean  @default(false)
     proof_reading         Boolean?  @default(false)
     cover_design          Boolean?  @default(false)
     cover_design_type     String?
     editing               Boolean?  @default(false)
     ISBN                  Boolean?  @default(false)
     online_sale           Boolean?  @default(false)
-    embossing             Boolean?  @default(false)
+    embossing             Boolean  @default(false)
     spot_lamination       Boolean?  @default(false)
-    foiling               Boolean?  @default(false)
-    lamination            String?
+    foiling               Boolean  @default(false)
+    lamination            String
     delivery_name         String?
     delivery_phone        Int?
     pick_up               Boolean?  @default(false)
@@ -266,7 +266,7 @@ model Book_variant {
     workInProgress        Boolean?  @default(false)
     word_count            Int?
     current_book_format   String?
-    inside_layout_type    String?
+    inside_layout_type    String
     art_illustration      Boolean?  @default(false)
     art_illustration_type String?
     order                 Order[]

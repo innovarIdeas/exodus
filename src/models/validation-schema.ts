@@ -308,3 +308,5 @@ export const orderSchema = z.object({
     .optional(),
   delivery_address: z.string().optional(),
 });
+
+export const generateOrderSchema = z.object({ book_variant_id: z.string().optional() });
