@@ -222,6 +222,8 @@ export const bookSchema = z.object({
   title: z.string().min(2, { message: "Title must be at least 2 characters long" })
     .max(100, { message: "Title must be at most 100 characters long" }),
   description: z.string().optional(),
+  author: z.string(),
+  client_id: z.string(),
 });
 
 export const updateBookSchema = z.object({
@@ -229,6 +231,7 @@ export const updateBookSchema = z.object({
     .max(100, { message: "Title must be at most 100 characters long" })
     .optional(),
   description: z.string().optional(),
+  author: z.string().optional(),
 });
 
 export const bookVariantSchema = z.object({

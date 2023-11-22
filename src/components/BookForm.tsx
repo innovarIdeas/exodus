@@ -6,6 +6,13 @@ import {
   FormLabel,
   FormMessage,
 } from "@/components/ui/form";
+import {
+  Select,
+  SelectContent,
+  SelectItem,
+  SelectTrigger,
+  SelectValue,
+} from "@/components/ui/select";
 import { Button } from "./ui/button";
 import { DialogClose } from "./ui/dialog";
 import { Input } from "@/components/ui/input";
@@ -14,6 +21,7 @@ import { Textarea } from "@/components/ui/textarea";
 import { bookSchema } from "@/models/validation-schema";
 import { createBook } from "@/lib/api-call";
 import { useForm } from "react-hook-form";
+import { useGetAllUser } from "@/lib/hook";
 import { useToast } from "@/components/ui/use-toast";
 import z from "zod";
 import { zodResolver } from "@hookform/resolvers/zod";
@@ -24,6 +32,7 @@ const BookForm = () => {
       type TFormData = z.infer<typeof bookSchema>;
 
       const form = useForm<TFormData>({ resolver: zodResolver(bookSchema) });
+      const users = useGetAllUser();
 
       const onSubmit = async (input: TFormData) => {
         const { data, error, validationErrors } = await createBook(input);
@@ -77,10 +86,24 @@ const BookForm = () => {
                 )}
               />
             </div>
+
             <div className="py-1">
 
+              <FormField
+                control={form.control}
+                name="author"
+                render={({ field }) => (
+                  <FormItem>
+                    <FormLabel> Author </FormLabel>
+                    <FormControl>
+                      <Input placeholder="Please enter an author name" {...field} />
+                    </FormControl>
+                    <FormMessage />
+                  </FormItem>
+                )}
+              />
             </div>
-            <div>
+            <div className="py-1">
 
               <FormField
                 control={form.control}
@@ -98,6 +121,36 @@ const BookForm = () => {
                   </FormItem>
                 )}
               />
+            </div>
+
+            <div className="py-1">
+
+              <FormField
+                control={form.control}
+                name="client_id"
+                render={({ field }) => (
+                  <FormItem
+                    className="w-full">
+                    <FormLabel>Book Client</FormLabel>
+                    <Select onValueChange={field.onChange} defaultValue={field.value}>
+                      <FormControl>
+                        <SelectTrigger>
+                          <SelectValue placeholder="Select a book to create a variant" />
+                        </SelectTrigger>
+                      </FormControl>
+                      <SelectContent>
+                        {users &&
+                          users.map((user) => (
+                            <SelectItem key={user.id} value={user.id}>
+                              {user.name}
+                            </SelectItem>
+                          ))}
+                      </SelectContent>
+                    </Select>
+                  </FormItem>
+                )}
+              />
+
             </div>
 
             <div className="flex gap-5 py-1">

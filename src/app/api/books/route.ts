@@ -1,4 +1,5 @@
-import { NextRequest, NextResponse } from "next/server";import { bookSchema } from "@/models/validation-schema";
+import { NextRequest, NextResponse } from "next/server";
+import { bookSchema } from "@/models/validation-schema";
 import { getServerSession } from "next-auth/next";
 import { options } from "@/app/api/auth/[...nextauth]/options";
 import prisma from "@/lib/prisma";
@@ -7,7 +8,7 @@ export async function GET () {
   const session = await getServerSession(options);
 
   try {
-    const books = await prisma.book.findMany({ where: { deleted_at: null } });
+    const books = await prisma.book.findMany({ where: { deleted_at: null }, include: { created_by_user: true, client: true } });
 
     if (!session) {
       return NextResponse.json({ error: "Unauthorized" }, { status: 401 });

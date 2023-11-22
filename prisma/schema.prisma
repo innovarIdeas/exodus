@@ -20,6 +20,7 @@ model User {
     book_variant    Book_variant[]
     order           Order[] @relation(name: "Client")
     created_by_user Order[] @relation(name: "CreatedBy")
+    client          Book[]  @relation(name: "book_client")
     transactions    Transactions[]
     log             Log[]
     claims          Claim[]
@@ -187,8 +188,11 @@ model Book {
     id              String         @id @unique @default(uuid())
     title           String
     deleted_at      DateTime?
+    author          String?
     createdBy       String
     created_by_user User           @relation(name: "CreatedBooks", fields: [createdBy], references: [id])
+    client_id       String?
+    client          User?          @relation(name: "book_client", fields: [client_id], references: [id])
     description     String?
     created_at      DateTime       @default(now())
     transactions    Transactions[]

@@ -33,8 +33,26 @@ export const columns: ColumnDef<IBook>[] = [
     header: "Title",
   },
   {
+    accessorKey: "author",
+    header: "Author",
+  },
+  {
     accessorKey: "description",
     header: "Description",
+  },
+  {
+    accessorKey: "client",
+    header: "Client",
+
+    cell: ({ row }) => {
+      const book = row.original;
+
+      return (
+        <div className="flex items-center gap-2">
+          <span>{book.client?.name}</span>
+        </div>
+      );
+    },
   },
   {
     accessorKey: "created_at",
