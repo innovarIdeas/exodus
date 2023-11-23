@@ -10,7 +10,7 @@ export async function GET () {
     const orders = await prisma.order.findMany({
       include: {
         client: true,
-        book_variant: { include: { book: true } }
+        book_variant: { include: { book: { include: { client: true } } } }
       }
     });
 
@@ -43,6 +43,11 @@ export async function POST (req: NextRequest) {
     }
 
     const data = calculateOrderCost(book_variant);
+
+    if (data == null) {
+      return NextResponse.json({ error: "Error calculating order cost" }, { status: 500 });
+    }
+
     const order = await prisma.order.create({ data: { ...data, ...validation.data, created_by: session?.user.id ?? "" } });
 
     return NextResponse.json(order, { status: 200 });

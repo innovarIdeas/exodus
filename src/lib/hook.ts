@@ -115,7 +115,6 @@ export const useGetSingleOrder = (id: string) => {
     }
   });
 
-  // Return undefined when there's no data
   return data || undefined;
 };
 

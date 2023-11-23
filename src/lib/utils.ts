@@ -33,9 +33,9 @@ export function calculateOrderCost (bookVariant: IBookVariantProps) {
   } = bookVariant;
 
   let total = 0;
-  let coverTotal = 50 * no_of_books;
-  let innerTotal = 0;
-  let deliveryFee = 0;
+  let cover_total = 50 * no_of_books;
+  let inner_total = 0;
+  let delivery_fee = 0;
   let perfect_binding_cost = 0;
   let lamination_cost = 0;
   let service_cost = 0;
@@ -45,31 +45,31 @@ export function calculateOrderCost (bookVariant: IBookVariantProps) {
   const trim_cost = 0;
 
   if (hard_cover) {
-    coverTotal += no_of_books * 200;
+    cover_total += no_of_books * 200;
   }
 
   if (color_print) {
-    innerTotal += no_of_books * number_of_pages * 25;
+    inner_total += no_of_books * number_of_pages * 25;
   } else {
-    innerTotal += no_of_books * number_of_pages * 10;
+    inner_total += no_of_books * number_of_pages * 10;
   }
 
-  deliveryFee += no_of_books * 50;
+  delivery_fee += no_of_books * 50;
 
   if (paper_type) {
-    innerTotal += no_of_books * number_of_pages * 10;
+    inner_total += no_of_books * number_of_pages * 10;
   }
 
   if (paper_type === "cream") {
-    innerTotal += no_of_books * number_of_pages * 10;
+    inner_total += no_of_books * number_of_pages * 10;
   } else {
-    innerTotal += no_of_books * number_of_pages * 15;
+    inner_total += no_of_books * number_of_pages * 15;
   }
 
   if (inside_layout_type === "portrait") {
-    innerTotal += no_of_books * number_of_pages * 10;
+    inner_total += no_of_books * number_of_pages * 10;
   } else {
-    innerTotal += no_of_books * number_of_pages * 15;
+    inner_total += no_of_books * number_of_pages * 15;
   }
 
   if (lamination === "glossy") {
@@ -98,13 +98,13 @@ export function calculateOrderCost (bookVariant: IBookVariantProps) {
 
   service_cost += no_of_books * 100;
 
-  total = coverTotal + innerTotal + deliveryFee;
+  total = cover_total + inner_total + delivery_fee;
 
   return {
     total,
-    coverTotal,
-    innerTotal,
-    deliveryFee,
+    cover_total,
+    inner_total,
+    delivery_fee,
     perfect_binding_cost,
     lamination_cost,
     wrapping_cost,

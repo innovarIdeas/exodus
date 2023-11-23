@@ -294,8 +294,8 @@ model Order {
     book_name            String?
     temp_book_id         String?
     created_by           String
-    client_id            String
-    client               User           @relation(fields: [client_id], references: [id], name: "Client")
+    client_id            String?
+    client               User?           @relation(fields: [client_id], references: [id], name: "Client")
     created_by_user      User           @relation(fields: [created_by], references: [id], name: "CreatedBy")
     deleted_at           DateTime?
     timestamp            DateTime       @default(now())
@@ -305,24 +305,24 @@ model Order {
     total                Int
     status               String
     payment_reference    String?
-    cover_total          Int
-    inner_total          Int
-    delivery_fee         Int
+    cover_total          Int?
+    inner_total          Int?
+    delivery_fee         Int?
     discount_id          String?
     discount_by_id       Discount?      @relation(fields: [discount_id], references: [id])
     coupon_id            String?
     coupon_by_id         Coupon?        @relation(fields: [coupon_id], references: [id])
-    inner_page_cost      Int
-    cover_cost           Int
-    perfect_binding_cost Int
-    lamination_cost      Int
-    wrapping_cost        Int
-    trim_cost            Int
-    embossing_cost       Int
-    spot_lamination_cost Int
-    foil_cost            Int
-    book_cost            Int
-    service_cost         Int
+    inner_page_cost      Int?
+    cover_cost           Int?
+    perfect_binding_cost Int?
+    lamination_cost      Int?
+    wrapping_cost        Int?
+    trim_cost            Int?
+    embossing_cost       Int?
+    spot_lamination_cost Int?
+    foil_cost            Int?
+    book_cost            Int?
+    service_cost         Int?
     markup               Int?
     transactions         Transactions[]
 
