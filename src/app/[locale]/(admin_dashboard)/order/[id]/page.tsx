@@ -52,8 +52,8 @@ const SingleInvoice = ()=>{
         <div className="pt-8  pb-8 px-10 border border-b-gray">
 
           <p className="text-xs lg:text-sm mt-1 font-bold">Bill To:</p>
-          <p className="text-xs lg:text-sm mt-1">{order?.client.name}</p>
-          <p className="text-xs lg:text-sm mt-1">{order?.client.email}</p>
+          <p className="text-xs lg:text-sm mt-1">{order?.book_variant.book.client?.name}</p>
+          <p className="text-xs lg:text-sm mt-1">{order?.book_variant.book.client?.email}</p>
           {/* <p className="text-xs lg:text-sm mt-1">{order?.client.}</p> */}
           {order?.book_variant.readyToPrint ? <div>
             <div className="mt-4">

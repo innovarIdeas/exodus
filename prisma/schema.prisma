@@ -20,6 +20,7 @@ model User {
     book_variant    Book_variant[]
     order           Order[] @relation(name: "Client")
     created_by_user Order[] @relation(name: "CreatedBy")
+    client          Book[]  @relation(name: "book_client")
     transactions    Transactions[]
     log             Log[]
     claims          Claim[]
@@ -187,8 +188,11 @@ model Book {
     id              String         @id @unique @default(uuid())
     title           String
     deleted_at      DateTime?
+    author          String?
     createdBy       String
     created_by_user User           @relation(name: "CreatedBooks", fields: [createdBy], references: [id])
+    client_id       String?
+    client          User?          @relation(name: "book_client", fields: [client_id], references: [id])
     description     String?
     created_at      DateTime       @default(now())
     transactions    Transactions[]
@@ -221,35 +225,35 @@ model Book_variant {
     created_at            DateTime  @default(now())
     deleted_at            DateTime?
     tempbook_id           String?
-    paper_type            String?
-    number_of_words       Int?
+    paper_type            String
+    number_of_words       Int
     status                String
-    hard_cover            Boolean?  @default(false)
+    hard_cover            Boolean  @default(false)
     BW_print              Boolean?  @default(false)
     both_print            Boolean?  @default(false)
-    color_print           Boolean?  @default(false)
+    color_print           Boolean  @default(false)
     cream_paper           Boolean?  @default(false)
     glossy_paper          Boolean?  @default(false)
     news_print            Boolean?  @default(false)
-    binding               String?
+    binding               String
     white_paper           Boolean?  @default(false)
-    no_of_books           Int?
+    no_of_books           Int
     portrait              Boolean?  @default(false)
     quantity_of_Color     Int?
     quantity_of_BW        Int?
     book_size             String?
-    number_of_pages       Int?
-    inside_layout         Boolean?  @default(false)
+    number_of_pages       Int
+    inside_layout         Boolean  @default(false)
     proof_reading         Boolean?  @default(false)
     cover_design          Boolean?  @default(false)
     cover_design_type     String?
     editing               Boolean?  @default(false)
     ISBN                  Boolean?  @default(false)
     online_sale           Boolean?  @default(false)
-    embossing             Boolean?  @default(false)
+    embossing             Boolean  @default(false)
     spot_lamination       Boolean?  @default(false)
-    foiling               Boolean?  @default(false)
-    lamination            String?
+    foiling               Boolean  @default(false)
+    lamination            String
     delivery_name         String?
     delivery_phone        Int?
     pick_up               Boolean?  @default(false)
@@ -262,7 +266,7 @@ model Book_variant {
     workInProgress        Boolean?  @default(false)
     word_count            Int?
     current_book_format   String?
-    inside_layout_type    String?
+    inside_layout_type    String
     art_illustration      Boolean?  @default(false)
     art_illustration_type String?
     order                 Order[]
@@ -290,8 +294,8 @@ model Order {
     book_name            String?
     temp_book_id         String?
     created_by           String
-    client_id            String
-    client               User           @relation(fields: [client_id], references: [id], name: "Client")
+    client_id            String?
+    client               User?           @relation(fields: [client_id], references: [id], name: "Client")
     created_by_user      User           @relation(fields: [created_by], references: [id], name: "CreatedBy")
     deleted_at           DateTime?
     timestamp            DateTime       @default(now())
@@ -301,24 +305,24 @@ model Order {
     total                Int
     status               String
     payment_reference    String?
-    cover_total          Int
-    inner_total          Int
-    delivery_fee         Int
+    cover_total          Int?
+    inner_total          Int?
+    delivery_fee         Int?
     discount_id          String?
     discount_by_id       Discount?      @relation(fields: [discount_id], references: [id])
     coupon_id            String?
     coupon_by_id         Coupon?        @relation(fields: [coupon_id], references: [id])
-    inner_page_cost      Int
-    cover_cost           Int
-    perfect_binding_cost Int
-    lamination_cost      Int
-    wrapping_cost        Int
-    trim_cost            Int
-    embossing_cost       Int
-    spot_lamination_cost Int
-    foil_cost            Int
-    book_cost            Int
-    service_cost         Int
+    inner_page_cost      Int?
+    cover_cost           Int?
+    perfect_binding_cost Int?
+    lamination_cost      Int?
+    wrapping_cost        Int?
+    trim_cost            Int?
+    embossing_cost       Int?
+    spot_lamination_cost Int?
+    foil_cost            Int?
+    book_cost            Int?
+    service_cost         Int?
     markup               Int?
     transactions         Transactions[]
 

@@ -35,7 +35,7 @@ export const columns: ColumnDef<IOrder>[] = [
 
       return (
         <div className="flex items-center gap-2">
-          <span>{book.client?.name}</span>
+          <span>{book.book_variant.book?.client?.name}</span>
         </div>
       );
     }

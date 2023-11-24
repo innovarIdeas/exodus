@@ -181,7 +181,7 @@ const BookVariantForm = () => {
                   />
 
                   <div className="flex items-end justify-end my-3">
-                    <Button onClick={nextStep} className="text-sm bg-blue py-2 px-4 create-button border border-1 border-blue rounded-sm   hover:font-semibold hover:bg-green">
+                    <Button type="button" onClick={nextStep} className="text-sm bg-blue py-2 px-4 create-button border border-1 border-blue rounded-sm   hover:font-semibold hover:bg-green">
                     Next
                     </Button>
                   </div>
@@ -308,10 +308,10 @@ const BookVariantForm = () => {
                     )}
                   />
                   <div className="flex justify-between my-3">
-                    <Button onClick={prevStep} className=" mx-5 text-sm bg-blue py-2 px-4 create-button border border-1 border-blue rounded-sm   hover:font-semibold hover:bg-green">
+                    <Button type="button" onClick={prevStep} className=" mx-5 text-sm bg-blue py-2 px-4 create-button border border-1 border-blue rounded-sm   hover:font-semibold hover:bg-green">
                     Previous
                     </Button>
-                    <Button onClick={nextStep} className="mx-5 text-sm bg-blue py-2 px-4 create-button border border-1 border-blue rounded-sm   hover:font-semibold hover:bg-green">
+                    <Button type="button" onClick={nextStep} className="mx-5 text-sm bg-blue py-2 px-4 create-button border border-1 border-blue rounded-sm   hover:font-semibold hover:bg-green">
                     Next
                     </Button>
                   </div>
@@ -395,10 +395,10 @@ const BookVariantForm = () => {
                   />
 
                   <div className="flex justify-between my-3">
-                    <Button onClick={prevStep} className=" mx-5 text-sm bg-blue py-2 px-4 create-button border border-1 border-blue rounded-sm   hover:font-semibold hover:bg-green">
+                    <Button type="button" onClick={prevStep} className=" mx-5 text-sm bg-blue py-2 px-4 create-button border border-1 border-blue rounded-sm   hover:font-semibold hover:bg-green">
                     Previous
                     </Button>
-                    <Button onClick={nextStep} className="mx-5 text-sm bg-blue py-2 px-4 create-button border border-1 border-blue rounded-sm   hover:font-semibold hover:bg-green">
+                    <Button type="button" onClick={nextStep} className="mx-5 text-sm bg-blue py-2 px-4 create-button border border-1 border-blue rounded-sm   hover:font-semibold hover:bg-green">
                     Next
                     </Button>
                   </div>
@@ -518,7 +518,7 @@ const BookVariantForm = () => {
                   />
 
                   <div className="flex justify-between my-3">
-                    <Button onClick={prevStep} className=" mx-5 text-sm bg-blue py-2 px-4 create-button border border-1 border-blue rounded-sm   hover:font-semibold hover:bg-green">
+                    <Button type="button" onClick={prevStep} className=" mx-5 text-sm bg-blue py-2 px-4 create-button border border-1 border-blue rounded-sm   hover:font-semibold hover:bg-green">
                     Previous
                     </Button>
                     <Button type="submit" className="mx-5 text-sm bg-green py-2 px-4 border border-1 border-green rounded-sm   hover:font-semibold hover:bg-blue">

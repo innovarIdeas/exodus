@@ -68,8 +68,10 @@ export interface IUser extends IBase {
 
 export interface IBook extends IBase {
   title: string;
+  author: string;
   createdBy: string;
   created_by_user: IUser;
+  client: IUser;
   description: string | null;
 
 }

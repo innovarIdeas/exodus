@@ -84,7 +84,19 @@ const EditBookForm = ({ id, title, description }: IEditBookFormProps) => {
                 />
               </div>
               <div className="py-1">
-
+                <FormField
+                  control={form.control}
+                  name="author"
+                  render={({ field }) => (
+                    <FormItem>
+                      <FormLabel> Author </FormLabel>
+                      <FormControl>
+                        <Input placeholder="Please enter author name" {...field} />
+                      </FormControl>
+                      <FormMessage />
+                    </FormItem>
+                  )}
+                />
               </div>
               <div>
 

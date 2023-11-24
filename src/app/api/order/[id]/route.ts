@@ -34,7 +34,7 @@ export async function GET (req: NextRequest, { params }: { params: { id: string 
     const order = await prisma.order.findUnique({
       where: { id: id }, include: {
         client: true,
-        book_variant: { include: { book: true } }
+        book_variant: { include: { book: { include: { client: true } } } }
       }
     });
 
