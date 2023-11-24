@@ -131,11 +131,11 @@ const BookForm = () => {
                 render={({ field }) => (
                   <FormItem
                     className="w-full">
-                    <FormLabel>Book Client</FormLabel>
+                    <FormLabel>Publisher</FormLabel>
                     <Select onValueChange={field.onChange} defaultValue={field.value}>
                       <FormControl>
                         <SelectTrigger>
-                          <SelectValue placeholder="Select a book to create a variant" />
+                          <SelectValue placeholder="Select a publisher" />
                         </SelectTrigger>
                       </FormControl>
                       <SelectContent>
