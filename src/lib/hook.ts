@@ -1,6 +1,6 @@
 "use client";
 
-import { getAllBookVariants, getAllBooks, getAllUsers, getSingleOrder } from "./api-call";
+import { getAllBookVariants, getAllBooks, getAllClients, getSingleOrder } from "./api-call";
 import { IPermission } from "@/models/models";
 import { QUERY_KEY } from "./rbac";
 import { useQuery } from "@tanstack/react-query";
@@ -70,7 +70,7 @@ export const useGetAllUser = () => {
   const { data } = useQuery({
     queryKey: [QUERY_KEY.GET_ALL_USERS],
     queryFn: async () => {
-      const { data, validationErrors, error } = await getAllUsers();
+      const { data, validationErrors, error } = await getAllClients();
 
       if (validationErrors?.length) {
         console.error(validationErrors[0].message);

@@ -6,41 +6,31 @@ import {
   FormLabel,
   FormMessage,
 } from "@/components/ui/form";
-import {
-  Select,
-  SelectContent,
-  SelectItem,
-  SelectTrigger,
-  SelectValue,
-} from "@/components/ui/select";
 import { Button } from "./ui/button";
 import { DialogClose } from "./ui/dialog";
 import { Input } from "@/components/ui/input";
 import React from "react";
-import { Textarea } from "@/components/ui/textarea";
-import { bookSchema } from "@/models/validation-schema";
-import { createBook } from "@/lib/api-call";
+import { createClient } from "@/lib/api-call";
 import { useForm } from "react-hook-form";
-import { useGetAllUser } from "@/lib/hook";
 import { useToast } from "@/components/ui/use-toast";
+import { userSchema } from "@/models/validation-schema";
 import z from "zod";
 import { zodResolver } from "@hookform/resolvers/zod";
 
-const BookForm = () => {
+const ClientForm = () => {
   const { toast } = useToast();
 
-      type TFormData = z.infer<typeof bookSchema>;
+      type TFormData = z.infer<typeof userSchema>;
 
-      const form = useForm<TFormData>({ resolver: zodResolver(bookSchema) });
-      const users = useGetAllUser();
+      const form = useForm<TFormData>({ resolver: zodResolver(userSchema) });
 
       const onSubmit = async (input: TFormData) => {
-        const { data, error, validationErrors } = await createBook(input);
+        const { data, error, validationErrors } = await createClient(input);
 
         if (data) {
           toast({
             variant: "default",
-            description: "Book added successfully!",
+            description: "User created successfully!",
             title: "Success"
           });
 
@@ -49,11 +39,11 @@ const BookForm = () => {
           toast({
             variant: "destructive",
             title: "Error",
-            description: "Failed to create book.",
+            description: "Failed to create User.",
           });
-
-          console.error("Failed to Create Product", error);
         }
+
+        console.error("Failed to Create Product", error);
 
         if (validationErrors?.length) {
           toast({
@@ -74,29 +64,12 @@ const BookForm = () => {
 
               <FormField
                 control={form.control}
-                name="title"
+                name="name"
                 render={({ field }) => (
                   <FormItem>
-                    <FormLabel> Title </FormLabel>
+                    <FormLabel> Name </FormLabel>
                     <FormControl>
-                      <Input placeholder="Please enter a Title" {...field} />
-                    </FormControl>
-                    <FormMessage />
-                  </FormItem>
-                )}
-              />
-            </div>
-
-            <div className="py-1">
-
-              <FormField
-                control={form.control}
-                name="author"
-                render={({ field }) => (
-                  <FormItem>
-                    <FormLabel> Author </FormLabel>
-                    <FormControl>
-                      <Input placeholder="Please enter an author name" {...field} />
+                      <Input placeholder="Please enter a Name" {...field} />
                     </FormControl>
                     <FormMessage />
                   </FormItem>
@@ -105,58 +78,44 @@ const BookForm = () => {
             </div>
             <div className="py-1">
 
+            </div>
+            <div>
+
               <FormField
                 control={form.control}
-                name="description"
+                name="email"
                 render={({ field }) => (
                   <FormItem>
-                    <FormLabel> Description</FormLabel>
+                    <FormLabel> Email</FormLabel>
                     <FormControl>
-                      <Textarea
-                        placeholder="Tell us a little bit about the book"
-                        {...field}
-                      />
+                      <Input placeholder="Please enter your email" {...field} />
                     </FormControl>
                     <FormMessage />
                   </FormItem>
                 )}
               />
             </div>
-
             <div className="py-1">
 
               <FormField
                 control={form.control}
-                name="client_id"
+                name="password"
                 render={({ field }) => (
-                  <FormItem
-                    className="w-full">
-                    <FormLabel>Publisher</FormLabel>
-                    <Select onValueChange={field.onChange} defaultValue={field.value}>
-                      <FormControl>
-                        <SelectTrigger>
-                          <SelectValue placeholder="Select a publisher" />
-                        </SelectTrigger>
-                      </FormControl>
-                      <SelectContent>
-                        {users &&
-                          users.map((user) => (
-                            <SelectItem key={user.id} value={user.id}>
-                              {user.name}
-                            </SelectItem>
-                          ))}
-                      </SelectContent>
-                    </Select>
+                  <FormItem>
+                    <FormLabel> Password</FormLabel>
+                    <FormControl>
+                      <Input placeholder="Please a valid password" {...field} />
+                    </FormControl>
+                    <FormMessage />
                   </FormItem>
                 )}
               />
-
             </div>
 
             <div className="flex gap-5 py-1">
 
               <div className="py-2 ">
-                <Button type="button" disabled={form.formState.isSubmitting} onClick={form.handleSubmit(onSubmit)} className="text-sm bg-blue py-2 px-4 create-button border border-1 border-blue rounded-sm   hover:font-semibold hover:bg-green">  Add Book</Button>
+                <Button type="button" disabled={form.formState.isSubmitting} onClick={form.handleSubmit(onSubmit)} className="text-sm bg-blue py-2 px-4 create-button border border-1 border-blue rounded-sm   hover:font-semibold hover:bg-green">  Create User</Button>
               </div>
 
               <DialogClose>
@@ -172,5 +131,5 @@ const BookForm = () => {
       );
 };
 
-export default BookForm;
+export default ClientForm;
 

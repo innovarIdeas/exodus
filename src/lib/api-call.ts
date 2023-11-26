@@ -125,3 +125,27 @@ export const getSingleOrder = async (id: string): Promise<IApiResponse<IOrder>> 
   return handleApiCalls(await fetch(process.env.NEXT_PUBLIC_BROWSER_URL + "/api/order/" + id, { method: "GET" }));
 };
 
+export const getAllClients = async (): Promise<IApiResponse<IUser[]>> => {
+  return handleApiCalls(await fetch(process.env.NEXT_PUBLIC_BROWSER_URL + "/api/clients", { method: "GET" }));
+};
+
+export const createClient = async (data: z.infer <typeof userSchema>): Promise<IApiResponse<IUser[]>> => {
+  return handleApiCalls(await fetch(process.env.NEXT_PUBLIC_BROWSER_URL + "/api/clients",
+    {
+      method: "POST",
+      body: JSON.stringify(data)
+    }));
+};
+
+export const editClient = async (id: string, data: z.infer <typeof UpdateUserSchema>): Promise<IApiResponse<IUser[]>> => {
+  return handleApiCalls(await fetch(process.env.NEXT_PUBLIC_BROWSER_URL + "/api/clients/" + id,
+    {
+      method: "PATCH",
+      body: JSON.stringify(data)
+    }));
+};
+
+export const deleteClient = async (id: string): Promise<IApiResponse<IUser[]>> => {
+  return handleApiCalls(await fetch(process.env.NEXT_PUBLIC_BROWSER_URL + "/api/clients/" + id,
+    { method: "DELETE" }));
+};

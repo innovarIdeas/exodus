@@ -58,6 +58,11 @@ const adminRouteLayout: React.FC<adminRouteLayoutProps> = ({ children }) => {
                 </Link>
               </DropdownMenuItem>
               <DropdownMenuItem>
+                <Link href="/clients" className="text-lg">
+                  Client
+                </Link>
+              </DropdownMenuItem>
+              <DropdownMenuItem>
                 <Link href="/constants" className="text-lg">
                   Constants
                 </Link>
