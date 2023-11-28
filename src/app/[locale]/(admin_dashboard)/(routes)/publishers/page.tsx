@@ -1,9 +1,10 @@
 import React from "react";
+import UserBody from "./body";
 
-const page = () => {
+const page = async () => {
   return (
     <div className="mx-5">
-     ...
+      <UserBody/>
     </div>
   );
 };

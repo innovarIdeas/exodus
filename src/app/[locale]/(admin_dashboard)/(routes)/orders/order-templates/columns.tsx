@@ -74,11 +74,11 @@ export const columns: ColumnDef<IBookVariant>[] = [
       return (
         <Dialog>
           <DialogTrigger className="rounded-full h-[40px] w-fit bg-main text-white text-x flex items-center justify-center gap-2 cursor-pointer px-4 shadow-lg hover:shadow-none">
-            <span className="text-white">View Variant</span>
+            <span className="text-white">View Order Template </span>
           </DialogTrigger>
           <DialogContent className="w-1/2 h-full overflow-auto">
             <DialogHeader>
-              <DialogTitle>View Book Variant</DialogTitle>
+              <DialogTitle>View Order Template</DialogTitle>
               <DialogDescription>
                       Kindly view the book`s` information
               </DialogDescription>
@@ -100,13 +100,13 @@ export const columns: ColumnDef<IBookVariant>[] = [
       return (
         <Dialog>
           <DialogTrigger className="rounded-full h-[40px] w-fit bg-main text-white text-x flex items-center justify-center gap-2 cursor-pointer px-4 shadow-lg hover:shadow-none">
-            <span className="text-white">Order Variant</span>
+            <span className="text-white">Create Order</span>
           </DialogTrigger>
           <DialogContent className="w-1/2 overflow-auto">
             <DialogHeader>
-              <DialogTitle>Order Book Variant</DialogTitle>
+              <DialogTitle>Create Order</DialogTitle>
               <DialogDescription>
-                      Are you sure you want to order this book variant?
+                      Are you sure you want to create this order?
               </DialogDescription>
 
               <CreateOrder book_variant_id={book.id} />
