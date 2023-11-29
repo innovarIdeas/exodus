@@ -36,7 +36,7 @@ export async function POST (req: NextRequest) {
       return NextResponse.json({ error: "Unauthorized" }, { status: 401 });
     }
 
-    const book_variant = await prisma.book_variant.findUnique({ where: { id: validation.data.book_variant_id } });
+    const book_variant = await prisma.book_variant.findUnique({ where: { id: validation.data.book_variant_id }, include: { book: true, order: true, created_by_user: true } });
 
     if (!book_variant) {
       return NextResponse.json({ error: "Book variant not found" }, { status: 404 });
