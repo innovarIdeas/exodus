@@ -284,8 +284,8 @@ model Coupon {
 
 model Order {
     id                   String         @id @unique @default(uuid())
-    book_id              String
-    book                 Book           @relation(fields: [book_id], references: [id])
+    book_id              String?
+    book                 Book?           @relation(fields: [book_id], references: [id])
     temp_book_id         String?
     created_by           String
     client_id            String?

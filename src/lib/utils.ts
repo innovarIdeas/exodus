@@ -1,5 +1,4 @@
 import { type ClassValue, clsx } from "clsx";
-import { IBookVariant } from "@/models/models";
 import { twMerge } from "tailwind-merge";
 
 export function cn (...inputs: ClassValue[]) {
@@ -8,19 +7,19 @@ export function cn (...inputs: ClassValue[]) {
 
 export interface IBookVariantProps {
   paper_type: string;
-  hard_cover?: boolean;
-  color_print?: boolean;
-  binding?: string;
+  hard_cover: boolean | null;
+  color_print: boolean | null;
+  binding: string | null;
   no_of_books: number;
-  number_of_pages: number;
-  embossing?: boolean;
-  lamination?: string;
-  foiling?: boolean;
-  inside_layout_type?: string;
+  number_of_pages: number | null;
+  embossing: boolean | null;
+  lamination: string | null;
+  foiling: boolean | null;
+  inside_layout_type: string | null;
 
 }
 
-export function calculateOrderCost (bookVariant: IBookVariant) {
+export function calculateOrderCost (bookVariant: IBookVariantProps) {
   const {
     paper_type,
     hard_cover,
@@ -48,6 +47,10 @@ export function calculateOrderCost (bookVariant: IBookVariant) {
 
   if (hard_cover) {
     cover_total += no_of_books * 200;
+  }
+
+  if (number_of_pages === null) {
+    return null;
   }
 
   if (color_print) {
