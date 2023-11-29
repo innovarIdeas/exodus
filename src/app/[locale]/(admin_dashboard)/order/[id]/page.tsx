@@ -55,7 +55,7 @@ const SingleInvoice = ()=>{
           <p className="text-xs lg:text-sm mt-1">{order?.book_variant.book.client?.name}</p>
           <p className="text-xs lg:text-sm mt-1">{order?.book_variant.book.client?.email}</p>
           {/* <p className="text-xs lg:text-sm mt-1">{order?.client.}</p> */}
-          {order?.book_variant.readyToPrint ? <div>
+          {order?.book_variant.ready_to_print ? <div>
             <div className="mt-4">
 
               <div className="grid grid-cols-5 justify-between border border-b-gray">

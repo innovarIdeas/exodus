@@ -18,16 +18,15 @@ model User {
     created_at      DateTime        @default(now())
     discount        Discount[]
     book_variant    Book_variant[]
-    order           Order[] @relation(name: "Client")
-    created_by_user Order[] @relation(name: "CreatedBy")
-    client          Book[]  @relation(name: "book_client")
+    order           Order[]         @relation(name: "Client")
+    created_by_user Order[]         @relation(name: "CreatedBy")
+    client          Book[]          @relation(name: "book_client")
     transactions    Transactions[]
     log             Log[]
     claims          Claim[]
     addresses       Address[]
     contact_details ContactDetail[]
     created_books   Book[]          @relation(name: "CreatedBooks")
-
 }
 
 model Address {
@@ -74,7 +73,7 @@ model Temp_Book {
     created_at            DateTime  @default(now())
     deleted_at            DateTime?
     phone_number          String
-    paper_type            String?
+    paper_type            String
     number_of_words       Int?
     status                String
     hard_cover            Boolean?  @default(false)
@@ -84,16 +83,14 @@ model Temp_Book {
     cream_paper           Boolean?  @default(false)
     glossy_paper          Boolean?  @default(false)
     news_print            Boolean?  @default(false)
-    hard_binding          Boolean?  @default(false)
-    paper_binding         Boolean?  @default(false)
-    staple_binding        Boolean?  @default(false)
+    binding               String?
     white_paper           Boolean?  @default(false)
-    no_of_books           Int?
+    no_of_books           Int
     portrait              Boolean?  @default(false)
     quantity_of_color     Int?
     quantity_of_BW        Int?
     book_size             String?
-    number_of_pages       Int?
+    number_of_pages       Int
     inside_layout         Boolean?  @default(false)
     proof_reading         Boolean?  @default(false)
     cover_design          Boolean?  @default(false)
@@ -102,9 +99,8 @@ model Temp_Book {
     ISBN                  Boolean?  @default(false)
     online_sale           Boolean?  @default(false)
     embossing             Boolean?  @default(false)
-    spot_lamination       Boolean?  @default(false)
     foiling               Boolean?  @default(false)
-    glossy_lamination     Boolean?  @default(false)
+    lamination            String
     delivery_name         String?
     delivery_phone        String?
     pick_up               Boolean?  @default(false)
@@ -120,6 +116,7 @@ model Temp_Book {
     inside_layout_type    String?
     art_illustration      Boolean?  @default(false)
     art_illustration_type String?
+    bindong               String?
 
     @@map("temp_books")
 }
@@ -143,16 +140,14 @@ model Invoice {
     cream_paper           Boolean?  @default(false)
     glossy_paper          Boolean?  @default(false)
     news_print            Boolean?  @default(false)
-    hard_binding          Boolean?  @default(false)
-    paper_binding         Boolean?  @default(false)
-    staple_binding        Boolean?  @default(false)
+    binding               String?
     white_paper           Boolean?  @default(false)
-    no_of_books           Int?
+    no_of_books           Int
     portrait              Boolean?  @default(false)
     quantity_of_Color     Int?
     quantity_of_BW        Int?
     book_size             String?
-    number_of_pages       Int?
+    number_of_pages       Int
     inside_layout         Boolean?  @default(false)
     proof_reading         Boolean?  @default(false)
     cover_design          Boolean?  @default(false)
@@ -161,11 +156,10 @@ model Invoice {
     ISBN                  Boolean?  @default(false)
     online_sale           Boolean?  @default(false)
     embossing             Boolean?  @default(false)
-    spot_lamination       Boolean?  @default(false)
     foiling               Boolean?  @default(false)
-    glossy_lamination     Boolean?  @default(false)
+    lamination            String
     delivery_name         String?
-    delivery_phone        Int?
+    delivery_phone        String?
     pick_up               Boolean?  @default(false)
     shipping_address      String?
     shipping_state        String?
@@ -189,14 +183,15 @@ model Book {
     title           String
     deleted_at      DateTime?
     author          String?
-    createdBy       String
-    created_by_user User           @relation(name: "CreatedBooks", fields: [createdBy], references: [id])
+    created_by      String
+    created_by_user User           @relation(name: "CreatedBooks", fields: [created_by], references: [id])
     client_id       String?
     client          User?          @relation(name: "book_client", fields: [client_id], references: [id])
     description     String?
     created_at      DateTime       @default(now())
     transactions    Transactions[]
     book_variants   Book_variant[]
+    Order           Order[]
 
     @@map("books")
 }
@@ -226,47 +221,46 @@ model Book_variant {
     deleted_at            DateTime?
     tempbook_id           String?
     paper_type            String
-    number_of_words       Int
+    number_of_words       Int?
     status                String
-    hard_cover            Boolean  @default(false)
+    hard_cover            Boolean?  @default(false)
     BW_print              Boolean?  @default(false)
     both_print            Boolean?  @default(false)
-    color_print           Boolean  @default(false)
+    color_print           Boolean?  @default(false)
     cream_paper           Boolean?  @default(false)
     glossy_paper          Boolean?  @default(false)
     news_print            Boolean?  @default(false)
-    binding               String
+    binding               String?
     white_paper           Boolean?  @default(false)
     no_of_books           Int
     portrait              Boolean?  @default(false)
     quantity_of_Color     Int?
     quantity_of_BW        Int?
     book_size             String?
-    number_of_pages       Int
-    inside_layout         Boolean  @default(false)
+    number_of_pages       Int?
+    inside_layout         Boolean?  @default(false)
     proof_reading         Boolean?  @default(false)
     cover_design          Boolean?  @default(false)
     cover_design_type     String?
     editing               Boolean?  @default(false)
     ISBN                  Boolean?  @default(false)
     online_sale           Boolean?  @default(false)
-    embossing             Boolean  @default(false)
-    spot_lamination       Boolean?  @default(false)
-    foiling               Boolean  @default(false)
+    embossing             Boolean?  @default(false)
+    foiling               Boolean?  @default(false)
     lamination            String
     delivery_name         String?
-    delivery_phone        Int?
+    delivery_phone        String?
     pick_up               Boolean?  @default(false)
     shipping_address      String?
     shipping_state        String?
     shipping_instruction  String?
     project_type          String?
-    readyToPrint          Boolean?  @default(false)
+    ready_to_print        Boolean?  @default(false)
     published             Boolean?  @default(false)
-    workInProgress        Boolean?  @default(false)
+    work_in_progress      Boolean?  @default(false)
     word_count            Int?
     current_book_format   String?
-    inside_layout_type    String
+    inside_layout_type    String?
     art_illustration      Boolean?  @default(false)
     art_illustration_type String?
     order                 Order[]
@@ -290,17 +284,17 @@ model Coupon {
 
 model Order {
     id                   String         @id @unique @default(uuid())
-    book_id              String?
-    book_name            String?
+    book_id              String
+    book                 Book           @relation(fields: [book_id], references: [id])
     temp_book_id         String?
     created_by           String
     client_id            String?
-    client               User?           @relation(fields: [client_id], references: [id], name: "Client")
+    client               User?          @relation(fields: [client_id], references: [id], name: "Client")
     created_by_user      User           @relation(fields: [created_by], references: [id], name: "CreatedBy")
     deleted_at           DateTime?
     timestamp            DateTime       @default(now())
-    book_variant_id      String?
-    book_variant         Book_variant?  @relation(fields: [book_variant_id], references: [id])
+    book_variant_id      String
+    book_variant         Book_variant   @relation(fields: [book_variant_id], references: [id])
     delivery_address     String?
     total                Int
     status               String

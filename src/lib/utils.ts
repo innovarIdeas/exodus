@@ -1,4 +1,5 @@
 import { type ClassValue, clsx } from "clsx";
+import { IBookVariant } from "@/models/models";
 import { twMerge } from "tailwind-merge";
 
 export function cn (...inputs: ClassValue[]) {
@@ -16,9 +17,10 @@ export interface IBookVariantProps {
   lamination?: string;
   foiling?: boolean;
   inside_layout_type?: string;
+
 }
 
-export function calculateOrderCost (bookVariant: IBookVariantProps) {
+export function calculateOrderCost (bookVariant: IBookVariant) {
   const {
     paper_type,
     hard_cover,

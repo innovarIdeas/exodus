@@ -38,7 +38,7 @@ export async function POST (req: NextRequest) {
 
     const book_variant = await prisma.book_variant.findUnique({ where: { id: validation.data.book_variant_id } });
 
-    if (book_variant == null) {
+    if (!book_variant) {
       return NextResponse.json({ error: "Book variant not found" }, { status: 404 });
     }
 

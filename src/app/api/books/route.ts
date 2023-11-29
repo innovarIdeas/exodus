@@ -36,7 +36,7 @@ export async function POST (req: NextRequest) {
       return NextResponse.json({ error: "Unauthorized" }, { status: 401 });
     }
 
-    const book = await prisma.book.create({ data: { ...validation.data, createdBy: session.user.id } });
+    const book = await prisma.book.create({ data: { ...validation.data, created_by: session.user.id } });
 
     return NextResponse.json(book, { status: 201 });
   } catch (error) {
