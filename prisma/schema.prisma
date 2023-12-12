@@ -331,8 +331,8 @@ model Transactions {
     status          String
     order_id        String
     ordered_by_id   Order     @relation(fields: [order_id], references: [id])
-    book_id         String
-    book_by_id      Book      @relation(fields: [book_id], references: [id])
+    book_id         String?
+    book_by_id      Book?      @relation(fields: [book_id], references: [id])
     user_id         String
     created_by_user User      @relation(fields: [user_id], references: [id])
     deleted_at      DateTime?
