@@ -56,8 +56,8 @@ CREATE TABLE "temp_books" (
     "name" TEXT NOT NULL,
     "created_at" TIMESTAMP(3) NOT NULL DEFAULT CURRENT_TIMESTAMP,
     "deleted_at" TIMESTAMP(3),
-    "phone_number" INTEGER,
-    "paper_type" TEXT,
+    "phone_number" TEXT NOT NULL,
+    "paper_type" TEXT NOT NULL,
     "number_of_words" INTEGER,
     "status" TEXT NOT NULL,
     "hard_cover" BOOLEAN DEFAULT false,
@@ -67,16 +67,14 @@ CREATE TABLE "temp_books" (
     "cream_paper" BOOLEAN DEFAULT false,
     "glossy_paper" BOOLEAN DEFAULT false,
     "news_print" BOOLEAN DEFAULT false,
-    "hard_binding" BOOLEAN DEFAULT false,
-    "paper_binding" BOOLEAN DEFAULT false,
-    "staple_binding" BOOLEAN DEFAULT false,
+    "binding" TEXT,
     "white_paper" BOOLEAN DEFAULT false,
-    "no_of_books" INTEGER,
+    "no_of_books" INTEGER NOT NULL,
     "portrait" BOOLEAN DEFAULT false,
     "quantity_of_color" INTEGER,
     "quantity_of_BW" INTEGER,
     "book_size" TEXT,
-    "number_of_pages" INTEGER,
+    "number_of_pages" INTEGER NOT NULL,
     "inside_layout" BOOLEAN DEFAULT false,
     "proof_reading" BOOLEAN DEFAULT false,
     "cover_design" BOOLEAN DEFAULT false,
@@ -85,11 +83,10 @@ CREATE TABLE "temp_books" (
     "ISBN" BOOLEAN DEFAULT false,
     "online_sale" BOOLEAN DEFAULT false,
     "embossing" BOOLEAN DEFAULT false,
-    "spot_lamination" BOOLEAN DEFAULT false,
     "foiling" BOOLEAN DEFAULT false,
-    "glossy_lamination" BOOLEAN DEFAULT false,
+    "lamination" TEXT NOT NULL,
     "delivery_name" TEXT,
-    "delivery_phone" INTEGER,
+    "delivery_phone" TEXT,
     "pick_up" BOOLEAN DEFAULT false,
     "shipping_address" TEXT,
     "shipping_state" TEXT,
@@ -103,6 +100,7 @@ CREATE TABLE "temp_books" (
     "inside_layout_type" TEXT,
     "art_illustration" BOOLEAN DEFAULT false,
     "art_illustration_type" TEXT,
+    "bindong" TEXT,
 
     CONSTRAINT "temp_books_pkey" PRIMARY KEY ("id")
 );
@@ -127,16 +125,14 @@ CREATE TABLE "invoices" (
     "cream_paper" BOOLEAN DEFAULT false,
     "glossy_paper" BOOLEAN DEFAULT false,
     "news_print" BOOLEAN DEFAULT false,
-    "hard_binding" BOOLEAN DEFAULT false,
-    "paper_binding" BOOLEAN DEFAULT false,
-    "staple_binding" BOOLEAN DEFAULT false,
+    "binding" TEXT,
     "white_paper" BOOLEAN DEFAULT false,
-    "no_of_books" INTEGER,
+    "no_of_books" INTEGER NOT NULL,
     "portrait" BOOLEAN DEFAULT false,
     "quantity_of_Color" INTEGER,
     "quantity_of_BW" INTEGER,
     "book_size" TEXT,
-    "number_of_pages" INTEGER,
+    "number_of_pages" INTEGER NOT NULL,
     "inside_layout" BOOLEAN DEFAULT false,
     "proof_reading" BOOLEAN DEFAULT false,
     "cover_design" BOOLEAN DEFAULT false,
@@ -145,11 +141,10 @@ CREATE TABLE "invoices" (
     "ISBN" BOOLEAN DEFAULT false,
     "online_sale" BOOLEAN DEFAULT false,
     "embossing" BOOLEAN DEFAULT false,
-    "spot_lamination" BOOLEAN DEFAULT false,
     "foiling" BOOLEAN DEFAULT false,
-    "glossy_lamination" BOOLEAN DEFAULT false,
+    "lamination" TEXT NOT NULL,
     "delivery_name" TEXT,
-    "delivery_phone" INTEGER,
+    "delivery_phone" TEXT,
     "pick_up" BOOLEAN DEFAULT false,
     "shipping_address" TEXT,
     "shipping_state" TEXT,
@@ -173,7 +168,9 @@ CREATE TABLE "books" (
     "id" TEXT NOT NULL,
     "title" TEXT NOT NULL,
     "deleted_at" TIMESTAMP(3),
-    "createdBy" TEXT NOT NULL,
+    "author" TEXT,
+    "created_by" TEXT NOT NULL,
+    "client_id" TEXT,
     "description" TEXT,
     "created_at" TIMESTAMP(3) NOT NULL DEFAULT CURRENT_TIMESTAMP,
 
@@ -196,12 +193,13 @@ CREATE TABLE "discounts" (
 -- CreateTable
 CREATE TABLE "book_variants" (
     "id" TEXT NOT NULL,
+    "variant_name" TEXT NOT NULL,
     "book_id" TEXT NOT NULL,
     "created_by" TEXT NOT NULL,
     "created_at" TIMESTAMP(3) NOT NULL DEFAULT CURRENT_TIMESTAMP,
     "deleted_at" TIMESTAMP(3),
-    "tempbook_id" TEXT NOT NULL,
-    "paper_type" TEXT,
+    "tempbook_id" TEXT,
+    "paper_type" TEXT NOT NULL,
     "number_of_words" INTEGER,
     "status" TEXT NOT NULL,
     "hard_cover" BOOLEAN DEFAULT false,
@@ -211,11 +209,9 @@ CREATE TABLE "book_variants" (
     "cream_paper" BOOLEAN DEFAULT false,
     "glossy_paper" BOOLEAN DEFAULT false,
     "news_print" BOOLEAN DEFAULT false,
-    "hard_binding" BOOLEAN DEFAULT false,
-    "paper_binding" BOOLEAN DEFAULT false,
-    "staple_binding" BOOLEAN DEFAULT false,
+    "binding" TEXT,
     "white_paper" BOOLEAN DEFAULT false,
-    "no_of_books" INTEGER,
+    "no_of_books" INTEGER NOT NULL,
     "portrait" BOOLEAN DEFAULT false,
     "quantity_of_Color" INTEGER,
     "quantity_of_BW" INTEGER,
@@ -229,19 +225,18 @@ CREATE TABLE "book_variants" (
     "ISBN" BOOLEAN DEFAULT false,
     "online_sale" BOOLEAN DEFAULT false,
     "embossing" BOOLEAN DEFAULT false,
-    "spot_lamination" BOOLEAN DEFAULT false,
     "foiling" BOOLEAN DEFAULT false,
-    "glossy_lamination" BOOLEAN DEFAULT false,
+    "lamination" TEXT NOT NULL,
     "delivery_name" TEXT,
-    "delivery_phone" INTEGER,
+    "delivery_phone" TEXT,
     "pick_up" BOOLEAN DEFAULT false,
     "shipping_address" TEXT,
     "shipping_state" TEXT,
     "shipping_instruction" TEXT,
     "project_type" TEXT,
-    "readyToPrint" BOOLEAN DEFAULT false,
+    "ready_to_print" BOOLEAN DEFAULT false,
     "published" BOOLEAN DEFAULT false,
-    "workInProgress" BOOLEAN DEFAULT false,
+    "work_in_progress" BOOLEAN DEFAULT false,
     "word_count" INTEGER,
     "current_book_format" TEXT,
     "inside_layout_type" TEXT,
@@ -269,34 +264,33 @@ CREATE TABLE "coupons" (
 CREATE TABLE "orders" (
     "id" TEXT NOT NULL,
     "book_id" TEXT,
-    "book_name" TEXT,
     "temp_book_id" TEXT,
     "created_by" TEXT NOT NULL,
+    "client_id" TEXT,
     "deleted_at" TIMESTAMP(3),
     "timestamp" TIMESTAMP(3) NOT NULL DEFAULT CURRENT_TIMESTAMP,
-    "book_variant_id" TEXT,
+    "book_variant_id" TEXT NOT NULL,
     "delivery_address" TEXT,
     "total" INTEGER NOT NULL,
     "status" TEXT NOT NULL,
     "payment_reference" TEXT,
-    "cover_total" INTEGER NOT NULL,
-    "inner_total" INTEGER NOT NULL,
-    "delivery_fee" INTEGER NOT NULL,
+    "cover_total" INTEGER,
+    "inner_total" INTEGER,
+    "delivery_fee" INTEGER,
     "discount_id" TEXT,
     "coupon_id" TEXT,
-    "inner_page_cost" INTEGER NOT NULL,
-    "cover_cost" INTEGER NOT NULL,
-    "perfect_binding_cost" INTEGER NOT NULL,
-    "lamination_cost" INTEGER NOT NULL,
-    "wrapping_cost" INTEGER NOT NULL,
-    "trim_cost" INTEGER NOT NULL,
-    "embossing_cost" INTEGER NOT NULL,
-    "spot_lamination_cost" INTEGER NOT NULL,
-    "foil_cost" INTEGER NOT NULL,
-    "book_cost" INTEGER NOT NULL,
-    "service_cost" INTEGER NOT NULL,
-    "markup" INTEGER NOT NULL,
-    "created_at" TIMESTAMP(3) NOT NULL,
+    "inner_page_cost" INTEGER,
+    "cover_cost" INTEGER,
+    "perfect_binding_cost" INTEGER,
+    "lamination_cost" INTEGER,
+    "wrapping_cost" INTEGER,
+    "trim_cost" INTEGER,
+    "embossing_cost" INTEGER,
+    "spot_lamination_cost" INTEGER,
+    "foil_cost" INTEGER,
+    "book_cost" INTEGER,
+    "service_cost" INTEGER,
+    "markup" INTEGER,
 
     CONSTRAINT "orders_pkey" PRIMARY KEY ("id")
 );
@@ -405,6 +399,9 @@ CREATE UNIQUE INDEX "discounts_id_key" ON "discounts"("id");
 CREATE UNIQUE INDEX "book_variants_id_key" ON "book_variants"("id");
 
 -- CreateIndex
+CREATE UNIQUE INDEX "book_variants_variant_name_key" ON "book_variants"("variant_name");
+
+-- CreateIndex
 CREATE UNIQUE INDEX "coupons_id_key" ON "coupons"("id");
 
 -- CreateIndex
@@ -441,19 +438,31 @@ ALTER TABLE "addresses" ADD CONSTRAINT "addresses_user_id_fkey" FOREIGN KEY ("us
 ALTER TABLE "contacts_details" ADD CONSTRAINT "contacts_details_user_id_fkey" FOREIGN KEY ("user_id") REFERENCES "User"("id") ON DELETE SET NULL ON UPDATE CASCADE;
 
 -- AddForeignKey
-ALTER TABLE "books" ADD CONSTRAINT "books_createdBy_fkey" FOREIGN KEY ("createdBy") REFERENCES "User"("id") ON DELETE RESTRICT ON UPDATE CASCADE;
+ALTER TABLE "books" ADD CONSTRAINT "books_created_by_fkey" FOREIGN KEY ("created_by") REFERENCES "User"("id") ON DELETE RESTRICT ON UPDATE CASCADE;
+
+-- AddForeignKey
+ALTER TABLE "books" ADD CONSTRAINT "books_client_id_fkey" FOREIGN KEY ("client_id") REFERENCES "User"("id") ON DELETE SET NULL ON UPDATE CASCADE;
 
 -- AddForeignKey
 ALTER TABLE "discounts" ADD CONSTRAINT "discounts_created_by_fkey" FOREIGN KEY ("created_by") REFERENCES "User"("id") ON DELETE RESTRICT ON UPDATE CASCADE;
 
 -- AddForeignKey
+ALTER TABLE "book_variants" ADD CONSTRAINT "book_variants_book_id_fkey" FOREIGN KEY ("book_id") REFERENCES "books"("id") ON DELETE RESTRICT ON UPDATE CASCADE;
+
+-- AddForeignKey
 ALTER TABLE "book_variants" ADD CONSTRAINT "book_variants_created_by_fkey" FOREIGN KEY ("created_by") REFERENCES "User"("id") ON DELETE RESTRICT ON UPDATE CASCADE;
+
+-- AddForeignKey
+ALTER TABLE "orders" ADD CONSTRAINT "orders_book_id_fkey" FOREIGN KEY ("book_id") REFERENCES "books"("id") ON DELETE SET NULL ON UPDATE CASCADE;
+
+-- AddForeignKey
+ALTER TABLE "orders" ADD CONSTRAINT "orders_client_id_fkey" FOREIGN KEY ("client_id") REFERENCES "User"("id") ON DELETE SET NULL ON UPDATE CASCADE;
 
 -- AddForeignKey
 ALTER TABLE "orders" ADD CONSTRAINT "orders_created_by_fkey" FOREIGN KEY ("created_by") REFERENCES "User"("id") ON DELETE RESTRICT ON UPDATE CASCADE;
 
 -- AddForeignKey
-ALTER TABLE "orders" ADD CONSTRAINT "orders_book_variant_id_fkey" FOREIGN KEY ("book_variant_id") REFERENCES "book_variants"("id") ON DELETE SET NULL ON UPDATE CASCADE;
+ALTER TABLE "orders" ADD CONSTRAINT "orders_book_variant_id_fkey" FOREIGN KEY ("book_variant_id") REFERENCES "book_variants"("id") ON DELETE RESTRICT ON UPDATE CASCADE;
 
 -- AddForeignKey
 ALTER TABLE "orders" ADD CONSTRAINT "orders_discount_id_fkey" FOREIGN KEY ("discount_id") REFERENCES "discounts"("id") ON DELETE SET NULL ON UPDATE CASCADE;

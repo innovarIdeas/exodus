@@ -136,6 +136,58 @@ export interface IBookVariant extends IBase {
   order: IOrder[];
 }
 
+export interface ITempBook extends IBase  {
+  email: string;
+  book_name: string;
+  title: string;
+  name: string;
+  phone_number: string;
+  paper_type: string;
+  number_of_words: number;
+  status: string;
+  hard_cover: boolean;
+  BW_print: boolean;
+  both_print: boolean;
+  color_print: boolean;
+  cream_paper: boolean;
+  glossy_paper: boolean;
+  news_print: boolean;
+  binding: string;
+  white_paper: boolean;
+  no_of_books: number;
+  portrait: boolean;
+  quantity_of_color: number;
+  quantity_of_BW: number;
+  book_size: string;
+  number_of_pages: number;
+  inside_layout: boolean;
+  proof_reading: boolean;
+  cover_design: boolean;
+  cover_design_type: string;
+  editing: boolean;
+  ISBN: boolean;
+  online_sale: boolean;
+  embossing: boolean;
+  foiling: boolean;
+  lamination: string;
+  delivery_name: string;
+  delivery_phone: string;
+  pick_up: boolean;
+  shipping_address: string;
+  shipping_state: string;
+  shipping_instruction: string;
+  project_type: string;
+  ready_to_print: boolean;
+  published: boolean;
+  work_in_progress: boolean;
+  word_count: number;
+  current_book_format: string;
+  inside_layout_type: string;
+  art_illustration: boolean;
+  art_illustration_type: string;
+  bindong: string;
+}
+
 export interface IOrder extends IBase {
   book_id: string;
   book_name: string;

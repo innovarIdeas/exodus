@@ -1,5 +1,5 @@
-import { IApiError, IApiResponse, IBook, IBookVariant, ICoupon, IDiscount, IOrder, IUser, IValidationError } from "@/models/models";
-import { UpdateUserSchema, bookSchema, bookVariantSchema, couponSchema, orderSchema, updateBookSchema, updateCouponSchema, userSchema } from "@/models/validation-schema";
+import { IApiError, IApiResponse, IBook, IBookVariant, ICoupon, IDiscount, ITempBook, IOrder, IUser, IValidationError } from "@/models/models";
+import { UpdateUserSchema, bookSchema, bookVariantSchema, couponSchema, tempBookSchema, orderSchema, updateBookSchema, updateCouponSchema, userSchema } from "@/models/validation-schema";
 import { z } from "zod";
 
 async function handleValidationResponse (response: Response) {
@@ -83,6 +83,30 @@ export const editBook = async (id: string, data: z.infer <typeof updateBookSchem
   return handleApiCalls(await fetch(process.env.NEXT_PUBLIC_BROWSER_URL + "/api/books/" + id,
     {
       method: "PATCH",
+      body: JSON.stringify(data)
+    }));
+};
+
+export const createTempBook = async (data: z.infer <typeof tempBookSchema>): Promise<IApiResponse<ITempBook>> => {
+  return handleApiCalls(await fetch(process.env.NEXT_PUBLIC_BROWSER_URL + "/api/temp-books/",
+    {
+      method: "POST",
+      body: JSON.stringify(data)
+    }));
+};
+
+export const editTempBook = async (id: string, data: z.infer <typeof tempBookSchema>): Promise<IApiResponse<ITempBook>> => {
+  return handleApiCalls(await fetch(process.env.NEXT_PUBLIC_BROWSER_URL + "/api/temp-books/" + id,
+    {
+      method: "PATCH",
+      body: JSON.stringify(data)
+    }));
+};
+
+export const getAllTempBook = async (id: string, data: z.infer <typeof tempBookSchema>): Promise<IApiResponse<ITempBook[]>> => {
+  return handleApiCalls(await fetch(process.env.NEXT_PUBLIC_BROWSER_URL + "/api/temp-books/" + id,
+    {
+      method: "GET",
       body: JSON.stringify(data)
     }));
 };
