@@ -218,3 +218,19 @@ export interface IOrder extends IBase {
   markup: number;
   created_at: string;
 }
+
+export interface ICoupon extends IBase {
+  name: string;
+  percentage: number;
+  status: boolean;
+  created_by_user: IUser;
+  expires_at: string;
+}
+
+export interface IDiscount extends IBase {
+  name: string;
+  percentage: number;
+  book: IBook;
+  expires_at: string;
+}
+

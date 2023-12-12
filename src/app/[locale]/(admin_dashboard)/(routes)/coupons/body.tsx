@@ -3,19 +3,19 @@
 import { Dialog, DialogContent, DialogDescription, DialogHeader, DialogTitle, DialogTrigger } from "@/components/ui/dialog";
 import React, { useEffect, useState } from "react";
 import { BiPlusCircle } from "react-icons/bi";
-import ClientForm from "@/components/ClientForm";
-import { IUser } from "@/models/models";
-import { UserDataTable } from "./data-table";
+import { CouponDataTable } from "./data-table";
+import CouponForm from "@/components/CouponForm";
+import { ICoupon } from "@/models/models";
 import { columns } from "./columns";
-import { getAllClients } from "@/lib/api-call";
+import { getAllCoupons } from "@/lib/api-call";
 
-export default function UserBody () {
-  const [usersData, setUsersData] = useState<IUser[]>([]);
+export default function BookBody () {
+  const [bookData, setBookData] = useState<ICoupon[]>([]);
 
   const fetchData = async ()=>{
-    const { data, error, validationErrors } = await getAllClients();
+    const { data, error, validationErrors } = await getAllCoupons();
 
-    if (data) setUsersData(data);
+    if (data) setBookData(data);
 
     if (validationErrors?.length) {
       console.error(validationErrors);
@@ -39,16 +39,16 @@ export default function UserBody () {
         <Dialog>
           <DialogTrigger className="rounded-full h-[40px] w-fit bg-main text-white text-x flex items-center justify-center gap-2 cursor-pointer px-4 shadow-lg hover:shadow-none">
             <BiPlusCircle className="text-white text-2xl" />{" "}
-            <span className="text-white">Add New Client</span>
+            <span className="text-white">Add New Coupon</span>
 
           </DialogTrigger>
           <DialogContent>
             <DialogHeader>
-              <DialogTitle>Add Client</DialogTitle>
+              <DialogTitle>Add Coupon</DialogTitle>
               <DialogDescription>
-              Kindly fill the form with your information
+              Kindly fill the form with the coupon information
               </DialogDescription>
-              <ClientForm/>
+              <CouponForm />
             </DialogHeader>
 
           </DialogContent>
@@ -56,7 +56,7 @@ export default function UserBody () {
 
       </div>
       <div>
-        <UserDataTable columns={columns} data={usersData} />
+        <CouponDataTable columns={columns} data={bookData} />
       </div>
 
     </div>

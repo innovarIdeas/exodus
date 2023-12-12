@@ -1,5 +1,5 @@
-import DiscountBody from "./body";
 import Link from "next/link";
+import OrderBody from "./body";
 import React from "react";
 import { getPermissions } from "@/lib/server";
 import { getServerSession } from "next-auth/next";
@@ -20,9 +20,11 @@ const page = async () => {
     );
   }
 
-  return <div className="mx-5">
-    <DiscountBody/>
-  </div>;
+  return (
+    <div className="mx-5 w-screen px-5">
+      <OrderBody />
+    </div>
+  );
 };
 
 export default page;
