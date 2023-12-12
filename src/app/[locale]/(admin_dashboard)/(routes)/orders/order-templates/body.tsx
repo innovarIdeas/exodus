@@ -39,12 +39,12 @@ export default function BookBody () {
         <Dialog>
           <DialogTrigger className="rounded-full h-[40px] w-fit bg-main text-white text-x flex items-center justify-center gap-2 cursor-pointer px-4 shadow-lg hover:shadow-none">
             <BiPlusCircle className="text-white text-2xl" />{" "}
-            <span className="text-white">Add New Book Variant</span>
+            <span className="text-white">Add Order Template</span>
 
           </DialogTrigger>
           <DialogContent>
             <DialogHeader>
-              <DialogTitle>Add Book Variant</DialogTitle>
+              <DialogTitle>Add Order Template</DialogTitle>
               <DialogDescription>
               Kindly fill the form with the book information
               </DialogDescription>

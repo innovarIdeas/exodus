@@ -1,4 +1,4 @@
-import DiscountBody from "./body";
+import BookBody from "./body";
 import Link from "next/link";
 import React from "react";
 import { getPermissions } from "@/lib/server";
@@ -20,9 +20,11 @@ const page = async () => {
     );
   }
 
-  return <div className="mx-5">
-    <DiscountBody/>
-  </div>;
+  return (
+    <div className="mx-5">
+      <BookBody/>
+    </div>
+  );
 };
 
 export default page;

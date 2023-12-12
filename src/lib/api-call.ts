@@ -1,5 +1,5 @@
-import { IApiError, IApiResponse, IBook, IBookVariant, IOrder, IUser, IValidationError } from "@/models/models";
-import { UpdateUserSchema, bookSchema, bookVariantSchema, orderSchema, updateBookSchema, userSchema } from "@/models/validation-schema";
+import { IApiError, IApiResponse, IBook, IBookVariant, ICoupon, IDiscount, IOrder, IUser, IValidationError } from "@/models/models";
+import { UpdateUserSchema, bookSchema, bookVariantSchema, couponSchema, orderSchema, updateBookSchema, updateCouponSchema, userSchema } from "@/models/validation-schema";
 import { z } from "zod";
 
 async function handleValidationResponse (response: Response) {
@@ -147,5 +147,47 @@ export const editClient = async (id: string, data: z.infer <typeof UpdateUserSch
 
 export const deleteClient = async (id: string): Promise<IApiResponse<IUser[]>> => {
   return handleApiCalls(await fetch(process.env.NEXT_PUBLIC_BROWSER_URL + "/api/clients/" + id,
+    { method: "DELETE" }));
+};
+
+export const createCoupon = async (data: z.infer <typeof couponSchema>): Promise<IApiResponse<ICoupon>> => {
+  return handleApiCalls(await fetch(process.env.NEXT_PUBLIC_BROWSER_URL + "/api/coupon",
+    {
+      method: "POST",
+      body: JSON.stringify(data)
+    }));
+};
+
+export const getAllCoupons = async (): Promise<IApiResponse<ICoupon[]>> => {
+  return handleApiCalls(await fetch(process.env.NEXT_PUBLIC_BROWSER_URL + "/api/coupon", { method: "GET" }));
+};
+
+export const deleteCoupon = async (id: string): Promise<IApiResponse<ICoupon>> => {
+  return handleApiCalls(await fetch(process.env.NEXT_PUBLIC_BROWSER_URL + "/api/coupon/" + id,
+    { method: "DELETE" }));
+};
+
+export const updateCoupon = async (id: string, data: z.infer <typeof updateCouponSchema>): Promise<IApiResponse<ICoupon>> => {
+  return handleApiCalls(await fetch(process.env.NEXT_PUBLIC_BROWSER_URL + "/api/coupon/" + id,
+    {
+      method: "PATCH",
+      body: JSON.stringify(data)
+    }));
+};
+
+export const createDiscount = async (data: z.infer <typeof couponSchema>): Promise<IApiResponse<IDiscount>> => {
+  return handleApiCalls(await fetch(process.env.NEXT_PUBLIC_BROWSER_URL + "/api/discount",
+    {
+      method: "POST",
+      body: JSON.stringify(data)
+    }));
+};
+
+export const getAllDiscounts = async (): Promise<IApiResponse<IDiscount[]>> => {
+  return handleApiCalls(await fetch(process.env.NEXT_PUBLIC_BROWSER_URL + "/api/discount", { method: "GET" }));
+};
+
+export const deleteDiscount = async (id: string): Promise<IApiResponse<IDiscount>> => {
+  return handleApiCalls(await fetch(process.env.NEXT_PUBLIC_BROWSER_URL + "/api/discount/" + id,
     { method: "DELETE" }));
 };

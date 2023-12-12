@@ -27,6 +27,7 @@ model User {
     addresses       Address[]
     contact_details ContactDetail[]
     created_books   Book[]          @relation(name: "CreatedBooks")
+    coupons         Coupon[]
 }
 
 model Address {
@@ -191,6 +192,7 @@ model Book {
     created_at      DateTime       @default(now())
     transactions    Transactions[]
     book_variants   Book_variant[]
+    discount        Discount[]
     Order           Order[]
 
     @@map("books")
@@ -200,12 +202,13 @@ model Discount {
     id              String    @id @unique @default(uuid())
     percentage      Int
     name            String
+    book_id         String
+    book            Book      @relation(fields: [book_id], references: [id])
     deleted_at      DateTime?
-    expires_at      DateTime  @default(now())
+    expires_at      DateTime?
     created_at      DateTime  @default(now())
     created_by      String
     created_by_user User      @relation(fields: [created_by], references: [id])
-    order           Order[]
 
     @@map("discounts")
 }
@@ -275,8 +278,9 @@ model Coupon {
     expires_at DateTime?
     created_at DateTime  @default(now())
     created_by String
+    created_by_user User      @relation(fields: [created_by], references: [id])
     deleted_at DateTime?
-    status     Boolean?
+    status     Boolean?  @default(true)
     order      Order[]
 
     @@map("coupons")
@@ -302,8 +306,6 @@ model Order {
     cover_total          Int?
     inner_total          Int?
     delivery_fee         Int?
-    discount_id          String?
-    discount_by_id       Discount?      @relation(fields: [discount_id], references: [id])
     coupon_id            String?
     coupon_by_id         Coupon?        @relation(fields: [coupon_id], references: [id])
     inner_page_cost      Int?

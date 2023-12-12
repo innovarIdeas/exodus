@@ -299,3 +299,19 @@ export const orderSchema = z.object({
   delivery_address: z.string().optional(),
 });
 
+export const couponSchema = z.object({
+  name: z.string(),
+  percentage: z.coerce.number(),
+  expires_at: z.coerce.date()
+    .min(new Date(1900, 1, 1), { message: "Date of employment must be after 1900" }),
+});
+
+export const updateCouponSchema = z.object({ status: z.boolean() });
+
+export const discountSchema = z.object({
+  name: z.string(),
+  percentage: z.coerce.number(),
+  expires_at: z.coerce.date()
+    .min(new Date(1900, 1, 1), { message: "Date of employment must be after 1900" }),
+  book_id: z.string(),
+});
