@@ -1,5 +1,6 @@
 import { IApiError, IApiResponse, IBook, IBookVariant, ICoupon, IDiscount, IOrder, ITempBook, ITransaction, IUser, IValidationError } from "@/models/models";
-import { UpdateUserSchema, bookSchema, bookVariantSchema, couponSchema, orderSchema, tempBookSchema, transactionSchema, updateBookSchema, updateCouponSchema, userSchema } from "@/models/validation-schema";import { z } from "zod";
+import { UpdateUserSchema, bookSchema, bookVariantSchema, couponSchema, orderSchema, tempBookSchema, transactionSchema, updateBookSchema, updateCouponSchema, updateTransactionSchema, userSchema } from "@/models/validation-schema";
+import { z } from "zod";
 
 async function handleValidationResponse (response: Response) {
   const issues = await response.json() as IValidationError[];
@@ -229,4 +230,12 @@ export const createTransaction = async (data: z.infer <typeof transactionSchema>
 
 export const getAllTransactions = async (): Promise<IApiResponse<ITransaction[]>> => {
   return handleApiCalls(await fetch(process.env.NEXT_PUBLIC_BROWSER_URL + "/api/transactions", { method: "GET" }));
+};
+
+export const updateTransaction = async (id: string, data: z.infer <typeof updateTransactionSchema>): Promise<IApiResponse<ITransaction>> => {
+  return handleApiCalls(await fetch(process.env.NEXT_PUBLIC_BROWSER_URL + "/api/transactions/" + id,
+    {
+      method: "PATCH",
+      body: JSON.stringify(data)
+    }));
 };

@@ -321,3 +321,5 @@ export const transactionSchema = z.object({
   status: z.string(),
   type: z.string(),
 });
+
+export const updateTransactionSchema = z.object({ status: z.string() });
