@@ -227,7 +227,7 @@ export const bookVariantSchema = z.object({
   book_id: z.string(),
   tempbook_id: z.string().optional(),
   paper_type: z.string(),
-  number_of_words: z.number().optional(),
+  number_of_words: z.coerce.number(),
   status: z.string(),
   hard_cover: z.boolean().optional(),
   BW_print: z.boolean().optional(),
@@ -238,12 +238,12 @@ export const bookVariantSchema = z.object({
   news_print: z.boolean().optional(),
   binding: z.string().optional(),
   white_paper: z.boolean().optional(),
-  no_of_books: z.number(),
+  no_of_books: z.coerce.number(),
   portrait: z.boolean().optional(),
-  quantity_of_Color: z.number().optional(),
-  quantity_of_BW: z.number().optional(),
+  quantity_of_Color: z.coerce.number().optional(),
+  quantity_of_BW: z.coerce.number().optional(),
   book_size: z.string().optional(),
-  number_of_pages: z.number().optional(),
+  number_of_pages: z.coerce.number().optional(),
   inside_layout: z.boolean().optional(),
   proof_reading: z.boolean().optional(),
   cover_design: z.boolean().optional(),
@@ -264,7 +264,7 @@ export const bookVariantSchema = z.object({
   ready_to_print: z.boolean().optional(),
   published: z.boolean().optional(),
   work_in_progress: z.boolean().optional(),
-  word_count: z.number().optional(),
+  word_count: z.coerce.number().optional(),
   current_book_format: z.string().optional(),
   inside_layout_type: z.string().optional(),
   art_illustration: z.boolean().optional(),
@@ -272,7 +272,7 @@ export const bookVariantSchema = z.object({
 });
 
 export const orderSchema = z.object({
-  book_id: z.string(),
+  book_id: z.string().optional(),
   client_id: z.string().optional(),
   book_variant_id: z.string(),
   total: z.coerce.number().optional(),
@@ -314,4 +314,10 @@ export const discountSchema = z.object({
   expires_at: z.coerce.date()
     .min(new Date(1900, 1, 1), { message: "Date of employment must be after 1900" }),
   book_id: z.string(),
+});
+
+export const transactionSchema = z.object({
+  order_id: z.string(),
+  status: z.string(),
+  type: z.string(),
 });

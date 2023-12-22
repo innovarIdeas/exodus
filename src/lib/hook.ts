@@ -1,6 +1,6 @@
 "use client";
 
-import { getAllBookVariants, getAllBooks, getAllClients, getSingleOrder } from "./api-call";
+import { getAllBookVariants, getAllBooks, getAllClients, getAllOrders, getAllTransactions, getSingleOrder } from "./api-call";
 import { IPermission } from "@/models/models";
 import { QUERY_KEY } from "./rbac";
 import { useQuery } from "@tanstack/react-query";
@@ -98,6 +98,56 @@ export const useGetSingleOrder = (id: string) => {
     queryKey: [QUERY_KEY.GET_SINGLE_ORDER],
     queryFn: async () => {
       const { data, validationErrors, error } = await getSingleOrder(id);
+
+      if (validationErrors?.length) {
+        console.error(validationErrors[0].message);
+
+        return;
+      }
+
+      if (error) {
+        console.log(error);
+
+        return;
+      }
+
+      return data;
+    }
+  });
+
+  return data || undefined;
+};
+
+export const useGetAllOrder = () => {
+  const { data } = useQuery({
+    queryKey: [QUERY_KEY.GET_ALL_ORDER],
+    queryFn: async () => {
+      const { data, validationErrors, error } = await getAllOrders();
+
+      if (validationErrors?.length) {
+        console.error(validationErrors[0].message);
+
+        return;
+      }
+
+      if (error) {
+        console.log(error);
+
+        return;
+      }
+
+      return data;
+    }
+  });
+
+  return data || undefined;
+};
+
+export const useGetAllTransactions = () => {
+  const { data } = useQuery({
+    queryKey: [QUERY_KEY.GET_ALL_TRANSACTION],
+    queryFn: async () => {
+      const { data, validationErrors, error } = await getAllTransactions();
 
       if (validationErrors?.length) {
         console.error(validationErrors[0].message);
