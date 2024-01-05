@@ -4,13 +4,13 @@ import React, { useEffect, useState } from "react";
 import { IOrder } from "@/models/models";
 import { OrderDataTable } from "./data-table";
 import { columns } from "./columns";
-import { getAllOrders } from "@/lib/api-call";
+import { getPublisherOrders } from "@/lib/api-call";
 
 export default function OrderBody () {
   const [bookData, setBookData] = useState<IOrder[]>([]);
 
   const fetchData = async ()=>{
-    const { data, error, validationErrors } = await getAllOrders();
+    const { data, error, validationErrors } = await getPublisherOrders();
 
     if (data) setBookData(data);
 

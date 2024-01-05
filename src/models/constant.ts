@@ -44,3 +44,5 @@ export const Links = [
 export const ADDRESS_TYPE = { "POSTAL": "POSTAL", "SHIPPING": "SHIPPING" };
 
 export const HOOK_QUERY = { "CLIENTS": "clients", "USERS": "users" };
+
+export const TRANSACTION_TYPE = { "TRANSFER": "TRANSFER", "CASH": "CASH", "ONLINE": "ONLINE", "CARD": "CARD" };

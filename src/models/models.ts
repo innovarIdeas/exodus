@@ -234,3 +234,8 @@ export interface IDiscount extends IBase {
   expires_at: string;
 }
 
+export interface ITransaction extends IBase {
+  order: IOrder;
+  status: string;
+  transaction_type: string;
+}

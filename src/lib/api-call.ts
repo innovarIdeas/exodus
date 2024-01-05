@@ -1,5 +1,5 @@
-import { IApiError, IApiResponse, IBook, IBookVariant, ICoupon, IDiscount, IOrder, ITempBook, IUser, IValidationError } from "@/models/models";
-import { UpdateUserSchema, bookSchema, bookVariantSchema, couponSchema, orderSchema, tempBookSchema, updateBookSchema, updateCouponSchema, userSchema } from "@/models/validation-schema";
+import { IApiError, IApiResponse, IBook, IBookVariant, ICoupon, IDiscount, IOrder, ITempBook, ITransaction, IUser, IValidationError } from "@/models/models";
+import { UpdateUserSchema, bookSchema, bookVariantSchema, couponSchema, orderSchema, tempBookSchema, transactionSchema, updateBookSchema, updateCouponSchema, updateTransactionSchema, userSchema } from "@/models/validation-schema";
 import { z } from "zod";
 
 async function handleValidationResponse (response: Response) {
@@ -214,4 +214,28 @@ export const getAllDiscounts = async (): Promise<IApiResponse<IDiscount[]>> => {
 export const deleteDiscount = async (id: string): Promise<IApiResponse<IDiscount>> => {
   return handleApiCalls(await fetch(process.env.NEXT_PUBLIC_BROWSER_URL + "/api/discount/" + id,
     { method: "DELETE" }));
+};
+
+export const getPublisherOrders = async (): Promise<IApiResponse<IOrder[]>> => {
+  return handleApiCalls(await fetch(process.env.NEXT_PUBLIC_BROWSER_URL + "/api/order/publishers/", { method: "GET" }));
+};
+
+export const createTransaction = async (data: z.infer <typeof transactionSchema>): Promise<IApiResponse<ITransaction>> => {
+  return handleApiCalls(await fetch(process.env.NEXT_PUBLIC_BROWSER_URL + "/api/transactions",
+    {
+      method: "POST",
+      body: JSON.stringify(data)
+    }));
+};
+
+export const getAllTransactions = async (): Promise<IApiResponse<ITransaction[]>> => {
+  return handleApiCalls(await fetch(process.env.NEXT_PUBLIC_BROWSER_URL + "/api/transactions", { method: "GET" }));
+};
+
+export const updateTransaction = async (id: string, data: z.infer <typeof updateTransactionSchema>): Promise<IApiResponse<ITransaction>> => {
+  return handleApiCalls(await fetch(process.env.NEXT_PUBLIC_BROWSER_URL + "/api/transactions/" + id,
+    {
+      method: "PATCH",
+      body: JSON.stringify(data)
+    }));
 };
