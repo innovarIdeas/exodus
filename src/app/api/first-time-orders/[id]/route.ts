@@ -2,8 +2,6 @@ import { NextRequest, NextResponse } from "next/server";
 import { CLAIM_TYPE } from "@/models/constant";
 import { ROLE_STAFF } from "@/lib/rbac";
 import bcrypt from "bcryptjs";
-import { getServerSession } from "next-auth";
-import { options } from "@/app/api/auth/[...nextauth]/options";
 import prisma from "@/lib/prisma";
 
 export async function GET () {
