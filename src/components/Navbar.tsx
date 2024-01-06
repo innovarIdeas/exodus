@@ -8,7 +8,7 @@ const Navbar = () => {
   return (
     <nav className="w-full h-[90px] flex items-center justify-between p-5 shadow-md">
       <img src="/img/magicwand.png" className="h-[60px]" />
-      <Button className="bg-red text-white rounded-full h-[50px] w-[12%] font-semibold" onClick={() => signOut()}>
+      <Button className="bg-white hover:bg-white  text-black active:font-bold rounded-full  font-semibold" onClick={() => signOut()}>
         Logout
       </Button>
     </nav>

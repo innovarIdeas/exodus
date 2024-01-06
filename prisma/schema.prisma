@@ -74,7 +74,7 @@ model Temp_Book {
     created_at            DateTime  @default(now())
     deleted_at            DateTime?
     phone_number          String
-    paper_type            String
+    paper_type            String?
     number_of_words       Int?
     status                String
     hard_cover            Boolean?  @default(false)
@@ -86,12 +86,12 @@ model Temp_Book {
     news_print            Boolean?  @default(false)
     binding               String?
     white_paper           Boolean?  @default(false)
-    no_of_books           Int
+    no_of_books           Int?
     portrait              Boolean?  @default(false)
     quantity_of_color     Int?
     quantity_of_BW        Int?
     book_size             String?
-    number_of_pages       Int
+    number_of_pages       Int?
     inside_layout         Boolean?  @default(false)
     proof_reading         Boolean?  @default(false)
     cover_design          Boolean?  @default(false)
@@ -101,7 +101,7 @@ model Temp_Book {
     online_sale           Boolean?  @default(false)
     embossing             Boolean?  @default(false)
     foiling               Boolean?  @default(false)
-    lamination            String
+    lamination            String?
     delivery_name         String?
     delivery_phone        String?
     pick_up               Boolean?  @default(false)
@@ -272,16 +272,16 @@ model Book_variant {
 }
 
 model Coupon {
-    id         String    @id @unique @default(uuid())
-    percentage Int
-    name       String
-    expires_at DateTime?
-    created_at DateTime  @default(now())
-    created_by String
+    id              String    @id @unique @default(uuid())
+    percentage      Int
+    name            String
+    expires_at      DateTime?
+    created_at      DateTime  @default(now())
+    created_by      String
     created_by_user User      @relation(fields: [created_by], references: [id])
-    deleted_at DateTime?
-    status     Boolean?  @default(true)
-    order      Order[]
+    deleted_at      DateTime?
+    status          Boolean?  @default(true)
+    order           Order[]
 
     @@map("coupons")
 }
@@ -289,7 +289,7 @@ model Coupon {
 model Order {
     id                   String         @id @unique @default(uuid())
     book_id              String?
-    book                 Book?           @relation(fields: [book_id], references: [id])
+    book                 Book?          @relation(fields: [book_id], references: [id])
     temp_book_id         String?
     created_by           String
     client_id            String?
@@ -333,7 +333,7 @@ model Transactions {
     order_id        String
     order           Order     @relation(fields: [order_id], references: [id])
     book_id         String?
-    book_by_id      Book?      @relation(fields: [book_id], references: [id])
+    book_by_id      Book?     @relation(fields: [book_id], references: [id])
     user_id         String
     created_by_user User      @relation(fields: [user_id], references: [id])
     deleted_at      DateTime?

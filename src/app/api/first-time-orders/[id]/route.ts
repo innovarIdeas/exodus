@@ -23,20 +23,17 @@ export async function GET () {
 
 export async function POST (req: NextRequest, { params }: { params: { id: string } }) {
   try{
-    const session = await getServerSession(options);
+    // const session = await getServerSession(options);
     const { id } = params;
     const role = await prisma.role.findUnique({ where: { name: ROLE_STAFF } });
-
-    if (!role) {
-      return NextResponse.json({ error: "Internal server error" }, { status: 500 });
-    }
-
-    if (!session) {
-      return NextResponse.json({ error: "Unauthorized" }, { status: 401 });
-    }
-
     const tempBook = await prisma.temp_Book.findUnique({ where: { id } });
+    // if (!role) {
+    //   return NextResponse.json({ error: "Internal server error" }, { status: 500 });
+    // }
 
+    // if (!session) {
+    //   return NextResponse.json({ error: "Unauthorized" }, { status: 401 });
+    // }
     if(!tempBook) {
       return NextResponse.json({ error: "Temp_Book not found" }, { status: 404 });
     }
@@ -54,7 +51,7 @@ export async function POST (req: NextRequest, { params }: { params: { id: string
     const book =  await prisma.book.create({
       data: {
         title: tempBook.name,
-        created_by: session.user.id
+        created_by: user.id
       }
     });
 
@@ -64,7 +61,7 @@ export async function POST (req: NextRequest, { params }: { params: { id: string
         variant_name: tempBook.email,
         created_by_user: { connect: { id: user.id } },
         tempbook_id: tempBook.id,
-        paper_type: tempBook.paper_type,
+        paper_type: tempBook.paper_type ? tempBook.paper_type : "",
         number_of_words: tempBook.number_of_words,
         status: tempBook.status,
         hard_cover: tempBook.hard_cover,
@@ -76,7 +73,7 @@ export async function POST (req: NextRequest, { params }: { params: { id: string
         news_print: tempBook.news_print,
         binding: tempBook.binding,
         white_paper: tempBook.white_paper,
-        no_of_books: tempBook.no_of_books,
+        no_of_books: tempBook.no_of_books ? tempBook.no_of_books : 1,
         portrait: tempBook.portrait,
         quantity_of_Color: tempBook.quantity_of_color,
         quantity_of_BW: tempBook.quantity_of_BW,
@@ -91,7 +88,7 @@ export async function POST (req: NextRequest, { params }: { params: { id: string
         online_sale: tempBook.online_sale,
         embossing: tempBook.embossing,
         foiling: tempBook.foiling,
-        lamination: tempBook.lamination,
+        lamination: tempBook.lamination ? tempBook.lamination : "yes",
         delivery_name: tempBook.delivery_name,
         delivery_phone: tempBook.delivery_phone,
         pick_up: tempBook.pick_up,

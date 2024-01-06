@@ -31,7 +31,7 @@ export async function POST (req: NextRequest) {
       return NextResponse.json({ error: validation.error.issues }, { status: 400 });
     }
 
-    const tempBook = await prisma.temp_Book.create({ data: validation.data });
+    const tempBook = await prisma.temp_Book.create({ data: { ...validation.data, book_name: validation.data.title } });
 
     return NextResponse.json(tempBook, { status: 201 });
   } catch (error) {

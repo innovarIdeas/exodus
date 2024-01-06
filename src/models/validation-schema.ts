@@ -35,7 +35,7 @@ export const tempBookSchema = z.object({
   title: z.string(),
   name: z.string(),
   phone_number: z.string(),
-  paper_type: z.string(),
+  paper_type: z.string().optional(),
   number_of_words: z.number().int()
     .optional(),
   status: z.string(),
@@ -48,14 +48,16 @@ export const tempBookSchema = z.object({
   news_print: z.boolean().optional(),
   binding: z.string().optional(),
   white_paper: z.boolean().optional(),
-  no_of_books: z.number().int(),
+  no_of_books: z.number().int()
+    .optional(),
   portrait: z.boolean().optional(),
   quantity_of_color: z.number().int()
     .optional(),
   quantity_of_BW: z.number().int()
     .optional(),
   book_size: z.string().optional(),
-  number_of_pages: z.number().int(),
+  number_of_pages: z.number().int()
+    .optional(),
   inside_layout: z.boolean().optional(),
   proof_reading: z.boolean().optional(),
   cover_design: z.boolean().optional(),
@@ -65,7 +67,7 @@ export const tempBookSchema = z.object({
   online_sale: z.boolean().optional(),
   embossing: z.boolean().optional(),
   foiling: z.boolean().optional(),
-  lamination: z.string(),
+  lamination: z.string().optional(),
   delivery_name: z.string().optional(),
   delivery_phone: z.string().optional(),
   pick_up: z.boolean().optional(),
