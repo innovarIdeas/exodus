@@ -23,7 +23,7 @@ module.exports = {
   },
   plugins: ["@typescript-eslint", "react"],
   rules: {
-    quotes: ["error", "double"],
+    "quotes": ["error", "double"],
     "comma-dangle": ["error", "only-multiline"],
     "quote-props": ["error", "consistent"],
     "jsx-quotes": ["error", "prefer-double"],
@@ -54,7 +54,7 @@ module.exports = {
     "key-spacing": ["error", { afterColon: true }],
     "object-curly-spacing": ["error", "always"],
     "object-curly-newline": ["error", { multiline: true }],
-    indent: "off",
+    "indent": "off",
     "@typescript-eslint/indent": ["error", 2],
     "space-before-blocks": "off",
     "@typescript-eslint/space-before-blocks": ["error"],
@@ -116,7 +116,7 @@ module.exports = {
       },
     ],
     "@typescript-eslint/member-delimiter-style": ["error"],
-    semi: "off",
+    "semi": "off",
     "@typescript-eslint/semi": ["error", "always"],
   },
 };

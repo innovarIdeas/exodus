@@ -1,9 +1,6 @@
 "use client";
 
-import { Dialog, DialogContent, DialogDescription, DialogHeader, DialogTitle, DialogTrigger } from "@/components/ui/dialog";
 import React, { useEffect, useState } from "react";
-import { BiPlusCircle } from "react-icons/bi";
-import BookForm from "@/components/BookForm";
 import { IOrder } from "@/models/models";
 import { OrderDataTable } from "./data-table";
 import { columns } from "./columns";
@@ -34,25 +31,7 @@ export default function OrderBody () {
 
   return(
     <div>
-      <div className="flex justify-end items-end float-right mx-5 my-5">
-
-        <Dialog>
-          <DialogTrigger className="rounded-full h-[40px] w-fit bg-main text-white text-x flex items-center justify-center gap-2 cursor-pointer px-4 shadow-lg hover:shadow-none">
-            <BiPlusCircle className="text-white text-2xl" />{" "}
-            <span className="text-white">Create New Order</span>
-
-          </DialogTrigger>
-          <DialogContent>
-            <DialogHeader>
-              <DialogTitle>Add a new order</DialogTitle>
-              <DialogDescription>
-              Kindly fill the form with the order information
-              </DialogDescription>
-              <BookForm />
-            </DialogHeader>
-
-          </DialogContent>
-        </Dialog>
+      <div className="flex justify-end items-end mx-5 my-5">
 
       </div>
       <div>

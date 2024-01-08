@@ -1,9 +1,42 @@
+import { Tabs, TabsContent, TabsList, TabsTrigger } from "@/components/ui/tabs";
+import BookBody from "./order-templates/body";
+import Link from "next/link";
+import OrderBody from "./body";
 import React from "react";
+import { getPermissions } from "@/lib/server";
+import { getServerSession } from "next-auth/next";
+import { options } from "@/app/api/auth/[...nextauth]/options";
 
-const page = () => {
+const page = async () => {
+  const session = await getServerSession(options);
+  const permissions = await getPermissions(session);
+
+  if (!permissions.length) {
+    return (
+      <main className="flex flex-col items-center p-5">
+        You are not authorized to view this page. Please login. <br/>
+        <Link href="/" className="bg-primary text-white py-2 px-3.5 my-3">
+          Go to login page
+        </Link>
+      </main>
+    );
+  }
+
   return (
-    <div>
-      <h1>this is orders route</h1>
+    <div className="mx-5 w-screen px-5">
+      <Tabs defaultValue="orders" className="w-full">
+        <TabsList>
+          <TabsTrigger value="orders">Orders</TabsTrigger>
+          <TabsTrigger value="order-templates">Order Templates</TabsTrigger>
+        </TabsList>
+        <TabsContent value="orders">
+          <OrderBody/>
+        </TabsContent>
+        <TabsContent value="order-templates">
+          <BookBody/>
+        </TabsContent>
+      </Tabs>
+
     </div>
   );
 };

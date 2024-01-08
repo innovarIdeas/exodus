@@ -1,6 +1,6 @@
 services:
-  okoh-postgres:
-    container_name: okoh-db
+  exodus-postgres:
+    container_name: exodus
     image: postgres
     ports:
       - 5432:5432

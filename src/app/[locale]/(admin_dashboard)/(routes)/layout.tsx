@@ -43,6 +43,11 @@ const adminRouteLayout: React.FC<adminRouteLayoutProps> = ({ children }) => {
                 </Link>
               </DropdownMenuItem>
               <DropdownMenuItem>
+                <Link href="/coupons" className="text-lg">
+                  Coupons
+                </Link>
+              </DropdownMenuItem>
+              <DropdownMenuItem>
                 <Link href="/transactions" className="text-lg">
                   Transactions
                 </Link>
@@ -55,6 +60,11 @@ const adminRouteLayout: React.FC<adminRouteLayoutProps> = ({ children }) => {
               <DropdownMenuItem>
                 <Link href="/users" className="text-lg">
                   Users
+                </Link>
+              </DropdownMenuItem>
+              <DropdownMenuItem>
+                <Link href="/publishers" className="text-lg">
+                Publishers
                 </Link>
               </DropdownMenuItem>
               <DropdownMenuItem>

@@ -3,7 +3,9 @@
 import { Dialog, DialogContent, DialogDescription, DialogHeader, DialogTitle, DialogTrigger } from "@/components/ui/dialog";
 import { Checkbox } from "@/components/ui/checkbox";
 import { ColumnDef } from "@tanstack/react-table";
+import CreateTransaction from "@/components/CreateTransaction";
 import { IOrder } from "@/models/models";
+import Link from "next/link";
 import React from "react";
 
 export const columns: ColumnDef<IOrder>[] = [
@@ -35,14 +37,38 @@ export const columns: ColumnDef<IOrder>[] = [
 
       return (
         <div className="flex items-center gap-2">
-          <span>{book.client.name}</span>
+          <span>{book.book_variant.book?.client?.name}</span>
         </div>
       );
     }
   },
   {
-    accessorKey: "total",
-    header: "Total",
+    accessorKey: "book_name",
+    header: "Book Name",
+
+    cell: ({ row }) => {
+      const book = row.original;
+
+      return (
+        <div className="flex items-center gap-2">
+          <span>{book.book_variant.book.title}</span>
+        </div>
+      );
+    }
+  },
+  {
+    accessorKey: "book_variant",
+    header: "Book Variant",
+
+    cell: ({ row }) => {
+      const book = row.original;
+
+      return (
+        <div className="flex items-center gap-2">
+          <span>{book.book_variant.variant_name}</span>
+        </div>
+      );
+    }
   },
   {
     accessorKey: "total",
@@ -53,7 +79,7 @@ export const columns: ColumnDef<IOrder>[] = [
     header: "Status",
   },
   {
-    accessorKey: "created_at",
+    accessorKey: "timestamp",
     header: "Date added",
   },
   {
@@ -64,22 +90,38 @@ export const columns: ColumnDef<IOrder>[] = [
       console.log(book);
 
       return (
+        <Link href={`/order/${book.id}`} className="rounded-full h-[40px] w-fit bg-main text-white text-x flex items-center justify-center gap-2 cursor-pointer px-4 shadow-lg hover:shadow-none">
+          View Order
+        </Link>
+      );
+    },
+  },
+  {
+    id: "Pay",
+    cell: ({ row }) => {
+      const order = row.original;
+
+      console.log(order);
+
+      return (
         <Dialog>
           <DialogTrigger className="rounded-full h-[40px] w-fit bg-main text-white text-x flex items-center justify-center gap-2 cursor-pointer px-4 shadow-lg hover:shadow-none">
-            <span className="text-white">View Order</span>
+            <span className="text-white">Create Transaction</span>
           </DialogTrigger>
-          <DialogContent>
+          <DialogContent className="w-1/2 overflow-auto">
             <DialogHeader>
-              <DialogTitle>View Order</DialogTitle>
+              <DialogTitle>Create Transaction</DialogTitle>
               <DialogDescription>
-                      View Order information
+                      Are you sure you want to create this Transaction?
               </DialogDescription>
-              {/* <EditBookForm id={book.id} title={book.title} description={book.description ? book.description : "no description"}/> */}
+
+              <CreateTransaction order_id={order.id}/>
             </DialogHeader>
 
           </DialogContent>
         </Dialog>
+
       );
     },
-  },
+  }
 ];
