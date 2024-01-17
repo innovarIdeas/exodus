@@ -106,7 +106,7 @@ export async function POST (req: NextRequest, { params }: { params: { id: string
       }
     });
 
-    await prisma.order.create({
+    const order = await prisma.order.create({
       data: {
         book: { connect: { id: book.id } },
         temp_book_id: tempBook.id,
@@ -119,7 +119,7 @@ export async function POST (req: NextRequest, { params }: { params: { id: string
       }
     });
 
-    return NextResponse.json(tempBook, { status: 201 });
+    return NextResponse.json({  user,  book,  bookVariant, order  }, { status: 201 });
   } catch (error) {
     console.error("Error in POST request:", error);
 
