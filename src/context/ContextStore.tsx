@@ -1,7 +1,7 @@
-"use client"
+"use client";
 
-import { createContext, ReactNode, useState } from 'react';
-import { ITempBook } from '@/models/models';
+import { ReactNode, createContext, useState } from "react";
+import React from "react";
 
 interface ContextValues {
   readyToPrint: boolean;
@@ -120,7 +120,7 @@ interface ContextValues {
   setTermsAndCondition: React.Dispatch<React.SetStateAction<boolean>>;
   nextOpen: boolean;
   setNextOpen: React.Dispatch<React.SetStateAction<boolean>>;
-  
+
 }
 
 export const ContextStore = createContext<ContextValues | undefined>(undefined);
@@ -135,64 +135,60 @@ export const ContextProvider: React.FC<ContextProviderProps> = ({ children }) =>
   const [book, setBook] = useState(false);
   const [magazine, setMagazine] = useState(false);
   const [stationary, setStationary] = useState(false);
-  const [numberOfWords, setNumberOfWords] = useState(0)
-  const [hardCover, setHardCover] = useState(false)
-  const [bwPrint, setBwPrint] = useState(false)
-  const [bothPrint, setBothPrint] = useState(false)
-  const [colorPrint, setColorPrint] = useState(false)
-  const [creamPaper, setCreamPaper] = useState(false)
-  const [glossyPaper, setGlossyPaper] = useState(false)
-  const [newsPaper, setNewsPaper] = useState(false)
-  const [binding, setBinding] = useState('')
-  const [whitePaper, setWhitePaper] = useState(false)
-  const [noOfBooks, setNoOfBooks] = useState(0)
-  const [potrait, setPotrait] = useState(true)
-  const [noOfPages, setNoOfPages] = useState(0)
-  const [qualityOfColor, setQualityOfColor] = useState(0)
-  const [qualityOfBw, setQualityOfBw] = useState(0)
-  const [bookSize, setBookSize] = useState('')
-  const [insideLayout, setInsideLayout] = useState(false)
-  const [proofReading, setProofReading] = useState(false)
-  const [coverDesign, setCoverDesign] = useState(false)
-  const [isbn, setIsbn] = useState(false)
-  const [embossing, setEmbossing] = useState(false)
-  const [foiling, setFoiling] = useState(false)
-  const [lamination, setLamination] = useState('')
-  const [deliveryName, setDeliveryName] = useState('')
-  const [deliveryPhone, setDeliveryPhone] = useState('')
-  const [pickUp, setPickUp] = useState(false)
-  const [shippingAddress, setShippingAddress] = useState('')
-  const [shippingState, setShippingState] = useState('')
-  const [shippingInstruction, setShippingInstruction] = useState('')
-  const [projectType, setProjectType] = useState('')
-  const [published, setPublished] = useState(false)
-  const [wordCount, setWordCount] = useState(0)
-  const [currentBookFormat, setCurrentBookFormat] = useState('')
-  const [insideLayoutType, setInsideLayoutType] = useState('')
-  const [artIllustration, setArtIllustration] = useState(false)
-  const [artIllustrationType, setArtIllustrationType] = useState('')
-  const [bindong, setBindong] = useState()
-  const [email, setEmail] = useState('')
-  const [bookName, setBookName] = useState('')
-  const [phoneNumber, setPhoneNumber] = useState('')
-  const [name, setName] = useState('')
-  const [newsPrint, setNewsPrint] = useState(false)
-
-  const [paperInfo, setPaperInfo] = useState(true)
-  const [bookInfo, setBookInfo] = useState(false)
-  const [bookCoverInfo, setBookCoverInfo] = useState(false)
-  const [deliveryOption, setDeliveryOption] = useState(false)
-  const [confirmOrder, setConfirmOrder] = useState(false)
-  const [paperInfoFormOne, setPaperInfoFormOne] = useState(false)
-  const [paperInfoFormTwo, setPaperInfoFormTwo] = useState(false)
-  const [paperInfoFormThree, setPaperInfoFormThree] = useState(false)
-  const [currentStep, setCurrentStep] = useState(1)
-  const [submitForm, setSubmitForm] = useState(false)
-  const [termsAndCondition, setTermsAndCondition] = useState(false)
-  const [nextOpen, setNextOpen] = useState(false)
-  
-
-  const contextValue: ContextValues = {readyToPrint, setReadyToPrint, workInProgress, setWorkInProgress, book, setBook, magazine, setMagazine, stationary, setStationary, numberOfWords, setNumberOfWords, hardCover, setHardCover, bwPrint, setBwPrint, bothPrint, setBothPrint, colorPrint, setColorPrint, creamPaper, setCreamPaper, glossyPaper, setGlossyPaper, newsPaper, setNewsPaper, binding, setBinding, whitePaper, setWhitePaper, noOfBooks, setNoOfBooks, potrait, setPotrait, noOfPages, setNoOfPages, qualityOfColor, setQualityOfColor, qualityOfBw, setQualityOfBw, bookSize, setBookSize, insideLayout, setInsideLayout, proofReading, setProofReading, coverDesign, setCoverDesign, isbn, setIsbn, embossing, setEmbossing, foiling, setFoiling, lamination, setLamination, deliveryName, setDeliveryName, deliveryPhone, setDeliveryPhone, pickUp, setPickUp, shippingAddress, setShippingAddress, shippingState, setShippingState, shippingInstruction, setShippingInstruction, projectType, setProjectType, published, setPublished, wordCount, setWordCount, currentBookFormat, setCurrentBookFormat, insideLayoutType, setInsideLayoutType, artIllustration, setArtIllustration, artIllustrationType, setArtIllustrationType, paperInfo, setPaperInfo, bookInfo, setBookInfo, bookCoverInfo, setBookCoverInfo, deliveryOption, setDeliveryOption, confirmOrder, setConfirmOrder, paperInfoFormOne, setPaperInfoFormOne, paperInfoFormTwo, setPaperInfoFormTwo, paperInfoFormThree, setPaperInfoFormThree, currentStep, setCurrentStep, name, setName, phoneNumber, setPhoneNumber, bookName, setBookName, email, setEmail, newsPrint, setNewsPrint, submitForm, setSubmitForm, termsAndCondition, setTermsAndCondition, nextOpen, setNextOpen };
+  const [numberOfWords, setNumberOfWords] = useState(0);
+  const [hardCover, setHardCover] = useState(false);
+  const [bwPrint, setBwPrint] = useState(false);
+  const [bothPrint, setBothPrint] = useState(false);
+  const [colorPrint, setColorPrint] = useState(false);
+  const [creamPaper, setCreamPaper] = useState(false);
+  const [glossyPaper, setGlossyPaper] = useState(false);
+  const [newsPaper, setNewsPaper] = useState(false);
+  const [binding, setBinding] = useState("");
+  const [whitePaper, setWhitePaper] = useState(false);
+  const [noOfBooks, setNoOfBooks] = useState(0);
+  const [potrait, setPotrait] = useState(true);
+  const [noOfPages, setNoOfPages] = useState(0);
+  const [qualityOfColor, setQualityOfColor] = useState(0);
+  const [qualityOfBw, setQualityOfBw] = useState(0);
+  const [bookSize, setBookSize] = useState("");
+  const [insideLayout, setInsideLayout] = useState(false);
+  const [proofReading, setProofReading] = useState(false);
+  const [coverDesign, setCoverDesign] = useState(false);
+  const [isbn, setIsbn] = useState(false);
+  const [embossing, setEmbossing] = useState(false);
+  const [foiling, setFoiling] = useState(false);
+  const [lamination, setLamination] = useState("");
+  const [deliveryName, setDeliveryName] = useState("");
+  const [deliveryPhone, setDeliveryPhone] = useState("");
+  const [pickUp, setPickUp] = useState(false);
+  const [shippingAddress, setShippingAddress] = useState("");
+  const [shippingState, setShippingState] = useState("");
+  const [shippingInstruction, setShippingInstruction] = useState("");
+  const [projectType, setProjectType] = useState("");
+  const [published, setPublished] = useState(false);
+  const [wordCount, setWordCount] = useState(0);
+  const [currentBookFormat, setCurrentBookFormat] = useState("");
+  const [insideLayoutType, setInsideLayoutType] = useState("");
+  const [artIllustration, setArtIllustration] = useState(false);
+  const [artIllustrationType, setArtIllustrationType] = useState("");
+  const [email, setEmail] = useState("");
+  const [bookName, setBookName] = useState("");
+  const [phoneNumber, setPhoneNumber] = useState("");
+  const [name, setName] = useState("");
+  const [newsPrint, setNewsPrint] = useState(false);
+  const [paperInfo, setPaperInfo] = useState(true);
+  const [bookInfo, setBookInfo] = useState(false);
+  const [bookCoverInfo, setBookCoverInfo] = useState(false);
+  const [deliveryOption, setDeliveryOption] = useState(false);
+  const [confirmOrder, setConfirmOrder] = useState(false);
+  const [paperInfoFormOne, setPaperInfoFormOne] = useState(false);
+  const [paperInfoFormTwo, setPaperInfoFormTwo] = useState(false);
+  const [paperInfoFormThree, setPaperInfoFormThree] = useState(false);
+  const [currentStep, setCurrentStep] = useState(1);
+  const [submitForm, setSubmitForm] = useState(false);
+  const [termsAndCondition, setTermsAndCondition] = useState(false);
+  const [nextOpen, setNextOpen] = useState(false);
+  const contextValue: ContextValues = { readyToPrint, setReadyToPrint, workInProgress, setWorkInProgress, book, setBook, magazine, setMagazine, stationary, setStationary, numberOfWords, setNumberOfWords, hardCover, setHardCover, bwPrint, setBwPrint, bothPrint, setBothPrint, colorPrint, setColorPrint, creamPaper, setCreamPaper, glossyPaper, setGlossyPaper, newsPaper, setNewsPaper, binding, setBinding, whitePaper, setWhitePaper, noOfBooks, setNoOfBooks, potrait, setPotrait, noOfPages, setNoOfPages, qualityOfColor, setQualityOfColor, qualityOfBw, setQualityOfBw, bookSize, setBookSize, insideLayout, setInsideLayout, proofReading, setProofReading, coverDesign, setCoverDesign, isbn, setIsbn, embossing, setEmbossing, foiling, setFoiling, lamination, setLamination, deliveryName, setDeliveryName, deliveryPhone, setDeliveryPhone, pickUp, setPickUp, shippingAddress, setShippingAddress, shippingState, setShippingState, shippingInstruction, setShippingInstruction, projectType, setProjectType, published, setPublished, wordCount, setWordCount, currentBookFormat, setCurrentBookFormat, insideLayoutType, setInsideLayoutType, artIllustration, setArtIllustration, artIllustrationType, setArtIllustrationType, paperInfo, setPaperInfo, bookInfo, setBookInfo, bookCoverInfo, setBookCoverInfo, deliveryOption, setDeliveryOption, confirmOrder, setConfirmOrder, paperInfoFormOne, setPaperInfoFormOne, paperInfoFormTwo, setPaperInfoFormTwo, paperInfoFormThree, setPaperInfoFormThree, currentStep, setCurrentStep, name, setName, phoneNumber, setPhoneNumber, bookName, setBookName, email, setEmail, newsPrint, setNewsPrint, submitForm, setSubmitForm, termsAndCondition, setTermsAndCondition, nextOpen, setNextOpen };
 
   return (
     <ContextStore.Provider value={contextValue}>

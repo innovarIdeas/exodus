@@ -73,7 +73,8 @@ export interface IUser extends IBase {
   email: string;
   password: string;
 }
-export interface IFirstTimeOrderResponse extends IBase{
+
+export interface IFirstTimeOrderResponse extends IBase {
   user: IUser;
   bookVariant: IBookVariant;
   order: IOrder;
