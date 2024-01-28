@@ -34,5 +34,197 @@
       "action": "read",
       "code": "103",
       "resource_id" : ""
+    },
+    {
+      "module": "book",
+      "action": "create",
+      "code": "104",
+      "resource_id" : ""
+    },
+    {
+      "module": "book",
+      "action": "delete",
+      "code": "105",
+      "resource_id" : ""
+    },
+    {
+      "module": "book",
+      "action": "update",
+      "code": "106",
+      "resource_id" : ""
+    },
+    {
+      "module": "book",
+      "action": "read",
+      "code": "107",
+      "resource_id" : ""
+    },
+    {
+      "module": "book-variant",
+      "action": "create",
+      "code": "108",
+      "resource_id" : ""
+    },
+    {
+      "module": "book-variant",
+      "action": "delete",
+      "code": "109",
+      "resource_id" : ""
+    },
+    {
+      "module": "book-variant",
+      "action": "update",
+      "code": "110",
+      "resource_id" : ""
+    },
+    {
+      "module": "book-variant",
+      "action": "read",
+      "code": "111",
+      "resource_id" : ""
+    },
+    {
+      "module": "order",
+      "action": "create",
+      "code": "112",
+      "resource_id" : ""
+    },
+    {
+      "module": "order",
+      "action": "delete",
+      "code": "113",
+      "resource_id" : ""
+    },
+    {
+      "module": "order",
+      "action": "update",
+      "code": "114",
+      "resource_id" : ""
+    },
+    {
+      "module": "order",
+      "action": "read",
+      "code": "115",
+      "resource_id" : ""
+    },
+    {
+      "module": "discount",
+      "action": "create",
+      "code": "112",
+      "resource_id" : ""
+    },
+    {
+      "module": "discount",
+      "action": "delete",
+      "code": "113",
+      "resource_id" : ""
+    },
+    {
+      "module": "discount",
+      "action": "update",
+      "code": "114",
+      "resource_id" : ""
+    },
+    {
+      "module": "discount",
+      "action": "read",
+      "code": "115",
+      "resource_id" : ""
+    },
+    {
+      "module": "coupon",
+      "action": "create",
+      "code": "112",
+      "resource_id" : ""
+    },
+    {
+      "module": "coupon",
+      "action": "delete",
+      "code": "113",
+      "resource_id" : ""
+    },
+    {
+      "module": "coupon",
+      "action": "update",
+      "code": "114",
+      "resource_id" : ""
+    },
+    {
+      "module": "coupon",
+      "action": "read",
+      "code": "115",
+      "resource_id" : ""
+    },
+    {
+      "module": "transaction",
+      "action": "create",
+      "code": "112",
+      "resource_id" : ""
+    },
+    {
+      "module": "transaction",
+      "action": "delete",
+      "code": "113",
+      "resource_id" : ""
+    },
+    {
+      "module": "transaction",
+      "action": "update",
+      "code": "114",
+      "resource_id" : ""
+    },
+    {
+      "module": "transaction",
+      "action": "read",
+      "code": "115",
+      "resource_id" : ""
+    },
+    {
+      "module": "constant",
+      "action": "create",
+      "code": "112",
+      "resource_id" : ""
+    },
+    {
+      "module": "constant",
+      "action": "delete",
+      "code": "113",
+      "resource_id" : ""
+    },
+    {
+      "module": "constant",
+      "action": "update",
+      "code": "114",
+      "resource_id" : ""
+    },
+    {
+      "module": "constant",
+      "action": "read",
+      "code": "115",
+      "resource_id" : ""
+    },
+    {
+      "module": "log",
+      "action": "create",
+      "code": "112",
+      "resource_id" : ""
+    },
+    {
+      "module": "log",
+      "action": "delete",
+      "code": "113",
+      "resource_id" : ""
+    },
+    {
+      "module": "log",
+      "action": "update",
+      "code": "114",
+      "resource_id" : ""
+    },
+    {
+      "module": "log",
+      "action": "read",
+      "code": "115",
+      "resource_id" : ""
     }
 ]

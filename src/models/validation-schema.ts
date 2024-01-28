@@ -18,6 +18,33 @@ export const userSchema = z.object({
 
 });
 
+export const roleSchema = z.object({
+  name: z.string(),
+  built_in: z.boolean(),
+  active: z.boolean(),
+  permissions_ids: z.array(z.object({ id: z.string() })),
+});
+
+export const updateRoleSchema = z.object({
+  name: z.string().optional(),
+  built_in: z.boolean().optional(),
+  active: z.boolean().optional(),
+  permissions_ids: z.array(z.object({ id: z.string(), value: z.string(), label: z.string() })).optional(),
+});
+
+export const partialRoleSchema = updateRoleSchema.partial().refine(
+  (input) =>
+    !Object.keys(input).length,
+  { message: "At least one field is required" }
+);
+
+export const claimSchema = z.object({
+  type: z.enum(["ROLE", "PERMISSION"]),
+  user_id: z.string(),
+  active: z.boolean(),
+  permission_id: z.array(z.object({ id: z.string() })),
+});
+
 export const UpdateUserSchema = z.object({
   name: z.string().min(2, { message: "Name must be at least 2 characters long" })
     .max(25, { message: "Name must be at most 25 characters long" })

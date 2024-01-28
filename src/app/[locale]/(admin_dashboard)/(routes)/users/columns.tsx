@@ -1,12 +1,14 @@
 "use client";
 
 import { Dialog, DialogContent, DialogDescription, DialogHeader, DialogTitle, DialogTrigger } from "@/components/ui/dialog";
+import { Sheet, SheetContent, SheetTrigger } from "@/components/ui/sheet";
+import { Button } from "@/components/ui/button";
 import { Checkbox } from "@/components/ui/checkbox";
 import { ColumnDef } from "@tanstack/react-table";
 import DeleteUser from "@/components/DeleteUser";
-import EditUserForm from "@/components/EditUserForm";
 import { IUser } from "@/models/models";
 import React from "react";
+import ViewClient from "@/components/EditUser";
 
 export const columns: ColumnDef<IUser>[] = [
   {
@@ -48,21 +50,18 @@ export const columns: ColumnDef<IUser>[] = [
       console.log(user);
 
       return (
-        <Dialog>
-          <DialogTrigger className="rounded-full h-[40px] w-fit bg-main text-white text-x flex items-center justify-center gap-2 cursor-pointer px-4 shadow-lg hover:shadow-none">
-            <span className="text-white">Edit User</span>
-          </DialogTrigger>
-          <DialogContent>
-            <DialogHeader>
-              <DialogTitle>Update User</DialogTitle>
-              <DialogDescription>
-                      Kindly update the user`s` information
-              </DialogDescription>
-              <EditUserForm id={user.id} name={user.name} email={user.email}/>
-            </DialogHeader>
 
-          </DialogContent>
-        </Dialog>
+        <Sheet>
+          <SheetTrigger asChild>
+            <Button className="ml-4 px-6 whitespace-nowrap bg-main">Edit User</Button>
+          </SheetTrigger>
+
+          <SheetContent className="w-1/2 sm:w-full">
+
+            <ViewClient user={user} />
+          </SheetContent>
+        </Sheet>
+
       );
     },
   },
@@ -74,9 +73,10 @@ export const columns: ColumnDef<IUser>[] = [
       console.log(user);
 
       return (
+
         <Dialog>
-          <DialogTrigger className="rounded-full h-[40px] w-fit bg-red text-white text-x flex items-center justify-center gap-2 cursor-pointer px-4 shadow-lg hover:shadow-none">
-            <span className="text-white">Delete User</span>
+          <DialogTrigger >
+
           </DialogTrigger>
           <DialogContent>
             <DialogHeader>

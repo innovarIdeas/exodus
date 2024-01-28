@@ -16,6 +16,7 @@ import {
   TableHeader,
   TableRow,
 } from "@/components/ui/table";
+import { Button } from "@/components/ui/button";
 import { Input } from "@/components/ui/input";
 import React from "react";
 
@@ -43,13 +44,12 @@ export function UserDataTable<TData, TValue> ({
   return (
     <div className="rounded-md border">
       <div className="flex items-center py-4 px-4">
+
         <Input
-          placeholder="Search names..."
-          value={(table.getColumn("name")?.getFilterValue() as string) ?? ""}
-          onChange={(event) =>
-            table.getColumn("name")?.setFilterValue(event.target.value)
-          }
-          className="max-w-sm"
+          placeholder="User global search"
+          value={columnFilters}
+          onChange={(e) => setColumnFilters(e.target.value)}
+          className="w-64 h-10 px-3 rounded-md border"
         />
       </div>
       <Table>
@@ -94,6 +94,24 @@ export function UserDataTable<TData, TValue> ({
           )}
         </TableBody>
       </Table>
+      <div className="flex items-center justify-end space-x-2 py-4">
+        <Button
+          variant="outline"
+          size="sm"
+          onClick={() => table.previousPage()}
+          disabled={!table.getCanPreviousPage()}
+        >
+            Previous
+        </Button>
+        <Button
+          variant="outline"
+          size="sm"
+          onClick={() => table.nextPage()}
+          disabled={!table.getCanNextPage()}
+        >
+            Next
+        </Button>
+      </div>
     </div>
   );
 }

@@ -17,7 +17,12 @@ import {  userSchema } from "@/models/validation-schema";
 import z from "zod";
 import { zodResolver } from "@hookform/resolvers/zod";
 
-const UserForm = () => {
+interface UserProps {
+  nextStep: () => void;
+  setUserID: React.Dispatch<React.SetStateAction<string | undefined>>;
+}
+
+const UserForm = ({ setUserID, nextStep }: UserProps) => {
   const { toast } = useToast();
 
     type TFormData = z.infer<typeof userSchema>;
@@ -33,6 +38,8 @@ const UserForm = () => {
           description: "User created successfully!",
           title: "Success"
         });
+        setUserID(data.id);
+        nextStep();
 
         form.reset();
       } else {
@@ -59,8 +66,13 @@ const UserForm = () => {
     return (
       <Form {...form}>
         <form onSubmit={form.handleSubmit(onSubmit)} className="form">
+          <div className="flex items-center border-b border-gray mb-4">
+            <span className="px-4 text-main font-bold text-xs border-b-2 border-main pb-2"> Name</span>
+            <span className="px-4 text-gray2 font-semibold text-xs pb-2"> Roles</span>
 
-          <div className="py-1">
+          </div>
+
+          <div className="grid gap-4">
 
             <FormField
               control={form.control}
@@ -75,11 +87,6 @@ const UserForm = () => {
                 </FormItem>
               )}
             />
-          </div>
-          <div className="py-1">
-
-          </div>
-          <div>
 
             <FormField
               control={form.control}
@@ -94,8 +101,6 @@ const UserForm = () => {
                 </FormItem>
               )}
             />
-          </div>
-          <div className="py-1">
 
             <FormField
               control={form.control}

@@ -65,7 +65,7 @@ export const LoginForm = () => {
                       <FormItem>
                         <FormLabel className="text-gblue">{t("username")}</FormLabel>
                         <FormControl>
-                          <Input placeholder="Enter bank name" {...field} />
+                          <Input placeholder="Enter your username" {...field} />
                         </FormControl>
                         <FormMessage />
                       </FormItem>
@@ -78,7 +78,7 @@ export const LoginForm = () => {
                       <FormItem>
                         <FormLabel className="text-gblue">{t("password")}</FormLabel>
                         <FormControl>
-                          <Input placeholder="Enter branch" {...field} />
+                          <Input placeholder="Enter password" {...field} />
                         </FormControl>
                         <FormMessage />
                       </FormItem>

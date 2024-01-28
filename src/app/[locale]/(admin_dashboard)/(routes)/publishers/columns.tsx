@@ -58,7 +58,7 @@ export const columns: ColumnDef<IUser>[] = [
               <DialogDescription>
                       Kindly update the user`s` information
               </DialogDescription>
-              <EditClientForm id={user.id} name={user.name} email={user.email}/>
+              <EditClientForm user={user}/>
             </DialogHeader>
 
           </DialogContent>

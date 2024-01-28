@@ -1,5 +1,5 @@
-import { IApiError, IApiResponse, IBook, IBookVariant, ICoupon, IDiscount, IOrder, ITempBook, ITransaction, IUser, IValidationError } from "@/models/models";
-import { UpdateUserSchema, bookSchema, bookVariantSchema, couponSchema, orderSchema, tempBookSchema, transactionSchema, updateBookSchema, updateCouponSchema, updateTransactionSchema, userSchema } from "@/models/validation-schema";
+import { IApiError, IApiResponse, IBook, IBookVariant, IClaim, ICoupon, IDiscount, IOrder, IPermission, IRole, ITempBook, ITransaction, IUser, IValidationError } from "@/models/models";
+import { UpdateUserSchema, bookSchema, bookVariantSchema, claimSchema, couponSchema, orderSchema, roleSchema, tempBookSchema, transactionSchema, updateBookSchema, updateCouponSchema, updateRoleSchema, updateTransactionSchema, userSchema } from "@/models/validation-schema";
 import { z } from "zod";
 
 async function handleValidationResponse (response: Response) {
@@ -42,16 +42,67 @@ async function handleApiCalls<T> (response: Response): Promise<IApiResponse<T>> 
   }
 }
 
+export const createRole = async (data: z.infer<typeof roleSchema>): Promise<IApiResponse<IRole>> => {
+  return handleApiCalls(await fetch("/api/roles/", {
+    method: "POST",
+    body: JSON.stringify(
+      {
+        name: data.name,
+        built_in: data.built_in,
+        active: data.active,
+        permissions_ids: data.permissions_ids.map((permission) => ({ id: permission.id })),
+      }
+    ),
+  }));
+};
+
+export const getUserRoles = async (id: string): Promise<IApiResponse<IClaim[]>> => {
+  return handleApiCalls(await fetch("/api/user-permissions/user/" + id, { method: "GET" }));
+};
+
+export const getAllRoles = async (): Promise<IApiResponse<IRole[]>> => {
+  return handleApiCalls(await fetch(process.env.NEXT_PUBLIC_BROWSER_URL + "/api/roles", { method: "GET" }));
+};
+
+export const updateRole = async (data: z.infer<typeof updateRoleSchema>, id: string): Promise<IApiResponse<IRole>> => {
+  return handleApiCalls(await fetch(`/api/roles/${id}`, {
+    method: "PATCH",
+    body: JSON.stringify(data),
+  }));
+};
+
+export const getRoles = async () => {
+  const roles = await fetch("/api/roles", { method: "GET" });
+  const data = await roles.json() as IRole[];
+
+  return data.map((role) => ({
+    value: role.id,
+    label: role.name,
+    id: role.id,
+  }));
+};
+
+export const getAllPermissions = async (): Promise<IApiResponse<IPermission[]>> => {
+  return handleApiCalls(await fetch(process.env.NEXT_PUBLIC_BROWSER_URL + "/api/permissions", { method: "GET" }));
+};
+
 export const getAllUsers = async (): Promise<IApiResponse<IUser[]>> => {
   return handleApiCalls(await fetch(process.env.NEXT_PUBLIC_BROWSER_URL + "/api/users", { method: "GET" }));
 };
 
-export const createUser = async (data: z.infer <typeof userSchema>): Promise<IApiResponse<IUser[]>> => {
+export const createUser = async (data: z.infer <typeof userSchema>): Promise<IApiResponse<IUser>> => {
   return handleApiCalls(await fetch(process.env.NEXT_PUBLIC_BROWSER_URL + "/api/users",
     {
       method: "POST",
       body: JSON.stringify(data)
     }));
+};
+
+export const addUserRole = async (data: z.infer<typeof claimSchema>): Promise<IApiResponse<IUser>> => {
+  return handleApiCalls(await fetch("/api/user-permissions/", {
+    method: "POST",
+    body: JSON.stringify(data),
+  }));
 };
 
 export const editUser = async (id: string, data: z.infer <typeof UpdateUserSchema>): Promise<IApiResponse<IUser[]>> => {
