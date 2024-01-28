@@ -1,4 +1,4 @@
-import { IApiError, IApiResponse, IBook, IBookVariant, IClaim, ICoupon, IDiscount, IOrder, IPermission, IRole, ITempBook, ITransaction, IUser, IValidationError } from "@/models/models";
+import { IApiError, IApiResponse, IBook, IBookVariant, IClaim, ICoupon, IDiscount, IFirstTimeOrderResponse, IOrder, IPermission, IRole, ITempBook, ITransaction, IUser, IValidationError } from "@/models/models";
 import { UpdateUserSchema, bookSchema, bookVariantSchema, claimSchema, couponSchema, orderSchema, roleSchema, tempBookSchema, transactionSchema, updateBookSchema, updateCouponSchema, updateRoleSchema, updateTransactionSchema, userSchema } from "@/models/validation-schema";
 import { z } from "zod";
 
@@ -105,6 +105,11 @@ export const addUserRole = async (data: z.infer<typeof claimSchema>): Promise<IA
   }));
 };
 
+export const firstTimeOrder = async (id: string): Promise<IApiResponse<IFirstTimeOrderResponse[]>> => {
+  return handleApiCalls(await fetch(process.env.NEXT_PUBLIC_BROWSER_URL + "/api/first-time-orders/" + id,
+    { method: "POST" }));
+};
+
 export const editUser = async (id: string, data: z.infer <typeof UpdateUserSchema>): Promise<IApiResponse<IUser[]>> => {
   return handleApiCalls(await fetch(process.env.NEXT_PUBLIC_BROWSER_URL + "/api/users/" + id,
     {
@@ -160,6 +165,11 @@ export const getAllTempBook = async (id: string, data: z.infer <typeof tempBookS
       method: "GET",
       body: JSON.stringify(data)
     }));
+};
+
+export const getSingleTempBook = async (id: string): Promise<IApiResponse<ITempBook>> => {
+  return handleApiCalls(await fetch(process.env.NEXT_PUBLIC_BROWSER_URL + "/api/temp-books/" + id,
+    { method: "GET" }));
 };
 
 export const deleteBook = async (id: string): Promise<IApiResponse<IBook[]>> => {

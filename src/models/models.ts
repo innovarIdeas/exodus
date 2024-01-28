@@ -74,6 +74,12 @@ export interface IUser extends IBase {
   password: string;
 }
 
+export interface IFirstTimeOrderResponse extends IBase {
+  user: IUser;
+  bookVariant: IBookVariant;
+  order: IOrder;
+}
+
 export interface IBook extends IBase {
   title: string;
   author: string;
@@ -186,6 +192,44 @@ export interface ITempBook extends IBase  {
   art_illustration: boolean;
   art_illustration_type: string;
   bindong: string;
+}
+
+export interface IBookData {
+  email: string;
+  book_name: string;
+  title: string;
+  name: string;
+  phone_number: string | number;
+  paper_type: string;
+  number_of_words: number;
+  status: string;
+  hard_cover: boolean;
+  BW_print: boolean;
+  both_print: boolean;
+  color_print: boolean;
+  cream_paper: boolean;
+  glossy_paper: boolean;
+  news_print: boolean;
+  binding: string;
+  white_paper: boolean;
+  no_of_books: number;
+  portrait: boolean;
+  book_size: string;
+  number_of_pages: number;
+  ISBN: boolean;
+  embossing: boolean;
+  foiling: boolean;
+  lamination: string;
+  delivery_name: string;
+  delivery_phone: string;
+  pick_up: boolean;
+  shipping_address: string;
+  shipping_state: string;
+  shipping_instruction: string;
+  project_type: string;
+  ready_to_print: boolean;
+  work_in_progress: boolean;
+  word_count: number;
 }
 
 export interface IOrder extends IBase {
