@@ -8,6 +8,7 @@ import {
 } from "@/components/ui/form";
 import { Button } from "./ui/button";
 import { DialogClose } from "./ui/dialog";
+import { IUser } from "@/models/models";
 import { Input } from "@/components/ui/input";
 import React from "react";
 import { UpdateUserSchema } from "@/models/validation-schema";
@@ -18,20 +19,18 @@ import z from "zod";
 import { zodResolver } from "@hookform/resolvers/zod";
 
 interface IEditUserFormProps {
-  id: string;
-  name: string;
-  email: string;
+  user: IUser;
 }
 
-const EditUserForm = ({ id, name, email }: IEditUserFormProps) => {
+const EditUserForm = ({ user }: IEditUserFormProps) => {
   const { toast } = useToast();
 
       type TFormData = z.infer<typeof UpdateUserSchema>;
 
-      const form = useForm<TFormData>({ resolver: zodResolver(UpdateUserSchema), defaultValues: { name, email } });
+      const form = useForm<TFormData>({ resolver: zodResolver(UpdateUserSchema), defaultValues: { name: user.name, email: user.email } });
 
       const onSubmit = async (input: TFormData) => {
-        const { data, error, validationErrors } = await editUser(id, input);
+        const { data, error, validationErrors } = await editUser(user.id, input);
 
         if (data) {
           toast({

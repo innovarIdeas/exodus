@@ -1,11 +1,12 @@
 "use client";
 
-import { Dialog, DialogContent, DialogDescription, DialogHeader, DialogTitle, DialogTrigger } from "@/components/ui/dialog";
 import React, { useEffect, useState } from "react";
-import { BiPlusCircle } from "react-icons/bi";
+import { Sheet, SheetContent,  SheetTrigger } from "@/components/ui/sheet";
+import AddNewUser from "@/components/AddNewUser";
+import { Button } from "@/components/ui/button";
 import { IUser } from "@/models/models";
+import Link from "next/link";
 import { UserDataTable } from "./data-table";
-import UserForm from "@/components/UserForm";
 import { columns } from "./columns";
 import { getAllUsers } from "@/lib/api-call";
 
@@ -34,25 +35,31 @@ export default function UserBody () {
 
   return(
     <div>
+      <div>
+        <h1 className="text-3xl font-semibold text-black">User Management</h1>
+        <div className="flex items-center space-x-4 my-4">
+          <Link href="/users/roles" className="text-main border border-main rounded-lg text-md py-1 px-3 hover:bg-main hover:text-white">
+                Manage Roles
+          </Link>
+
+          <Link href="/users/permissions" className="text-main border border-main rounded-lg text-md py-1 px-3 hover:bg-main hover:text-white">
+                 View Permissions
+          </Link>
+        </div>
+
+      </div>
       <div className="flex justify-end items-end float-right mx-5 my-5">
 
-        <Dialog>
-          <DialogTrigger className="rounded-full h-[40px] w-fit bg-main text-white text-x flex items-center justify-center gap-2 cursor-pointer px-4 shadow-lg hover:shadow-none">
-            <BiPlusCircle className="text-white text-2xl" />{" "}
-            <span className="text-white">Add New User</span>
+        <Sheet>
+          <SheetTrigger asChild>
+            <Button className="ml-4 px-6 whitespace-nowrap bg-main">Add New User</Button>
+          </SheetTrigger>
 
-          </DialogTrigger>
-          <DialogContent>
-            <DialogHeader>
-              <DialogTitle>Add User</DialogTitle>
-              <DialogDescription>
-              Kindly fill the form with your information
-              </DialogDescription>
-              <UserForm/>
-            </DialogHeader>
+          <SheetContent className="w-2/3 sm:w-full">
 
-          </DialogContent>
-        </Dialog>
+            <AddNewUser/>
+          </SheetContent>
+        </Sheet>
 
       </div>
       <div>
