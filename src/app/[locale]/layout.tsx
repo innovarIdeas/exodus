@@ -1,11 +1,15 @@
 import "./globals.css";
+import AuthProvider from "./auth-context";
+import { ContextProvider } from "@/context/ContextStore";
 import { NextIntlClientProvider } from "next-intl";
 import { Nunito } from "next/font/google";
 import React from "react";
 import ReactQueryProvider from "./react-query-context";
 import { Toaster } from "@/components/ui/toaster";
+import { getServerSession } from "next-auth";
 import { getTranslator } from "next-intl/server";
 import { notFound } from "next/navigation";
+import options from "@/app/api/auth/[...nextauth]/options";
 
 const nunito = Nunito({ subsets: ["latin"] });
 
@@ -18,6 +22,7 @@ export default async function RootLayout ({
 }) {
   const { locale } = params;
   const t = await getTranslator("en", "index");
+  const session = await getServerSession(options);
   let messages: Record<string, string>;
 
   try {
@@ -38,12 +43,18 @@ export default async function RootLayout ({
         <meta name="description" content={t("description")} />
       </head>
       <body className={`${nunito}`}>
+
         <ReactQueryProvider>
-          <NextIntlClientProvider locale={locale} messages={messages}>
+          <AuthProvider session={session}>
             <Toaster />
-            {children}
-          </NextIntlClientProvider>
+            <NextIntlClientProvider locale={locale} messages={messages}>
+              <ContextProvider>
+                {children}
+              </ContextProvider>
+            </NextIntlClientProvider>
+          </AuthProvider>
         </ReactQueryProvider>
+
       </body>
     </html>
   );
