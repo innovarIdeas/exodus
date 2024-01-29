@@ -35,7 +35,8 @@ export const LoginForm = () => {
           });
         } else {
           toast({ description: t("signed_in") });
-          router.push("/admin");
+
+          router.push("/");
         }
       });
   };
