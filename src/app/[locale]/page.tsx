@@ -46,7 +46,7 @@ export default function PriceCalculator () {
                 <Link href="price-calculator/project_readiness" >
                   <img src="/img/book.png" className="mx-auto " />
                 </Link>
-                <Link href="/project_readiness/#book" >
+                <Link href="price-calculator/project_readinessk" >
                   <h1 className="text-blue block absolute bottom-[10%] left-[50%] translate-x-[-50%] font-bold w-[60%] text-center">Books</h1>
                 </Link>
               </div>
@@ -55,7 +55,7 @@ export default function PriceCalculator () {
                 <Link href="price-calculator/project_readiness" >
                   <img src="/img/magazine.png"className="mx-auto "  />
                 </Link>
-                <Link href="/project_readiness/#magazine" >
+                <Link href="price-calculator/project_readiness" >
                   <h1 className="text-blue block absolute bottom-[10%] left-[50%] translate-x-[-50%] font-bold w-[60%] text-center">Magazines</h1>
                 </Link>
               </div>
@@ -63,7 +63,7 @@ export default function PriceCalculator () {
                 <Link href="price-calculator/project_readiness" >
                   <img src="/img/stationery.png" className="mx-auto " />
                 </Link>
-                <Link href="/project_readiness/#stationary" >
+                <Link href="price-calculator/project_readiness" >
                   <h1 className="text-blue block absolute bottom-[10%] left-[50%] translate-x-[-50%] font-bold w-[60%] text-center">Office Stationaries</h1>
                 </Link>
               </div>

@@ -44,7 +44,16 @@ const BookVariantForm = () => {
         };
 
         const onSubmit = async (input: TFormData) => {
-          const { data, error, validationErrors } = await createBookVariant(input);
+          const { data, error, validationErrors } = await createBookVariant({
+            ...input,
+            ISBN: !!input.ISBN,
+            cover_design: !!input.cover_design,
+            editing: !!input.editing,
+            embossing: !!input.embossing,
+            foiling: !!input.foiling,
+            inside_layout: !!input.inside_layout,
+            proof_reading: !!input.proof_reading
+          });
 
           if (data) {
             toast({
@@ -87,7 +96,7 @@ const BookVariantForm = () => {
                       <FormItem
                         className="w-full">
                         <FormLabel>Book</FormLabel>
-                        <Select onValueChange={field.onChange} defaultValue={field.value}>
+                        <Select onValueChange={field.onChange} value={field.value}>
                           <FormControl>
                             <SelectTrigger>
                               <SelectValue placeholder="Select a book to create a variant" />
@@ -334,6 +343,7 @@ const BookVariantForm = () => {
                           <Switch
                             checked={field.value}
                             onCheckedChange={field.onChange}
+                            defaultChecked={field.value}
                           />
                         </FormControl>
                       </FormItem>
@@ -352,6 +362,7 @@ const BookVariantForm = () => {
                           <Switch
                             checked={field.value}
                             onCheckedChange={field.onChange}
+                            defaultChecked={field.value}
                           />
                         </FormControl>
                       </FormItem>
@@ -368,8 +379,8 @@ const BookVariantForm = () => {
                         </div>
                         <FormControl>
                           <Switch
-                            checked={field.value}
-                            onCheckedChange={field.onChange}
+                            checked={field.value || true}
+                            onCheckedChange={(checked) => field.onChange(checked)}
                           />
                         </FormControl>
                       </FormItem>
@@ -386,8 +397,8 @@ const BookVariantForm = () => {
                         </div>
                         <FormControl>
                           <Switch
-                            checked={field.value}
-                            onCheckedChange={field.onChange}
+                            checked={field.value || true}
+                            onCheckedChange={(checked) => field.onChange(checked)}
                           />
                         </FormControl>
                       </FormItem>
@@ -419,8 +430,8 @@ const BookVariantForm = () => {
                         </div>
                         <FormControl>
                           <Switch
-                            checked={field.value}
-                            onCheckedChange={field.onChange}
+                            checked={field.value || true}
+                            onCheckedChange={(checked) => field.onChange(checked)}
                           />
                         </FormControl>
                       </FormItem>
@@ -437,8 +448,8 @@ const BookVariantForm = () => {
                         </div>
                         <FormControl>
                           <Switch
-                            checked={field.value}
-                            onCheckedChange={field.onChange}
+                            checked={field.value || true}
+                            onCheckedChange={(checked) => field.onChange(checked)}
                           />
                         </FormControl>
                       </FormItem>
@@ -455,8 +466,8 @@ const BookVariantForm = () => {
                         </div>
                         <FormControl>
                           <Switch
-                            checked={field.value}
-                            onCheckedChange={field.onChange}
+                            checked={field.value || true}
+                            onCheckedChange={(checked) => field.onChange(checked)}
                           />
                         </FormControl>
                       </FormItem>
@@ -497,7 +508,7 @@ const BookVariantForm = () => {
                       <FormItem
                         className="w-full">
                         <FormLabel className="text-black">Status</FormLabel>
-                        <Select onValueChange={field.onChange} defaultValue={field.value}>
+                        <Select onValueChange={field.onChange} >
                           <FormControl>
                             <SelectTrigger>
                               <SelectValue placeholder="Select a statuss" />
