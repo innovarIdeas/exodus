@@ -37,12 +37,12 @@ export default function DiscountBody () {
       <div className="flex justify-end items-end float-right mx-5 my-5">
 
         <Dialog>
-          <DialogTrigger className="rounded-full h-[40px] w-fit bg-main text-white text-x flex items-center justify-center gap-2 cursor-pointer px-4 shadow-lg hover:shadow-none">
+          <DialogTrigger  className="rounded-full h-[40px] w-fit bg-main text-white text-x flex items-center justify-center gap-2 cursor-pointer px-4 shadow-lg hover:shadow-none">
             <BiPlusCircle className="text-white text-2xl" />{" "}
             <span className="text-white">Add New Discount</span>
 
           </DialogTrigger>
-          <DialogContent>
+          <DialogContent >
             <DialogHeader>
               <DialogTitle>Add Discount</DialogTitle>
               <DialogDescription>

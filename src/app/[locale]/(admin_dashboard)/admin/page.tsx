@@ -1,8 +1,18 @@
+"use client";
+
 import { AdminNavLinks } from "@/utils/AdminNavLinks";
 import Link from "next/link";
 import React from "react";
+import { redirect } from "next/navigation";
+import { useSession } from "next-auth/react";
 
 export default function AdminDashboard () {
+  const session = useSession();
+
+  if(session.status === "unauthenticated") {
+    redirect("/login");
+  }
+
   return (
     <div className="w-full h-fit bg-main">
       <h1 className="text-[30px] text-center text-white pt-5">

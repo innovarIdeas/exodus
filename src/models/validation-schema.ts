@@ -1,10 +1,8 @@
 import z from "zod";
 
 export const loginSchema = z.object({
-  username: z.string().min(2, { message: "user_min" })
-    .max(25, { message: "user_max" }),
-  password: z.string().min(5, { message: "pass_min" })
-    .max(20, { message: "pass_max" }),
+  username: z.string(),
+  password: z.string()
 });
 
 export const userSchema = z.object({
@@ -275,13 +273,19 @@ export const bookVariantSchema = z.object({
   number_of_pages: z.coerce.number().optional(),
   inside_layout: z.boolean().optional(),
   proof_reading: z.boolean().optional(),
-  cover_design: z.boolean().optional(),
+  cover_design: z.boolean().optional()
+    .default(true),
   cover_design_type: z.string().optional(),
-  editing: z.boolean().optional(),
-  ISBN: z.boolean().optional(),
-  online_sale: z.boolean().optional(),
-  embossing: z.boolean().optional(),
-  foiling: z.boolean().optional(),
+  editing: z.boolean().optional()
+    .default(true),
+  ISBN: z.boolean().optional()
+    .default(true),
+  online_sale: z.boolean().optional()
+    .default(true),
+  embossing: z.boolean().optional()
+    .default(true),
+  foiling: z.boolean().optional()
+    .default(true),
   lamination: z.string(),
   delivery_name: z.string().optional(),
   delivery_phone: z.string().optional(),
