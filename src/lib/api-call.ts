@@ -90,6 +90,24 @@ export const getAllUsers = async (): Promise<IApiResponse<IUser[]>> => {
   return handleApiCalls(await fetch(process.env.NEXT_PUBLIC_BROWSER_URL + "/api/users", { method: "GET" }));
 };
 
+export const getAllPublishers = async (): Promise<IApiResponse<IUser[]>> => {
+  return handleApiCalls(
+    await fetch(process.env.NEXT_PUBLIC_BROWSER_URL + "/api/users/publishers", { method: "GET" })
+  );
+};
+
+export const getAllUserClient = async (): Promise<IApiResponse<IUser[]>> => {
+  return handleApiCalls(
+    await fetch(process.env.NEXT_PUBLIC_BROWSER_URL + "/api/users/clients", { method: "GET" })
+  );
+};
+
+export const getAllStaffs = async (): Promise<IApiResponse<IUser[]>> => {
+  return handleApiCalls(
+    await fetch(process.env.NEXT_PUBLIC_BROWSER_URL + "/api/users/staffs", { method: "GET" })
+  );
+};
+
 export const createUser = async (data: z.infer <typeof userSchema>): Promise<IApiResponse<IUser>> => {
   return handleApiCalls(await fetch(process.env.NEXT_PUBLIC_BROWSER_URL + "/api/users",
     {

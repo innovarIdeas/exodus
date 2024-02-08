@@ -1,6 +1,6 @@
 import { NextRequest, NextResponse } from "next/server";
+import { ROLE_OWNER,  ROLE_STAFF } from "@/lib/rbac";
 import { CLAIM_TYPE } from "@/models/constant";
-import { ROLE_STAFF } from "@/lib/rbac";
 import bcrypt from "bcryptjs";
 import prisma from "@/lib/prisma";
 import { userSchema } from "@/models/validation-schema";
@@ -8,15 +8,27 @@ import { userSchema } from "@/models/validation-schema";
 export async function GET () {
   try {
     const staff = await prisma.user.findMany({
-      where: { claims: { some: { role: { name: ROLE_STAFF } } }, deleted_at: null },
-      select: { id: true, name: true, email: true, claims: { select: { role: true } }, created_at: true },
+      where: {
+        NOT: { claims: { some: { role: { name: ROLE_OWNER } } } },
+        deleted_at: null,
+      },
+      select: {
+        id: true,
+        name: true,
+        email: true,
+        claims: { select: { role: true } },
+        created_at: true,
+      },
     });
 
     return NextResponse.json(staff);
   } catch (error) {
     console.error("Error in GET request:", error);
 
-    return NextResponse.json({ error: "Internal server error" }, { status: 500 });
+    return NextResponse.json(
+      { error: "Internal server error" },
+      { status: 500 }
+    );
   }
 }
 

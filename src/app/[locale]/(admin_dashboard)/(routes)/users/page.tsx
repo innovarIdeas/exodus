@@ -1,5 +1,9 @@
+import { Tabs, TabsContent, TabsList, TabsTrigger } from "@/components/ui/tabs";
+import ClientBody from "./ClientBody";
 import Link from "next/link";
+import PublisherBody from "./PublisherBody";
 import React from "react";
+import StaffBody from "./StaffBody";
 import UserBody from "./body";
 import { getPermissions } from "@/lib/server";
 import { getServerSession } from "next-auth/next";
@@ -12,7 +16,7 @@ const page = async () => {
   if (!permissions.length) {
     return (
       <main className="flex flex-col items-center p-5">
-        You are not authorized to view this page. Please login. <br/>
+        You are not authorized to view this page. Please login. <br />
         <Link href="/" className="bg-primary text-white py-2 px-3.5 my-3">
           Go to login page
         </Link>
@@ -21,8 +25,27 @@ const page = async () => {
   }
 
   return (
-    <div className="mx-5">
-      <UserBody/>
+    <div className="mx-5 w-screen px-5">
+      <Tabs defaultValue="all" className="w-full">
+        <TabsList>
+          <TabsTrigger value="all">All</TabsTrigger>
+          <TabsTrigger value="clients">Clients</TabsTrigger>
+          <TabsTrigger value="staffs">Staffs</TabsTrigger>
+          <TabsTrigger value="publishers">Publishers</TabsTrigger>
+        </TabsList>
+        <TabsContent value="all">
+          <UserBody />
+        </TabsContent>
+        <TabsContent value="clients">
+          <ClientBody />
+        </TabsContent>
+        <TabsContent value="staffs">
+          <StaffBody />
+        </TabsContent>
+        <TabsContent value="publishers">
+          <PublisherBody />
+        </TabsContent>
+      </Tabs>
     </div>
   );
 };
