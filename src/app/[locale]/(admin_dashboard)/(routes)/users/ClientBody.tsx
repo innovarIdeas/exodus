@@ -1,20 +1,20 @@
 "use client";
 
 import React, { useEffect, useState } from "react";
-import { Sheet, SheetContent,  SheetTrigger } from "@/components/ui/sheet";
+import { Sheet, SheetContent, SheetTrigger } from "@/components/ui/sheet";
 import AddNewUser from "@/components/AddNewUser";
 import { Button } from "@/components/ui/button";
 import { IUser } from "@/models/models";
 import Link from "next/link";
 import { UserDataTable } from "./data-table";
 import { columns } from "./columns";
-import { getAllUsers } from "@/lib/api-call";
+import { getAllUserClient } from "@/lib/api-call";
 
-export default function UserBody () {
+export default function ClientBody () {
   const [usersData, setUsersData] = useState<IUser[]>([]);
 
   const fetchData = async () => {
-    const { data, error, validationErrors } = await getAllUsers();
+    const { data, error, validationErrors } = await getAllUserClient();
 
     if (data) setUsersData(data);
 

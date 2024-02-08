@@ -13,6 +13,11 @@
       "name": "staff",
       "built_in": true,
       "permission_codes": ["002"]
+    },
+     {
+      "name": "publisher",
+      "built_in": true,
+      "permission_codes": ["003"]
     }
   ]
   
