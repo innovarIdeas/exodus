@@ -1,0 +1,223 @@
+[
+    {
+      "name": "Paper Unit Divider",
+      "shortcode": "PaperUnitDivider",
+      "value" : 2
+    },
+    {
+      "name": "Card Unit Divider",
+      "shortcode": "CardUnitDivider",
+      "value" : 2
+    },
+    {
+      "name": "Cream paper Large",
+      "shortcode": "CostOfCreamPaper",
+      "value" : 2
+    },
+    {
+      "name": "White paper large",
+      "shortcode": "CostOfWhitePape",
+      "value" : 2
+    },
+    {
+      "name": "Art Paper 135",
+      "shortcode": "CostOfArtPaper135",
+      "value" : 2
+    },
+    {
+      "name": "News print (Cost MuLaminationiplied by Two )",
+      "shortcode": "CostOfNewsPrint",  
+      "value" : 2
+    },
+    {
+      "name": "Cost of Art Paper 170gsm",
+      "shortcode": "CostOfArtPaper170gsm",
+      "value" : 2
+    },
+    {
+      "name": "Art Card Cost",
+      "shortcode": "CostOfArtCard",
+      "value" : 2
+    },
+    {
+      "name": "Lamination Cost(A4)",
+      "shortcode": "CostOfLamination",
+      "value" : 2
+    },
+    {
+      "name": "Cost of Printing Digital A4 Card",
+      "shortcode": "CostOfPrintingDigitalA4Card",
+      "value" : 2
+    },
+    {
+      "name": "Cost of Printing Digital A3 Card",
+      "shortcode": "CostOfPrintingDigitalA3Card",
+      "value" : 2
+    },
+    {
+      "name": "Cost of Printing DIgital colour insert(A4)  - inner pages",
+      "shortcode": "CostOfPrintingDIgitalColourInsertA4",
+      "value" : 2
+    },
+    {
+      "name": "Markup Percentage for Print on Demand (between 50 - 499)",
+      "shortcode": "MarkupPercentageForPrintOnDemand",
+      "value" : 2
+    },
+    {
+      "name": "Markup Percentage BULK (between 500 - above)",
+      "shortcode": "Markup Percentage Bulk",
+      "value" : 2
+    },
+    {
+      "name": "Cost of Hard cover binding A5",
+      "shortcode": "CostOfHardCoverBindingA5",
+      "value" : 2
+    },
+    {
+      "name": "Cost of Hard cover binding A4",
+      "shortcode": "CostOfHardCoverBindingA4",
+      "value" : 2
+    },
+    {
+      "name": "Cost of Computer To Plate (Single)",
+      "shortcode": "CostOfComputerToPlate",
+      "value" : 2
+    },
+    {
+      "name": "Cost of Black Impression",
+      "shortcode": "CostOfBlackImpression",
+      "value" : 2
+    },
+    {
+      "name": "Cost of Coloured Impression Kord",
+      "shortcode": "CostOfColouredImpressionKord",
+      "value" : 2
+    },
+    {
+      "name": "Cost of Coloured Impression MO",
+      "shortcode": "CostOfColouredImpressionMO",
+      "value" : 2
+    },
+    {
+      "name": "Wrapping Minimum  Cost",
+      "shortcode": "WrappingMinimumCost ",
+      "value" : 2
+    },
+    {
+      "name": "Cost of Wrapping Unit",
+      "shortcode": "CostOfWrappingUnit",
+      "value" : 2
+    },
+    {
+      "name": "Trim Minimum Cost",
+      "shortcode": "TrimMinimumCost",
+      "value" : 2
+    },
+    {
+      "name": "Cost of Trim Unit",
+      "shortcode": "CostOfTrimUnit",
+      "value" : 2
+    },
+    {
+      "name": "Cost of Nylon",
+      "shortcode": "CostOfNylon",
+      "value" : 2
+    },
+    {
+      "name": "Collation",
+      "shortcode": "Collation",
+      "value" : 2
+    },
+    {
+      "name": "Service Charge Threshold - Apply Service Charge  will be true if overall cost of book is less than Service threshold",
+      "shortcode": "ServiceChargeThreshold",
+      "value" : 2
+    },
+    {
+      "name": "Consumables Multiplier",
+      "shortcode": "ConsumablesMultiplier",
+      "value" : 2
+    },
+    {
+      "name": "Cost Of Perfect Binding",
+      "shortcode": "CostOfPerfectingBinding",
+      "value" : 2
+    },
+    {
+      "name": "Cost Of Perfect Binding A5",
+      "shortcode": "CostOfPerfectingBindingA5",
+      "value" : 2
+    },
+    {
+      "name": "Cost Of A5 Binding",
+      "shortcode": "CostOfBindingA5",
+      "value" : 2
+    },
+    {
+      "name": "Jacket Cost Print On Demand",
+      "shortcode": "CostOfJacketPrintOnDemand",
+      "value" : 2
+    },
+    {
+      "name": "Consumables Multiplier",
+      "shortcode": "ConsumablesMultiplier",
+      "value" : 2
+    },
+    {
+      "name": "Embossing Cost Minimum",
+      "shortcode": "MinimumCostOfEmbossing",
+      "value" : 2
+    },
+    {
+      "name": "Embossing Cost Unit",
+      "shortcode": "CostOfEmbossingPerUnit",
+      "value" : 2
+    },
+    {
+      "name": "Spot Cost Minimum",
+      "shortcode": "MinimumCostOfSpot",
+      "value" : 2 
+    },
+    {
+      "name": "Spot Cost Unit",
+      "shortcode": "CostOfSpotPerUnit",
+      "value" : 2
+    },
+    {
+      "name": "Foiling Cost Minimum",
+      "shortcode": "MinimumCostOfFoiling",
+      "value" : 2
+    },
+    {
+      "name": "Foiling Cost Unit",
+      "shortcode": "CostOfFoilingPerUnit",
+      "value" : 2
+    },
+    {
+      "name": "Wrapping Minimum Cost",
+      "shortcode": "MinimumCostOfWrapping",
+      "value" : 2
+    },
+    {
+      "name": "Cost of Wrapping Unit",
+      "shortcode": "CostOfWrappingPerUnit",
+      "value" : 2
+    },
+    {
+      "name": "Trim Minimum Cost",
+      "shortcode": "MinimumCostOfTrim",
+      "value" : 2
+    },
+    {
+      "name": "Cost of Trim Unit",
+      "shortcode": "CostOfTrimPerUnit",
+      "value" : 2
+    },
+    {
+      "name": "Cost of Nylon",
+      "shortcode": "CostOfNylon",
+      "value" : 2
+    }
+
+]

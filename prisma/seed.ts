@@ -104,10 +104,34 @@ async function seedPermissionsAndRoles () {
   console.log("Roles seeding complete");
 }
 
+async function seedConstants () {
+  const file = await fs.readFile("./prisma/seed-data/dev/constants.json", "utf-8");
+  const data = JSON.parse(file) as { name: string; value: string | number; shortcode: string; description: string}[];
+
+  for (const item of data) {
+    await prisma.constants.upsert({
+      where: { shortcode: item.name },
+      update: {
+        name: item.name,
+        value: Number(item.value),
+        shortcode: item.shortcode
+      },
+      create: {
+        name: item.name,
+        value: Number(item.value),
+        shortcode: item.shortcode
+      }
+    });
+  }
+
+  console.log("Constants seeding complete");
+}
+
 async function seedDev () {
   try {
     await seedPermissionsAndRoles();
     await seedUsers();
+    await seedConstants();
   } catch (error) {
     console.error("Error seeding data:", error);
   } finally {
@@ -119,6 +143,7 @@ async function seedProd () {
   try {
     await seedPermissionsAndRoles();
     await seedUsers();
+    await seedConstants();
   } catch (error) {
     console.error("Error seeding data:", error);
   } finally {
