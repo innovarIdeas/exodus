@@ -45,9 +45,9 @@ const PaperInformation = () => {
       <div className="text-4xl lg:text-5xl font-semi-bold my-8">Paper Information</div>
 
       <div className="w-[90%] lg:w-[70%] grid grid-cols-3 shadow-md bg-white text-blue-600">
-        <p onClick={()=>handlePaperType()} className={`pl-4 border w-full h-full cursor-pointer py-4 ${form1 ? "text-white bg-blue-500" : ""} `}>Paper Type</p>
-        <p onClick={()=>handleBinding()} className={`${form2 ? "text-white bg-blue-500" : ""} cursor-pointer pl-4 border w-full h-full py-4`}> Binding</p>
-        <p onClick={()=>handlePrintType()} className={`${form3 ? "text-white bg-blue-500" : ""} cursor-pointer pl-4 border w-full h-full py-4`}>Print Type</p>
+        <p onClick={()=>handlePaperType()} className={`pl-4 border w-full h-full cursor-pointer py-4 ${form1 ? "text-white bg-blue" : ""} `}>Paper Type</p>
+        <p onClick={()=>handleBinding()} className={`${form2 ? "text-white bg-blue" : ""} cursor-pointer pl-4 border w-full h-full py-4`}> Binding</p>
+        <p onClick={()=>handlePrintType()} className={`${form3 ? "text-white bg-blue" : ""} cursor-pointer pl-4 border w-full h-full py-4`}>Print Type</p>
       </div>
 
       {form1 ? <PaperInformationFormOne setForm1={setForm1} setForm2={setForm2} setForm3={setForm3} /> :

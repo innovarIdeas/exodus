@@ -46,26 +46,20 @@ export default function PriceCalculator () {
                 <Link href="price-calculator/project_readiness" >
                   <img src="/img/book.png" className="mx-auto " />
                 </Link>
-                <Link href="price-calculator/project_readinessk" >
                   <h1 className="text-blue block absolute bottom-[10%] left-[50%] translate-x-[-50%] font-bold w-[60%] text-center">Books</h1>
-                </Link>
               </div>
 
               <div onClick={()=>{setBook(false);setMagazine(true); setStationary(false);}} className="bg-white rounded-lg h-[280px] p-5 relative hover:bg-blue-100 mb-8 md:mb-[0px]">
                 <Link href="price-calculator/project_readiness" >
                   <img src="/img/magazine.png"className="mx-auto "  />
                 </Link>
-                <Link href="price-calculator/project_readiness" >
                   <h1 className="text-blue block absolute bottom-[10%] left-[50%] translate-x-[-50%] font-bold w-[60%] text-center">Magazines</h1>
-                </Link>
               </div>
               <div onClick={()=>{setBook(false);setMagazine(false); setStationary(true);}} className="bg-white rounded-lg h-[280px] p-5 relative hover:bg-blue-100 mb-8 md:mb-[0px]">
                 <Link href="price-calculator/project_readiness" >
                   <img src="/img/stationery.png" className="mx-auto " />
                 </Link>
-                <Link href="price-calculator/project_readiness" >
                   <h1 className="text-blue block absolute bottom-[10%] left-[50%] translate-x-[-50%] font-bold w-[60%] text-center">Office Stationaries</h1>
-                </Link>
               </div>
             </div>
           </div>

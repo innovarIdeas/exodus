@@ -9,7 +9,7 @@ const BookOptionTable: React.FC<BookOptionProps> = ({ bookData }) => {
   return(
     <table className=" w-full h-full  ">
       <thead>
-        <tr className="bg-blue-800 text-white  ">
+        <tr className="bg-blue text-white  ">
           <th className="text-left pl-2">Order Type</th>
           <th className="text-right pr-2">{bookData?.project_type} printing</th>
         </tr>

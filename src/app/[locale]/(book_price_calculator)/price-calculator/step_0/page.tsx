@@ -1,6 +1,6 @@
 "use client";
 
-import React, { useContext } from "react";
+import React, { useContext, useState } from "react";
 import { SubmitHandler, useForm } from "react-hook-form";
 import { ContextStore } from "@/context/ContextStore";
 import { createTempBook } from "@/lib/api-call";
@@ -10,6 +10,7 @@ import { useRouter } from "next/navigation";
 
 interface FormData {
   title: string;
+  author: string;
   name: string;
   phone_number: string;
   email: string;
@@ -17,6 +18,7 @@ interface FormData {
 
 const page = () => {
   const contextValues = useContext(ContextStore);
+  const [isAuthor, setIsAuthor] = useState(false)
 
   if (!contextValues) {
     return null;
@@ -132,7 +134,30 @@ const page = () => {
                 placeholder="Your Name"
                 className="w-full rounded-md border border-[#e0e0e0] bg-white py-3 px-6 text-base font-medium text-[#6B7280] outline-none focus:border-[#6A64F1] focus:shadow-md"
               />
+              <div className="flex items-center text-base">
+                <input checked={isAuthor} onChange={()=>setIsAuthor((prev)=>!prev)} className="mr-2" type="checkbox" name="" id="" />
+                <label htmlFor="">Are you also the author?</label>
+              </div>
             </div>
+
+            {!isAuthor && <div className="mb-5">
+              <label
+                htmlFor="author_name"
+                className="mb-3 block text-base font-medium text-white"
+              >
+                      Author's Name
+              </label>
+              <input
+                {...register("author")}
+                type="text"
+                name="author"
+                id="author"
+                placeholder="Author's Name"
+                className="w-full rounded-md border border-[#e0e0e0] bg-white py-3 px-6 text-base font-medium text-[#6B7280] outline-none focus:border-[#6A64F1] focus:shadow-md"
+              />
+            </div>}
+
+            
 
             <div className="mb-5">
               <label
@@ -188,7 +213,7 @@ const page = () => {
             </div>
 
             <div>
-              <button className=" rounded-xl bg-blue-700 py-3 px-10 text-base font-semibold z-[200000000] text-white outline-none mx-auto w-full text-center" type="submit"> Continue </button>
+              <button className=" rounded-xl bg-blue-700 py-3 px-10 text-base bg-blue font-semibold z-[200000000] text-white outline-none mx-auto w-full text-center" type="submit"> Continue </button>
             </div>
 
           </form>

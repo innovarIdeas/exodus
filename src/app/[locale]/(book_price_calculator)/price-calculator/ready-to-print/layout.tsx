@@ -89,7 +89,7 @@ const layout: React.FC<LayoutProps> = ({ children }) => {
   return (
     <div className="h-full relative">
       <div className="lg:w-[20%] overflow-x-scroll py-4 w-full lg:h-full border text-sm flex lg:flex-col item-center gap-1 lg:pt-10 fixed top-28 lg:top-auto bg-slate-50 z-10">
-        <div className={`${currentStep === 1 && "border-r-4 border-r-blue-800"} flex item-start gap-4 shrink-0 lg:gap-10 py-2 px-4 lg:px-8`}>
+        <div className={`${currentStep === 1 && "border-r-4 border-r-blue"} flex item-start gap-4 shrink-0 lg:gap-10 py-2 px-4 lg:px-8`}>
           <p className="font-bold">1</p>
           <div>
             <p className="font-bold">Step 1</p>
@@ -97,7 +97,7 @@ const layout: React.FC<LayoutProps> = ({ children }) => {
           </div>
         </div>
 
-        <div className={`${currentStep === 2 && "border-r-4 border-r-blue-800"} flex item-start gap-4 shrink-0 lg:gap-10 py-2 px-4 lg:px-8`}>
+        <div className={`${currentStep === 2 && "border-r-4 border-r-blue"} flex item-start gap-4 shrink-0 lg:gap-10 py-2 px-4 lg:px-8`}>
           <p className="font-bold">2</p>
           <div>
             <p className="font-bold">Step 2</p>
@@ -105,7 +105,7 @@ const layout: React.FC<LayoutProps> = ({ children }) => {
           </div>
         </div>
 
-        <div className={`${currentStep === 3 && "border-r-4 border-r-blue-800"} flex item-start gap-4 shrink-0 lg:gap-10 py-2 px-4 lg:px-8`}>
+        <div className={`${currentStep === 3 && "border-r-4 border-r-blue"} flex item-start gap-4 shrink-0 lg:gap-10 py-2 px-4 lg:px-8`}>
           <p className="font-bold">3</p>
           <div>
             <p className="font-bold">Step 3</p>
@@ -113,7 +113,7 @@ const layout: React.FC<LayoutProps> = ({ children }) => {
           </div>
         </div>
 
-        <div className={`${currentStep === 4 && "border-r-4 border-r-blue-800"} flex item-start gap-4 shrink-0 lg:gap-10 py-2 px-4 lg:px-8`}>
+        <div className={`${currentStep === 4 && "border-r-4 border-r-blue"} flex item-start gap-4 shrink-0 lg:gap-10 py-2 px-4 lg:px-8`}>
           <p className="font-bold">4</p>
           <div>
             <p className="font-bold">Step 4</p>
@@ -121,7 +121,7 @@ const layout: React.FC<LayoutProps> = ({ children }) => {
           </div>
         </div>
 
-        <div className={`${currentStep === 5 && "border-r-4 border-r-blue-800"} flex item-start gap-4 shrink-0 lg:gap-10 py-2 px-4 lg:px-8`}>
+        <div className={`${currentStep === 5 && "border-r-4 border-r-blue"} flex item-start gap-4 shrink-0 lg:gap-10 py-2 px-4 lg:px-8`}>
           <p className="font-bold">5</p>
           <div>
             <p className="font-bold">Step 5</p>
@@ -143,7 +143,7 @@ const layout: React.FC<LayoutProps> = ({ children }) => {
               <path strokeLinecap="round" strokeLinejoin="round" d="M13.5 4.5 21 12m0 0-7.5 7.5M21 12H3" />
             </svg>
           </button> :
-          <button onClick={()=>handleNext()} className={`px-5 py-2 rounded-xl border ${nextOpen && "bg-blue-800 text-white"}  shadow flex items-center gap-4 justify-between`}> Next
+          <button onClick={()=>handleNext()} className={`px-5 py-2 rounded-xl border ${nextOpen && "bg-blue text-white"}  shadow flex items-center gap-4 justify-between`}> Next
             <svg xmlns="http://www.w3.org/2000/svg" fill="none" viewBox="0 0 24 24" strokeWidth="1.5" stroke="currentColor" className="w-6 h-6">
               <path strokeLinecap="round" strokeLinejoin="round" d="M13.5 4.5 21 12m0 0-7.5 7.5M21 12H3" />
             </svg>
