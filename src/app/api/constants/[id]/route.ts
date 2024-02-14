@@ -16,7 +16,7 @@ export async function PATCH (req: NextRequest, { params }: { params: { id: strin
     updateConstant[field] = value;
   }
 
-  await prisma.constant.update({
+  await prisma.constants.update({
     where: { id },
     data: updateConstant
   });

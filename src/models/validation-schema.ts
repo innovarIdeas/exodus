@@ -359,6 +359,8 @@ export const updateTransactionSchema = z.object({ status: z.string() });
 
 export const updateConstantSchema = z.object(
   {
-    display_name: z.string(),
-    value: z.coerce.number()
+    name: z.string(),
+    value: z.coerce.number(),
+    description: z.string().optional(),
+    shortcode: z.string()
   });
