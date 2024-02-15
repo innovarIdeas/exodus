@@ -59,6 +59,8 @@ export interface IValidationError {
 
 export type IPaperType = "CREAM_PAPER_LARGE" | "ART_PAPER_135" | "NEWS_PRINT"  | "WHITE_PAPER_LARGE";
 
+export type IPageSize = "A4" | "A5";
+
 export interface IApiError extends Error {
   code: string;
   message: string;

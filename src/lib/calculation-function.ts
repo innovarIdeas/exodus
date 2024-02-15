@@ -1,4 +1,4 @@
-import { IPaperType } from "@/models/models";
+import { IPageSize, IPaperType } from "@/models/models";
 import prisma from "./prisma";
 
 async function fetchConstants () {
@@ -293,3 +293,31 @@ export async function CostOfAddOnComponent (numberOfCopies: number) {
     throw new Error("Failed to calculate CostOfAddOnComponent");
   }
 }
+
+export async function CostOfCoverComponentForBulk (numberOfCopies: number, pageSize: IPageSize) {
+  try {
+    const constantsMap = await fetchConstants();
+    const cardUnitCost = await CostOfCardUnit();
+    let result = 0;
+
+    if (pageSize === "A5") {
+      result = (constantsMap.CostOfComputerToPlate * 4) +
+        (constantsMap.CostOfColouredImpressionMO * (numberOfCopies / 4000)) +
+        (constantsMap.CostOfLamination * numberOfCopies) +
+        (cardUnitCost * (numberOfCopies + 600));
+    } else if (pageSize === "A4") {
+      result = (constantsMap.CostOfComputerToPlate * 4) +
+        (constantsMap.CostOfColouredImpressionMO * (numberOfCopies / 2000)) +
+        (constantsMap.CostOfLamination * 2 * numberOfCopies) +
+        ((cardUnitCost * 2) * (numberOfCopies + 300));
+    } else {
+      throw new Error(`Unsupported page size: ${pageSize}`);
+    }
+
+    return result;
+  } catch (error) {
+    console.error(`Error in CostOfCoverComponentForBulk for ${pageSize}:`, error);
+    throw new Error(`Failed to calculate CostOfCoverComponentForBulk for ${pageSize}`);
+  }
+}
+
