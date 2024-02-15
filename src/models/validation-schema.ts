@@ -356,3 +356,11 @@ export const transactionSchema = z.object({
 });
 
 export const updateTransactionSchema = z.object({ status: z.string() });
+
+export const updateConstantSchema = z.object(
+  {
+    name: z.string(),
+    value: z.coerce.number(),
+    description: z.string().optional(),
+    shortcode: z.string()
+  });
