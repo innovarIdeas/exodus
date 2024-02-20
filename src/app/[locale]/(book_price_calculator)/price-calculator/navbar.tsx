@@ -40,14 +40,14 @@ export const NavBar = ()=>{
             onClick={() => router.push("/login")}
             className="bg-[#00FF00] text-black hover:bg-[#00CC00] focus:outline-none focus:ring focus:border-[#00FF00]"
           >
-    Sign In
+          Sign In
           </Button>
         ) : (
           <Button
             onClick={() => signOut()}
             className="bg-[#FF0000] text-white hover:bg-[#CC0000] focus:outline-none focus:ring focus:border-[#FF0000]"
           >
-    Sign Out
+          Sign Out
           </Button>
         )}
 
