@@ -75,7 +75,9 @@ const SingleInvoice = ()=>{
                         { order?.book_variant?.paper_type }, { order?.book_variant?.lamination }</span>
                     </td>
                     <td className="text-xs lg:text-sm py-1 px-2 text-left">{ order?.book_variant?.no_of_books }</td>
-                    <td className="text-xs lg:text-sm py-1 px-2 text-left col-span-2"> {order?.total as number / order?.book_variant?.no_of_books }</td>
+                    <td className="text-xs lg:text-sm py-1 px-2 text-left col-span-2">
+                      {order?.total && order?.book_variant?.no_of_books ? order.total / order.book_variant.no_of_books : "N/A"}
+                    </td>
                     <td className="text-xs lg:text-sm py-1 px-2 text-right col-span-2"> {order?.total}</td>
                   </tr>
                   <tr>
@@ -90,7 +92,7 @@ const SingleInvoice = ()=>{
                       <span>Cver embossing for financial Intelligence (100 copies)</span></td>
                     <td className="text-xs lg:text-sm py-1 px-2 col-span-2 text-left">0.00</td>
                     <td className="text-xs lg:text-sm py-1 px-2 text-left col-span-2">0.00</td>
-                    <td className="text-xs lg:text-sm py-1 px-2 text-right col-span-2">0.00</td>
+                    <td className="text-xs lg:text-sm py-1 px-2 text-right`~~~~ col-span-2">0.00</td>
                   </tr>
 
                 </tbody>
