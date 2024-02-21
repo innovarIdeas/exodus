@@ -1,6 +1,6 @@
 "use client";
 
-import { getAllBookVariants, getAllBooks, getAllClients, getAllOrders, getAllTransactions, getSingleOrder } from "./api-call";
+import { getAllBookVariants, getAllBooks, getAllClients, getAllOrders, getAllTransactions, getSingleOrder, getSingleUser, getUserBookVariants, getUserBooks, getUserOrders, getUserTransactions } from "./api-call";
 import { IPermission } from "@/models/models";
 import { QUERY_KEY } from "./rbac";
 import { useQuery } from "@tanstack/react-query";
@@ -98,6 +98,130 @@ export const useGetSingleOrder = (id: string) => {
     queryKey: [QUERY_KEY.GET_SINGLE_ORDER],
     queryFn: async () => {
       const { data, validationErrors, error } = await getSingleOrder(id);
+
+      if (validationErrors?.length) {
+        console.error(validationErrors[0].message);
+
+        return;
+      }
+
+      if (error) {
+        console.log(error);
+
+        return;
+      }
+
+      return data;
+    }
+  });
+
+  return data || undefined;
+};
+
+export const useGetUserBooks = (id: string) => {
+  const { data } = useQuery({
+    queryKey: [QUERY_KEY.GET_USER_BOOKS],
+    queryFn: async () => {
+      const { data, validationErrors, error } = await getUserBooks(id);
+
+      if (validationErrors?.length) {
+        console.error(validationErrors[0].message);
+
+        return;
+      }
+
+      if (error) {
+        console.log(error);
+
+        return;
+      }
+
+      return data;
+    }
+  });
+
+  return data || undefined;
+};
+
+export const useGetUserBookVariants = (id: string) => {
+  const { data } = useQuery({
+    queryKey: [QUERY_KEY.GET_USER_BOOKVARIANTS],
+    queryFn: async () => {
+      const { data, validationErrors, error } = await getUserBookVariants(id);
+
+      if (validationErrors?.length) {
+        console.error(validationErrors[0].message);
+
+        return;
+      }
+
+      if (error) {
+        console.log(error);
+
+        return;
+      }
+
+      return data;
+    }
+  });
+
+  return data || undefined;
+};
+
+export const useGetUserOrders = (id: string) => {
+  const { data } = useQuery({
+    queryKey: [QUERY_KEY.GET_USER_ORDERS],
+    queryFn: async () => {
+      const { data, validationErrors, error } = await getUserOrders(id);
+
+      if (validationErrors?.length) {
+        console.error(validationErrors[0].message);
+
+        return;
+      }
+
+      if (error) {
+        console.log(error);
+
+        return;
+      }
+
+      return data;
+    }
+  });
+
+  return data || undefined;
+};
+export const useGetUserTransactions = (id: string) => {
+  const { data } = useQuery({
+    queryKey: [QUERY_KEY.GET_USER_TRANSACTIONS],
+    queryFn: async () => {
+      const { data, validationErrors, error } = await getUserTransactions(id);
+
+      if (validationErrors?.length) {
+        console.error(validationErrors[0].message);
+
+        return;
+      }
+
+      if (error) {
+        console.log(error);
+
+        return;
+      }
+
+      return data;
+    }
+  });
+
+  return data || undefined;
+};
+
+export const useGetSingleUser = (id: string) => {
+  const { data } = useQuery({
+    queryKey: [QUERY_KEY.GET_SINGLE_USER],
+    queryFn: async () => {
+      const { data, validationErrors, error } = await getSingleUser(id);
 
       if (validationErrors?.length) {
         console.error(validationErrors[0].message);

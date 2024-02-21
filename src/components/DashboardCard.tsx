@@ -5,13 +5,13 @@ import React from 'react'
 export type CardProps = {
   label: string;
   icon: LucideIcon;
-  total: string;
+  total: number | undefined;
   description: string;
 }
 
 export const DashboardCard = (props: CardProps) => {
   return (
-    <CardContent className='cursor-pointer '>
+    <CardContent>
       <section className='flex text items-center justify-between gap-2'>
         <p className='text-sm'>{props.label}</p>
         <props.icon className='h-4 w-4 text-gray-400' />

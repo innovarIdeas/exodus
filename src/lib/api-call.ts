@@ -1,4 +1,4 @@
-import { IApiError, IApiResponse, IBook, IBookVariant, IClaim, ICoupon, IDiscount, IFirstTimeOrderResponse, IOrder, IPermission, IRole, ITempBook, ITransaction, IUser, IValidationError } from "@/models/models";
+import { IApiError, IApiResponse, IBook, IBookVariant, IClaim, ICoupon, IDiscount, IFirstTimeOrderResponse, IOrder, IPermission, IRole, ISingleUser, ITempBook, ITransaction, IUser, IValidationError } from "@/models/models";
 import { UpdateUserSchema, bookSchema, bookVariantSchema, claimSchema, couponSchema, orderSchema, roleSchema, tempBookSchema, transactionSchema, updateBookSchema, updateCouponSchema, updateRoleSchema, updateTransactionSchema, userSchema } from "@/models/validation-schema";
 import { z } from "zod";
 
@@ -90,6 +90,11 @@ export const getAllUsers = async (): Promise<IApiResponse<IUser[]>> => {
   return handleApiCalls(await fetch(process.env.NEXT_PUBLIC_BROWSER_URL + "/api/users", { method: "GET" }));
 };
 
+export const getSingleUser = async (id: string): Promise<IApiResponse<ISingleUser>> => {
+  return handleApiCalls(await fetch(process.env.NEXT_PUBLIC_BROWSER_URL + "/api/users/" + id,
+    { method: "GET" }));
+};
+
 export const getAllPublishers = async (): Promise<IApiResponse<IUser[]>> => {
   return handleApiCalls(
     await fetch(process.env.NEXT_PUBLIC_BROWSER_URL + "/api/users/publishers", { method: "GET" })
@@ -143,6 +148,26 @@ export const deleteUser = async (id: string): Promise<IApiResponse<IUser[]>> => 
 
 export const getAllBooks = async (): Promise<IApiResponse<IBook[]>> => {
   return handleApiCalls(await fetch(process.env.NEXT_PUBLIC_BROWSER_URL + "/api/books", { method: "GET" }));
+};
+
+export const getUserBooks = async (id: string): Promise<IApiResponse<IBook[]>> => {
+  return handleApiCalls(await fetch(process.env.NEXT_PUBLIC_BROWSER_URL + "/api/users/books/" + id,
+    { method: "GET" }));
+};
+
+export const getUserTransactions = async (id: string): Promise<IApiResponse<ITransaction[]>> => {
+  return handleApiCalls(await fetch(process.env.NEXT_PUBLIC_BROWSER_URL + "/api/users/transactions/" + id,
+    { method: "GET" }));
+};
+
+export const getUserOrders = async (id: string): Promise<IApiResponse<IOrder[]>> => {
+  return handleApiCalls(await fetch(process.env.NEXT_PUBLIC_BROWSER_URL + "/api/users/orders/" + id,
+    { method: "GET" }));
+};
+
+export const getUserBookVariants = async (id: string): Promise<IApiResponse<IBookVariant[]>> => {
+  return handleApiCalls(await fetch(process.env.NEXT_PUBLIC_BROWSER_URL + "/api/users/book-variants/" + id,
+    { method: "GET" }));
 };
 
 export const createBook = async (data: z.infer <typeof bookSchema>): Promise<IApiResponse<IBook[]>> => {

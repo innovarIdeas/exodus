@@ -1,60 +1,53 @@
 
+"use client"
 import { CardContent, CardProps, DashboardCard } from "@/components/DashboardCard";
 import DashboardTitle from "@/components/DashboardTitle";
-import { BanknoteIcon, BookAIcon, ShoppingCart, User } from "lucide-react";
+import { BanknoteIcon, BookAIcon, BookAudioIcon, ShoppingCart, User } from "lucide-react";
 import React from "react";
 import { DataTable } from "./data-table";
-import { BookProps, columns } from "./columns";
+import { columns } from "./columns";
+import { useSession } from "next-auth/react";
+import { redirect, useParams } from "next/navigation";
+import { useGetSingleUser} from "@/lib/hook";
+import { IBook, IUser } from "@/models/models";
 
 
 export default function CustomerDashboard () {
+  const session = useSession();
+
+  if(session.status === "unauthenticated") {
+    redirect("/login");
+  }
+  const user = useGetSingleUser(session.data?.user.id ?? '');
+
   const cardData : CardProps[] = [
     {
-      label: 'Book Order',
+      label: 'Order',
       icon: ShoppingCart,
-      description: 'This is a test desc',
-      total: '550'
+      description: "Current number of user's book order",
+      total: user?.order?.length
     },
     {
-      label: 'Book Variant',
+      label: 'Books',
       icon: BookAIcon,
-      description: 'This is a test desc',
-      total: '100'
+      description: "Current number of user's books",
+      total: user?.created_books.length
     },
     {
       label: 'Transaction',
       icon: BanknoteIcon,
-      description: 'This is a test desc',
-      total: '50'
+      description: 'Transaction details',
+      total: user?.transactions.length
     },
     {
-      label: 'User Summary',
-      icon: User,
-      description: 'This is a test desc',
-      total: '200'
+      label: 'Book Variant',
+      icon: BookAudioIcon,
+      description: "Current number of user's book variant",
+      total: user?.book_variant.length
     },
   ]
 
-  const data: BookProps[] = [
-    {
-      book: 'The Keys to Success',
-      author: 'Kenneth Boluwatife',
-      noOfPage: 230,
-      status: "failed"
-    }, 
-    {
-      book: 'Atomic Habits',
-      author: 'Brian Tracy',
-      noOfPage: 290,
-      status: "pending"
-    }, 
-    {
-      book: 'Leadership Secrets',
-      author: 'Jim Rohn',
-      noOfPage: 330,
-      status: "success"
-    }, 
-  ]
+  const data: IBook[] = user?.created_books ?? []
   return (
     <div className="">
       <DashboardTitle title="User Dashboard" />
@@ -77,8 +70,6 @@ export default function CustomerDashboard () {
           <p className="mx-auto mt-10">No recent activities</p>
         </CardContent>
       </section>
-
-      
 
     </div>
   );

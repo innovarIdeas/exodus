@@ -14,7 +14,6 @@ const layout: React.FC<LayoutProps> = ({ children }) => {
   return (
     <div className="h-screen">
       <div className="sticky top-0 z-20">
-        {/* <NavBar /> */}
         <Navbar />
       </div>
       <div className="flex h-[85%]">
