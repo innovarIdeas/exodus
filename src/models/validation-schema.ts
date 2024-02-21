@@ -73,16 +73,13 @@ export const tempBookSchema = z.object({
   news_print: z.boolean().optional(),
   binding: z.string().optional(),
   white_paper: z.boolean().optional(),
-  no_of_books: z.number().int()
-    .optional(),
+  no_of_books: z.number().int(),
   portrait: z.boolean().optional(),
-  quantity_of_color: z.number().int()
-    .optional(),
+  quantity_of_color: z.number().int(),
   quantity_of_BW: z.number().int()
     .optional(),
-  book_size: z.string().optional(),
-  number_of_pages: z.number().int()
-    .optional(),
+  book_size: z.string(),
+  number_of_pages: z.number().int(),
   inside_layout: z.boolean().optional(),
   proof_reading: z.boolean().optional(),
   cover_design: z.boolean().optional(),

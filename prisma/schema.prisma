@@ -88,10 +88,10 @@ model Temp_Book {
     white_paper           Boolean?  @default(false)
     no_of_books           Int?
     portrait              Boolean?  @default(false)
-    quantity_of_color     Int?
+    quantity_of_color     Int
     quantity_of_BW        Int?
-    book_size             String?
-    number_of_pages       Int?
+    book_size             String
+    number_of_pages       Int
     inside_layout         Boolean?  @default(false)
     proof_reading         Boolean?  @default(false)
     cover_design          Boolean?  @default(false)
