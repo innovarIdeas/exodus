@@ -1,13 +1,12 @@
 import { NextRequest, NextResponse } from "next/server";
-import { PERMISSION_CODES } from "@/lib/permissions-code";
-import { checkUserPermission } from "@/lib/session-manager";
 import prisma from "@/lib/prisma";
+import { updateConstantSchema } from "@/models/validation-schema";
 
 export const dynamic = "force-dynamic";
 
 export async function GET () {
   try {
-    const constantdata = await prisma.constants.findMany({ orderBy: { created_at: "asc" } });
+    const constantdata = await prisma.constants.findMany({ where: { deleted_at: null } });
 
     return NextResponse.json(constantdata);
   } catch (error) {
@@ -17,23 +16,26 @@ export async function GET () {
   }
 }
 
-export async function DELETE (req: NextRequest, { params }: {params: {id: string}}) {
+export async function POST (req: NextRequest) {
   try {
-    const { id } = params;
+    const validation = updateConstantSchema.safeParse(await req.json());
 
-    if (!await checkUserPermission(PERMISSION_CODES.ADMIN)) {
-      return NextResponse.json({ error: "Permission denied" }, { status: 403 });
+    if (!validation.success) {
+      return NextResponse.json(
+        { error: validation.error.issues },
+        { status: 400 }
+      );
     }
 
-    await prisma.constants.update({
-      where: { id },
-      data: { deleted_at: new Date() },
-    });
+    const constant = await prisma.constants.create({ data: validation.data });
 
-    return NextResponse.json({}, { status: 200 });
+    return NextResponse.json(constant, { status: 201 });
   } catch (error) {
-    console.error("Error in DELETE request:", error);
+    console.error("Error in POST request:", error);
 
-    return NextResponse.json({ error: "Internal server error" }, { status: 500 });
+    return NextResponse.json(
+      { error: "Internal server error" },
+      { status: 500 }
+    );
   }
 }

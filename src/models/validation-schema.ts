@@ -364,3 +364,4 @@ export const updateConstantSchema = z.object(
     description: z.string().optional(),
     shortcode: z.string()
   });
+

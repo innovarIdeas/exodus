@@ -105,22 +105,30 @@ async function seedPermissionsAndRoles () {
 }
 
 async function seedConstants () {
-  const file = await fs.readFile("./prisma/seed-data/dev/constants.json", "utf-8");
-  const data = JSON.parse(file) as { name: string; value: string | number; shortcode: string; description: string}[];
+  const file = await fs.readFile(
+    "./prisma/seed-data/dev/constants.json",
+    "utf-8"
+  );
+
+  const data = JSON.parse(file) as {
+    name: string;
+    value: string | number;
+    shortcode: string;
+    description: string;
+  }[];
 
   for (const item of data) {
     await prisma.constants.upsert({
-      where: { shortcode: item.name },
+      where: { shortcode: item.shortcode },
       update: {
         name: item.name,
         value: Number(item.value),
-        shortcode: item.shortcode
       },
       create: {
         name: item.name,
         value: Number(item.value),
-        shortcode: item.shortcode
-      }
+        shortcode: item.shortcode,
+      },
     });
   }
 

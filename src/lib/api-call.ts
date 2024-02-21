@@ -1,5 +1,5 @@
-import { IApiError, IApiResponse, IBook, IBookVariant, IClaim, ICoupon, IDiscount, IFirstTimeOrderResponse, IOrder, IPermission, IRole, ITempBook, ITransaction, IUser, IValidationError } from "@/models/models";
-import { UpdateUserSchema, bookSchema, bookVariantSchema, claimSchema, couponSchema, orderSchema, roleSchema, tempBookSchema, transactionSchema, updateBookSchema, updateCouponSchema, updateRoleSchema, updateTransactionSchema, userSchema } from "@/models/validation-schema";
+import { IApiError, IApiResponse, IBook, IBookVariant, IClaim, IConstant, ICoupon, IDiscount, IFirstTimeOrderResponse, IOrder, IPermission, IRole, ITempBook, ITransaction, IUser, IValidationError } from "@/models/models";
+import { UpdateUserSchema, bookSchema, bookVariantSchema, claimSchema, couponSchema, orderSchema, roleSchema, tempBookSchema, transactionSchema, updateBookSchema, updateConstantSchema, updateCouponSchema, updateRoleSchema, updateTransactionSchema, userSchema } from "@/models/validation-schema";
 import { z } from "zod";
 
 async function handleValidationResponse (response: Response) {
@@ -317,4 +317,44 @@ export const updateTransaction = async (id: string, data: z.infer <typeof update
       method: "PATCH",
       body: JSON.stringify(data)
     }));
+};
+
+export const getAllConstants = async (): Promise<IApiResponse<IConstant[]>> => {
+  return handleApiCalls(
+    await fetch(process.env.NEXT_PUBLIC_BROWSER_URL + "/api/constants", { method: "GET" })
+  );
+};
+
+export const createConstant = async (
+  data: z.infer<typeof updateConstantSchema>
+): Promise<IApiResponse<IConstant>> => {
+  return handleApiCalls(
+    await fetch(process.env.NEXT_PUBLIC_BROWSER_URL + "/api/constants", {
+      method: "POST",
+      body: JSON.stringify(data),
+    })
+  );
+};
+
+export const deleteConstant = async (
+  id: string
+): Promise<IApiResponse<IConstant>> => {
+  return handleApiCalls(
+    await fetch(process.env.NEXT_PUBLIC_BROWSER_URL + "/api/constants/" + id, { method: "DELETE" })
+  );
+};
+
+export const updateConstant = async (
+  id: string,
+  data: z.infer<typeof updateConstantSchema>
+): Promise<IApiResponse<IConstant>> => {
+  return handleApiCalls(
+    await fetch(
+      process.env.NEXT_PUBLIC_BROWSER_URL + "/api/constants/" + id,
+      {
+        method: "PATCH",
+        body: JSON.stringify(data),
+      }
+    )
+  );
 };

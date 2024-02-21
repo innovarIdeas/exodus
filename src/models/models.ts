@@ -17,7 +17,9 @@ export interface IBase {
 export interface IConstant extends IBase {
   id: string;
   name: string;
+  shortcode: string;
   value: number;
+  description: string;
 }
 
 export interface IPermission {
@@ -287,3 +289,4 @@ export interface ITransaction extends IBase {
   status: string;
   transaction_type: string;
 }
+

@@ -1,3 +1,4 @@
+import ConstantBody from "./body";
 import Link from "next/link";
 import React from "react";
 import { getPermissions } from "@/lib/server";
@@ -19,7 +20,11 @@ const page = async () => {
     );
   }
 
-  return <div>constants</div>;
+  return (
+    <div className="mx-5">
+      <ConstantBody />
+    </div>
+  );
 };
 
 export default page;
