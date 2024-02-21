@@ -78,6 +78,16 @@ export interface IUser extends IBase {
   password: string;
 }
 
+export interface ISingleUser extends IBase {
+  name: string;
+  email: string;
+  password: string;
+  created_books: IBook[];
+  transactions: ITransaction[];
+  order: IOrder[]
+  book_variant: IBookVariant[]
+}
+
 export interface IFirstTimeOrderResponse extends IBase {
   user: IUser;
   bookVariant: IBookVariant;

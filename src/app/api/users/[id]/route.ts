@@ -48,14 +48,13 @@ export async function GET (req: NextRequest, { params }: { params: { id: string 
   const { id } = params;
 
   try {
-    const user = await prisma.user.findUnique({ where: { id: id }, include: { book_variant: true, order: true, created_books: { include: { book_variants: true } } } });
+    const user = await prisma.user.findUnique({ where: { id: id }, include: {created_books:true, transactions: true, order: true, book_variant: true} });
 
     if (!user) return NextResponse.json({ message: "User not found" }, { status: 404 });
 
-    return NextResponse.json({
-      message: "User fetch successfully",
-      data: user
-    });
+    return NextResponse.json(
+      user
+    );
   } catch (error) {
     console.error("Error in GET request:", error);
 
