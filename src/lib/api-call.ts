@@ -1,5 +1,21 @@
-import { IApiError, IApiResponse, IBook, IBookVariant, IClaim, ICoupon, IDiscount, IFirstTimeOrderResponse, IOrder, IPermission, IRole, ISingleUser, ITempBook, ITransaction, IUser, IValidationError } from "@/models/models";
-import { UpdateUserSchema, bookSchema, bookVariantSchema, claimSchema, couponSchema, orderSchema, roleSchema, tempBookSchema, transactionSchema, updateBookSchema, updateCouponSchema, updateRoleSchema, updateTransactionSchema, userSchema } from "@/models/validation-schema";
+import { IApiError, IApiResponse, IBook, IBookVariant, IClaim, IConstant, ICoupon, IDiscount, IFirstTimeOrderResponse, IOrder, IPermission, IRole, ISingleUser, ITempBook, ITransaction, IUser, IValidationError } from "@/models/models";
+import {
+  UpdateUserSchema,
+  bookSchema,
+  bookVariantSchema,
+  claimSchema,
+  couponSchema,
+  orderSchema,
+  roleSchema,
+  tempBookSchema,
+  transactionSchema,
+  updateBookSchema,
+  updateConstantSchema,
+  updateCouponSchema,
+  updateRoleSchema,
+  updateTransactionSchema,
+  userSchema,
+} from "@/models/validation-schema";
 import { z } from "zod";
 
 async function handleValidationResponse (response: Response) {
