@@ -227,6 +227,31 @@ const BookVariantForm = () => {
                       </FormItem>
                     )}
                   />
+                  <FormField
+                    control={form.control}
+                    name="book_size"
+                    render={({ field }) => (
+                      <FormItem
+                        className="w-full">
+                        <FormLabel>Paper Size</FormLabel>
+                        <Select onValueChange={field.onChange} defaultValue={field.value}>
+                          <FormControl>
+                            <SelectTrigger>
+                              <SelectValue placeholder="Select Paper SizeI" />
+                            </SelectTrigger>
+                          </FormControl>
+                          <SelectContent>
+                            <SelectItem value={"A4"}>
+                           A4
+                            </SelectItem>
+                            <SelectItem value={"A5"}>
+                            A5
+                            </SelectItem>
+                          </SelectContent>
+                        </Select>
+                      </FormItem>
+                    )}
+                  />
 
                   <FormField
                     control={form.control}
@@ -300,16 +325,19 @@ const BookVariantForm = () => {
                             </SelectTrigger>
                           </FormControl>
                           <SelectContent>
-                            <SelectItem value={"White"}>
+                            <SelectItem value={"WHITE_PAPER_LARGE"}>
                             White
                             </SelectItem>
 
-                            <SelectItem value={"Cream"}>
+                            <SelectItem value={"CREAM_PAPER_LARGE"}>
                             Cream
                             </SelectItem>
 
-                            <SelectItem value={"Glossy"}>
+                            <SelectItem value={"ART_PAPER_135"}>
                             Glossy (135gsm)
+                            </SelectItem>
+                            <SelectItem value={"NEWS_PRINT"}>
+                            News Print
                             </SelectItem>
                           </SelectContent>
                         </Select>

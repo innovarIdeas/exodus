@@ -1,13 +1,12 @@
-"use client";
+"use client"
 
 import {
   ColumnDef,
   flexRender,
   getCoreRowModel,
-  getFilteredRowModel,
-  getPaginationRowModel,
   useReactTable,
-} from "@tanstack/react-table";
+} from "@tanstack/react-table"
+
 import {
   Table,
   TableBody,
@@ -15,44 +14,25 @@ import {
   TableHead,
   TableHeader,
   TableRow,
-} from "@/components/ui/table";
-import { DataTablePagination } from "@/components/DataTablePagination";
-import { Input } from "@/components/ui/input";
-import React from "react";
+} from "@/components/ui/table"
 
 interface DataTableProps<TData, TValue> {
-  columns: ColumnDef<TData, TValue>[];
-  data: TData[];
+  columns: ColumnDef<TData, TValue>[]
+  data: TData[]
 }
 
-export function OrderDataTable<TData, TValue> ({
+export function TransactionsTable<TData, TValue>({
   columns,
   data,
 }: DataTableProps<TData, TValue>) {
-  const [columnFilters, setColumnFilters] = React.useState("");
-
   const table = useReactTable({
     data,
     columns,
     getCoreRowModel: getCoreRowModel(),
-    onGlobalFilterChange: setColumnFilters,
-    getFilteredRowModel: getFilteredRowModel(),
-    getPaginationRowModel: getPaginationRowModel(),
-    state: { globalFilter: columnFilters },
-  });
+  })
 
   return (
-    <div className="rounded-md border">
-      <div className="flex items-center py-4 px-4">
-        <Input
-          placeholder="Search Clients order..."
-          value={(table.getColumn("client")?.getFilterValue() as string) ?? ""}
-          onChange={(event) =>
-            table.getColumn("client")?.setFilterValue(event.target.value)
-          }
-          className="max-w-sm"
-        />
-      </div>
+    <div className="rounded-md ">
       <Table>
         <TableHeader>
           {table.getHeaderGroups().map((headerGroup) => (
@@ -63,11 +43,11 @@ export function OrderDataTable<TData, TValue> ({
                     {header.isPlaceholder
                       ? null
                       : flexRender(
-                        header.column.columnDef.header,
-                        header.getContext()
-                      )}
+                          header.column.columnDef.header,
+                          header.getContext()
+                        )}
                   </TableHead>
-                );
+                )
               })}
             </TableRow>
           ))}
@@ -95,7 +75,6 @@ export function OrderDataTable<TData, TValue> ({
           )}
         </TableBody>
       </Table>
-      <DataTablePagination table={table} />
     </div>
-  );
+  )
 }

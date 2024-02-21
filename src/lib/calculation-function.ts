@@ -19,7 +19,8 @@ async function fetchConstants () {
 
 export async function PaperTypePrice (paperType: IPaperType) {
   try {
-    const constantsMap = await fetchConstants();    const normalizedPaperType = paperType.trim().toUpperCase();
+    const constantsMap = await fetchConstants();
+    const normalizedPaperType = paperType.trim().toUpperCase();
 
     switch (normalizedPaperType) {
       case "CREAM_PAPER_LARGE":
@@ -191,7 +192,7 @@ export async function CostOfWrappingPerOrder (numberOfCopies: number) {
 export async function CostOfTrimmingPerOrder (numberOfCopies: number) {
   try {
     const constantsMap = await fetchConstants();
-    const result = constantsMap.TrimMinimumCost + constantsMap.CostOfTrimUnit + numberOfCopies;
+    const result = constantsMap.TrimMinimumCost + constantsMap.CostOfTrimPerUnit + numberOfCopies;
 
     return result;
   } catch (error) {
@@ -321,3 +322,100 @@ export async function CostOfCoverComponentForBulk (numberOfCopies: number, pageS
   }
 }
 
+export async function CostOfPrintSet (pageSize: IPageSize, numberOfPages: number) {
+  let result = 0;
+
+  if (pageSize === "A5") {
+    result = Math.round(numberOfPages / 8);
+  } else if (pageSize === "A4") {
+    result = Math.round(numberOfPages / 4);
+  } else {
+    throw new Error(`Unsupported page size: ${pageSize}`);
+  }
+
+  return result;
+}
+
+export function CostOfPrintingImpressionSet (numberOfCopies: number) {
+  let result = 0;
+
+  result = Math.round(numberOfCopies / 1000);
+
+  return result;
+}
+
+export async function CostOfBlackPagePerOrder (numberOfCopies: number, pageSize: IPageSize, numberOfPages: number, paperType: IPaperType) {
+  try {
+    const constantsMap = await fetchConstants();
+    const costOfPrintSet =  await CostOfPrintSet(pageSize, numberOfPages);
+    const costOfPrintSetImpression = CostOfPrintingImpressionSet(numberOfCopies);
+    const paperTypePrice = await PaperTypePrice(paperType);
+    let result = 0;
+
+    if (pageSize === "A5") {
+      result = constantsMap.CostOfComputerToPlate * 4 * costOfPrintSet + (constantsMap.CostOfBlackImpression * costOfPrintSet * costOfPrintSetImpression) + (((paperTypePrice / 1000) * (numberOfCopies + 80)) * (costOfPrintSet / 2) * costOfPrintSetImpression) + ((constantsMap.Collation * (costOfPrintSet / 2)) * costOfPrintSetImpression);
+    } else if (pageSize === "A4") {
+      result = constantsMap.CostOfComputerToPlate * costOfPrintSet + (constantsMap.CostOfBlackImpression * costOfPrintSet * costOfPrintSetImpression) + (((paperTypePrice / 1000) * (numberOfCopies + 80)) * (costOfPrintSet / 2) * costOfPrintSetImpression) + ((constantsMap.Collation * (costOfPrintSet / 2)) * costOfPrintSetImpression);
+    } else {
+      throw new Error(`Unsupported page size: ${pageSize}`);
+    }
+
+    return result;
+  } catch (error) {
+    console.error(`Error in CostOfBlackPagePerOrder for ${pageSize}:`, error);
+    throw new Error(`Failed to calculate CostOfBlackPagePerOrder for ${pageSize}`);
+  }
+}
+
+export async function CostOfColouredPagePerOrder (numberOfCopies: number, pageSize: IPageSize, numberOfPages: number, paperType: IPaperType) {
+  try {
+    const constantsMap = await fetchConstants();
+    const costOfPrintSet =  await CostOfPrintSet(pageSize, numberOfPages);
+    const costOfPrintSetImpression = CostOfPrintingImpressionSet(numberOfCopies);
+    const paperTypePrice = await PaperTypePrice(paperType);
+    let result = 0;
+
+    if (pageSize === "A5") {
+      result = constantsMap.CostOfComputerToPlate * 4 * costOfPrintSet + (constantsMap.CostOfBlackImpression * costOfPrintSet * costOfPrintSetImpression) + (((paperTypePrice / 1000) * (numberOfCopies + 120)) * (costOfPrintSet / 2) * costOfPrintSetImpression) + ((constantsMap.Collation * (costOfPrintSet / 2)) * costOfPrintSetImpression);
+    } else if (pageSize === "A4") {
+      result = constantsMap.CostOfComputerToPlate * 4 * costOfPrintSet + (constantsMap.CostOfBlackImpression * costOfPrintSet * costOfPrintSetImpression) + (((paperTypePrice / 1000) * (numberOfCopies + 120)) * (costOfPrintSet / 2) * costOfPrintSetImpression) + ((constantsMap.Collation * (costOfPrintSet / 2)) * costOfPrintSetImpression);
+    } else {
+      throw new Error(`Unsupported page size: ${pageSize}`);
+    }
+
+    return result;
+  } catch (error) {
+    console.error(`Error in CostOfBlackPagePerOrder for ${pageSize}:`, error);
+    throw new Error(`Failed to calculate CostOfBlackPagePerOrder for ${pageSize}`);
+  }
+}
+
+export async function TotalCostOfBooks (numberOfCopies: number, pageSize: IPageSize, numberOfPages: number, paperType: IPaperType, numberOfColouredPages: number) {
+  try {
+    const constantsMap = await fetchConstants();
+    const costOfCoverComponentPerBook = await CostOfCoverComponentPerBook(pageSize);
+    const costOfColouredPages = await CostOfColouredInsertPerBook(pageSize, numberOfColouredPages);
+    const costOfFinishingComponent = await CostOfFinishingComponent(numberOfCopies, pageSize, numberOfPages);
+    const costOfAddOnComponent  = await CostOfAddOnComponent(numberOfCopies);
+    const costOfBlackPagePerBook = await CostOfPageComponentPerBook(paperType, pageSize, numberOfPages);
+
+    let result = 0;
+
+    if (numberOfCopies <= 499) {
+      result = ((costOfCoverComponentPerBook + costOfBlackPagePerBook) +
+       (constantsMap.CostOfHardBack * constantsMap.CostOfJacket + costOfColouredPages + constantsMap.CostOfNylon) * numberOfCopies
+       + (costOfFinishingComponent + costOfAddOnComponent + constantsMap.ServiceChargeThreshold)) * constantsMap.MarkupPercentageForPrintOnDemand;
+    } else if (numberOfCopies >= 500) {
+      result = costOfCoverComponentPerBook + costOfBlackPagePerBook + (constantsMap.CostOfHardBack * numberOfCopies) +
+      constantsMap.CostOfJacket + (constantsMap.CostOfNylon * numberOfCopies) +
+       (costOfFinishingComponent + costOfAddOnComponent + constantsMap.ServiceChargeThreshold) * constantsMap.MarkupPercentageBulk;
+    } else {
+      throw new Error(`Unsupported page size: ${pageSize}`);
+    }
+
+    return result;
+  } catch (error) {
+    console.error("Error in TotalCostOfBook", error);
+    throw new Error("Failed to calculate TotalCostOfBooks");
+  }
+}

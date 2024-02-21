@@ -122,7 +122,7 @@ async function seedConstants () {
       where: { shortcode: item.shortcode },
       update: {
         name: item.name,
-        value: Number(item.value),
+        value: Number(item.value)
       },
       create: {
         name: item.name,
