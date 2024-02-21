@@ -16,6 +16,7 @@ import {
   TableHeader,
   TableRow,
 } from "@/components/ui/table";
+import { DataTablePagination } from "@/components/DataTablePagination";
 import { Input } from "@/components/ui/input";
 import React from "react";
 
@@ -94,6 +95,7 @@ export function OrderDataTable<TData, TValue> ({
           )}
         </TableBody>
       </Table>
+      <DataTablePagination table={table} />
     </div>
   );
 }

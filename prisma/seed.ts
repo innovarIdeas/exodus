@@ -110,11 +110,10 @@ async function seedConstants () {
 
   for (const item of data) {
     await prisma.constants.upsert({
-      where: { shortcode: item.name },
+      where: { shortcode: item.shortcode },
       update: {
         name: item.name,
-        value: Number(item.value),
-        shortcode: item.shortcode
+        value: Number(item.value)
       },
       create: {
         name: item.name,

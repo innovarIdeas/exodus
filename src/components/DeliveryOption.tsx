@@ -26,7 +26,6 @@ const DeliveryOption = () => {
               <input
                 onChange={(e)=>setDeliveryName(e.target.value)}
                 value={deliveryName}
-                // {...register("delivery_name")}
                 type="text"
                 name="delivery_name"
                 id="delivery_name"
@@ -42,7 +41,6 @@ const DeliveryOption = () => {
                 <input
                   onChange={(e)=>setDeliveryPhone(e.target.value)}
                   value={deliveryPhone}
-                  // {...register("delivery_phone")}
                   type="number"
                   name="delivery_phone"
                   id="delivery_phone"
@@ -72,7 +70,6 @@ const DeliveryOption = () => {
               <textarea
                 onChange={(e)=>setShippingAddress(e.target.value)}
                 value={shippingAddress}
-                // {...register("shipping_address")}
                 name="shipping_address"
                 id="shipping_address"
                 placeholder="shipping_address"
@@ -84,7 +81,6 @@ const DeliveryOption = () => {
               <div className="p mb-5">
                 <h1> City</h1>
                 <input
-                  // {...register("shipping_city")}
                   type="text"
                   name="shipping_city"
                   id="shipping_city"
@@ -98,7 +94,6 @@ const DeliveryOption = () => {
                 <input
                   onChange={(e)=>setShippingState(e.target.value)}
                   value={shippingState}
-                  // {...register("shipping_state")}
                   type="text"
                   name="shipping_state"
                   id="shipping_state"
@@ -115,7 +110,6 @@ const DeliveryOption = () => {
                 onChange={(e)=>setShippingInstruction(e.target.value)}
                 value={shippingInstruction}
                 type="text"
-                // {...register("shipping_instruction")}
                 name="shipping_instruction"
                 id="shipping_instruction"
                 placeholder="city"

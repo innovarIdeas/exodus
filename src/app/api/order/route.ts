@@ -1,5 +1,6 @@
+import {  CostOfCoverComponentPerBook, CostOfPerfectingBindingPerOrder, CostOfSpotLamnation, TotalCostOfBooks } from "@/lib/calculation-function";
+import { IPageSize, IPaperType } from "@/models/models";
 import { NextRequest, NextResponse } from "next/server";
-import { calculateOrderCost } from "@/lib/utils";
 import { getServerSession } from "next-auth/next";
 import { options } from "@/app/api/auth/[...nextauth]/options";
 import { orderSchema } from "@/models/validation-schema";
@@ -42,13 +43,27 @@ export async function POST (req: NextRequest) {
       return NextResponse.json({ error: "Book variant not found" }, { status: 404 });
     }
 
-    const data = calculateOrderCost(book_variant);
-
-    if (data == null) {
-      return NextResponse.json({ error: "Error calculating order cost" }, { status: 500 });
-    }
-
-    const order = await prisma.order.create({ data: { ...data, ...validation.data, created_by: session?.user.id ?? "" } });
+    const order = await prisma.order.create({
+      data: {
+        book: { connect: { id: book_variant.book_id } },
+        created_by_user: { connect: { id: session.user.id } },
+        client: { connect: { id: book_variant.created_by } },
+        book_variant: { connect: { id: book_variant.id } },
+        delivery_address: book_variant.shipping_address,
+        status: book_variant.status,
+        cover_cost: await CostOfCoverComponentPerBook(book_variant.book_size),
+        perfect_binding_cost: await CostOfPerfectingBindingPerOrder(book_variant.book_size, book_variant.number_of_pages, book_variant.no_of_books),
+        cover_total: await CostOfCoverComponentPerBook(book_variant.book_size),
+        lamination_cost: await CostOfSpotLamnation(book_variant.no_of_books),
+        total: await TotalCostOfBooks(
+          book_variant.no_of_books,
+          book_variant.book_size as IPageSize,
+          book_variant.number_of_pages,
+          book_variant.paper_type as IPaperType,
+          book_variant.quantity_of_Color
+        )
+      }
+    });
 
     return NextResponse.json(order, { status: 200 });
   } catch (error) {
