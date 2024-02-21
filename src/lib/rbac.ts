@@ -8,9 +8,14 @@ export const ROLE_PUBLISHER = "publisher";
 
 export const QUERY_KEY = {
   GET_ALL_BOOKS: "getAllBooks",
+  GET_USER_BOOKS: "getUserBooks",
+  GET_USER_TRANSACTIONS: "getUserTransactions",
+  GET_USER_BOOKVARIANTS: "getUserBookVariants",
+  GET_USER_ORDERS: "getUserOrders",
   GET_ALL_BOOK_VARIANTS: "getAllBookVariants",
   GET_ALL_USERS: "getAllUsers",
   GET_SINGLE_ORDER: "getSingleOrder",
+  GET_SINGLE_USER: "getSingleUser",
   GET_ALL_ORDER: "getAllOrder",
   GET_ALL_TRANSACTION: "getAllTransactions"
 };

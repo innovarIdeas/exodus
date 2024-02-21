@@ -50,19 +50,20 @@ const SideBar = (props: Props) => {
                 href: '/user/books',
               },
               {
-                title: "Orders",
-                label: "",
-                icon: ShoppingCartIcon,
-                variant: "ghost",
-                href: '/user/orders',
-              },
-              {
                 title: "Book Variant",
                 label: "",
                 icon: PenBox,
                 variant: "ghost",
                 href:'/user/book-variant',
               },
+              {
+                title: "Orders",
+                label: "",
+                icon: ShoppingCartIcon,
+                variant: "ghost",
+                href: '/user/orders',
+              },
+              
               {
                 title: "Transactions",
                 label: "",
