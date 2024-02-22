@@ -1,4 +1,6 @@
 import { NextRequest, NextResponse } from "next/server";
+import { PERMISSION_CODES } from "@/lib/permissions-code";
+import { checkUserPermission } from "@/lib/session-manager";
 import prisma from "@/lib/prisma";
 import { updateConstantSchema } from "@/models/validation-schema";
 
@@ -22,4 +24,31 @@ export async function PATCH (req: NextRequest, { params }: { params: { id: strin
   });
 
   return NextResponse.json(updateConstant);
+}
+
+export async function DELETE (
+  req: NextRequest,
+  { params }: { params: { id: string } }
+) {
+  try {
+    const { id } = params;
+
+    if (!(await checkUserPermission(PERMISSION_CODES.DELETE_CONSTANT))) {
+      return NextResponse.json({ error: "Permission denied" }, { status: 403 });
+    }
+
+    await prisma.constants.update({
+      where: { id },
+      data: { deleted_at: new Date() },
+    });
+
+    return NextResponse.json({}, { status: 200 });
+  } catch (error) {
+    console.error("Error in DELETE request:", error);
+
+    return NextResponse.json(
+      { error: "Internal server error" },
+      { status: 500 }
+    );
+  }
 }
