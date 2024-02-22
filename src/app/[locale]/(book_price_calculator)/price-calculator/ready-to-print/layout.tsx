@@ -4,7 +4,9 @@ import React, { useContext } from "react";
 import { editTempBook, firstTimeOrder } from "@/lib/api-call";
 import { ContextStore } from "@/context/ContextStore";
 import TempBookData from "@/components/TempBookData";
+import { signIn } from "next-auth/react";
 import { toast } from "@/components/ui/use-toast";
+import { useRouter } from "next/navigation";
 
 interface LayoutProps {
   children: React.ReactNode;
@@ -17,26 +19,45 @@ const layout: React.FC<LayoutProps> = ({ children }) => {
     return null;
   }
 
-  const { setCurrentStep, currentStep, whitePaper, glossyPaper, creamPaper, newsPrint, binding, bwPrint, colorPrint, bothPrint, noOfPages, bookSize, noOfBooks, deliveryName, deliveryPhone, pickUp, shippingAddress, shippingInstruction, shippingState, submitForm,  termsAndCondition, nextOpen } = contextValues;
+  const { setCurrentStep, currentStep, whitePaper, glossyPaper, creamPaper, newsPrint, binding, bwPrint, colorPrint, bothPrint, noOfPages, bookSize, noOfBooks, deliveryName, deliveryPhone, pickUp, shippingAddress, shippingInstruction, shippingState, submitForm,  termsAndCondition, nextOpen, qualityOfColor } = contextValues;
   const bookId = localStorage.getItem("Exodus_Book_Id");
   const book_id = bookId !== null && JSON.parse(bookId);
   const bookData = TempBookData();
+  const router = useRouter();
 
   const createFirstTimeOrder = async ()=>{
     const { data, error, validationErrors } = await firstTimeOrder(book_id);
 
-    if (error) {
+    if (error || validationErrors) {
       toast({
-        variant: "default",
+        variant: "destructive",
         description: ("Error in creating order"),
       });
     }
 
-    if (data || validationErrors) {
+    if (data) {
       toast({
         variant: "default",
         description: ("Order created"),
       });
+
+      await signIn("credentials", {
+        username: data.user.email,
+        password: data.user.email,
+        redirect: false
+      })
+        .then((response) => {
+          if (response?.error) {
+            toast({
+              variant: "destructive",
+              title: "Sign In error",
+              description: "Couldn't sign you in",
+            });
+          } else {
+            toast({ description: "Signed in sucessfully" });
+            router.push("/user/invoices/pdf/" + data.order.id);
+          }
+        });
     }
   };
 
@@ -49,7 +70,7 @@ const layout: React.FC<LayoutProps> = ({ children }) => {
       setCurrentStep(currentStep + 1);
     } else if(currentStep === 4 && deliveryName !== "" && deliveryPhone !== "") {
       if (bookData !== null) {
-        const { data, error } = await editTempBook(book_id, bookData);
+        const { data, error } = await editTempBook(book_id, { ...bookData, quantity_of_color: qualityOfColor });
 
         if(data) {
           localStorage.setItem("Single_Temp_Book", JSON.stringify(data));

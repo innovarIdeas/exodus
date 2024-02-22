@@ -43,7 +43,7 @@ const PaperInformationFormOne = (props: FormOneProps) => {
       props.setForm2(true);
       props.setForm3(false);
     }, 1000);
-    console.log("Crea was clicked");
+    console.log("Cream was clicked");
   };
 
   const handleGlossyPaper = ()=>{

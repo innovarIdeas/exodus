@@ -1,15 +1,15 @@
-"use client"
- 
-import { ITransaction } from "@/models/models"
-import { ColumnDef } from "@tanstack/react-table"
- 
+"use client";
+
+import { ColumnDef } from "@tanstack/react-table";
+import { ITransaction } from "@/models/models";
+
 export type BookProps = {
-  title: string
-  author: string
-  created_at: string
-  description: string
-}
- 
+  title: string;
+  author: string;
+  created_at: string;
+  description: string;
+};
+
 export const columns: ColumnDef<ITransaction>[] = [
   {
     accessorKey: "status",
@@ -22,10 +22,10 @@ export const columns: ColumnDef<ITransaction>[] = [
   {
     accessorKey: "type",
     header: "Type",
-  },  
+  },
   {
     accessorKey: "total",
     header: "Total",
   },
 
-]
+];

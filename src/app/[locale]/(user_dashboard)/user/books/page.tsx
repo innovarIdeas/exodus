@@ -1,35 +1,29 @@
-"use client"
+"use client";
 
-import DashboardTitle from '@/components/DashboardTitle'
-import React from 'react'
-import { BookTable } from './data-table'
-import { useGetSingleUser, useGetUserBooks } from '@/lib/hook'
+import { BookTable } from "./data-table";
+import DashboardTitle from "@/components/DashboardTitle";
+import { IBook } from "@/models/models";
+import React from "react";
+import { columns } from "./columns";
+import { useGetUserBooks } from "@/lib/hook";
 import { useSession } from "next-auth/react";
-import { BookProps, columns } from "./columns";
-import { IBook } from '@/models/models'
 
-type Props = {}
-
-const UserBooks = (props: Props) => {
+const UserBooks = () => {
   const session = useSession();
-  const userBooks = useGetUserBooks(session.data?.user.id ?? '')
-
-  const user = useGetSingleUser(session.data?.user.id ?? '');
-
-  const data:IBook[] = userBooks ?? []
-
+  const userBooks = useGetUserBooks(session.data?.user.id ?? "");
+  const data: IBook[] = userBooks ?? [];
 
   return (
     <div>
-      <div className='mb-10'>
-        <DashboardTitle title='User Books' />
+      <div className="mb-10">
+        <DashboardTitle title="User Books" />
       </div>
 
       <div className="">
-            <BookTable columns={columns} data={data} />
-          </div>
+        <BookTable columns={columns} data={data} />
+      </div>
     </div>
-  )
-}
+  );
+};
 
-export default UserBooks
+export default UserBooks;

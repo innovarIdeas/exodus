@@ -1,12 +1,9 @@
 "use client";
 
-import React, { useEffect, useState } from "react";
-import { Sheet, SheetContent, SheetTrigger } from "@/components/ui/sheet";
-import { Button } from "@/components/ui/button";
-import Link from "next/link";
+import React from "react";
 
 const ConstantBody = () => {
-  return <div></div>;
+  return <div>Constant body</div>;
 };
 
 export default ConstantBody;

@@ -144,7 +144,7 @@ export const addUserRole = async (data: z.infer<typeof claimSchema>): Promise<IA
   }));
 };
 
-export const firstTimeOrder = async (id: string): Promise<IApiResponse<IFirstTimeOrderResponse[]>> => {
+export const firstTimeOrder = async (id: string): Promise<IApiResponse<IFirstTimeOrderResponse>> => {
   return handleApiCalls(await fetch(process.env.NEXT_PUBLIC_BROWSER_URL + "/api/first-time-orders/" + id,
     { method: "POST" }));
 };

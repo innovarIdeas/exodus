@@ -22,7 +22,7 @@ const page = () => {
     return null;
   }
 
-  const { readyToPrint, setName, setPhoneNumber, setEmail, setBookName, setReadyToPrint, setBook, setMagazine, setStationary, setWorkInProgress, workInProgress,  stationary, magazine } = contextValues;
+  const { readyToPrint, setName, setPhoneNumber, setEmail, setBookName, setReadyToPrint, setBook, setMagazine, setStationary, setWorkInProgress, workInProgress,  stationary, magazine, noOfBooks, bookSize, qualityOfColor, noOfPages } = contextValues;
   const router = useRouter();
 
   useEffect(()=> {
@@ -60,10 +60,18 @@ const page = () => {
     setEmail(step0Data.email);
     setPhoneNumber(step0Data.phone_number);
     const projectType = stationary ? "stationary" : magazine ? "magazine" : "book";
-    const myData = { ...step0Data, status: "active", project_type: projectType, ready_to_print: readyToPrint, work_in_progress: workInProgress };
+    const myData = { ...step0Data, status: "active", project_type: projectType, ready_to_print: readyToPrint, work_in_progress: workInProgress, noOfBooks, bookSize, qualityOfColor, noOfPages };
 
     console.log("This is the data from form: ", myData);
-    const { data, error, validationErrors } = await createTempBook(myData);
+
+    const { data, error, validationErrors } = await createTempBook({
+      ...myData,
+      work_in_progress: workInProgress,
+      no_of_books: noOfBooks,
+      quantity_of_color: qualityOfColor,
+      number_of_pages: noOfPages,
+      book_size: bookSize
+    });
 
     if(data) {
       localStorage.setItem("Exodus_Book_Id", JSON.stringify(data.id));
@@ -176,7 +184,7 @@ const page = () => {
                 {...register("email", {
                   pattern: {
                     value: /[a-zA-Z0-9+_.-]+@[a-zA-Z0-9.-]+$/,
-                    message: "error message" // JS only: <p>error message</p> TS only support string
+                    message: "error message"
                   }
                 })}
                 type="email"

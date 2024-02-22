@@ -1,16 +1,16 @@
 
-"use client"
+"use client";
+
+import { BanknoteIcon, BookAIcon, BookAudioIcon, ShoppingCart } from "lucide-react";
 import { CardContent, CardProps, DashboardCard } from "@/components/DashboardCard";
 import DashboardTitle from "@/components/DashboardTitle";
-import { BanknoteIcon, BookAIcon, BookAudioIcon, ShoppingCart, User } from "lucide-react";
-import React from "react";
 import { DataTable } from "./data-table";
+import { IBook } from "@/models/models";
+import React from "react";
 import { columns } from "./columns";
+import { redirect } from "next/navigation";
+import { useGetSingleUser } from "@/lib/hook";
 import { useSession } from "next-auth/react";
-import { redirect, useParams } from "next/navigation";
-import { useGetSingleUser} from "@/lib/hook";
-import { IBook, IUser } from "@/models/models";
-
 
 export default function CustomerDashboard () {
   const session = useSession();
@@ -18,36 +18,38 @@ export default function CustomerDashboard () {
   if(session.status === "unauthenticated") {
     redirect("/login");
   }
-  const user = useGetSingleUser(session.data?.user.id ?? '');
 
-  const cardData : CardProps[] = [
+  const user = useGetSingleUser(session.data?.user.id ?? "");
+
+  const cardData: CardProps[] = [
     {
-      label: 'Order',
+      label: "Order",
       icon: ShoppingCart,
       description: "Current number of user's book order",
       total: user?.order?.length
     },
     {
-      label: 'Books',
+      label: "Books",
       icon: BookAIcon,
       description: "Current number of user's books",
       total: user?.created_books.length
     },
     {
-      label: 'Transaction',
+      label: "Transaction",
       icon: BanknoteIcon,
-      description: 'Transaction details',
+      description: "Transaction details",
       total: user?.transactions.length
     },
     {
-      label: 'Book Variant',
+      label: "Book Variant",
       icon: BookAudioIcon,
       description: "Current number of user's book variant",
       total: user?.book_variant.length
     },
-  ]
+  ];
 
-  const data: IBook[] = user?.created_books ?? []
+  const data: IBook[] = user?.created_books ?? [];
+
   return (
     <div className="">
       <DashboardTitle title="User Dashboard" />

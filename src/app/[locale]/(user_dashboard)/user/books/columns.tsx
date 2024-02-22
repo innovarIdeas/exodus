@@ -1,15 +1,16 @@
-"use client"
- 
-import { IBook } from "@/models/models"
-import { ColumnDef } from "@tanstack/react-table"
- 
+"use client";
+
+import { ColumnDef } from "@tanstack/react-table";
+import { IBook } from "@/models/models";
+import React from "react";
+
 export type BookProps = {
-  title: string
-  author: string
-  created_at: string
-  description: string
-}
- 
+  title: string;
+  author: string;
+  created_at: string;
+  description: string;
+};
+
 export const columns: ColumnDef<IBook>[] = [
   {
     accessorKey: "title",
@@ -23,14 +24,14 @@ export const columns: ColumnDef<IBook>[] = [
     accessorKey: "description",
     header: "Description",
     cell: ({ getValue }) => {
-      const value = getValue()
-      if(value === null) return <span>No Description</span>
+      const value = getValue();
+
+      if(value === null) return <span>No Description</span>;
     }
   },
   {
     accessorKey: "created_at",
     header: "Created At",
   },
-  
 
-]
+];

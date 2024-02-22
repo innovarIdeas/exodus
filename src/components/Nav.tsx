@@ -1,31 +1,32 @@
-"use client"
+"use client";
 
-import Link from "next/link"
-import { LucideIcon } from "lucide-react"
-
-import { cn } from "@/lib/utils"
-import { buttonVariants } from "@/components/ui/button"
 import {
   Tooltip,
   TooltipContent,
   TooltipTrigger,
-} from "@/components/ui/tooltip"
-import { TooltipProvider } from "@radix-ui/react-tooltip"
-import { usePathname } from "next/navigation"
+} from "@/components/ui/tooltip";
+import Link from "next/link";
+import { LucideIcon } from "lucide-react";
+import React from "react";
+import { TooltipProvider } from "@radix-ui/react-tooltip";
+import { buttonVariants } from "@/components/ui/button";
+import { cn } from "@/lib/utils";
+import { usePathname } from "next/navigation";
 
 interface NavProps {
-  isCollapsed: boolean
+  isCollapsed: boolean;
   links: {
-    title: string
-    label?: string
-    icon: LucideIcon
-    variant: "default" | "ghost"
-    href: string
-  }[]
+    title: string;
+    label?: string;
+    icon: LucideIcon;
+    variant: "default" | "ghost";
+    href: string;
+  }[];
 }
 
-export function Nav({ links, isCollapsed }: NavProps) {
-  const pathName = usePathname()
+export function Nav ({ links, isCollapsed }: NavProps) {
+  const pathName = usePathname();
+
   return (
     <TooltipProvider>
       <div
@@ -40,7 +41,7 @@ export function Nav({ links, isCollapsed }: NavProps) {
                   <Link
                     href={link.href}
                     className={cn(
-                      buttonVariants({ variant: link.href === pathName ? 'default' : 'ghost', size: "icon" }),
+                      buttonVariants({ variant: link.href === pathName ? "default" : "ghost", size: "icon" }),
                       "h-9 w-9",
                       link.variant === "default" &&
                         "dark:bg-muted dark:text-muted-foreground dark:hover:bg-muted dark:hover:text-white"
@@ -64,7 +65,7 @@ export function Nav({ links, isCollapsed }: NavProps) {
                 key={index}
                 href={link.href}
                 className={cn(
-                  buttonVariants({ variant: link.href === pathName ? 'default' : 'ghost', size: "sm" }),
+                  buttonVariants({ variant: link.href === pathName ? "default" : "ghost", size: "sm" }),
                   link.variant === "default" &&
                     "dark:bg-muted dark:text-white dark:hover:bg-muted dark:hover:text-white",
                   "justify-start"
@@ -89,5 +90,5 @@ export function Nav({ links, isCollapsed }: NavProps) {
         </nav>
       </div>
     </TooltipProvider>
-  )
+  );
 }

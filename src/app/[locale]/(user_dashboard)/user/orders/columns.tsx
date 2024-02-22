@@ -1,15 +1,15 @@
-"use client"
- 
-import { IOrder, ITransaction } from "@/models/models"
-import { ColumnDef } from "@tanstack/react-table"
- 
+"use client";
+
+import { ColumnDef } from "@tanstack/react-table";
+import { IOrder } from "@/models/models";
+
 export type BookProps = {
-  title: string
-  author: string
-  created_at: string
-  description: string
-}
- 
+  title: string;
+  author: string;
+  created_at: string;
+  description: string;
+};
+
 export const columns: ColumnDef<IOrder>[] = [
   {
     accessorKey: "book_id",
@@ -22,7 +22,7 @@ export const columns: ColumnDef<IOrder>[] = [
   {
     accessorKey: "status",
     header: "Status",
-  },  
+  },
   {
     accessorKey: "timestamp",
     header: "Date Added",
@@ -32,4 +32,4 @@ export const columns: ColumnDef<IOrder>[] = [
     header: "Total",
   },
 
-]
+];
