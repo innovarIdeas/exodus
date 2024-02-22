@@ -1,15 +1,15 @@
-"use client"
- 
-import { IBookVariant } from "@/models/models"
-import { ColumnDef } from "@tanstack/react-table"
- 
+"use client";
+
+import { ColumnDef } from "@tanstack/react-table";
+import { IBookVariant } from "@/models/models";
+
 export type BookProps = {
-  title: string
-  author: string
-  created_at: string
-  description: string
-}
- 
+  title: string;
+  author: string;
+  created_at: string;
+  description: string;
+};
+
 export const columns: ColumnDef<IBookVariant>[] = [
   {
     accessorKey: "variant_name",
@@ -27,6 +27,5 @@ export const columns: ColumnDef<IBookVariant>[] = [
     accessorKey: "created_at",
     header: "Created At",
   },
-  
 
-]
+];

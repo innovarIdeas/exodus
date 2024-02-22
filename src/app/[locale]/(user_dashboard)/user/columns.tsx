@@ -1,9 +1,9 @@
-"use client"
- 
-import { IBook } from "@/models/models"
-import { ColumnDef } from "@tanstack/react-table"
- 
- 
+"use client";
+
+import { ColumnDef } from "@tanstack/react-table";
+import { IBook } from "@/models/models";
+import React from "react";
+
 export const columns: ColumnDef<IBook>[] = [
   {
     accessorKey: "title",
@@ -17,10 +17,10 @@ export const columns: ColumnDef<IBook>[] = [
     accessorKey: "description",
     header: "Description",
     cell: ({ getValue }) => {
-      const value = getValue()
-      if(value === null) return <span>No Description</span>
+      const value = getValue();
+
+      if(value === null) return <span>No Description</span>;
     }
   },
-  
 
-]
+];

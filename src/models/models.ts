@@ -86,8 +86,8 @@ export interface ISingleUser extends IBase {
   password: string;
   created_books: IBook[];
   transactions: ITransaction[];
-  order: IOrder[]
-  book_variant: IBookVariant[]
+  order: IOrder[];
+  book_variant: IBookVariant[];
 }
 
 export interface IFirstTimeOrderResponse extends IBase {
