@@ -85,12 +85,10 @@ export const columns: ColumnDef<IOrder>[] = [
   {
     id: "Update",
     cell: ({ row }) => {
-      const book = row.original;
-
-      console.log(book);
+      const order = row.original;
 
       return (
-        <Link href={`/order/${book.id}`} className="rounded-full h-[40px] w-fit bg-main text-white text-x flex items-center justify-center gap-2 cursor-pointer px-4 shadow-lg hover:shadow-none">
+        <Link href={`admin/orders/${order.id}`} className="rounded-full h-[40px] w-fit bg-main text-white text-x flex items-center justify-center gap-2 cursor-pointer px-4 shadow-lg hover:shadow-none">
           View Order
         </Link>
       );

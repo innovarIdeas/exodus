@@ -28,7 +28,7 @@ export default function AdminDashboard () {
           ChecksUserPermission(PERMISSION_CODES.DELETE_BOOK) ? (
             <Link
               className="py-8 px-10 text-center border border-white shadow-lg bg-white my-6 items-center flex flex-col rounded-3xl mx-4"
-              href="/books"
+              href="/admin/books"
             >
               <Image src="/img/books.png" alt="Logo" width={64} height={64} />
               <h3 className="mt-4 font-bold text-sm text-black">Books</h3>
@@ -42,7 +42,7 @@ export default function AdminDashboard () {
           ChecksUserPermission(PERMISSION_CODES.DELETE_ORDER) ? (
             <Link
               className="py-8 px-10 text-center border border-white shadow-lg bg-white my-6 items-center flex flex-col rounded-3xl mx-4"
-              href="/orders"
+              href="/admin/orders"
             >
               <Image src="/img/orders.png" alt="Logo" width={64} height={64} />
               <h3 className="mt-4 font-bold text-sm text-black">Orders</h3>
@@ -56,7 +56,7 @@ export default function AdminDashboard () {
           ChecksUserPermission(PERMISSION_CODES.DELETE_USER) ? (
             <Link
               className="py-8 px-10 text-center border border-white shadow-lg bg-white my-6 items-center flex flex-col rounded-3xl mx-4"
-              href="/users"
+              href="/admin/users"
             >
               <Image src="/img/users.png" alt="Logo" width={64} height={64} />
               <h3 className="mt-4 font-bold text-sm text-black">Users</h3>
@@ -70,7 +70,7 @@ export default function AdminDashboard () {
           ChecksUserPermission(PERMISSION_CODES.DELETE_INVOICE) ? (
             <Link
               className="py-8 px-10 text-center border border-white shadow-lg bg-white my-6 items-center flex flex-col rounded-3xl mx-4"
-              href="/invoices"
+              href="/admin/invoices"
             >
               <Image src="/img/invoice.png" alt="Logo" width={64} height={64} />
               <h3 className="mt-4 font-bold text-sm text-black">Invoices</h3>
@@ -84,7 +84,7 @@ export default function AdminDashboard () {
           ChecksUserPermission(PERMISSION_CODES.DELETE_DISCOUNT) ? (
             <Link
               className="py-8 px-10 text-center border border-white shadow-lg bg-white my-6 items-center flex flex-col rounded-3xl mx-4"
-              href="/discounts"
+              href="/admin/discounts"
             >
               <Image
                 src="/img/discounts.png"
@@ -103,7 +103,7 @@ export default function AdminDashboard () {
           ChecksUserPermission(PERMISSION_CODES.DELETE_TRANSACTION) ? (
             <Link
               className="py-8 px-10 text-center border border-white shadow-lg bg-white my-6 items-center flex flex-col rounded-3xl mx-4"
-              href="/transactions"
+              href="/admin/transactions"
             >
               <Image
                 src="/img/transaction.png"
@@ -124,7 +124,7 @@ export default function AdminDashboard () {
           ChecksUserPermission(PERMISSION_CODES.DELETE_CONSTANT) ? (
             <Link
               className="py-8 px-10 text-center border border-white shadow-lg bg-white my-6 items-center flex flex-col rounded-3xl mx-4"
-              href="/constants"
+              href="/admin/constants"
             >
               <Image
                 src="/img/constants.png"

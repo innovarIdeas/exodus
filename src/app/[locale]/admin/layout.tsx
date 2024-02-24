@@ -6,12 +6,13 @@ import {
   DropdownMenuItem,
   DropdownMenuTrigger,
 } from "@/components/ui/dropdown-menu";
+import { redirect, usePathname } from "next/navigation";
 import { AiFillCaretDown } from "react-icons/ai";
 import Link from "next/link";
 import React from "react";
 import { formatDateText } from "@/utils/formatDate";
 import { titleCase } from "@/utils/formatText";
-import { usePathname } from "next/navigation";
+import { useSession } from "next-auth/react";
 
 interface adminRouteLayoutProps {
   children: React.ReactNode;
@@ -19,6 +20,11 @@ interface adminRouteLayoutProps {
 
 const adminRouteLayout: React.FC<adminRouteLayoutProps> = ({ children }) => {
   const pathName = usePathname().replace(/^\//, "");
+  const session = useSession();
+
+  if(session.status === "unauthenticated") {
+    redirect("/login");
+  }
 
   return (
     <>

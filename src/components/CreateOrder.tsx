@@ -11,6 +11,7 @@ import { Input } from "@/components/ui/input";
 import React from "react";
 import { createOrder } from "@/lib/api-call";
 import { orderSchema } from "@/models/validation-schema";
+import { redirect } from "next/navigation";
 import { useForm } from "react-hook-form";
 import { useToast } from "@/components/ui/use-toast";
 import z from "zod";
@@ -36,6 +37,7 @@ const CreateOrder = ({ book_variant_id }: ICreateOrderProps) => {
                   description: "Order created successfully!",
                   title: "Success"
                 });
+                redirect("/admin/oders/" + data.id);
 
                 form.reset();
               } else {
