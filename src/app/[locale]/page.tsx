@@ -4,7 +4,7 @@ import React, { useContext, useEffect } from "react";
 import { ContextStore } from "@/context/ContextStore";
 import Head from "next/head";
 import Link from "next/link";
-import { NavBar } from "./(book_price_calculator)/price-calculator/navbar";
+import { NavBar } from "./price-calculator/navbar";
 import styles from "@/app/[locale]/Home.module.css";
 
 export default function PriceCalculator () {

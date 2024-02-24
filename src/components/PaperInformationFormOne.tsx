@@ -100,7 +100,7 @@ const PaperInformationFormOne = (props: FormOneProps) => {
           <div onClick={()=>handleNewsPrint()} className="border flex justify-between items-center w-[450px] px-5 cursor-pointer py-3 rounded-xl bg-white shadow-md">
             <div className="flex items-center gap-6">
               <input checked={newsPrint} type="checkbox" name="" id="" />
-              <p className="text-lg">New Print</p>
+              <p className="text-lg">Newsprint</p>
             </div>
             <p className="flex justify-center items-center rounded-[50%] w-[40px] h-[40px] text-center text-white bg-blue-300">?</p>
           </div>

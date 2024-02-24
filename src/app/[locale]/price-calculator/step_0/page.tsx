@@ -196,7 +196,7 @@ const page = () => {
             </div>
 
             <div>
-              <button className=" rounded-xl bg-blue-700 py-3 px-10 text-base font-semibold z-[200000000] text-white outline-none mx-auto w-full text-center" type="submit"> Continue </button>
+              <button className=" rounded-xl bg-main py-3 px-10 text-base font-semibold z-[200000000] text-white outline-none mx-auto w-full text-center" type="submit"> Continue </button>
             </div>
 
           </form>

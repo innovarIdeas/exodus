@@ -19,14 +19,10 @@ const Navbar = () => {
 
       <div className="flex items-center space-x-4">
 
-        {session.status === "authenticated" && (
+        {session.status === "authenticated" && ChecksUserPermission(PERMISSION_CODES.ADMIN) && (
           <Button
             onClick={() =>{
-              if(ChecksUserPermission(PERMISSION_CODES.CLIENT)) {
-                router.push("/user");
-              }else  {
-                router.push("/admin");
-              }
+              router.push("/admin");
             }
             }
             className="bg-[#3366CC] text-white hover:bg-[#254785] focus:outline-none focus:ring focus:border-[#3366CC]"

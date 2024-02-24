@@ -164,7 +164,7 @@ const layout: React.FC<LayoutProps> = ({ children }) => {
               <path strokeLinecap="round" strokeLinejoin="round" d="M13.5 4.5 21 12m0 0-7.5 7.5M21 12H3" />
             </svg>
           </button> :
-          <button onClick={()=>handleNext()} className={`px-5 py-2 rounded-xl border ${nextOpen && "bg-blue-800 text-white"}  shadow flex items-center gap-4 justify-between`}> Next
+          <button onClick={()=>handleNext()} className={`px-5 py-2 rounded-xl border ${nextOpen && "bg-main text-white"}  shadow flex items-center gap-4 justify-between`}> Next
             <svg xmlns="http://www.w3.org/2000/svg" fill="none" viewBox="0 0 24 24" strokeWidth="1.5" stroke="currentColor" className="w-6 h-6">
               <path strokeLinecap="round" strokeLinejoin="round" d="M13.5 4.5 21 12m0 0-7.5 7.5M21 12H3" />
             </svg>

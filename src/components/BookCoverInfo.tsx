@@ -22,29 +22,29 @@ const BookCoverInfo = () => {
           <div>
             <p>Do you need ISBN?</p>
             <div className="w-[360px] border shadow-md p-2 grid grid-cols-2 rounded-md bg-white border-gray-400">
-              <button onClick={()=>(setIsbn(true))} className={`py-3  rounded-lg ${isbn ? "bg-blue-800 text-white" : ""}`}>Yes</button>
-              <button onClick={()=>(setIsbn(false))} className={`py-3 rounded-lg ${!isbn ? "bg-blue-800 text-white" : ""}`}>No</button>
+              <button onClick={()=>(setIsbn(true))} className={`py-3  rounded-lg ${isbn ? "bg-main text-white" : ""}`}>Yes</button>
+              <button onClick={()=>(setIsbn(false))} className={`py-3 rounded-lg ${!isbn ? "bg-main text-white" : ""}`}>No</button>
             </div>
           </div>
           <div>
             <p>Embossing?</p>
             <div className="w-[360px] border shadow-md p-2 grid grid-cols-2 rounded-md bg-white border-gray-400">
-              <button onClick={()=>setEmbossing(true)} className={`py-3 rounded-lg ${embossing ? "bg-blue-800 text-white" : ""}`}>Yes</button>
-              <button onClick={()=>setEmbossing(false)} className={`py-3 rounded-lg ${!embossing ? "bg-blue-800 text-white" : ""}`}>No</button>
+              <button onClick={()=>setEmbossing(true)} className={`py-3 rounded-lg ${embossing ? "bg-main text-white" : ""}`}>Yes</button>
+              <button onClick={()=>setEmbossing(false)} className={`py-3 rounded-lg ${!embossing ? "bg-main text-white" : ""}`}>No</button>
             </div>
           </div>
           <div>
             <p>Foiling?</p>
             <div className="w-[360px] border shadow-md p-2 grid grid-cols-2 rounded-md bg-white border-gray-400">
-              <button onClick={()=>setFoiling(true)} className={`py-3 rounded-lg ${foiling ? "bg-blue-800 text-white" : ""}`}>Yes</button>
-              <button onClick={()=>setFoiling(false)} className={`py-3 rounded-lg ${!foiling ? "bg-blue-800 text-white" : ""}`}>No</button>
+              <button onClick={()=>setFoiling(true)} className={`py-3 rounded-lg ${foiling ? "bg-main text-white" : ""}`}>Yes</button>
+              <button onClick={()=>setFoiling(false)} className={`py-3 rounded-lg ${!foiling ? "bg-main text-white" : ""}`}>No</button>
             </div>
           </div>
           {spotLamination && <div>
             <p>Spot Lamination?</p>
             <div className="w-[360px] border shadow-md p-2 grid grid-cols-2 rounded-md bg-white border-gray-400">
-              <button onClick={()=>setLamination("Spot Lamination")} className={`py-3 rounded-lg ${lamination === "Spot Lamination" ? "bg-blue-800 text-white" : ""}`}>Yes</button>
-              <button onClick={()=>setLamination("")} className={`py-3 rounded-lg ${lamination === "" ? "bg-blue-800 text-white" : ""}`}>No</button>
+              <button onClick={()=>setLamination("Spot Lamination")} className={`py-3 rounded-lg ${lamination === "Spot Lamination" ? "bg-main text-white" : ""}`}>Yes</button>
+              <button onClick={()=>setLamination("")} className={`py-3 rounded-lg ${lamination === "" ? "bg-main text-white" : ""}`}>No</button>
             </div>
           </div>}
         </div>
