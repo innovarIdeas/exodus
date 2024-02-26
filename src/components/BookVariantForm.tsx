@@ -16,7 +16,7 @@ import {
 } from "@/components/ui/select";
 import { Button } from "./ui/button";
 import { Input } from "@/components/ui/input";
-import { Switch } from "./ui/switch";
+import { Switch } from "@/components/ui/switch";
 import { bookVariantSchema } from "@/models/validation-schema";
 import { createBookVariant } from "@/lib/api-call";
 import { generateVariantName } from "@/lib/uuid-helper";
@@ -31,7 +31,19 @@ const BookVariantForm = () => {
 
         type TFormData = z.infer<typeof bookVariantSchema>;
 
-        const form = useForm<TFormData>({ resolver: zodResolver(bookVariantSchema), defaultValues: { variant_name: generateVariantName() } });
+        const form = useForm<TFormData>({
+          resolver: zodResolver(bookVariantSchema),
+          defaultValues: {
+            variant_name: generateVariantName(),
+            inside_layout: true,
+            proof_reading: true,
+            cover_design: true,
+            editing: true,
+            ISBN: true,
+            embossing: true,
+            foiling: true,
+          },
+        });
         const books  = useGetAllBook();
         const [step, setStep] = useState(1);
 
@@ -358,7 +370,6 @@ const BookVariantForm = () => {
             case 3:
               return (
                 <div>
-
                   <FormField
                     control={form.control}
                     name="inside_layout"
@@ -371,7 +382,6 @@ const BookVariantForm = () => {
                           <Switch
                             checked={field.value}
                             onCheckedChange={field.onChange}
-                            defaultChecked={field.value}
                           />
                         </FormControl>
                       </FormItem>
@@ -390,7 +400,6 @@ const BookVariantForm = () => {
                           <Switch
                             checked={field.value}
                             onCheckedChange={field.onChange}
-                            defaultChecked={field.value}
                           />
                         </FormControl>
                       </FormItem>
@@ -407,8 +416,8 @@ const BookVariantForm = () => {
                         </div>
                         <FormControl>
                           <Switch
-                            checked={field.value || true}
-                            onCheckedChange={(checked) => field.onChange(checked)}
+                            checked={field.value}
+                            onCheckedChange={field.onChange}
                           />
                         </FormControl>
                       </FormItem>
@@ -425,8 +434,8 @@ const BookVariantForm = () => {
                         </div>
                         <FormControl>
                           <Switch
-                            checked={field.value || true}
-                            onCheckedChange={(checked) => field.onChange(checked)}
+                            checked={field.value}
+                            onCheckedChange={field.onChange}
                           />
                         </FormControl>
                       </FormItem>
@@ -434,11 +443,19 @@ const BookVariantForm = () => {
                   />
 
                   <div className="flex justify-between my-3">
-                    <Button type="button" onClick={prevStep} className=" mx-5 text-sm bg-blue py-2 px-4 create-button border border-1 border-blue rounded-sm   hover:font-semibold hover:bg-green">
-                    Previous
+                    <Button
+                      type="button"
+                      onClick={prevStep}
+                      className=" mx-5 text-sm bg-blue py-2 px-4 create-button border border-1 border-blue rounded-sm   hover:font-semibold hover:bg-green"
+                    >
+                      Previous
                     </Button>
-                    <Button type="button" onClick={nextStep} className="mx-5 text-sm bg-blue py-2 px-4 create-button border border-1 border-blue rounded-sm   hover:font-semibold hover:bg-green">
-                    Next
+                    <Button
+                      type="button"
+                      onClick={nextStep}
+                      className="mx-5 text-sm bg-blue py-2 px-4 create-button border border-1 border-blue rounded-sm   hover:font-semibold hover:bg-green"
+                    >
+                      Next
                     </Button>
                   </div>
                 </div>
@@ -447,7 +464,6 @@ const BookVariantForm = () => {
             case 4:
               return (
                 <div>
-
                   <FormField
                     control={form.control}
                     name="ISBN"
@@ -458,8 +474,8 @@ const BookVariantForm = () => {
                         </div>
                         <FormControl>
                           <Switch
-                            checked={field.value || true}
-                            onCheckedChange={(checked) => field.onChange(checked)}
+                            checked={field.value}
+                            onCheckedChange={field.onChange}
                           />
                         </FormControl>
                       </FormItem>
@@ -476,8 +492,8 @@ const BookVariantForm = () => {
                         </div>
                         <FormControl>
                           <Switch
-                            checked={field.value || true}
-                            onCheckedChange={(checked) => field.onChange(checked)}
+                            checked={field.value}
+                            onCheckedChange={field.onChange}
                           />
                         </FormControl>
                       </FormItem>
@@ -494,8 +510,8 @@ const BookVariantForm = () => {
                         </div>
                         <FormControl>
                           <Switch
-                            checked={field.value || true}
-                            onCheckedChange={(checked) => field.onChange(checked)}
+                            checked={field.value}
+                            onCheckedChange={field.onChange}
                           />
                         </FormControl>
                       </FormItem>
@@ -506,23 +522,21 @@ const BookVariantForm = () => {
                     control={form.control}
                     name="lamination"
                     render={({ field }) => (
-                      <FormItem
-                        className="w-full">
+                      <FormItem className="w-full">
                         <FormLabel className="text-black">Lamination</FormLabel>
-                        <Select onValueChange={field.onChange} defaultValue={field.value}>
+                        <Select
+                          onValueChange={field.onChange}
+                          defaultValue={field.value}
+                        >
                           <FormControl>
                             <SelectTrigger>
                               <SelectValue placeholder="Select a paper type" />
                             </SelectTrigger>
                           </FormControl>
                           <SelectContent>
-                            <SelectItem value={"White"}>
-                            Gloss
-                            </SelectItem>
+                            <SelectItem value={"White"}>Gloss</SelectItem>
 
-                            <SelectItem value={"Cream"}>
-                            Matte
-                            </SelectItem>
+                            <SelectItem value={"Cream"}>Matte</SelectItem>
                           </SelectContent>
                         </Select>
                       </FormItem>
@@ -533,10 +547,9 @@ const BookVariantForm = () => {
                     control={form.control}
                     name="status"
                     render={({ field }) => (
-                      <FormItem
-                        className="w-full">
+                      <FormItem className="w-full">
                         <FormLabel className="text-black">Status</FormLabel>
-                        <Select onValueChange={field.onChange} >
+                        <Select onValueChange={field.onChange}>
                           <FormControl>
                             <SelectTrigger>
                               <SelectValue placeholder="Select a statuss" />
@@ -544,12 +557,10 @@ const BookVariantForm = () => {
                           </FormControl>
                           <SelectContent>
                             <SelectItem value={"InProgress"}>
-                            In Progress
+                              In Progress
                             </SelectItem>
 
-                            <SelectItem value={"Ready"}>
-                            Work
-                            </SelectItem>
+                            <SelectItem value={"Ready"}>Work</SelectItem>
                           </SelectContent>
                         </Select>
                       </FormItem>
@@ -557,11 +568,18 @@ const BookVariantForm = () => {
                   />
 
                   <div className="flex justify-between my-3">
-                    <Button type="button" onClick={prevStep} className=" mx-5 text-sm bg-blue py-2 px-4 create-button border border-1 border-blue rounded-sm   hover:font-semibold hover:bg-green">
-                    Previous
+                    <Button
+                      type="button"
+                      onClick={prevStep}
+                      className=" mx-5 text-sm bg-blue py-2 px-4 create-button border border-1 border-blue rounded-sm   hover:font-semibold hover:bg-green"
+                    >
+                      Previous
                     </Button>
-                    <Button type="submit" className="mx-5 text-sm bg-green py-2 px-4 border border-1 border-green rounded-sm   hover:font-semibold hover:bg-blue">
-                    Submit
+                    <Button
+                      type="submit"
+                      className="mx-5 text-sm bg-green py-2 px-4 border border-1 border-green rounded-sm   hover:font-semibold hover:bg-blue"
+                    >
+                      Submit
                     </Button>
                   </div>
                 </div>

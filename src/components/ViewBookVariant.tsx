@@ -69,19 +69,19 @@ const BookVariant = ({ variant_name, book_name, description, number_of_words, no
         <span> WHITE PAPER: {white_paper} </span>
         <span> PORTRAIT: {portrait} </span>
         <span> PROJECT TYPE: {project_type} </span>
-        <span> PROOF READING: {proof_reading} </span>
+        <span> PROOF READING: {proof_reading ? "TRUE" : "FALSE"} </span>
         <span> BOOK SIZE: {book_size} </span>
         <span> NUMBER OF PAGES: {number_of_pages} </span>
-        <span> INSIDE LAYOUT: {inside_layout} </span>
+        <span> INSIDE LAYOUT: {inside_layout ? "TRUE" : "FALSE"} </span>
         <span> INSIDE LAYOUT TYPE: {inside_layout_type} </span>
-        <span> COVER DESIGN: {cover_design} </span>
+        <span> COVER DESIGN: {cover_design ? "TRUE" : "FALSE"} </span>
         <span> COVER DESIGN TYPE: {cover_design_type} </span>
-        <span> EDITING: {editing} </span>
-        <span> ISBN: {ISBN} </span>
+        <span> EDITING: {editing ? "TRUE" : "FALSE"} </span>
+        <span> ISBN: {ISBN ? "TRUE" : "FALSE"} </span>
         <span> ONLINE SALES: {online_sales} </span>
-        <span> EMBOSSING: {embossing} </span>
+        <span> EMBOSSING: {embossing ? "TRUE" : "FALSE"} </span>
         <span> LAMINATION: {lamination} </span>
-        <span> FOILING: {foiling} </span>
+        <span> FOILING: {foiling ? "TRUE" : "FALSE"} </span>
         <span> PROJECT TYPE: {project_type} </span>
         <span> READY TO PRINT: {readyToPrint} </span>
         <span> PUBLISHED: {published} </span>

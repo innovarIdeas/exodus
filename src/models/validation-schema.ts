@@ -268,8 +268,10 @@ export const bookVariantSchema = z.object({
   quantity_of_BW: z.coerce.number().optional(),
   book_size: z.string(),
   number_of_pages: z.coerce.number(),
-  inside_layout: z.boolean().optional(),
-  proof_reading: z.boolean().optional(),
+  inside_layout: z.boolean().optional()
+    .default(true),
+  proof_reading: z.boolean().optional()
+    .default(true),
   cover_design: z.boolean().optional()
     .default(true),
   cover_design_type: z.string().optional(),
