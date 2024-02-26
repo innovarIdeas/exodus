@@ -1,24 +1,24 @@
 "use client";
 
-import Navbar from "@/components/Navbar";
+import { ChecksUserPermission } from "@/lib/session-manager";
+import { PERMISSION_CODES } from "@/lib/permissions-code";
 import React from "react";
 import { redirect } from "next/navigation";
-import { useSession } from "next-auth/react";
 
 interface adminRouteLayoutProps {
   children: React.ReactNode;
 }
 
 const adminRouteLayout: React.FC<adminRouteLayoutProps> = ({ children }) => {
-  const session = useSession();
-
-  if(session.status === "unauthenticated") {
-    redirect("/login");
+  if(ChecksUserPermission(PERMISSION_CODES.ADMIN)) {
+    redirect("/admin");
+  }else if(ChecksUserPermission(PERMISSION_CODES.CLIENT)) {
+    redirect("/user");
   }
 
   return (
     <>
-      <Navbar/>
+
       {children}
     </>
   );

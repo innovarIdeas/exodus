@@ -23,9 +23,9 @@ export default function CustomerDashboard () {
 
   const cardData: CardProps[] = [
     {
-      label: "Order",
+      label: "My Invoices",
       icon: ShoppingCart,
-      description: "Current number of user's book order",
+      description: "Current number of user's my invoices",
       total: user?.order?.length
     },
     {
