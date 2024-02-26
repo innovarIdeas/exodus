@@ -18,7 +18,7 @@ export default function AdminDashboard () {
   return (
     <main className="w-screen h-screen flex flex-col justify-start bg-[url('/background.svg')] bg-cover bg-repeat  md:bg-repeat">
       <div className="text-lg font-semibold text-gray2 animate-[bounce_2s_ease-in-out] bg-transwhite shadow-lg rounded-lg p-5 m-2 w-[20%] md:w-[30%] sm:w-full">
-          Welcome <span className="text-main font-bold">Jane Doe {JSON.stringify(session.data?.permissions)}</span>
+          Welcome <span className="text-main font-bold">Jane Doe</span>
       </div>
 
       <div className="grid grid-cols-3 sm:grid-cols-1 md:grid-cols-2 lg:grid-cols-2 xl:grid-cols-3 2xl:grid-cols-4 bg-transwhite gap-4   shadow-lg rounded-lg mx-[10%] px-[5%]">
