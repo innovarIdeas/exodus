@@ -15,7 +15,7 @@ const UserOrders = () => {
 
   return (
     <div>
-      <DashboardTitle title="User Orders" />
+      <DashboardTitle title="My Invoices" />
 
       <div className="mt-10">
         <OrdersTable columns={columns} data={data} />

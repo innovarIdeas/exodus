@@ -54,7 +54,7 @@ const SingleInvoice = ()=>{
           <p className="text-xs lg:text-sm mt-1 font-bold">Bill To:</p>
           <p className="text-xs lg:text-sm mt-1">{order?.book_variant.book.client?.name}</p>
           <p className="text-xs lg:text-sm mt-1">{order?.book_variant.book.client?.email}</p>
-          {/* <p className="text-xs lg:text-sm mt-1">{order?.client.}</p> */}
+
           <div>
             <div className="mt-4">
 
@@ -70,7 +70,7 @@ const SingleInvoice = ()=>{
                 <tbody>
                   <tr>
                     <td className="text-xs lg:text-sm py-1 px-2 col-span-2">
-                      <span className="font-semibold"> Financial Intelligence</span><br />
+                      <span className="font-semibold"> {order?.book.title}</span><br />
                       <span>{order?.book_variant?.number_of_pages } pages, { order?.book_variant?.book_size } size,
                         { order?.book_variant?.paper_type }, { order?.book_variant?.lamination }</span>
                     </td>
@@ -89,8 +89,8 @@ const SingleInvoice = ()=>{
                   </tr>
                   <tr>
                     <td className="text-xs lg:text-sm py-1 px-2"><span className="font-semibold">Book covr embossing</span> <br/>
-                      <span>Cver embossing for financial Intelligence (100 copies)</span></td>
-                    <td className="text-xs lg:text-sm py-1 px-2 col-span-2 text-left">0.00</td>
+                      <span>Cver embossing for {order?.book.title} ({order?.book_variant.no_of_books} copies)</span></td>
+                    <td className="tex.t-xs lg:text-sm py-1 px-2 col-span-2 text-left">0.00</td>
                     <td className="text-xs lg:text-sm py-1 px-2 text-left col-span-2">0.00</td>
                     <td className="text-xs lg:text-sm py-1 px-2 text-right`~~~~ col-span-2">0.00</td>
                   </tr>
@@ -102,9 +102,6 @@ const SingleInvoice = ()=>{
           <div className="border border-b-gray">
             <h1 className="text-right mt-4 text-xl font-bold">Total:   <span className="text-blue">{order?.total}</span></h1>
           </div>
-
-          <h1 className="text-center mt-10 mb-5 text-3xl font-bold">Quotation Details</h1>
-...
         </div>
       </div>
       <div className="mt-[10px] grid grid-cols-5  md:gap-[5%] bg-white py-5 px-5 rounded-xl shadow">

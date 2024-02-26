@@ -8,7 +8,6 @@ import { loginSchema } from "@/models/validation-schema";
 import { signIn } from "next-auth/react";
 import { toast } from "@/components/ui/use-toast";
 import {  useForm } from "react-hook-form";
-import { useRouter } from "next/navigation";
 import { useTranslations } from "next-intl";
 import z from "zod";
 import { zodResolver } from "@hookform/resolvers/zod";
@@ -17,28 +16,33 @@ export const LoginForm = () => {
   type Tlogin = z.infer<typeof loginSchema >;
 
   const t = useTranslations("login");
-  const router = useRouter();
   const form = useForm<Tlogin>({ resolver: zodResolver(loginSchema) });
 
-  const onSubmit = async (data: z.infer<typeof loginSchema >) => {
-    await signIn("credentials", {
-      username: data.username,
-      password: data.password,
-      redirect: false,
-    })
-      .then((response) => {
-        if (response?.error) {
-          toast({
-            variant: "destructive",
-            title: t("error_title"),
-            description: t("error_desc"),
-          });
-        } else {
-          toast({ description: t("signed_in") });
-
-          router.push("/");
-        }
+  const onSubmit = async (data: z.infer<typeof loginSchema>) => {
+    try {
+      const response = await signIn("credentials", {
+        username: data.username,
+        password: data.password,
+        redirect: false,
       });
+
+      if (response?.error) {
+        toast({
+          variant: "destructive",
+          title: t("error_title"),
+          description: t("error_desc"),
+        });
+      } else {
+        toast({ description: t("signed_in") });
+      }
+    } catch (error) {   console.error("Error signing in:", error);
+
+      toast({
+        variant: "destructive",
+        title: t("error_title"),
+        description: t("error_desc"),
+      });
+    }
   };
 
   return (

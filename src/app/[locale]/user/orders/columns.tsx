@@ -2,6 +2,7 @@
 
 import { ColumnDef } from "@tanstack/react-table";
 import { IOrder } from "@/models/models";
+import React from "react";
 
 export type BookProps = {
   title: string;
@@ -12,8 +13,17 @@ export type BookProps = {
 
 export const columns: ColumnDef<IOrder>[] = [
   {
-    accessorKey: "book_id",
-    header: "Book ID",
+    accessorKey: "book",
+    header: "Book Name",
+    cell: ({ row }) => {
+      const order = row.original;
+
+      return (
+        <div>
+          <span className="">{order?.book?.title}</span>
+        </div>
+      );
+    },
   },
   {
     accessorKey: "payment_reference",

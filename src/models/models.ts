@@ -249,34 +249,37 @@ export interface IBookData {
 }
 
 export interface IOrder extends IBase {
-  book_id: string;
-  book_name: string;
-  created_by: IUser;
-  client: IUser;
-  timestamp: string;
-  book_variant: IBookVariant;
-  delivery_address: string;
-  total: number;
-  status: string;
-  payment_reference: string;
-  cover_total: number;
-  inner_total: number;
-  delivery_fee: number;
-  discount_id: string ;
-  coupon_id: string ;
-  inner_page_cost: number;
-  cover_cost: number;
-  perfect_binding_cost:  number;
-  lamination_cost: number;
-  wrapping_cost: number;
-  trim_cost: number;
-  embossing_cost: number;
+  id:                  string;
+  book:                 IBook;
+  temp_book_id:         string;
+  created_by: string;
+  client_id:            string;
+  client:               IUser;
+  created_by_user:      IUser;
+  book_variant:         IBookVariant;
+  delivery_address:     string;
+  total:                number;
+  status:               string;
+  payment_reference:    string;
+  cover_total:          number;
+  inner_total:          number;
+  delivery_fee:         number;
+  coupon_id:           string;
+  coupon_by_id:         ICoupon;
+  inner_page_cost:      number;
+  cover_cost:           number;
+  perfect_binding_cost: number;
+  lamination_cost:      number;
+  wrapping_cost:        number;
+  trim_cost:           number;
+  embossing_cost:       number;
   spot_lamination_cost: number;
-  foil_cost: number;
-  book_cost: number;
-  service_cost: number;
-  markup: number;
-  created_at: string;
+  foil_cost:            number;
+  book_cost:           number;
+  service_cost:         number;
+  markup:               number;
+  transactions:         number;
+
 }
 
 export interface ICoupon extends IBase {
