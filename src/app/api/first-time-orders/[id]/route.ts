@@ -49,7 +49,7 @@ export async function POST (req: NextRequest, { params }: { params: { id: string
 
     const book =  await prisma.book.create({
       data: {
-        title: tempBook.name,
+        title: tempBook.book_name ?? "Default Book",
         created_by: user.id
       }
     });
