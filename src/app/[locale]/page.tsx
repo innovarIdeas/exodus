@@ -4,7 +4,7 @@ import React, { useContext, useEffect } from "react";
 import { ContextStore } from "@/context/ContextStore";
 import Head from "next/head";
 import Link from "next/link";
-import { NavBar } from "./price-calculator/navbar";
+import Navbar from "@/components/Navbar";
 import styles from "@/app/[locale]/Home.module.css";
 
 export default function PriceCalculator () {
@@ -24,7 +24,7 @@ export default function PriceCalculator () {
 
   return (
     <div>
-      <NavBar/>
+      <Navbar/>
 
       <div style={{ backgroundImage: "url(\"/img/bg_light.png\")" }} className={styles.container}>
 

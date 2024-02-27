@@ -1,7 +1,7 @@
 "use client";
 
 import { ContextProvider } from "@/context/ContextStore";
-import { NavBar } from "./navbar";
+import Navbar from "@/components/Navbar";
 import React from "react";
 
 interface LayoutProps {
@@ -12,7 +12,7 @@ const layout: React.FC<LayoutProps> = ({ children }) => {
   return (
     <div>
       <ContextProvider>
-        <NavBar />
+        <Navbar/>
         {children}
       </ContextProvider>
     </div>
