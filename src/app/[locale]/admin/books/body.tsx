@@ -1,36 +1,35 @@
 "use client";
 
 import { Dialog, DialogContent, DialogDescription, DialogHeader, DialogTitle, DialogTrigger } from "@/components/ui/dialog";
-import React, { useEffect, useState } from "react";
+import React, { useState } from "react";
 import { BiPlusCircle } from "react-icons/bi";
 import { BookDataTable } from "./data-table";
 import BookForm from "@/components/BookForm";
 import { IBook } from "@/models/models";
+import { QUERY_KEY } from "@/lib/rbac";
 import { columns } from "./columns";
 import { getAllBooks } from "@/lib/api-call";
+import { useQuery } from "@tanstack/react-query";
 
 export default function BookBody () {
   const [bookData, setBookData] = useState<IBook[]>([]);
 
-  const fetchData = async ()=>{
-    const { data, error, validationErrors } = await getAllBooks();
+  useQuery({
+    queryKey: [QUERY_KEY.GET_ALL_BOOKS],
+    queryFn: async () => {
+      const { data, error, validationErrors } = await getAllBooks();
 
-    if (data) setBookData(data);
+      if(data) setBookData(data);
 
-    if (validationErrors?.length) {
-      console.error(validationErrors);
+      if(validationErrors?.length) {
+        console.error(validationErrors);
+      }
 
-      return;
+      if (error) {
+        console.error(error);
+      }
     }
-
-    if (error) {
-      console.error(error);
-    }
-  };
-
-  useEffect(()=>{
-    fetchData();
-  }, [fetchData]);
+  });
 
   return(
     <div>

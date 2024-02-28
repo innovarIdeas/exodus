@@ -1,16 +1,17 @@
 "use client";
 
 import { signOut, useSession } from "next-auth/react";
+import { usePathname, useRouter } from "next/navigation";
 import { Button } from "@/components/ui/button";
 import { ChecksUserPermission } from "@/lib/session-manager";
 import Image from "next/image";
 import { PERMISSION_CODES } from "@/lib/permissions-code";
 import React from "react";
-import { useRouter } from "next/navigation";
 
 const Navbar = () => {
   const router = useRouter();
   const session = useSession();
+  const pathName = usePathname();
 
   return (
     <nav className="flex bg-slate-50 justify-between border-b-2 border-gray-300 py-4 px-10 sticky top-0 z-50">
@@ -18,18 +19,19 @@ const Navbar = () => {
       <Image src="/img/magicwand.png" alt="logo" width={120} height={120} />
 
       <div className="flex items-center space-x-4">
-
-        {session.status === "authenticated" && ChecksUserPermission(PERMISSION_CODES.ADMIN) && (
-          <Button
-            onClick={() =>{
-              router.push("/admin");
-            }
-            }
-            className="bg-[#3366CC] text-white hover:bg-[#254785] focus:outline-none focus:ring focus:border-[#3366CC]"
-          >
+        {!pathName.includes("admin") &&
+        <div>
+          {session.status === "authenticated" && ChecksUserPermission(PERMISSION_CODES.ADMIN) && (
+            <Button
+              onClick={() =>{
+                router.push("/admin");
+              }
+              }
+              className="bg-[#3366CC] text-white hover:bg-[#254785] focus:outline-none focus:ring focus:border-[#3366CC]"
+            >
         Go to Dashboard
-          </Button>
-        )}
+            </Button>
+          )} </div>}
 
         {session.status === "unauthenticated" ? (
           <Button

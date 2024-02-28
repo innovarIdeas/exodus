@@ -1,36 +1,35 @@
 "use client";
 
 import { Dialog, DialogContent, DialogDescription, DialogHeader, DialogTitle, DialogTrigger } from "@/components/ui/dialog";
-import React, { useEffect, useState } from "react";
+import React, { useState } from "react";
 import { BiPlusCircle } from "react-icons/bi";
 import { CouponDataTable } from "./data-table";
 import CouponForm from "@/components/CouponForm";
 import { ICoupon } from "@/models/models";
+import { QUERY_KEY } from "@/lib/rbac";
 import { columns } from "./columns";
 import { getAllCoupons } from "@/lib/api-call";
+import { useQuery } from "@tanstack/react-query";
 
 export default function BookBody () {
   const [bookData, setBookData] = useState<ICoupon[]>([]);
 
-  const fetchData = async ()=>{
-    const { data, error, validationErrors } = await getAllCoupons();
+  useQuery({
+    queryKey: [QUERY_KEY.GET_ALL_COUPONS],
+    queryFn: async () => {
+      const { data, error, validationErrors } = await getAllCoupons();
 
-    if (data) setBookData(data);
+      if(data) setBookData(data);
 
-    if (validationErrors?.length) {
-      console.error(validationErrors);
+      if(validationErrors?.length) {
+        console.error(validationErrors);
+      }
 
-      return;
+      if (error) {
+        console.error(error);
+      }
     }
-
-    if (error) {
-      console.error(error);
-    }
-  };
-
-  useEffect(()=>{
-    fetchData();
-  }, [fetchData]);
+  });
 
   return(
     <div>

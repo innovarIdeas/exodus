@@ -17,5 +17,9 @@ export const QUERY_KEY = {
   GET_SINGLE_ORDER: "getSingleOrder",
   GET_SINGLE_USER: "getSingleUser",
   GET_ALL_ORDER: "getAllOrder",
-  GET_ALL_TRANSACTION: "getAllTransactions"
+  GET_ALL_TRANSACTION: "getAllTransactions",
+  GET_ALL_CONSTANTS: "getAllConstants",
+  GET_ALL_COUPONS: "getAllCoupons",
+  GET_ALL_DISCOUNTS: "getAllCoupons",
+  GET_ALL_PULISHERS: "getAllPublishers",
 };
