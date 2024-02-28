@@ -7,8 +7,8 @@ import {
   ChevronRight,
   LayoutDashboard,
   PenBox,
-  ShoppingCartIcon,
-  UserCircle,
+  ScrollText,
+  UserCircle
 } from "lucide-react";
 import { Button } from "./ui/button";
 import { Nav } from "./Nav";
@@ -49,18 +49,18 @@ const SideBar = (props: Props) => {
             href: "/user/books",
           },
           {
-            title: "Book Variant",
+            title: "Order Request",
             label: "",
             icon: PenBox,
             variant: "ghost",
             href: "/user/book-variant",
           },
           {
-            title: "Orders",
+            title: "Invoices",
             label: "",
-            icon: ShoppingCartIcon,
+            icon: ScrollText,
             variant: "ghost",
-            href: "/user/orders",
+            href: "/user/invoices",
           },
 
           {
@@ -68,7 +68,7 @@ const SideBar = (props: Props) => {
             label: "",
             icon: BanknoteIcon,
             variant: "ghost",
-            href: "/user/invoices",
+            href: "/user/orders",
           },
 
         ]}

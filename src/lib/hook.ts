@@ -119,7 +119,7 @@ export const useGetSingleOrder = (id: string) => {
 };
 
 export const useGetUserBooks = (id: string) => {
-  const { data } = useQuery({
+  const { data, refetch } = useQuery({
     queryKey: [QUERY_KEY.GET_USER_BOOKS],
     queryFn: async () => {
       const { data, validationErrors, error } = await getUserBooks(id);
@@ -140,11 +140,11 @@ export const useGetUserBooks = (id: string) => {
     }
   });
 
-  return data || undefined;
+  return { data, refetch };
 };
 
 export const useGetUserBookVariants = (id: string) => {
-  const { data } = useQuery({
+  const { data, refetch } = useQuery({
     queryKey: [QUERY_KEY.GET_USER_BOOKVARIANTS],
     queryFn: async () => {
       const { data, validationErrors, error } = await getUserBookVariants(id);
@@ -165,7 +165,7 @@ export const useGetUserBookVariants = (id: string) => {
     }
   });
 
-  return data || undefined;
+  return { data, refetch };
 };
 
 export const useGetUserOrders = (id: string) => {

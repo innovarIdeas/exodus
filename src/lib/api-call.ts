@@ -171,6 +171,40 @@ export const getUserBooks = async (id: string): Promise<IApiResponse<IBook[]>> =
     { method: "GET" }));
 };
 
+export const createUserBook = async (
+  data: z.infer<typeof bookSchema>
+): Promise<IApiResponse<IBook>> => {
+  return handleApiCalls(
+    await fetch(process.env.NEXT_PUBLIC_BROWSER_URL + "/api/users/books", {
+      method: "POST",
+      body: JSON.stringify(data),
+    })
+  );
+};
+
+export const editUserBook = async (
+  id: string,
+  data: z.infer<typeof updateBookSchema>
+): Promise<IApiResponse<IBook[]>> => {
+  return handleApiCalls(
+    await fetch(
+      process.env.NEXT_PUBLIC_BROWSER_URL + "/api/users/books/" + id,
+      {
+        method: "PATCH",
+        body: JSON.stringify(data),
+      }
+    )
+  );
+};
+
+export const deleteUserBook = async (
+  id: string
+): Promise<IApiResponse<IBook[]>> => {
+  return handleApiCalls(
+    await fetch(process.env.NEXT_PUBLIC_BROWSER_URL + "/api/users/books/" + id, { method: "DELETE" })
+  );
+};
+
 export const getUserTransactions = async (id: string): Promise<IApiResponse<ITransaction[]>> => {
   return handleApiCalls(await fetch(process.env.NEXT_PUBLIC_BROWSER_URL + "/api/users/transactions/" + id,
     { method: "GET" }));
@@ -184,6 +218,20 @@ export const getUserOrders = async (id: string): Promise<IApiResponse<IOrder[]>>
 export const getUserBookVariants = async (id: string): Promise<IApiResponse<IBookVariant[]>> => {
   return handleApiCalls(await fetch(process.env.NEXT_PUBLIC_BROWSER_URL + "/api/users/book-variants/" + id,
     { method: "GET" }));
+};
+
+export const createUserBookVariant = async (
+  data: z.infer<typeof bookVariantSchema>
+): Promise<IApiResponse<IBookVariant>> => {
+  return handleApiCalls(
+    await fetch(
+      process.env.NEXT_PUBLIC_BROWSER_URL + "/api/users/book-variants",
+      {
+        method: "POST",
+        body: JSON.stringify(data),
+      }
+    )
+  );
 };
 
 export const createBook = async (data: z.infer <typeof bookSchema>): Promise<IApiResponse<IBook[]>> => {

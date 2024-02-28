@@ -15,7 +15,7 @@ const UserInvoice = () => {
 
   return (
     <div>
-      <DashboardTitle title="Invoices" />
+      <DashboardTitle title="My Invoices" />
 
       <div className="mt-10">
         <TransactionsTable columns={columns} data={data} />
