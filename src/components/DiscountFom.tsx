@@ -10,17 +10,20 @@ import { Select, SelectContent, SelectItem, SelectTrigger, SelectValue } from ".
 import { Button } from "./ui/button";
 import { DialogClose } from "./ui/dialog";
 import { Input } from "@/components/ui/input";
+import { QUERY_KEY } from "@/lib/rbac";
 import React from "react";
 import { createDiscount } from "@/lib/api-call";
 import { discountSchema } from "@/models/validation-schema";
 import { useForm } from "react-hook-form";
 import { useGetAllBook } from "@/lib/hook";
+import { useQueryClient } from "@tanstack/react-query";
 import { useToast } from "@/components/ui/use-toast";
 import z from "zod";
 import { zodResolver } from "@hookform/resolvers/zod";
 
 const DiscountForm = () => {
   const { toast } = useToast();
+  const queryClient = useQueryClient();
   const books  = useGetAllBook();
 
           type TFormData = z.infer<typeof discountSchema>;
@@ -37,6 +40,7 @@ const DiscountForm = () => {
                 title: "Success"
               });
 
+              queryClient.invalidateQueries({ queryKey: [QUERY_KEY.GET_ALL_DISCOUNTS] });
               form.reset();
             } else {
               toast({

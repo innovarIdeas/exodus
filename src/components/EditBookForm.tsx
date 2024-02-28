@@ -9,11 +9,13 @@ import {
 import { Button } from "./ui/button";
 import { DialogClose } from "./ui/dialog";
 import { Input } from "@/components/ui/input";
+import { QUERY_KEY } from "@/lib/rbac";
 import React from "react";
 import { Textarea } from "@/components/ui/textarea";
 import { editBook } from "@/lib/api-call";
 import { updateBookSchema } from "@/models/validation-schema";
 import { useForm } from "react-hook-form";
+import { useQueryClient } from "@tanstack/react-query";
 import { useToast } from "@/components/ui/use-toast";
 import z from "zod";
 import { zodResolver } from "@hookform/resolvers/zod";
@@ -26,6 +28,7 @@ interface IEditBookFormProps {
 
 const EditBookForm = ({ id, title, description }: IEditBookFormProps) => {
   const { toast } = useToast();
+  const queryClient = useQueryClient();
 
         type TFormData = z.infer<typeof updateBookSchema>;
 
@@ -41,6 +44,7 @@ const EditBookForm = ({ id, title, description }: IEditBookFormProps) => {
               title: "Success"
             });
 
+            queryClient.invalidateQueries({ queryKey: [QUERY_KEY.GET_ALL_BOOKS] });
             form.reset();
           } else {
             toast({

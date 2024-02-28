@@ -8,11 +8,13 @@ import {
 } from "@/components/ui/form";
 import { Button } from "./ui/button";
 import { DialogClose } from "./ui/dialog";
+import { QUERY_KEY } from "@/lib/rbac";
 import React from "react";
 import { Switch } from "@/components/ui/switch";
 import { updateCoupon } from "@/lib/api-call";
 import { updateCouponSchema } from "@/models/validation-schema";
 import { useForm } from "react-hook-form";
+import { useQueryClient } from "@tanstack/react-query";
 import { useToast } from "@/components/ui/use-toast";
 import z from "zod";
 import { zodResolver } from "@hookform/resolvers/zod";
@@ -24,6 +26,7 @@ interface IEditUserFormProps {
 
 const UpdateCouponForm = ({ id, status }: IEditUserFormProps) => {
   const { toast } = useToast();
+  const queryClient = useQueryClient();
 
         type TFormData = z.infer<typeof updateCouponSchema>;
 
@@ -39,6 +42,7 @@ const UpdateCouponForm = ({ id, status }: IEditUserFormProps) => {
               title: "Success"
             });
 
+            queryClient.invalidateQueries({ queryKey: [QUERY_KEY.GET_ALL_COUPONS] });
             form.reset();
           } else {
             toast({

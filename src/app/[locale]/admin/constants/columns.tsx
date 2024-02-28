@@ -30,15 +30,19 @@ import { DialogClose } from "@radix-ui/react-dialog";
 import { DotsHorizontalIcon } from "@radix-ui/react-icons";
 import { EditConstant } from "@/components/EditConstant";
 import { IConstant } from "@/models/models";
+import { QUERY_KEY } from "@/lib/rbac";
 import React from "react";
 import { deleteConstant } from "@/lib/api-call";
 import { toast } from "@/components/ui/use-toast";
+import { useQueryClient } from "@tanstack/react-query";
 
 interface handleDeleteProps {
   constant: IConstant;
 }
 
 const HandleDelete = ({ constant }: handleDeleteProps) => {
+  const queryClient = useQueryClient();
+
   const handleDelete = async (id: string) => {
     const { data, error, validationErrors } = await deleteConstant(id);
 
@@ -47,6 +51,8 @@ const HandleDelete = ({ constant }: handleDeleteProps) => {
         variant: "default",
         description: "Constant deleted successfully",
       });
+
+      queryClient.invalidateQueries({ queryKey: [QUERY_KEY.GET_ALL_CONSTANTS] });
     }
 
     if (error) {

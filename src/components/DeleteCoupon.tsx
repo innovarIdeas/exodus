@@ -1,7 +1,9 @@
 import { Button } from "./ui/button";
 import { DialogClose } from "./ui/dialog";
+import { QUERY_KEY } from "@/lib/rbac";
 import React from "react";
 import { deleteCoupon } from "@/lib/api-call";
+import { useQueryClient } from "@tanstack/react-query";
 import { useToast } from "@/components/ui/use-toast";
 
 interface IEditBookFormProps {
@@ -10,6 +12,7 @@ interface IEditBookFormProps {
 
 const DeleteCoupon = ({ id }: IEditBookFormProps) => {
   const { toast } = useToast();
+  const queryClient = useQueryClient();
 
   const Delete = async () => {
     const { data, error, validationErrors } = await deleteCoupon(id);
@@ -20,6 +23,8 @@ const DeleteCoupon = ({ id }: IEditBookFormProps) => {
         description: "Coupon deleted successfully!",
         title: "Success"
       });
+
+      queryClient.invalidateQueries({ queryKey: [QUERY_KEY.GET_ALL_COUPONS] });
     } else {
       toast({
         variant: "destructive",

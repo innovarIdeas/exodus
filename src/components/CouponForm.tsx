@@ -9,17 +9,20 @@ import {
 import { Button } from "./ui/button";
 import { DialogClose } from "./ui/dialog";
 import { Input } from "@/components/ui/input";
+import { QUERY_KEY } from "@/lib/rbac";
 import React from "react";
 import { couponSchema } from "@/models/validation-schema";
 import { createCoupon } from "@/lib/api-call";
 import { generateCouponCode } from "@/lib/uuid-helper";
 import { useForm } from "react-hook-form";
+import { useQueryClient } from "@tanstack/react-query";
 import { useToast } from "@/components/ui/use-toast";
 import z from "zod";
 import { zodResolver } from "@hookform/resolvers/zod";
 
 const CouponForm = () => {
   const { toast } = useToast();
+  const queryclient = useQueryClient();
 
         type TFormData = z.infer<typeof couponSchema>;
 
@@ -35,6 +38,7 @@ const CouponForm = () => {
               title: "Success"
             });
 
+            queryclient.invalidateQueries({ queryKey: [QUERY_KEY.GET_ALL_COUPONS] });
             form.reset();
           } else {
             toast({

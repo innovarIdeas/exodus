@@ -9,10 +9,12 @@ import {
 import { Select, SelectContent, SelectItem, SelectTrigger, SelectValue } from "./ui/select";
 import { Button } from "./ui/button";
 import { Input } from "@/components/ui/input";
+import { QUERY_KEY } from "@/lib/rbac";
 import React from "react";
 import { createTransaction } from "@/lib/api-call";
 import { transactionSchema } from "@/models/validation-schema";
 import { useForm } from "react-hook-form";
+import { useQueryClient } from "@tanstack/react-query";
 import { useToast } from "@/components/ui/use-toast";
 import z from "zod";
 import { zodResolver } from "@hookform/resolvers/zod";
@@ -23,6 +25,7 @@ interface ICreateOrderProps {
 
 const CreateTransaction = ({ order_id }: ICreateOrderProps) => {
   const { toast } = useToast();
+  const queryClient = useQueryClient();
 
               type TFormData = z.infer<typeof transactionSchema>;
 
@@ -38,6 +41,7 @@ const CreateTransaction = ({ order_id }: ICreateOrderProps) => {
                     title: "Success"
                   });
 
+                  queryClient.invalidateQueries({ queryKey: [QUERY_KEY.GET_ALL_TRANSACTION] });
                   form.reset();
                 } else {
                   console.error("Failed to Create Transaction", error);

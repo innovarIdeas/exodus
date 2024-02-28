@@ -9,9 +9,11 @@ import {
 import { Button } from "./ui/button";
 import { DialogClose } from "./ui/dialog";
 import { Input } from "@/components/ui/input";
+import { QUERY_KEY } from "@/lib/rbac";
 import React from "react";
 import { createClient } from "@/lib/api-call";
 import { useForm } from "react-hook-form";
+import { useQueryClient } from "@tanstack/react-query";
 import { useToast } from "@/components/ui/use-toast";
 import { userSchema } from "@/models/validation-schema";
 import z from "zod";
@@ -19,6 +21,7 @@ import { zodResolver } from "@hookform/resolvers/zod";
 
 const ClientForm = () => {
   const { toast } = useToast();
+  const queryClient = useQueryClient();
 
       type TFormData = z.infer<typeof userSchema>;
 
@@ -34,6 +37,7 @@ const ClientForm = () => {
             title: "Success"
           });
 
+          queryClient.invalidateQueries({ queryKey: [QUERY_KEY.GET_ALL_PULISHERS] });
           form.reset();
         } else {
           toast({
