@@ -37,7 +37,7 @@ const CreateOrder = ({ book_variant_id }: ICreateOrderProps) => {
                   description: "Order created successfully!",
                   title: "Success"
                 });
-                redirect("/admin/oders/" + data.id);
+                // redirect("/admin/oders/" + data.id);
 
                 form.reset();
               } else {
