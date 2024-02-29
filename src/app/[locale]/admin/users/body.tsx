@@ -1,37 +1,36 @@
 "use client";
 
-import React, { useEffect, useState } from "react";
+import React, { useState } from "react";
 import { Sheet, SheetContent,  SheetTrigger } from "@/components/ui/sheet";
 import AddNewUser from "@/components/AddNewUser";
 import { Button } from "@/components/ui/button";
 import { IUser } from "@/models/models";
 import Link from "next/link";
+import { QUERY_KEY } from "@/lib/rbac";
 import { UserDataTable } from "./data-table";
 import { columns } from "./columns";
 import { getAllUsers } from "@/lib/api-call";
+import { useQuery } from "@tanstack/react-query";
 
 export default function UserBody () {
   const [usersData, setUsersData] = useState<IUser[]>([]);
 
-  const fetchData = async () => {
-    const { data, error, validationErrors } = await getAllUsers();
+  useQuery({
+    queryKey: [QUERY_KEY.GET_ALL_USERS],
+    queryFn: async () => {
+      const { data, error, validationErrors } = await getAllUsers();
 
-    if (data) setUsersData(data);
+      if(data) setUsersData(data);
 
-    if (validationErrors?.length) {
-      console.error(validationErrors);
+      if(validationErrors?.length) {
+        console.error(validationErrors);
+      }
 
-      return;
+      if (error) {
+        console.error(error);
+      }
     }
-
-    if (error) {
-      console.error(error);
-    }
-  };
-
-  useEffect(() => {
-    fetchData();
-  }, [fetchData]);
+  });
 
   return (
     <div>

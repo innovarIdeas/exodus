@@ -9,17 +9,20 @@ import {
 import { Button } from "./ui/button";
 import { DialogClose } from "./ui/dialog";
 import { Input } from "@/components/ui/input";
+import { QUERY_KEY } from "@/lib/rbac";
 import React from "react";
 import { Textarea } from "@/components/ui/textarea";
 import { createConstant } from "@/lib/api-call";
 import { updateConstantSchema } from "@/models/validation-schema";
 import { useForm } from "react-hook-form";
+import { useQueryClient } from "@tanstack/react-query";
 import { useToast } from "@/components/ui/use-toast";
 import z from "zod";
 import { zodResolver } from "@hookform/resolvers/zod";
 
 const ConstantForm = () => {
   const { toast } = useToast();
+  const queryClient = useQueryClient();
 
   type TFormData = z.infer<typeof updateConstantSchema>;
 
@@ -36,6 +39,7 @@ const ConstantForm = () => {
       });
       //   setUserID(data.id);
 
+      queryClient.invalidateQueries({ queryKey: [QUERY_KEY.GET_ALL_CONSTANTS] });
       form.reset();
     } else {
       console.log(data);

@@ -10,10 +10,12 @@ import { Button } from "./ui/button";
 import { DialogClose } from "./ui/dialog";
 import { IUser } from "@/models/models";
 import { Input } from "@/components/ui/input";
+import { QUERY_KEY } from "@/lib/rbac";
 import React from "react";
 import { UpdateUserSchema } from "@/models/validation-schema";
 import { editUser } from "@/lib/api-call";
 import { useForm } from "react-hook-form";
+import { useQueryClient } from "@tanstack/react-query";
 import { useToast } from "@/components/ui/use-toast";
 import z from "zod";
 import { zodResolver } from "@hookform/resolvers/zod";
@@ -24,6 +26,7 @@ interface IEditUserFormProps {
 
 const EditUserForm = ({ user }: IEditUserFormProps) => {
   const { toast } = useToast();
+  const queryClient = useQueryClient();
 
       type TFormData = z.infer<typeof UpdateUserSchema>;
 
@@ -39,6 +42,7 @@ const EditUserForm = ({ user }: IEditUserFormProps) => {
             title: "Success"
           });
 
+          queryClient.invalidateQueries({ queryKey: [QUERY_KEY.GET_ALL_PULISHERS] });
           form.reset();
         } else {
           toast({

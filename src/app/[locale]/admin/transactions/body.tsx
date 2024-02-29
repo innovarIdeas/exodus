@@ -1,33 +1,32 @@
 "use client";
 
-import React, { useEffect, useState } from "react";
+import React, { useState } from "react";
 import { DiscountDataTable } from "./data-table";
 import { ITransaction } from "@/models/models";
+import { QUERY_KEY } from "@/lib/rbac";
 import { columns } from "./columns";
 import { getAllTransactions } from "@/lib/api-call";
+import { useQuery } from "@tanstack/react-query";
 
 export default function TransactionBody () {
   const [bookData, setBookData] = useState<ITransaction[]>([]);
 
-  const fetchData = async ()=>{
-    const { data, error, validationErrors } = await getAllTransactions();
+  useQuery({
+    queryKey: [QUERY_KEY.GET_ALL_TRANSACTION],
+    queryFn: async () => {
+      const { data, error, validationErrors } = await getAllTransactions();
 
-    if (data) setBookData(data);
+      if(data) setBookData(data);
 
-    if (validationErrors?.length) {
-      console.error(validationErrors);
+      if(validationErrors?.length) {
+        console.error(validationErrors);
+      }
 
-      return;
+      if (error) {
+        console.error(error);
+      }
     }
-
-    if (error) {
-      console.error(error);
-    }
-  };
-
-  useEffect(()=>{
-    fetchData();
-  }, [fetchData]);
+  });
 
   return(
     <div>

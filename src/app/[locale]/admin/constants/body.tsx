@@ -1,36 +1,39 @@
 "use client";
 
-import React, { useEffect, useState } from "react";
+import React, { useState } from "react";
 import { Sheet, SheetContent, SheetTrigger } from "@/components/ui/sheet";
 import AddNewConstant from "@/components/AddNewConstant";
 import { Button } from "@/components/ui/button";
 import { ConstantDataTable } from "./data-table";
 import { IConstant } from "@/models/models";
+import { QUERY_KEY } from "@/lib/rbac";
 import { columns } from "./columns";
 import { getAllConstants } from "@/lib/api-call";
+import { useQuery } from "@tanstack/react-query";
 
 export default function ConstantBody () {
   const [constantData, setConstantData] = useState<IConstant[]>([]);
 
-  const fetchData = async () => {
-    const { data, error, validationErrors } = await getAllConstants();
+  useQuery({
+    queryKey: [QUERY_KEY.GET_ALL_CONSTANTS],
+    queryFn: async () => {
+      const { data, error, validationErrors } = await getAllConstants();
 
-    if (data) setConstantData(data);
+      if(data) setConstantData(data);
 
-    if (validationErrors?.length) {
-      console.error(validationErrors);
+      if(validationErrors?.length) {
+        console.error(validationErrors);
 
-      return;
+        return;
+      }
+
+      if (error) {
+        console.error(error);
+
+        return;
+      }
     }
-
-    if (error) {
-      console.error(error);
-    }
-  };
-
-  useEffect(() => {
-    fetchData();
-  }, [fetchData]);
+  });
 
   return (
     <div>

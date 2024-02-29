@@ -6,12 +6,14 @@ import {
   FormLabel,
   FormMessage,
 } from "@/components/ui/form"; import { Button } from "@/components/ui/button";
+import { QUERY_KEY } from "@/lib/rbac";
 import React from "react";
 import SelectRoles from "./SelectRole";
 import { SheetClose } from "@/components/ui/sheet";
 import { addUserRole } from "@/lib/api-call";
 import { claimSchema } from "@/models/validation-schema";
 import { useForm } from "react-hook-form";
+import { useQueryClient } from "@tanstack/react-query";
 import { useToast } from "@/components/ui/use-toast";
 import z from "zod";
 import { zodResolver } from "@hookform/resolvers/zod";
@@ -23,6 +25,7 @@ interface UserProps {
 
 const AddUserRole = ({ userID, nextStep }: UserProps) => {
   const { toast } = useToast();
+  const queryClient = useQueryClient();
 
   type TUserRoles = z.infer<typeof claimSchema>;
 
@@ -37,6 +40,7 @@ const AddUserRole = ({ userID, nextStep }: UserProps) => {
         title: "Error",
         description: "User roles could not be added",
       });
+      queryClient.invalidateQueries({ queryKey: [QUERY_KEY.GET_ALL_USERS] });
     }
 
     if (error) {

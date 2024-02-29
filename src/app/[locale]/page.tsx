@@ -1,14 +1,27 @@
 "use client";
 
 import React, { useContext, useEffect } from "react";
+import { ChecksUserPermission } from "@/lib/session-manager";
 import { ContextStore } from "@/context/ContextStore";
 import Head from "next/head";
 import Link from "next/link";
 import Navbar from "@/components/Navbar";
+import { PERMISSION_CODES } from "@/lib/permissions-code";
+import { redirect } from "next/navigation";
 import styles from "@/app/[locale]/Home.module.css";
+import { useSession } from "next-auth/react";
 
 export default function PriceCalculator () {
   const contextValues = useContext(ContextStore);
+  const userSession = useSession();
+
+  if(userSession.status === "authenticated") {
+    if(ChecksUserPermission(PERMISSION_CODES.ADMIN)) {
+      redirect("/admin");
+    } else if (ChecksUserPermission(PERMISSION_CODES.CLIENT)) {
+      redirect("/user");
+    }
+  }
 
   if (!contextValues) {
     return null;

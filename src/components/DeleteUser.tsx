@@ -1,7 +1,9 @@
 import { Button } from "./ui/button";
 import { DialogClose } from "./ui/dialog";
+import { QUERY_KEY } from "@/lib/rbac";
 import React from "react";
 import { deleteUser } from "@/lib/api-call";
+import { useQueryClient } from "@tanstack/react-query";
 import { useToast } from "@/components/ui/use-toast";
 
 interface IEditUserFormProps {
@@ -10,6 +12,7 @@ interface IEditUserFormProps {
 
 const DeleteUser = ({ id }: IEditUserFormProps) => {
   const { toast } = useToast();
+  const queryClient = useQueryClient();
 
   const Delete = async () => {
     const { data, error, validationErrors } = await deleteUser(id);
@@ -20,6 +23,8 @@ const DeleteUser = ({ id }: IEditUserFormProps) => {
         description: "User deleted successfully!",
         title: "Success"
       });
+
+      queryClient.invalidateQueries({ queryKey: [QUERY_KEY.GET_ALL_USERS] });
     } else {
       toast({
         variant: "destructive",

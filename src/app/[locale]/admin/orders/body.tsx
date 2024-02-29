@@ -1,33 +1,32 @@
 "use client";
 
-import React, { useEffect, useState } from "react";
+import React, { useState } from "react";
 import { IOrder } from "@/models/models";
 import { OrderDataTable } from "./data-table";
+import { QUERY_KEY } from "@/lib/rbac";
 import { columns } from "./columns";
 import { getAllOrders } from "@/lib/api-call";
+import { useQuery } from "@tanstack/react-query";
 
 export default function OrderBody () {
   const [bookData, setBookData] = useState<IOrder[]>([]);
 
-  const fetchData = async ()=>{
-    const { data, error, validationErrors } = await getAllOrders();
+  useQuery({
+    queryKey: [QUERY_KEY.GET_ALL_ORDER],
+    queryFn: async () => {
+      const { data, error, validationErrors } = await getAllOrders();
 
-    if (data) setBookData(data);
+      if(data) setBookData(data);
 
-    if (validationErrors?.length) {
-      console.error(validationErrors);
+      if(validationErrors?.length) {
+        console.error(validationErrors);
+      }
 
-      return;
+      if (error) {
+        console.error(error);
+      }
     }
-
-    if (error) {
-      console.error(error);
-    }
-  };
-
-  useEffect(()=>{
-    fetchData();
-  }, [fetchData]);
+  });
 
   return(
     <div>

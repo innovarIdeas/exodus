@@ -1,36 +1,35 @@
 "use client";
 
 import { Dialog, DialogContent, DialogDescription, DialogHeader, DialogTitle, DialogTrigger } from "@/components/ui/dialog";
-import React, { useEffect, useState } from "react";
+import React, { useState } from "react";
 import { BiPlusCircle } from "react-icons/bi";
 import ClientForm from "@/components/ClientForm";
 import { IUser } from "@/models/models";
+import { QUERY_KEY } from "@/lib/rbac";
 import { UserDataTable } from "./data-table";
 import { columns } from "./columns";
 import { getAllClients } from "@/lib/api-call";
+import { useQuery } from "@tanstack/react-query";
 
 export default function UserBody () {
   const [usersData, setUsersData] = useState<IUser[]>([]);
 
-  const fetchData = async ()=>{
-    const { data, error, validationErrors } = await getAllClients();
+  useQuery({
+    queryKey: [QUERY_KEY.GET_ALL_PULISHERS],
+    queryFn: async () => {
+      const { data, error, validationErrors } = await getAllClients();
 
-    if (data) setUsersData(data);
+      if(data) setUsersData(data);
 
-    if (validationErrors?.length) {
-      console.error(validationErrors);
+      if(validationErrors?.length) {
+        console.error(validationErrors);
+      }
 
-      return;
+      if (error) {
+        console.error(error);
+      }
     }
-
-    if (error) {
-      console.error(error);
-    }
-  };
-
-  useEffect(()=>{
-    fetchData();
-  }, [fetchData]);
+  });
 
   return(
     <div>

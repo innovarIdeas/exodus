@@ -1,36 +1,35 @@
 "use client";
 
 import { Dialog, DialogContent, DialogDescription, DialogHeader, DialogTitle, DialogTrigger } from "@/components/ui/dialog";
-import React, { useEffect, useState } from "react";
+import React, { useState } from "react";
 import { BiPlusCircle } from "react-icons/bi";
 import { DiscountDataTable } from "./data-table";
 import DiscountForm from "@/components/DiscountFom";
 import { IDiscount } from "@/models/models";
+import { QUERY_KEY } from "@/lib/rbac";
 import { columns } from "./columns";
 import { getAllDiscounts } from "@/lib/api-call";
+import { useQuery } from "@tanstack/react-query";
 
 export default function DiscountBody () {
   const [bookData, setBookData] = useState<IDiscount[]>([]);
 
-  const fetchData = async ()=>{
-    const { data, error, validationErrors } = await getAllDiscounts();
+  useQuery({
+    queryKey: [QUERY_KEY.GET_ALL_DISCOUNTS],
+    queryFn: async () => {
+      const { data, error, validationErrors } = await getAllDiscounts();
 
-    if (data) setBookData(data);
+      if(data) setBookData(data);
 
-    if (validationErrors?.length) {
-      console.error(validationErrors);
+      if(validationErrors?.length) {
+        console.error(validationErrors);
+      }
 
-      return;
+      if (error) {
+        console.error(error);
+      }
     }
-
-    if (error) {
-      console.error(error);
-    }
-  };
-
-  useEffect(()=>{
-    fetchData();
-  }, [fetchData]);
+  });
 
   return(
     <div>

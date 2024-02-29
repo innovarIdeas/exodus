@@ -9,9 +9,11 @@ import {
 import { Button } from "./ui/button";
 import { DialogClose } from "./ui/dialog";
 import { Input } from "@/components/ui/input";
+import { QUERY_KEY } from "@/lib/rbac";
 import React from "react";
 import { createUser } from "@/lib/api-call";
 import { useForm } from "react-hook-form";
+import { useQueryClient } from "@tanstack/react-query";
 import { useToast } from "@/components/ui/use-toast";
 import {  userSchema } from "@/models/validation-schema";
 import z from "zod";
@@ -24,6 +26,7 @@ interface UserProps {
 
 const UserForm = ({ setUserID, nextStep }: UserProps) => {
   const { toast } = useToast();
+  const queryClient = useQueryClient();
 
     type TFormData = z.infer<typeof userSchema>;
 
@@ -38,6 +41,7 @@ const UserForm = ({ setUserID, nextStep }: UserProps) => {
           description: "User created successfully!",
           title: "Success"
         });
+        queryClient.invalidateQueries({ queryKey: [QUERY_KEY.GET_ALL_USERS] });
         setUserID(data.id);
         nextStep();
 

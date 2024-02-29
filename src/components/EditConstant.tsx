@@ -9,11 +9,13 @@ import {
 import { Button } from "./ui/button";
 import { IConstant } from "@/models/models";
 import { Input } from "./ui/input";
+import { QUERY_KEY } from "@/lib/rbac";
 import React from "react";
 import { SheetClose } from "./ui/sheet";
 import { updateConstant } from "@/lib/api-call";
 import { updateConstantSchema } from "@/models/validation-schema";
 import { useForm } from "react-hook-form";
+import { useQueryClient } from "@tanstack/react-query";
 import { useToast } from "@/components/ui/use-toast";
 import z from "zod";
 import { zodResolver } from "@hookform/resolvers/zod";
@@ -26,6 +28,7 @@ export function EditConstant ({ constant }: EditConstantProps) {
   type TFormValues = z.infer<typeof updateConstantSchema>;
 
   const { toast } = useToast();
+  const queryClient = useQueryClient();
 
   const form = useForm<TFormValues>({
     resolver: zodResolver(updateConstantSchema),
@@ -68,6 +71,8 @@ export function EditConstant ({ constant }: EditConstantProps) {
         variant: "default",
         description: "Constant updated!",
       });
+
+      queryClient.invalidateQueries({ queryKey: [QUERY_KEY.GET_ALL_CONSTANTS] });
     }
   };
 

@@ -5,9 +5,11 @@ import { DialogClose } from "./ui/dialog";
 import EditUserRole from "./EditUserRole";
 import { IUser } from "@/models/models";
 import { Input } from "@/components/ui/input";
+import { QUERY_KEY } from "@/lib/rbac";
 import { UpdateUserSchema } from "@/models/validation-schema";
 import { editUser } from "@/lib/api-call";
 import { useForm } from "react-hook-form";
+import { useQueryClient } from "@tanstack/react-query";
 import { useToast } from "./ui/use-toast";
 import z from "zod";
 import { zodResolver } from "@hookform/resolvers/zod";
@@ -19,6 +21,7 @@ interface UserProps {
 const ViewClient = ({ user }: UserProps) => {
   const [step, setStep] = useState(1);
   const { toast } = useToast();
+  const queryClient = useQueryClient();
 
   type TFormData = z.infer<typeof UpdateUserSchema>;
 
@@ -41,6 +44,8 @@ const ViewClient = ({ user }: UserProps) => {
         title: "Error",
         description: validationErrors[0].message
       });
+
+      queryClient.invalidateQueries({ queryKey: [QUERY_KEY.GET_ALL_USERS] });
 
       return;
     }

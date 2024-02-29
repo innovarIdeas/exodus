@@ -64,20 +64,7 @@ export default function AdminDashboard () {
           ) : (
             ""
           )}
-        {ChecksUserPermission(PERMISSION_CODES.CREATE_INVOICE) ||
-          ChecksUserPermission(PERMISSION_CODES.READ_INVOICE) ||
-          ChecksUserPermission(PERMISSION_CODES.UPDATE_INVOICE) ||
-          ChecksUserPermission(PERMISSION_CODES.DELETE_INVOICE) ? (
-            <Link
-              className="py-8 px-10 text-center border border-white shadow-lg bg-white my-6 items-center flex flex-col rounded-3xl mx-4"
-              href="/admin/invoices"
-            >
-              <Image src="/img/invoice.png" alt="Logo" width={64} height={64} />
-              <h3 className="mt-4 font-bold text-sm text-black">Invoices</h3>
-            </Link>
-          ) : (
-            ""
-          )}
+
         {ChecksUserPermission(PERMISSION_CODES.CREATE_DISCOUNT) ||
           ChecksUserPermission(PERMISSION_CODES.READ_DISCOUNT) ||
           ChecksUserPermission(PERMISSION_CODES.UPDATE_DISCOUNT) ||
