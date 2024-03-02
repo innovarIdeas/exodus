@@ -6,7 +6,7 @@ export const dynamic = "force-dynamic";
 
 export async function GET () {
   try {
-    const constantdata = await prisma.constants.findMany({ where: { deleted_at: null } });
+    const constantdata = await prisma.constants.findMany({ where: { deleted_at: null }, orderBy: { created_at: "desc" }  });
 
     return NextResponse.json(constantdata);
   } catch (error) {
