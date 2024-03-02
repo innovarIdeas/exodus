@@ -30,8 +30,8 @@ const page = async () => {
         <TabsList>
           <TabsTrigger value="all">All</TabsTrigger>
           <TabsTrigger value="clients">Clients</TabsTrigger>
-          <TabsTrigger value="staffs">Staffs</TabsTrigger>
           <TabsTrigger value="publishers">Publishers</TabsTrigger>
+          <TabsTrigger value="staffs">Staffs</TabsTrigger>
         </TabsList>
         <TabsContent value="all">
           <UserBody />
@@ -39,11 +39,11 @@ const page = async () => {
         <TabsContent value="clients">
           <ClientBody />
         </TabsContent>
-        <TabsContent value="staffs">
-          <StaffBody />
-        </TabsContent>
         <TabsContent value="publishers">
           <PublisherBody />
+        </TabsContent>
+        <TabsContent value="staffs">
+          <StaffBody />
         </TabsContent>
       </Tabs>
     </div>

@@ -10,7 +10,7 @@ import { UserDataTable } from "./data-table";
 import { columns } from "./columns";
 import { getAllStaffs } from "@/lib/api-call";
 
-export default function PublisherBody () {
+export default function StaffBody () {
   const [usersData, setUsersData] = useState<IUser[]>([]);
 
   const fetchData = async () => {
