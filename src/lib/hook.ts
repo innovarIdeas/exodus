@@ -1,7 +1,7 @@
 "use client";
 
-import { getAllBookVariants, getAllBooks, getAllClients, getAllOrders, getAllTransactions, getSingleOrder, getSingleUser, getUserBookVariants, getUserBooks, getUserOrders, getUserTransactions } from "./api-call";
-import { IPermission } from "@/models/models";
+import { IOrder, IPermission } from "@/models/models";
+import { createTransaction, getAllBookVariants, getAllBooks, getAllClients, getAllOrders, getAllTransactions, getSingleOrder, getSingleUser, getUserBookVariants, getUserBooks, getUserOrders, getUserTransactions } from "./api-call";
 import { QUERY_KEY } from "./rbac";
 import { useQuery } from "@tanstack/react-query";
 import { useSession } from "next-auth/react";
@@ -293,3 +293,27 @@ export const useGetAllTransactions = () => {
   return data || undefined;
 };
 
+export const createTransactionTrigger =  (order: IOrder) =>{
+  const { data } = useQuery({
+    queryKey: [QUERY_KEY.GET_ALL_TRANSACTION],
+    queryFn: async () => {
+      const { data, validationErrors, error } = await createTransaction({ order_id: order.id, status: "Pending", type: "Card" });
+
+      if (validationErrors?.length) {
+        console.error(validationErrors[0].message);
+
+        return;
+      }
+
+      if (error) {
+        console.log(error);
+
+        return;
+      }
+
+      return data;
+    }
+  });
+
+  return data || undefined;
+};

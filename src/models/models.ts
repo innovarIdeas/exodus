@@ -378,6 +378,17 @@ export interface ICoupon extends IBase {
   expires_at: string;
 }
 
+export interface ITransaction  extends IBase {
+  type: "TRANSFER" | "CASH" | "ONLINE" | "CARD";
+  status: string;
+  order_id: string;
+  order: IOrder;
+  book_by_id?: IBook;
+  user_id: string;
+  created_by_user: IUser;
+
+}
+
 export interface IDiscount extends IBase {
   name: string;
   percentage: number;
