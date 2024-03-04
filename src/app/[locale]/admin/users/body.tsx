@@ -29,6 +29,8 @@ export default function UserBody () {
       if (error) {
         console.error(error);
       }
+
+      return data;
     }
   });
 

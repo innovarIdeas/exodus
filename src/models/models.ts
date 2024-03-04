@@ -114,7 +114,7 @@ export interface IBookVariant extends IBase {
   tempbook_id: string ;
   paper_type: string;
   number_of_words: number ;
-  status: string;
+  status?: string;
   hard_cover: boolean;
   BW_print: boolean;
   both_print: boolean;
@@ -126,7 +126,7 @@ export interface IBookVariant extends IBase {
   white_paper: boolean;
   no_of_books: number;
   portrait: boolean;
-  quantity_of_Color: number;
+  quantity_of_Color?: number | undefined;
   quantity_of_BW: number ;
   book_size: string ;
   number_of_pages: number ;

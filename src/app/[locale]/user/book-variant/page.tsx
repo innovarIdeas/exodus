@@ -6,7 +6,7 @@ import { Button } from "@/components/ui/button";
 import DashboardTitle from "@/components/DashboardTitle";
 import { IBookVariant } from "@/models/models";
 import React from "react";
-import { UserBookVariantForm } from "@/components/UserBookVariantForm";
+import UserBookVariantForm from "@/components/UserBookVariantForm";
 import { columns } from "./columns";
 import { useGetUserBookVariants } from "@/lib/hook";
 import { useSession } from "next-auth/react";

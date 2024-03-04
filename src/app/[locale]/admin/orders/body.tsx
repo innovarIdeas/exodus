@@ -25,6 +25,8 @@ export default function OrderBody () {
       if (error) {
         console.error(error);
       }
+
+      return data;
     }
   });
 
