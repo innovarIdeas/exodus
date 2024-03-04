@@ -1,6 +1,6 @@
 "use client";
 
-import React, { useContext } from "react";
+import React, { useContext, useState } from "react";
 import { SubmitHandler, useForm } from "react-hook-form";
 import { ContextStore } from "@/context/ContextStore";
 import { createTempBook } from "@/lib/api-call";
@@ -17,6 +17,7 @@ interface FormData {
 
 const page = () => {
   const contextValues = useContext(ContextStore);
+  const [loading, setLoading] = useState(false);
 
   if (!contextValues) {
     return null;
@@ -55,6 +56,7 @@ const page = () => {
   const { register, handleSubmit,  formState: { errors } } = useForm<FormData>();
 
   const onSubmit: SubmitHandler<FormData> = async (step0Data) =>{
+    setLoading(true);
     setName(step0Data.name);
     setBookName(step0Data.title);
     setEmail(step0Data.email);
@@ -79,13 +81,14 @@ const page = () => {
       localStorage.setItem("Exodus_Book_Phone", JSON.stringify(step0Data.phone_number));
       localStorage.setItem("Exodus_Author_Name", JSON.stringify(step0Data.name));
       localStorage.setItem("Exodus_Book_Title", JSON.stringify(step0Data.title));
+      setLoading(false);
 
       toast({
         variant: "default",
         description: ("Successful"),
       });
 
-      router.push(readyToPrint ? "/price-calculator/ready-to-print" : "price-calculator/work-in-progress");
+      router.push(readyToPrint ? "/price-calculator/ready-to-print" : "/price-calculator/work-in-progress");
     }
 
     if(error || validationErrors) {
@@ -196,7 +199,7 @@ const page = () => {
             </div>
 
             <div>
-              <button className=" rounded-xl bg-main py-3 px-10 text-base font-semibold z-[200000000] text-white outline-none mx-auto w-full text-center" type="submit"> Continue </button>
+              <button className=" rounded-xl bg-main py-3 px-10 text-base font-semibold z-[200000000] text-white outline-none mx-auto w-full text-center" type="submit"> {loading ? "Loading..." : "Continue"}  </button>
             </div>
 
           </form>
