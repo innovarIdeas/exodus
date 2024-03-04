@@ -19,7 +19,7 @@ const TempBookData = () => {
     return null;
   }
 
-  const { whitePaper, creamPaper, glossyPaper, numberOfWords, hardCover, bwPrint, bothPrint, colorPrint, newsPrint, binding, noOfBooks, potrait, bookSize, noOfPages, isbn, embossing, foiling, lamination, deliveryName, deliveryPhone, pickUp, shippingAddress, shippingInstruction, shippingState, projectType, wordCount } = contextValues;  const paperType = newsPrint ? "News Print" : creamPaper ? "Cream Paper" : glossyPaper ? "Glossy Paper" : "White Paper";
+  const { whitePaper, currentBookFormat, insideLayout, insideLayoutType, coverDesign, coverDesignType, editing, proofReading, creamPaper, glossyPaper, numberOfWords, hardCover, bwPrint, bothPrint, colorPrint, newsPrint, binding, noOfBooks, potrait, bookSize, noOfPages, isbn, embossing, foiling, lamination, deliveryName, deliveryPhone, pickUp, shippingAddress, shippingInstruction, shippingState, projectType, wordCount } = contextValues;  const paperType = newsPrint ? "News Print" : creamPaper ? "Cream Paper" : glossyPaper ? "Glossy Paper" : "White Paper";
 
   return {
     email: storedEmail,
@@ -57,6 +57,13 @@ const TempBookData = () => {
     ready_to_print: storedReadyToPrint,
     work_in_progress: storedWorkInProgress,
     word_count: wordCount,
+    current_book_format: currentBookFormat,
+    inside_layout: insideLayout,
+    inside_layout_type: insideLayoutType,
+    proof_reading: proofReading,
+    cover_design: coverDesign,
+    cover_design_type: coverDesignType,
+    editing: editing
 
   };
 };

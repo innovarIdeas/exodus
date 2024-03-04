@@ -246,6 +246,14 @@ export interface IBookData {
   ready_to_print: boolean;
   work_in_progress: boolean;
   word_count: number;
+  editing: boolean;
+  inside_layout: boolean;
+  current_book_format: string;
+  inside_layout_type: string;
+  proof_reading: boolean;
+  cover_design: boolean;
+  cover_design_type: string;
+
 }
 
 export interface IOrder extends IBase {

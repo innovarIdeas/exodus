@@ -120,6 +120,12 @@ interface ContextValues {
   setTermsAndCondition: React.Dispatch<React.SetStateAction<boolean>>;
   nextOpen: boolean;
   setNextOpen: React.Dispatch<React.SetStateAction<boolean>>;
+  editing: boolean;
+  setEditing: React.Dispatch<React.SetStateAction<boolean>>;
+  onlineSales: boolean;
+  setOnlineSales: React.Dispatch<React.SetStateAction<boolean>>;
+  coverDesignType: string;
+  setCoverDesignType: React.Dispatch<React.SetStateAction<string>>;
 
 }
 
@@ -188,7 +194,10 @@ export const ContextProvider: React.FC<ContextProviderProps> = ({ children }) =>
   const [submitForm, setSubmitForm] = useState(false);
   const [termsAndCondition, setTermsAndCondition] = useState(false);
   const [nextOpen, setNextOpen] = useState(false);
-  const contextValue: ContextValues = { readyToPrint, setReadyToPrint, workInProgress, setWorkInProgress, book, setBook, magazine, setMagazine, stationary, setStationary, numberOfWords, setNumberOfWords, hardCover, setHardCover, bwPrint, setBwPrint, bothPrint, setBothPrint, colorPrint, setColorPrint, creamPaper, setCreamPaper, glossyPaper, setGlossyPaper, newsPaper, setNewsPaper, binding, setBinding, whitePaper, setWhitePaper, noOfBooks, setNoOfBooks, potrait, setPotrait, noOfPages, setNoOfPages, qualityOfColor, setQualityOfColor, qualityOfBw, setQualityOfBw, bookSize, setBookSize, insideLayout, setInsideLayout, proofReading, setProofReading, coverDesign, setCoverDesign, isbn, setIsbn, embossing, setEmbossing, foiling, setFoiling, lamination, setLamination, deliveryName, setDeliveryName, deliveryPhone, setDeliveryPhone, pickUp, setPickUp, shippingAddress, setShippingAddress, shippingState, setShippingState, shippingInstruction, setShippingInstruction, projectType, setProjectType, published, setPublished, wordCount, setWordCount, currentBookFormat, setCurrentBookFormat, insideLayoutType, setInsideLayoutType, artIllustration, setArtIllustration, artIllustrationType, setArtIllustrationType, paperInfo, setPaperInfo, bookInfo, setBookInfo, bookCoverInfo, setBookCoverInfo, deliveryOption, setDeliveryOption, confirmOrder, setConfirmOrder, paperInfoFormOne, setPaperInfoFormOne, paperInfoFormTwo, setPaperInfoFormTwo, paperInfoFormThree, setPaperInfoFormThree, currentStep, setCurrentStep, name, setName, phoneNumber, setPhoneNumber, bookName, setBookName, email, setEmail, newsPrint, setNewsPrint, submitForm, setSubmitForm, termsAndCondition, setTermsAndCondition, nextOpen, setNextOpen };
+  const [editing, setEditing] = useState(false);
+  const [onlineSales, setOnlineSales] = useState(false);
+  const [coverDesignType, setCoverDesignType] = useState("");
+  const contextValue: ContextValues = { coverDesignType, setCoverDesignType, onlineSales, setOnlineSales, editing, setEditing, readyToPrint, setReadyToPrint, workInProgress, setWorkInProgress, book, setBook, magazine, setMagazine, stationary, setStationary, numberOfWords, setNumberOfWords, hardCover, setHardCover, bwPrint, setBwPrint, bothPrint, setBothPrint, colorPrint, setColorPrint, creamPaper, setCreamPaper, glossyPaper, setGlossyPaper, newsPaper, setNewsPaper, binding, setBinding, whitePaper, setWhitePaper, noOfBooks, setNoOfBooks, potrait, setPotrait, noOfPages, setNoOfPages, qualityOfColor, setQualityOfColor, qualityOfBw, setQualityOfBw, bookSize, setBookSize, insideLayout, setInsideLayout, proofReading, setProofReading, coverDesign, setCoverDesign, isbn, setIsbn, embossing, setEmbossing, foiling, setFoiling, lamination, setLamination, deliveryName, setDeliveryName, deliveryPhone, setDeliveryPhone, pickUp, setPickUp, shippingAddress, setShippingAddress, shippingState, setShippingState, shippingInstruction, setShippingInstruction, projectType, setProjectType, published, setPublished, wordCount, setWordCount, currentBookFormat, setCurrentBookFormat, insideLayoutType, setInsideLayoutType, artIllustration, setArtIllustration, artIllustrationType, setArtIllustrationType, paperInfo, setPaperInfo, bookInfo, setBookInfo, bookCoverInfo, setBookCoverInfo, deliveryOption, setDeliveryOption, confirmOrder, setConfirmOrder, paperInfoFormOne, setPaperInfoFormOne, paperInfoFormTwo, setPaperInfoFormTwo, paperInfoFormThree, setPaperInfoFormThree, currentStep, setCurrentStep, name, setName, phoneNumber, setPhoneNumber, bookName, setBookName, email, setEmail, newsPrint, setNewsPrint, submitForm, setSubmitForm, termsAndCondition, setTermsAndCondition, nextOpen, setNextOpen };
 
   return (
     <ContextStore.Provider value={contextValue}>
