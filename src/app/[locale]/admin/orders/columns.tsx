@@ -6,6 +6,7 @@ import { ColumnDef } from "@tanstack/react-table";
 import CreateTransaction from "@/components/CreateTransaction";
 import { IOrder } from "@/models/models";
 import Link from "next/link";
+import { PayStackOrderPayment } from "@/components/PayStackorderPayment";
 import React from "react";
 
 export const columns: ColumnDef<IOrder>[] = [
@@ -119,6 +120,16 @@ export const columns: ColumnDef<IOrder>[] = [
           </DialogContent>
         </Dialog>
 
+      );
+    },
+  },
+  {
+    id: "Pay Now",
+    cell: ({ row }) => {
+      const order = row.original;
+
+      return (
+        <PayStackOrderPayment order={order}/>
       );
     },
   }

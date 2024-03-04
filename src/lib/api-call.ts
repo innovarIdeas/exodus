@@ -1,4 +1,4 @@
-import { IApiError, IApiResponse, IBook, IBookVariant, IClaim, IConstant, ICoupon, IDiscount, IFirstTimeOrderResponse, IOrder, IPermission, IRole, ISingleUser, ITempBook, ITransaction, IUser, IValidationError } from "@/models/models";
+import { IApiError, IApiResponse, IBook, IBookVariant, IClaim, IConstant, ICoupon, IDiscount, IFirstTimeOrderResponse, IOrder,   IPermission, IRole, ISingleUser, ITempBook, ITransaction, IUser, IValidationError } from "@/models/models";
 import {
   UpdateUserSchema,
   bookSchema,
@@ -447,3 +447,4 @@ export const updateConstant = async (
     )
   );
 };
+
