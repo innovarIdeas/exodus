@@ -25,13 +25,13 @@ const BookVariant = () => {
           <Sheet>
             <SheetTrigger asChild>
               <Button className="ml-4 px-6 whitespace-nowrap bg-main">
-                Create Book Variant
+                New Order Request
               </Button>
             </SheetTrigger>
 
             <SheetContent className="w-2/3 sm:w-full">
               <SheetHeader>
-                <SheetTitle>Create Book Variant</SheetTitle>
+                <SheetTitle>New Order Request</SheetTitle>
               </SheetHeader>
               <UserBookVariantForm />
             </SheetContent>

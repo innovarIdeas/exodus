@@ -16,7 +16,7 @@ interface IBookVariantProps {
   white_paper: boolean;
   no_of_books: number;
   portrait: boolean;
-  quantity_of_Color: number;
+  quantity_of_Color?: number;
   quantity_of_BW: number;
   book_size: string;
   number_of_pages: number;

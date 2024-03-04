@@ -301,7 +301,7 @@ model Order {
     book_variant         Book_variant   @relation(fields: [book_variant_id], references: [id])
     delivery_address     String?
     total                Int
-    status               String
+    status               String?
     payment_reference    String?
     cover_total          Int?
     inner_total          Int?

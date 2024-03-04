@@ -120,9 +120,12 @@ export async function CostOfColouredInsertPerBook (pageSize: string, numberOfCol
     let result;
 
     if (pageSize === "A5") {
-      result = (constantsMap.CostOfPrintingDigitalColourInsertA4 / 2) * numberOfColouredPages;
+      result = (constantsMap.CostOfPrintingDigitalColourInsertA4 / 2) * numberOfColouredPages ? numberOfColouredPages : 1 ;
     } else if (pageSize === "A4") {
-      result = constantsMap.CostOfPrintingDigitalColourInsertA4 * numberOfColouredPages;
+      result =
+        constantsMap.CostOfPrintingDigitalColourInsertA4 * numberOfColouredPages
+          ? numberOfColouredPages
+          : 1;
     } else {
       throw new Error(`Unsupported page size: ${pageSize}`);
     }

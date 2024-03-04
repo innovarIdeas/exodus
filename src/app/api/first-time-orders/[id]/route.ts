@@ -122,7 +122,8 @@ export async function POST (req: NextRequest, { params }: { params: { id: string
         perfect_binding_cost: await CostOfPerfectingBindingPerOrder(
           bookVariant.book_size,
           bookVariant.number_of_pages,
-          bookVariant.no_of_books),
+          bookVariant.no_of_books
+        ),
         cover_total: await CostOfCoverComponentPerBook(bookVariant.book_size),
         lamination_cost: await CostOfSpotLamnation(bookVariant.no_of_books),
         total: await TotalCostOfBooks(
@@ -131,8 +132,8 @@ export async function POST (req: NextRequest, { params }: { params: { id: string
           bookVariant.number_of_pages,
           paperType,
           bookVariant.quantity_of_Color
-        )
-      }
+        ),
+      },
     });
 
     return NextResponse.json({  user,  book,  bookVariant, order  }, { status: 201 });
