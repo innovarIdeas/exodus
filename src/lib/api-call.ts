@@ -1,4 +1,4 @@
-import { IApiError, IApiResponse, IBook, IBookVariant, IClaim, IConstant, ICoupon, IDiscount, IFirstTimeOrderResponse, IOrder, IPermission, IRole, ISingleUser, ITempBook, ITransaction, IUser, IValidationError } from "@/models/models";
+import { IApiError, IApiResponse, IBook, IBookVariant, IClaim, IConstant, ICoupon, IDiscount, IFirstTimeOrderResponse, IOrder,  IPaystackResponse,  IPermission, IRole, ISingleUser, ITempBook, ITransaction, IUser, IValidationError } from "@/models/models";
 import {
   UpdateUserSchema,
   bookSchema,
@@ -16,6 +16,7 @@ import {
   updateTransactionSchema,
   userSchema,
 } from "@/models/validation-schema";
+import PaystackPop from "@paystack/inline-js";
 import { z } from "zod";
 
 async function handleValidationResponse (response: Response) {
@@ -446,4 +447,25 @@ export const updateConstant = async (
       }
     )
   );
+};
+
+export const payWithPayStack = async (email: string, amount: number, order_id: string) =>{
+  const paystack = new PaystackPop();
+  const  key = process.env.NEXT_PUBLIC_PAYSTACK_PUBLIC_KEY;
+  const transaction = await createTransaction({ order_id, status: "Pending", type: "Card" });
+
+  paystack.newTransaction({
+    key,
+    email,
+    amount: amount * 1000,
+    currency: "NGN",
+    ref: transaction.data?.id,
+
+    onSuccess: (transaction: IPaystackResponse) => {
+      alert(`Payment successfull ${transaction.reference}`);
+    },
+    onCancel: () => {
+      alert("You cancelled the payment");
+    }
+  });
 };

@@ -43,6 +43,7 @@ export function DiscountDataTable<TData, TValue> ({
   return (
     <div className="rounded-md border">
       <div className="flex items-center py-4 px-4">
+
         <Input
           placeholder="Search books..."
           value={(table.getColumn("name")?.getFilterValue() as string) ?? ""}

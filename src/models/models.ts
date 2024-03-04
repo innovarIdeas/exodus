@@ -14,6 +14,10 @@ export interface IBase {
   deleted_at?: string;
 }
 
+export interface IPaystackResponse {
+  reference: string;
+}
+
 export interface IConstant extends IBase {
   id: string;
   name: string;
@@ -104,6 +108,90 @@ export interface IBook extends IBase {
   client: IUser;
   description: string | null;
 
+}
+
+type WebhookEvent =
+  | "charge.dispute.create"
+  | "charge.dispute.remind"
+  | "charge.dispute.resolve"
+  | "charge.success"
+  | "customeridentification.failed"
+  | "customeridentification.success"
+  | "dedicatedaccount.assign.failed"
+  | "dedicatedaccount.assign.success"
+  | "invoice.create"
+  | "invoice.payment_failed"
+  | "invoice.update"
+  | "paymentrequest.pending"
+  | "paymentrequest.success"
+  | "refund.failed"
+  | "refund.pending"
+  | "refund.processed"
+  | "refund.processing"
+  | "subscription.create"
+  | "subscription.disable"
+  | "subscription.expiring_cards"
+  | "subscription.not_renew"
+  | "transfer.failed"
+  | "transfer.success"
+  | "transfer.reversed";
+
+export interface IWebhookEventResponse {
+  event: WebhookEvent;
+  data: {
+    id: number;
+    domain: string;
+    status: string;
+    reference: string;
+    amount: number;
+    message: string | null;
+    gateway_response: string;
+    paid_at: string;
+    created_at: string;
+    channel: string;
+    currency: string;
+    ip_address: string;
+    metadata: number;
+    log: {
+      time_spent: number;
+      attempts: number;
+      authentication: string;
+      errors: number;
+      success: boolean;
+      mobile: boolean;
+      input: [];
+      channel: string | null;
+      history: {
+        type: string;
+        message: string;
+        time: number;
+      }[];
+    };
+    fees:  null;
+    customer: {
+      id: number;
+      first_name: string;
+      last_name: string;
+      email: string;
+      customer_code: string;
+      phone: string | null;
+      metadata: null;
+      risk_action: string;
+    };
+    authorization: {
+      authorization_code: string;
+      bin: string;
+      last4: string;
+      exp_month: string;
+      exp_year: string;
+      card_type: string;
+      bank: string;
+      country_code: string;
+      brand: string;
+      account_name: string;
+    };
+    plan: string;
+  };
 }
 
 export interface IBookVariant extends IBase {

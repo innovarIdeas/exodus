@@ -117,4 +117,5 @@ export const columns: ColumnDef<IBookVariant>[] = [
       );
     },
   },
+
 ];

@@ -12,7 +12,8 @@ export async function GET () {
       include: {
         client: true,
         book_variant: { include: { book: { include: { client: true } } } },
-        book: true
+        book: true,
+        created_by_user: true
       }
     });
 
