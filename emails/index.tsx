@@ -13,11 +13,11 @@ import {
 // eslint-disable-next-line sort-imports
 import * as React from "react";
 
-interface KoalaWelcomeEmailProps {
+interface WelcomeEmailProps {
   userFirstname: string;
 }
 
-export const KoalaWelcomeEmail = ({ userFirstname = "Zeno" }: KoalaWelcomeEmailProps) => (
+export const WelcomeEmail = ({ userFirstname = "Zeno" }: WelcomeEmailProps) => (
   <Html>
     <Head />
     <Preview>
@@ -35,19 +35,19 @@ export const KoalaWelcomeEmail = ({ userFirstname = "Zeno" }: KoalaWelcomeEmailP
         />
         <Text style={paragraph}>Hi {userFirstname},</Text>
         <Text style={paragraph}>
-					Welcome to Daily Web Coding, the sales intelligence platform
+					Welcome to Magic Wand, the sales intelligence platform
 					that helps you uncover qualified leads and close deals
 					faster.
         </Text>
         <Section style={btnContainer}>
-          <Button style={button} href="https://getkoala.com">
+          <Button style={button} href="#">
 						Get started
           </Button>
         </Section>
         <Text style={paragraph}>
 					Best,
           <br />
-					The Daily Web Coding
+					The Magic Wand
         </Text>
         <Hr style={hr} />
         <Text style={footer}>408 Warren Rd - San Mateo, CA 94402</Text>
@@ -56,7 +56,7 @@ export const KoalaWelcomeEmail = ({ userFirstname = "Zeno" }: KoalaWelcomeEmailP
   </Html>
 );
 
-export default KoalaWelcomeEmail;
+export default WelcomeEmail;
 
 const main = {
   backgroundColor: "#ffffff",
