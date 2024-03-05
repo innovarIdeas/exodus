@@ -2,6 +2,7 @@
 
 import React, { useRef } from "react";
 import Link from "next/link";
+import { PayStackOrderPayment } from "@/components/PayStackorderPayment";
 import { useGetSingleOrder } from "@/lib/hook";
 import { useParams } from "next/navigation";
 import { useReactToPrint } from "react-to-print";
@@ -106,6 +107,9 @@ const SingleInvoice = ()=>{
       <div className="mt-[10px] grid grid-cols-5  md:gap-[5%] bg-white py-5 px-5 rounded-xl shadow">
         <div className="flex gap-2 col-span-2">
           <button className="text-xs lg:text-base bg-white text-blue lg:ml-5" onClick={handlePrint}>Print</button>
+          {order &&
+          <PayStackOrderPayment order={order} />
+          }
         </div>
       </div>
     </>
