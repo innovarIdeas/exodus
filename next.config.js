@@ -15,7 +15,6 @@ const nextConfig = {
   compiler: { removeConsole: { exclude: ["error"] } },
 };
 
-// eslint-disable-next-line @typescript-eslint/no-var-requires
 const withNextIntl = require("next-intl/plugin")("./i18n.ts");
 
 const config = {
@@ -25,10 +24,10 @@ const config = {
       "@react-email/render",
       "@react-email/html",
     ],
-  }
+  },
 };
 
-export default withNextIntl({
+module.exports = withNextIntl({
   ...nextConfig,
   ...config,
 });
