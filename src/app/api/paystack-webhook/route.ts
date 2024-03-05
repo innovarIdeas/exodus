@@ -5,7 +5,7 @@ import prisma from "@/lib/prisma";
 
 export async function POST (req: NextRequest) {
   try {
-    const secret = process.env.NEXT_PUBLIC_PAYSTACK_TEST_SECRET_KEY;
+    const secret = process.env.PAYSTACK_TEST_SECRET_KEY;
 
     if(!secret) {
       return NextResponse.json({ error: "No Secret key found" }, { status: 400 });

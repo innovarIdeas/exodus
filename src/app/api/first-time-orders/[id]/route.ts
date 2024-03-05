@@ -131,7 +131,7 @@ export async function POST (req: NextRequest, { params }: { params: { id: string
           bookVariant.book_size as IPageSize,
           bookVariant.number_of_pages,
           paperType,
-          bookVariant.quantity_of_Color
+          bookVariant.quantity_of_Color ?? 2
         ),
       },
     });
