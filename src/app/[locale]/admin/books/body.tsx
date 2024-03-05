@@ -28,6 +28,8 @@ export default function BookBody () {
       if (error) {
         console.error(error);
       }
+
+      return data;
     }
   });
 

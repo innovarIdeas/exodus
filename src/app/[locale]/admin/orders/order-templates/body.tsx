@@ -1,6 +1,6 @@
 "use client";
 
-import { Dialog, DialogContent, DialogDescription, DialogHeader, DialogTitle, DialogTrigger } from "@/components/ui/dialog";
+import { Dialog, DialogContent, DialogHeader, DialogTitle, DialogTrigger } from "@/components/ui/dialog";
 import React, { useEffect, useState } from "react";
 import { BiPlusCircle } from "react-icons/bi";
 import { BookDataTable } from "./data-table";
@@ -45,9 +45,6 @@ export default function BookBody () {
           <DialogContent>
             <DialogHeader>
               <DialogTitle>Add Order Template</DialogTitle>
-              <DialogDescription>
-              Kindly fill the form with the book information
-              </DialogDescription>
               <BookVariantForm/>
             </DialogHeader>
 

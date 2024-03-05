@@ -6,7 +6,7 @@ import { Button } from "@/components/ui/button";
 import DashboardTitle from "@/components/DashboardTitle";
 import { IBookVariant } from "@/models/models";
 import React from "react";
-import { UserBookVariantForm } from "@/components/UserBookVariantForm";
+import UserBookVariantForm from "@/components/UserBookVariantForm";
 import { columns } from "./columns";
 import { useGetUserBookVariants } from "@/lib/hook";
 import { useSession } from "next-auth/react";
@@ -25,13 +25,13 @@ const BookVariant = () => {
           <Sheet>
             <SheetTrigger asChild>
               <Button className="ml-4 px-6 whitespace-nowrap bg-main">
-                Create Book Variant
+                New Order Request
               </Button>
             </SheetTrigger>
 
             <SheetContent className="w-2/3 sm:w-full">
               <SheetHeader>
-                <SheetTitle>Create Book Variant</SheetTitle>
+                <SheetTitle>New Order Request</SheetTitle>
               </SheetHeader>
               <UserBookVariantForm />
             </SheetContent>

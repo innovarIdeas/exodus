@@ -225,7 +225,7 @@ model Book_variant {
     tempbook_id           String?
     paper_type            String
     number_of_words       Int?
-    status                String
+    status                String?
     hard_cover            Boolean?  @default(false)
     BW_print              Boolean?  @default(false)
     both_print            Boolean?  @default(false)
@@ -237,7 +237,7 @@ model Book_variant {
     white_paper           Boolean?  @default(false)
     no_of_books           Int
     portrait              Boolean?  @default(false)
-    quantity_of_Color     Int
+    quantity_of_Color     Int?
     quantity_of_BW        Int?
     book_size             String
     number_of_pages       Int
@@ -301,7 +301,7 @@ model Order {
     book_variant         Book_variant   @relation(fields: [book_variant_id], references: [id])
     delivery_address     String?
     total                Int
-    status               String
+    status               String?
     payment_reference    String?
     cover_total          Int?
     inner_total          Int?

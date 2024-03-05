@@ -16,7 +16,7 @@ interface IBookVariantProps {
   white_paper: boolean;
   no_of_books: number;
   portrait: boolean;
-  quantity_of_Color: number;
+  quantity_of_Color?: number;
   quantity_of_BW: number;
   book_size: string;
   number_of_pages: number;
@@ -83,7 +83,7 @@ const BookVariant = ({ variant_name, book_name, description, number_of_words, no
         <span> LAMINATION: {lamination} </span>
         <span> FOILING: {foiling ? "TRUE" : "FALSE"} </span>
         <span> PROJECT TYPE: {project_type} </span>
-        <span> READY TO PRINT: {readyToPrint} </span>
+        <span> READY TO PRINT: {readyToPrint ? "TRUE" : "FALSE"} </span>
         <span> PUBLISHED: {published} </span>
         <span> WORK IN PROGRESS: {workInProgress} </span>
         <span> INSIDE LAYOUT TYPE: {inside_layout_type} </span>
