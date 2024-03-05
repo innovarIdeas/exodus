@@ -1,6 +1,6 @@
 "use client";
 
-import React, { useContext } from "react";
+import React, { useContext, useEffect } from "react";
 import { ContextStore } from "@/context/ContextStore";
 
 const BookInfo = () => {
@@ -12,13 +12,13 @@ const BookInfo = () => {
 
   const { setNextOpen, wordCount, setWordCount, bookSize, setBookSize, potrait, setPotrait, noOfBooks, setNoOfBooks, currentBookFormat, setCurrentBookFormat } = contextValues;
 
-  const handleNext = ()=> {
+  useEffect(()=>{
     if(noOfBooks > 49) {
       setNextOpen(true);
     }else{
       setNextOpen(false);
     }
-  };
+  }, [noOfBooks]);
 
   return (
     <div>
@@ -128,7 +128,7 @@ const BookInfo = () => {
 
         <div className="flex flex-col gap-2 my-8">
           <p className="text-gray-600">How many books are you printing?</p>
-          <input onChange={(e)=>{setNoOfBooks(parseInt(e.target.value, 10)); handleNext(); }} value={noOfBooks} type="number" className="w-80 p-2 shadow-md border border-gray-400 rounded-md" />
+          <input onChange={(e)=>setNoOfBooks(parseInt(e.target.value, 10))} value={noOfBooks} type="number" className="w-80 p-2 shadow-md border border-gray-400 rounded-md" />
           <p className="text-gray-600">Quantities available (50 units and above)</p>
         </div>
 

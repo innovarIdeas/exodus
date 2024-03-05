@@ -19,7 +19,7 @@ const layout: React.FC<LayoutProps> = ({ children }) => {
     return null;
   }
 
-  const { currentBookFormat, setCurrentStep, currentStep, noOfPages, bookSize, noOfBooks, submitForm, nextOpen, qualityOfColor } = contextValues;
+  const { currentBookFormat, setCurrentStep, currentStep, wordCount, bookSize, noOfBooks, submitForm, nextOpen, qualityOfColor } = contextValues;
   const bookId = localStorage.getItem("Exodus_Book_Id");
   const book_id = bookId !== null && JSON.parse(bookId);
   const bookData = TempBookData();
@@ -62,7 +62,7 @@ const layout: React.FC<LayoutProps> = ({ children }) => {
   };
 
   const handleNext = async () => {
-    if(currentStep === 1 && noOfPages !== 0 && bookSize !== "" && noOfBooks >= 50 && currentBookFormat !== "") {
+    if(currentStep === 1 && wordCount !== 0 && bookSize !== "" && noOfBooks >= 50 && currentBookFormat !== "") {
       setCurrentStep(currentStep + 1);
     } else if(currentStep === 2) {
       setCurrentStep(currentStep + 1);
@@ -100,7 +100,7 @@ const layout: React.FC<LayoutProps> = ({ children }) => {
   return (
     <div className="h-full relative">
       <div className="lg:w-[20%] overflow-x-scroll py-4 w-full lg:h-full border text-sm flex lg:flex-col item-center gap-1 lg:pt-10 fixed top-28 lg:top-auto bg-slate-50 z-10">
-        <div className={`${currentStep === 1 && "border-r-4 border-r-blue-800"} flex item-start gap-4 shrink-0 lg:gap-10 py-2 px-4 lg:px-8`}>
+        <div className={`${currentStep === 1 && "border-r-4 border-r-main"} flex item-start gap-4 shrink-0 lg:gap-10 py-2 px-4 lg:px-8`}>
           <p className="font-bold">1</p>
           <div>
             <p className="font-bold">Step 1</p>
@@ -108,7 +108,7 @@ const layout: React.FC<LayoutProps> = ({ children }) => {
           </div>
         </div>
 
-        <div className={`${currentStep === 2 && "border-r-4 border-r-blue-800"} flex item-start gap-4 shrink-0 lg:gap-10 py-2 px-4 lg:px-8`}>
+        <div className={`${currentStep === 2 && "border-r-4 border-r-main"} flex item-start gap-4 shrink-0 lg:gap-10 py-2 px-4 lg:px-8`}>
           <p className="font-bold">2</p>
           <div>
             <p className="font-bold">Step 2</p>
@@ -116,7 +116,7 @@ const layout: React.FC<LayoutProps> = ({ children }) => {
           </div>
         </div>
 
-        <div className={`${currentStep === 3 && "border-r-4 border-r-blue-800"} flex item-start gap-4 shrink-0 lg:gap-10 py-2 px-4 lg:px-8`}>
+        <div className={`${currentStep === 3 && "border-r-4 border-r-main"} flex item-start gap-4 shrink-0 lg:gap-10 py-2 px-4 lg:px-8`}>
           <p className="font-bold">3</p>
           <div>
             <p className="font-bold">Step 3</p>
@@ -124,7 +124,7 @@ const layout: React.FC<LayoutProps> = ({ children }) => {
           </div>
         </div>
 
-        <div className={`${currentStep === 4 && "border-r-4 border-r-blue-800"} flex item-start gap-4 shrink-0 lg:gap-10 py-2 px-4 lg:px-8`}>
+        <div className={`${currentStep === 4 && "border-r-4 border-r-main"} flex item-start gap-4 shrink-0 lg:gap-10 py-2 px-4 lg:px-8`}>
           <p className="font-bold">4</p>
           <div>
             <p className="font-bold">Step 4</p>
