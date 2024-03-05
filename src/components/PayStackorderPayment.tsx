@@ -14,10 +14,10 @@ export function PayStackOrderPayment ({ order }: PayStackOrderPaymentProp) {
     custom_fields: {
       name: order.client.name,
       phone: order.client.email,
-      reference: createTransactionTrigger(order)
+      reference: (createTransactionTrigger(order))?.id
     },
     publicKey: process.env.NEXT_PUBLIC_PAYSTACK_PUBLIC_KEY as string,
-    text: "Pay Now",
+    text: "Payment Link",
     onSuccess: () =>{
       alert("Thanks for doing business with us! Come back soon!!");
     },
