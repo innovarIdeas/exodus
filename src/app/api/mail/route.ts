@@ -3,7 +3,7 @@ import { Resend } from "resend";
 import WelcomeEmail from "@emails";
 import { render } from "@react-email/render";
 
-const resend = new Resend(process.env.RESEND_API_KEY);
+const resend = new Resend("re_B4wAhZiy_BEm2rCdR6RS9KXytaLTCtX3r");
 
 export async function POST (request: NextRequest) {
   try {
