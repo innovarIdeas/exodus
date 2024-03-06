@@ -22,14 +22,19 @@ import { createUserBookVariant } from "@/lib/api-call";
 import { generateVariantName } from "@/lib/uuid-helper";
 import { useForm } from "react-hook-form";
 import { useGetAllBook } from "@/lib/hook";
+import { useGetUserBookVariants } from "@/lib/hook";
+import { useSession } from "next-auth/react";
 import { useToast } from "@/components/ui/use-toast";
 import z from "zod";
 import { zodResolver } from "@hookform/resolvers/zod";
 
 const UserBookVariantReadyToPrint = () => {
   const { toast } = useToast();
+  const session = useSession();
 
   type TFormData = z.infer<typeof bookVariantSchema>;
+
+  const { refetch } = useGetUserBookVariants(session.data?.user.id ?? "");
 
   const form = useForm<TFormData>({
     resolver: zodResolver(bookVariantSchema),
@@ -77,6 +82,7 @@ const UserBookVariantReadyToPrint = () => {
       });
 
       form.reset();
+      refetch();
     } else {
       toast({
         variant: "destructive",
