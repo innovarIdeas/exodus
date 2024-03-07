@@ -42,7 +42,7 @@ export const columns: ColumnDef<IBook>[] = [
   },
   {
     accessorKey: "client",
-    header: "Client",
+    header: "Publisher",
 
     cell: ({ row }) => {
       const book = row.original;
@@ -98,7 +98,7 @@ export const columns: ColumnDef<IBook>[] = [
           </DialogTrigger>
           <DialogContent>
             <DialogHeader>
-              <DialogTitle>Delete User</DialogTitle>
+              <DialogTitle>Delete Book</DialogTitle>
               <DialogDescription>
                       Are you sure you want to delete this book?
               </DialogDescription>
