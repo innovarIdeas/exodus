@@ -49,8 +49,6 @@ export const columns: ColumnDef<IUser>[] = [
     cell: ({ row }) => {
       const user = row.original;
 
-      console.log(user);
-
       return (
         <Sheet>
           <SheetTrigger asChild>
@@ -71,11 +69,13 @@ export const columns: ColumnDef<IUser>[] = [
     cell: ({ row }) => {
       const user = row.original;
 
-      console.log(user);
-
       return (
         <Dialog>
-          <DialogTrigger></DialogTrigger>
+          <DialogTrigger>
+            <Button className="ml-4 px-6 whitespace-nowrap bg-red">
+             Delete User
+            </Button>
+          </DialogTrigger>
           <DialogContent>
             <DialogHeader>
               <DialogTitle>Delete User</DialogTitle>
