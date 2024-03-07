@@ -180,8 +180,6 @@ export const columns: ColumnDef<IBook>[] = [
     cell: ({ row }) => {
       const book = row.original;
 
-      console.log(book);
-
       return (
         <Dialog>
           <DialogTrigger className="rounded-sm h-[40px] w-fit bg-main text-white text-x flex items-center justify-center gap-2 cursor-pointer px-4 shadow-lg hover:shadow-none">
