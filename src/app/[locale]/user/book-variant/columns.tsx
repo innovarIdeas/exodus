@@ -40,10 +40,6 @@ export const columns: ColumnDef<IBookVariant>[] = [
     },
   },
   {
-    accessorKey: "tempbook_id",
-    header: "TempBook ID",
-  },
-  {
     accessorKey: "created_at",
     header: "Created At",
   },

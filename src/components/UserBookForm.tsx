@@ -6,13 +6,6 @@ import {
   FormLabel,
   FormMessage,
 } from "@/components/ui/form";
-import {
-  Select,
-  SelectContent,
-  SelectItem,
-  SelectTrigger,
-  SelectValue,
-} from "@/components/ui/select";
 import { Button } from "./ui/button";
 import { DialogClose } from "./ui/dialog";
 import { Input } from "@/components/ui/input";
@@ -21,7 +14,6 @@ import { Textarea } from "@/components/ui/textarea";
 import { bookSchema } from "@/models/validation-schema";
 import { createUserBook } from "@/lib/api-call";
 import { useForm } from "react-hook-form";
-import { useGetAllUser } from "@/lib/hook";
 import { useGetUserBooks } from "@/lib/hook";
 import { useSession } from "next-auth/react";
 import { useToast } from "@/components/ui/use-toast";
@@ -34,8 +26,10 @@ const UserBookForm = () => {
 
   type TFormData = z.infer<typeof bookSchema>;
 
-  const form = useForm<TFormData>({ resolver: zodResolver(bookSchema) });
-  const users = useGetAllUser();
+  const form = useForm<TFormData>({
+    resolver: zodResolver(bookSchema),
+    defaultValues: { client_id: session.data?.user.id },
+  });
 
   const { refetch } = useGetUserBooks(
     session.data?.user.id ?? ""
@@ -126,37 +120,6 @@ const UserBookForm = () => {
             )}
           />
         </div>
-
-        <div className="py-1">
-          <FormField
-            control={form.control}
-            name="client_id"
-            render={({ field }) => (
-              <FormItem className="w-full">
-                <FormLabel>Publisher</FormLabel>
-                <Select
-                  onValueChange={field.onChange}
-                  defaultValue={field.value}
-                >
-                  <FormControl>
-                    <SelectTrigger>
-                      <SelectValue placeholder="Select a publisher" />
-                    </SelectTrigger>
-                  </FormControl>
-                  <SelectContent>
-                    {users &&
-                      users.map((user) => (
-                        <SelectItem key={user.id} value={user.id}>
-                          {user.name}
-                        </SelectItem>
-                      ))}
-                  </SelectContent>
-                </Select>
-              </FormItem>
-            )}
-          />
-        </div>
-
         <div className="flex gap-5 py-1">
           <div className="py-2 ">
             <Button
