@@ -10,6 +10,7 @@ import {
 } from "@/components/ui/dialog";
 import { ColumnDef } from "@tanstack/react-table";
 import CreateOrder from "@/components/CreateOrder";
+import FormatDate from "@/components/FormatDate";
 import { IBookVariant } from "@/models/models";
 import React from "react";
 
@@ -42,6 +43,7 @@ export const columns: ColumnDef<IBookVariant>[] = [
   {
     accessorKey: "created_at",
     header: "Created At",
+    cell: ({ row }) => <FormatDate date={row.original.created_at} />,
   },
   {
     id: "Order",

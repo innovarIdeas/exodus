@@ -23,14 +23,17 @@ const adminRouteLayout: React.FC<adminRouteLayoutProps> = ({ children }) => {
     <>
       <Navbar />
       {path !== "/admin" && (
-        <NextBreadcrumb
-          homeElement={"Home"}
-          separator={<span> | </span>}
-          activeClasses="text-main"
-          containerClasses="flex py-5"
-          listClasses="hover:underline mx-2 font-bold"
-          capitalizeLinks
-        />
+        <div className="mx-5 w-screen px-5">
+          <NextBreadcrumb
+            homeElement={"Home"}
+            separator={<span> | </span>}
+            activeClasses="text-main"
+            containerClasses="flex py-5"
+            listClasses="hover:underline mx-2 font-bold"
+            capitalizeLinks
+          />
+        </div>
+
       )}
       {children}
     </>

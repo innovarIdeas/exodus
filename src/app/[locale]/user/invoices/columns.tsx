@@ -1,7 +1,7 @@
 "use client";
 
 import { ColumnDef } from "@tanstack/react-table";
-import { ITransaction } from "@/models/models";
+import { IOrder } from "@/models/models";
 import Link from "next/link";
 import React from "react";
 
@@ -12,7 +12,7 @@ export type BookProps = {
   description: string;
 };
 
-export const columns: ColumnDef<ITransaction>[] = [
+export const columns: ColumnDef<IOrder>[] = [
   {
     accessorKey: "status",
     header: "Status",
@@ -34,7 +34,14 @@ export const columns: ColumnDef<ITransaction>[] = [
     cell: ({ row }) => {
       const invoice = row.original;
 
-      return <Link href={`/user/invoices/pdf/${invoice.id}`} className="rounded-sm h-[40px] w-fit bg-main text-white text-x flex items-center justify-center gap-2 cursor-pointer px-4 shadow-lg hover:shadow-none">View</Link>;
+      return (
+        <Link
+          href={`/user/invoices/pdf/${invoice.id}`}
+          className="rounded-sm h-[40px] w-fit bg-main text-white text-x flex items-center justify-center gap-2 cursor-pointer px-4 shadow-lg hover:shadow-none"
+        >
+          View
+        </Link>
+      );
     },
   },
 ];

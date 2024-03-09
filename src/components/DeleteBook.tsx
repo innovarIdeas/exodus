@@ -47,16 +47,28 @@ const DeleteBook = ({ id }: IEditBookFormProps) => {
   };
 
   return (
-
     <div className="flex gap-5 py-1">
-
       <div className="py-2 ">
-        <Button type="button"  onClick={Delete} className="text-sm bg-red py-2 px-4 delete-button border border-1 border-red rounded-sm   hover:font-semibold hover:bg-red">  Yes, Delete Book</Button>
+        <DialogClose>
+          <Button
+            type="button"
+            onClick={Delete}
+            className="text-sm bg-red py-2 px-4 delete-button border border-1 border-red rounded-sm   hover:font-semibold hover:bg-red"
+          >
+            {" "}
+            Yes, Delete Book
+          </Button>
+        </DialogClose>
       </div>
 
       <DialogClose>
         <div className="py-2 ">
-          <Button type="button" className="text-sm  py-2 px-4 text-black rounded-sm create-button border border-1 border-green  hover:font-semibold hover:bg-green">Cancel</Button>
+          <Button
+            type="button"
+            className="text-sm  py-2 px-4 text-black rounded-sm create-button border border-1 border-green  hover:font-semibold hover:bg-green"
+          >
+            Cancel
+          </Button>
         </div>
       </DialogClose>
     </div>
