@@ -1,10 +1,10 @@
 "use client";
 
-import { redirect, useRouter } from "next/navigation";
 import { signOut, useSession } from "next-auth/react";
 import { Button } from "@/components/ui/button";
 import Image from "next/image";
 import React from "react";
+import { useRouter } from "next/navigation";
 
 const Navbar = () => {
   const router = useRouter();
@@ -29,7 +29,7 @@ const Navbar = () => {
           >
           Sign In
           </Button>
-        )  &&  redirect("/login") : (
+        ) : (
           <Button
             onClick={handleUserSignOut}
             className="bg-[#FF0000] text-white hover:bg-[#CC0000] focus:outline-none focus:ring focus:border-[#FF0000]"
