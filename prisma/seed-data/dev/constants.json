@@ -230,7 +230,7 @@
       "value" : 2
     },
     {
-      "name": "A5 Perfect  Binding Constant",
+      "name": "A5 Pesrfect  Binding Constant",
       "shortcode": "A5PerfectBindingConstant",
       "value" : 2
     },
@@ -238,6 +238,107 @@
       "name": "A4 Perfect Binding Constant",
       "shortcode": "A4PerfectBindingConstant",
       "value" : 2
+    },
+    {
+      "name": "Sketch Constant",
+      "shortcode": "SketchConstant",
+      "value" : 2
+    },
+    {
+      "name": "2D Coloured Illustration Constant",
+      "shortcode": "2DColouredIllustrationConstant",
+      "value" : 2
+    },
+    {
+      "name": "3D Coloured Illustration Constant",
+      "shortcode": "3DColouredIllustrationConstant",
+      "value" : 2
+    },
+    {
+      "name": "ISBN by MagicWand",
+      "shortcode": "ISBNByMagicWand",
+      "value" : 2
+    },
+    {
+      "name": "ISBN by personal/company name",
+      "shortcode": "ISBNByPersonalAndCompanyNameConstant",
+      "value" : 2
+    },
+    {
+      "name": "Poetry layout constant",
+      "shortcode": "PoetryLayoutConstant",
+      "value" : 2
+    },
+    {
+      "name": "Poetry layout variable",
+      "shortcode": "PoetryLayoutVariable",
+      "value" : 2
+    },
+    {
+      "name": "poetry with images layout constant",
+      "shortcode": "PoetryWithImagesLayoutConstant",
+      "value" : 2
+    },
+    {
+      "name": "Poetry with images variable",
+      "shortcode": "PoetryWithImagesVariable",
+      "value" : 2
+    },
+    {
+      "name": "fiction or non-fiction layout constant",
+      "shortcode": "FictionOrNonFictionLayoutConstant",
+      "value" : 2
+    },
+    {
+      "name": "non fiction layout no images variable",
+      "shortcode": "NonFictionLayouNoImagesVariable",
+      "value" : 2
+    },
+    {
+      "name": "fiction or non-fiction with Images Constants",
+      "shortcode": "FictionOrNonFictionWithImagesConstants",
+      "value" : 2
+    },
+    {
+      "name": "graphics design with images constant",
+      "shortcode": "GraphicsDesignWithImagesConstant",
+      "value" : 2
+    },
+    {
+      "name": "premium image design constant",
+      "shortcode": "PremiumImageDesignConstant",
+      "value" : 2
+    },
+    {
+      "name": "artist illustration constant",
+      "shortcode": "ArtistIllustrationConstant",
+      "value" : 2
+    },
+    {
+      "name": "Editing constant",
+      "shortcode": "EditingConstant",
+      "value" : 2
+    },
+    {
+      "name": "Editing variable",
+      "shortcode": "EditingVariable",
+      "value" : 2
+    },
+    {
+      "name": "Proofreading constant",
+      "shortcode": "ProofreadingConstant",
+      "value" : 2
+    },
+    {
+      "name": "proofreading variable",
+      "shortcode": "ProofreadingVariable",
+      "value" : 2
+    },
+    {
+      "name": "Amazon kdp constant",
+      "shortcode": "AmazonKDPConstant",
+      "value" : 2
     }
+
 
 ]
