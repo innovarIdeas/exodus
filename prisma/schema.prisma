@@ -302,6 +302,7 @@ model Order {
     delivery_address     String?
     total                Int
     status               String?
+    print_status         String?
     payment_reference    String?
     cover_total          Int?
     inner_total          Int?

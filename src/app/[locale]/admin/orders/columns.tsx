@@ -1,8 +1,9 @@
 "use client";
 
-import { Dialog, DialogContent, DialogDescription, DialogHeader, DialogTitle, DialogTrigger } from "@/components/ui/dialog";
+import { Sheet, SheetContent, SheetHeader, SheetTitle, SheetTrigger } from "@/components/ui/sheet";
 import { Checkbox } from "@/components/ui/checkbox";
 import { ColumnDef } from "@tanstack/react-table";
+import CreatePrintStatus from "@/components/CreatePrintStatus";
 import CreateTransaction from "@/components/CreateTransaction";
 import { IOrder } from "@/models/models";
 import Link from "next/link";
@@ -77,52 +78,72 @@ export const columns: ColumnDef<IOrder>[] = [
   },
   {
     accessorKey: "status",
-    header: "Status",
+    header: "Payment Status",
+  },
+  {
+    accessorKey: "print_status",
+    header: "Print Status",
+    cell: ({ row }) => {
+      const stats = row.original;
+
+      if(stats.print_status === null || stats.print_status.length === 0) {
+        return(<p>Recieved</p>);
+      } else{
+        return <div>{stats.print_status}</div>;
+      }
+    }
   },
   {
     accessorKey: "timestamp",
     header: "Date added",
   },
   {
-    id: "Update",
+    id: "actions",
+    header: "Actions",
     cell: ({ row }) => {
       const order = row.original;
 
       return (
-        <Link href={`orders/${order.id}`} className="rounded-full h-[40px] w-fit bg-main text-white text-x flex items-center justify-center gap-2 cursor-pointer px-4 shadow-lg hover:shadow-none">
-          View Order
-        </Link>
-      );
-    },
-  },
-  {
-    id: "Pay",
-    cell: ({ row }) => {
-      const order = row.original;
+        <div className=" flex gap-1 justify-start ">
+          <Link href={`orders/${order.id}`} className="rounded-full h-[40px] bg-main w-fix text-white text-x flex items-center justify-center cursor-pointer px-2 shadow-lg hover:shadow-none" >
+                    View Order
+          </Link>
 
-      console.log(order);
+          <Sheet>
+            <SheetTrigger asChild>
+              <span className="rounded-full h-[40px] bg-main w-fix text-white text-x flex items-center justify-center cursor-pointer px-2 shadow-lg hover:shadow-none">Create Transaction</span>
+            </SheetTrigger>
 
-      return (
-        <Dialog>
-          <DialogTrigger className="rounded-full h-[40px] w-fit bg-main text-white text-x flex items-center justify-center gap-2 cursor-pointer px-4 shadow-lg hover:shadow-none">
-            <span className="text-white">Create Transaction</span>
-          </DialogTrigger>
-          <DialogContent className="w-1/2 overflow-auto">
-            <DialogHeader>
-              <DialogTitle>Create Transaction</DialogTitle>
-              <DialogDescription>
-                      Are you sure you want to create this Transaction?
-              </DialogDescription>
-
+            <SheetContent>
+              <SheetHeader>
+                <SheetTitle>
+              Create Transaction
+                </SheetTitle>
+              </SheetHeader>
               <CreateTransaction order_id={order.id}/>
-            </DialogHeader>
+            </SheetContent>
+          </Sheet>
 
-          </DialogContent>
-        </Dialog>
+          <Sheet>
+            <SheetTrigger asChild>
+              <span className="rounded-full h-[40px] bg-main w-fix text-white text-x flex items-center justify-center cursor-pointer px-2 shadow-lg hover:shadow-none">Update Status</span>
+            </SheetTrigger>
 
+            <SheetContent>
+              <SheetHeader>
+                <SheetTitle>
+              Update Status
+                </SheetTitle>
+              </SheetHeader>
+              <CreatePrintStatus order_id={order.id}/>
+            </SheetContent>
+          </Sheet>
+
+        </div>
       );
     },
   },
+
   {
     id: "Pay Now",
     cell: ({ row }) => {

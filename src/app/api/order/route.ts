@@ -62,7 +62,7 @@ export async function POST (req: NextRequest) {
           book_variant.book_size as IPageSize,
           book_variant.number_of_pages,
           book_variant.paper_type as IPaperType,
-          book_variant.quantity_of_Color
+          book_variant.quantity_of_Color ?? 2
         )
       }
     });

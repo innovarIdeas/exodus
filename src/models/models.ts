@@ -356,6 +356,7 @@ export interface IOrder extends IBase {
   delivery_address:     string;
   total:                number;
   status:               string;
+  print_status:         string;
   payment_reference:    string;
   cover_total:          number;
   inner_total:          number;
