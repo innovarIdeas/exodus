@@ -1,7 +1,7 @@
 "use client";
 
 import React, { useContext } from "react";
-import { editTempBook, firstTimeOrder } from "@/lib/api-call";
+import { editTempBook, workInProgressFirstTimeOrder } from "@/lib/api-call";
 import { ContextStore } from "@/context/ContextStore";
 import TempBookData from "@/components/TempBookData";
 import { signIn } from "next-auth/react";
@@ -26,7 +26,7 @@ const layout: React.FC<LayoutProps> = ({ children }) => {
   const router = useRouter();
 
   const createFirstTimeOrder = async ()=>{
-    const { data, error, validationErrors } = await firstTimeOrder(book_id);
+    const { data, error, validationErrors } = await workInProgressFirstTimeOrder(book_id);
 
     if (error || validationErrors) {
       toast({

@@ -67,6 +67,20 @@ export type IPaperType = "CREAM_PAPER_LARGE" | "ART_PAPER_135" | "NEWS_PRINT"  |
 
 export type IPageSize = "A4" | "A5";
 
+export type IIllustrationType = "Simple-black-and-white-sketch-and-linking" | "Full-color-flat-2D-illustration" | "Full-color-3D-illustration" | "comic";
+
+export type ILayoutType =
+"Poetry-Layout" |
+"Poetry-with-pictures" |
+"Simple-fiction-or-non-fiction-layout-with-no-graphics-or-image" |
+"Fiction-or-non-fiction-layout-with-pictures-graphics-and-chart" |
+"comic";
+
+export type ICoverDesign =
+"Graphics-with-online-images-or-author-supplied-image" |
+"Graphics-with-premium-paid-image" |
+"Artist-Illustrated";
+
 export interface IApiError extends Error {
   code: string;
   message: string;

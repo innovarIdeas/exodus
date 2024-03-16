@@ -58,9 +58,9 @@ const BookService = () => {
               <p>Please choose an option</p>
               <select value={coverDesignType} onChange={(e)=>setCoverDesignType(e.target.value)} name="" id="" className="border shadow-md p-2 rounded-md bg-white border-gray-400">
                 <option value="">--Please select an option--</option>
-                <option value="Graphics with online images/author supplied image">Graphics with online images/author supplied image</option>
-                <option value="Graphics with premium paid image">Graphics with premium paid image</option>
-                <option value="Artist Illustrated">Artist Illustrated</option>
+                <option value="Graphics-with-online-images-or-author-supplied-image">Graphics with online images/author supplied image</option>
+                <option value="Graphics-with-premium-paid-image">Graphics with premium paid image</option>
+                <option value="Artist-Illustrated">Artist Illustrated</option>
               </select>
             </div>}
           </div>

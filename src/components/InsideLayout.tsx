@@ -1,5 +1,6 @@
 "use client";
 
+import { ILLUSTRATION_TYPE, LAYOUT_TYPE  } from "@/lib/rbac";
 import React, { useContext } from "react";
 import { ContextStore } from "@/context/ContextStore";
 
@@ -31,11 +32,11 @@ const InsideLayout = () => {
               <p>Please choose an option</p>
               <select value={insideLayoutType} onChange={(e)=>setInsideLayoutType(e.target.value)} name="" id="" className="border shadow-md p-2 rounded-md bg-white border-gray-400">
                 <option value="">--Please select an option--</option>
-                <option value="Poetry Layout">Poetry Layout</option>
-                <option value="Poetry with Pictures">Poetry with Pictures</option>
-                <option value="Simple fiction/non-fiction layout (no graphics or image)">Simple fiction/non-fiction layout (no graphics or image)</option>
-                <option value="Fiction/non-fiction layout with pictures, Graphic and charts">Fiction/non-fiction layout with pictures, Graphic and charts</option>
-                <option value="Comic">Comic</option>
+                <option value={LAYOUT_TYPE.POETRY_LAYOUT}>Poetry Layout</option>
+                <option value={LAYOUT_TYPE.POETRY_WITH_PICTURES}>Poetry with Pictures</option>
+                <option value={LAYOUT_TYPE.SIMPLE_FICTION_WITHOUT_GRAPHICS}>Simple fiction/non-fiction layout (no graphics or image)</option>
+                <option value={LAYOUT_TYPE.SIMPLE_FICTION_WITH_GRAPHICS}>Fiction/non-fiction layout with pictures, Graphic and charts</option>
+                <option value={LAYOUT_TYPE.COMIC}>Comic</option>
               </select>
             </div>}
           </div>
@@ -53,10 +54,10 @@ const InsideLayout = () => {
               <p>Please choose an option</p>
               <select value={artIllustrationType} onChange={(e)=>setArtIllustrationType(e.target.value)} name="" id="" className="border shadow-md p-2 rounded-md bg-white border-gray-400">
                 <option value="">--Please select an option--</option>
-                <option value="Simple black and white sketch/inking">Simple black and white sketch/inking</option>
-                <option value="Full color flat 2D illustration (Children and young Adult style)">Full color flat 2D illustration (Children and young Adult style)</option>
-                <option value="Full color 3D illustration (Adult comic book style)">Full color 3D illustration (Adult comic book style)</option>
-                <option value="Comic">Comic</option>
+                <option value={ILLUSTRATION_TYPE.SIMPLE_BLACK_AND_WHITE_SKETCH_AND_LINKING}>Simple black and white sketch/inking</option>
+                <option value={ILLUSTRATION_TYPE.FULL_COLOR_FLAT_2D_ILLUSTRATION}>Full color flat 2D illustration (Children and young Adult style)</option>
+                <option value={ILLUSTRATION_TYPE.FULL_COLOR_FLAT_3D_ILLUSTRATION}>Full color 3D illustration (Adult comic book style)</option>
+                <option value={ILLUSTRATION_TYPE.COMIC}>Comic</option>
               </select>
             </div>}
           </div>
