@@ -369,7 +369,8 @@ export interface IOrder extends IBase {
   book_variant:         IBookVariant;
   delivery_address:     string;
   total:                number;
-  status:               string;
+  printStatus:          string;
+  paymentStatus:        string;
   payment_reference:    string;
   cover_total:          number;
   inner_total:          number;

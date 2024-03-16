@@ -15,6 +15,7 @@ import {
 } from "@/components/ui/select";
 import { Button } from "./ui/button";
 import { DialogClose } from "./ui/dialog";
+import { IUser } from "@/models/models";
 import { Input } from "@/components/ui/input";
 import { QUERY_KEY } from "@/lib/rbac";
 import React from "react";
@@ -35,7 +36,7 @@ const BookForm = () => {
       type TFormData = z.infer<typeof bookSchema>;
 
       const form = useForm<TFormData>({ resolver: zodResolver(bookSchema) });
-      const users = useGetAllUser();
+      const users: IUser[] = useGetAllUser();
 
       const onSubmit = async (input: TFormData) => {
         const { data, error, validationErrors } = await createBook(input);

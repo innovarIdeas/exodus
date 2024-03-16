@@ -94,7 +94,7 @@ export const useGetAllUser = () => {
 };
 
 export const useGetSingleOrder = (id: string) => {
-  const { data } = useQuery({
+  const { data, isLoading } = useQuery({
     queryKey: [QUERY_KEY.GET_SINGLE_ORDER],
     queryFn: async () => {
       const { data, validationErrors, error } = await getSingleOrder(id);
@@ -112,10 +112,11 @@ export const useGetSingleOrder = (id: string) => {
       }
 
       return data;
-    }
+    },
+    staleTime: 0,
   });
 
-  return data || undefined;
+  return { data: data || undefined, isLoading };
 };
 
 export const useGetUserBooks = (id: string) => {

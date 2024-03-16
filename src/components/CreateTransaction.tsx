@@ -101,9 +101,6 @@ const CreateTransaction = ({ order_id }: ICreateOrderProps) => {
                                 <SelectItem value={"CASH"}>
                                     Cash
                                 </SelectItem>
-                                <SelectItem value={"CARD"}>
-                                    Card
-                                </SelectItem>
                                 <SelectItem value={"TRANSFER"}>
                                     Transfer
                                 </SelectItem>
