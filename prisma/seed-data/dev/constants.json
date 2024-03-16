@@ -246,12 +246,12 @@
     },
     {
       "name": "2D Coloured Illustration Constant",
-      "shortcode": "2DColouredIllustrationConstant",
+      "shortcode": "TwoDColouredIllustrationConstant",
       "value" : 2
     },
     {
       "name": "3D Coloured Illustration Constant",
-      "shortcode": "3DColouredIllustrationConstant",
+      "shortcode": "ThreeDColouredIllustrationConstant",
       "value" : 2
     },
     {
@@ -291,7 +291,12 @@
     },
     {
       "name": "non fiction layout no images variable",
-      "shortcode": "NonFictionLayouNoImagesVariable",
+      "shortcode": "NonFictionLayoutNoImagesVariable",
+      "value" : 2
+    },
+    {
+      "name": "non fiction layout with images variable",
+      "shortcode": "NonFictionLayoutWithImagesVariable",
       "value" : 2
     },
     {
