@@ -1,4 +1,4 @@
-import { IPageSize, IPaperType } from "@/models/models";
+import { ICoverDesign, IIllustrationType, ILayoutType, IPageSize, IPaperType } from "@/models/models";
 import prisma from "./prisma";
 
 async function fetchConstants () {
@@ -420,5 +420,157 @@ export async function TotalCostOfBooks (numberOfCopies: number, pageSize: IPageS
   } catch (error) {
     console.error("Error in TotalCostOfBook", error);
     throw new Error("Failed to calculate TotalCostOfBooks");
+  }
+}
+
+export async function CostOfIllustration (numberOfIllustrations: number,  type: IIllustrationType) {
+  try {
+    const constantsMap = await fetchConstants();
+    let result = 0;
+
+    if(type === "Simple-black-and-white-sketch-and-linking") {
+      result = constantsMap.SketchConstant * numberOfIllustrations;
+    }else if(type === "Full-color-3D-illustration") {
+      result = constantsMap.ThreeDColouredIllustrationConstant * numberOfIllustrations;
+    }else if(type === "Full-color-flat-2D-illustration") {
+      result = constantsMap.TwoDColouredIllustrationConstant * numberOfIllustrations;
+    }else{
+      console.error("Invalid Illustration type", type);
+    }
+
+    return result ;
+  } catch (error) {
+    console.error("Error in CostOfSimpleBlackAndWhiteSketch", error);
+    throw new Error("Failed to calculate CostOfSimpleBlackAndWhiteSketch");
+  }
+}
+
+export async function CostOfISBN (type: boolean) {
+  try {
+    const constantsMap = await fetchConstants();
+    let result = 0;
+
+    if(type) {
+      result = constantsMap.ISBNByMagicWand;
+    }else{
+      result = constantsMap.ISBNByPersonalAndCompanyNameConstant;
+    }
+
+    return result ;
+  } catch (error) {
+    console.error("Error in Calculating ISBN", error);
+    throw new Error("Error in Calculating ISBN");
+  }
+}
+
+export async function CostOfLayout  (numberOfWords: number, type: ILayoutType) {
+  try {
+    const constantsMap = await fetchConstants();
+    let result = 0;
+
+    if(type === "Poetry-Layout") {
+      result = constantsMap.PoetryLayoutConstant + (numberOfWords * constantsMap.PoetryLayoutVariable);
+    }else if(type === "Poetry-with-pictures") {
+      result = constantsMap.PoetryWithImagesLayoutConstant + (numberOfWords * constantsMap.PoetryWithImagesVariable);
+    }else if(type === "Fiction-or-non-fiction-layout-with-pictures-graphics-and-chart") {
+      result = constantsMap.FictionOrNonFictionWithImagesConstants + (numberOfWords * constantsMap.NonFictionLayoutWithImagesVariable);
+    }else if(type === "Simple-fiction-or-non-fiction-layout-with-no-graphics-or-image") {
+      result = constantsMap.FictionOrNonFictionLayoutConstant + (numberOfWords * constantsMap.NonFictionLayoutNoImagesVariable);
+    }else{
+      console.error("Invalid Layout type", type);
+    }
+
+    return result ;
+  } catch (error) {
+    console.error("Error in Calculating layout cost", error);
+    throw new Error("Error in Calculating layout cost");
+  }
+}
+
+export async function CostOfCoverDesign  (numberOfWords: number, type: ICoverDesign) {
+  try {
+    const constantsMap = await fetchConstants();
+    let result = 0;
+
+    if(type === "Graphics-with-online-images-or-author-supplied-image") {
+      result = constantsMap.GraphicsDesignWithImagesConstant;
+    }else if(type === "Graphics-with-premium-paid-image") {
+      result = constantsMap.PremiumImageDesignConstant;
+    }else if(type === "Artist-Illustrated") {
+      result = constantsMap.ArtistIllustrationConstant;
+    }else{
+      console.error("Invalid Cover design type", type);
+    }
+
+    return result ;
+  } catch (error) {
+    console.error("Error in Calculating Cover design", error);
+    throw new Error("Error in Calculating Cover design");
+  }
+}
+
+export async function CostOfEditting (numberOfWords: number) {
+  try {
+    const constantsMap = await fetchConstants();
+    let result = 0;
+
+    result = constantsMap.EditingConstant * (numberOfWords * constantsMap.EditingVariable);
+
+    return result ;
+  } catch (error) {
+    console.error("Error in CostOfEditting", error);
+    throw new Error("Failed to calculate CostOfEditting");
+  }
+}
+
+export async function CostOfProofreading (numberOfWords: number) {
+  try {
+    const constantsMap = await fetchConstants();
+    let result = 0;
+
+    result = constantsMap.ProofreadingConstant * (numberOfWords * constantsMap.ProofreadingVariable);
+
+    return result ;
+  } catch (error) {
+    console.error("Error in CostOfProofreading", error);
+    throw new Error("Failed to calculate CostOfProofreading");
+  }
+}
+
+export async function CostOfAmazonKDP () {
+  try {
+    const constantsMap = await fetchConstants();
+    let result = 0;
+
+    result = constantsMap.AmazonKDPConstant;
+
+    return result ;
+  } catch (error) {
+    console.error("Error in CostOfAmazonKDP", error);
+    throw new Error("Failed to calculate CostOfProofreading");
+  }
+}
+
+export async function TotalCostForWorkInProgress (numberOfIllustrations: number, illustration: boolean,
+  illustrationtType: IIllustrationType, ISBNType: boolean, numberOfWords: number, layoutType: ILayoutType, insideLayout: boolean,
+  coverDesignType: ICoverDesign, coverDesign: boolean, editing: boolean, proofReading: boolean, amazon: boolean) {
+  try {
+    let result = 0;
+    const costOfIllustration = await CostOfIllustration(numberOfIllustrations, illustrationtType) * (illustration ? 1 : 0);
+    const costOfISBN   = await CostOfISBN(ISBNType);
+    const costOfLayout  = await CostOfLayout(numberOfWords, layoutType) * (insideLayout ? 0 : 1);
+    const costOfCoverDesign = await CostOfCoverDesign(numberOfWords, coverDesignType) * (coverDesign ? 0 : 1);
+    const costOfEditting = await CostOfEditting(numberOfWords) * (editing ? 1 : 0);
+    const costOfProofreading = await CostOfProofreading(numberOfWords) * (proofReading ? 1 : 0);
+    const costOfAmazonKDP = await CostOfAmazonKDP() * (amazon ? 1 : 0);
+
+    result  = costOfIllustration + costOfISBN + costOfLayout +
+    costOfCoverDesign + costOfEditting + costOfProofreading +  costOfAmazonKDP;
+
+    return result;
+  }
+  catch (error) {
+    console.error("Error in TotalCostForInProgress", error);
+    throw new Error("Failed to calculate TotalCostForInProgress");
   }
 }

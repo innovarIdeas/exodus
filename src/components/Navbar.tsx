@@ -10,6 +10,11 @@ const Navbar = () => {
   const router = useRouter();
   const session = useSession();
 
+  const handleUserSignOut =  () => {
+    signOut();
+    router.push("/login");
+  };
+
   return (
     <nav className="flex bg-slate-50 justify-between border-b-2 border-gray-300 py-4 px-10 sticky top-0 z-50">
 
@@ -26,7 +31,7 @@ const Navbar = () => {
           </Button>
         ) : (
           <Button
-            onClick={() => signOut()}
+            onClick={handleUserSignOut}
             className="bg-[#FF0000] text-white hover:bg-[#CC0000] focus:outline-none focus:ring focus:border-[#FF0000]"
           >
           Sign Out

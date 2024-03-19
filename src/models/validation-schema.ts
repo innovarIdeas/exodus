@@ -264,7 +264,7 @@ export const bookVariantSchema = z.object({
   white_paper: z.boolean().optional(),
   no_of_books: z.coerce.number(),
   portrait: z.boolean().optional(),
-  quantity_of_Color: z.coerce.number(),
+  quantity_of_Color: z.coerce.number().optional(),
   quantity_of_BW: z.coerce.number().optional(),
   book_size: z.string(),
   number_of_pages: z.coerce.number(),

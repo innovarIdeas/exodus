@@ -21,15 +21,20 @@ import { bookVariantSchema } from "@/models/validation-schema";
 import { createUserBookVariant } from "@/lib/api-call";
 import { generateVariantName } from "@/lib/uuid-helper";
 import { useForm } from "react-hook-form";
-import { useGetAllBook } from "@/lib/hook";
+import { useGetUserBookVariants } from "@/lib/hook";
+import { useGetUserBooks } from "@/lib/hook";
+import { useSession } from "next-auth/react";
 import { useToast } from "@/components/ui/use-toast";
 import z from "zod";
 import { zodResolver } from "@hookform/resolvers/zod";
 
 const UserBookVariantReadyToPrint = () => {
   const { toast } = useToast();
+  const session = useSession();
 
   type TFormData = z.infer<typeof bookVariantSchema>;
+
+  const { refetch } = useGetUserBookVariants(session.data?.user.id ?? "");
 
   const form = useForm<TFormData>({
     resolver: zodResolver(bookVariantSchema),
@@ -46,7 +51,7 @@ const UserBookVariantReadyToPrint = () => {
       status: "Ready to Print",
     },
   });
-  const books = useGetAllBook();
+  const books = useGetUserBooks(session.data?.user.id ?? "");
   const [step, setStep] = useState(1);
 
   const nextStep = () => {
@@ -77,6 +82,7 @@ const UserBookVariantReadyToPrint = () => {
       });
 
       form.reset();
+      refetch();
     } else {
       toast({
         variant: "destructive",
@@ -116,8 +122,8 @@ const UserBookVariantReadyToPrint = () => {
                       </SelectTrigger>
                     </FormControl>
                     <SelectContent>
-                      {books &&
-                        books.map((book) => (
+                      {books.data &&
+                        books.data?.map((book) => (
                           <SelectItem key={book.id} value={book.id}>
                             {book.title}
                           </SelectItem>

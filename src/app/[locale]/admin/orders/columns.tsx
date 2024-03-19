@@ -42,7 +42,7 @@ export const columns: ColumnDef<IOrder>[] = [
           <span>{book.book_variant.book?.client?.name}</span>
         </div>
       );
-    }
+    },
   },
   {
     accessorKey: "book_name",
@@ -56,7 +56,7 @@ export const columns: ColumnDef<IOrder>[] = [
           <span>{book.book_variant.book.title}</span>
         </div>
       );
-    }
+    },
   },
   {
     accessorKey: "book_variant",
@@ -70,7 +70,7 @@ export const columns: ColumnDef<IOrder>[] = [
           <span>{book.book_variant.variant_name}</span>
         </div>
       );
-    }
+    },
   },
   {
     accessorKey: "total",
@@ -149,9 +149,7 @@ export const columns: ColumnDef<IOrder>[] = [
     cell: ({ row }) => {
       const order = row.original;
 
-      return (
-        <PayStackOrderPayment order={order}/>
-      );
+      return <PayStackOrderPayment order={order} />;
     },
-  }
+  },
 ];

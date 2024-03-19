@@ -1,17 +1,17 @@
 "use client";
 
 import DashboardTitle from "@/components/DashboardTitle";
-import { ITransaction } from "@/models/models";
+import { IOrder } from "@/models/models";
 import React from "react";
 import { TransactionsTable } from "./data-table";
 import { columns } from "./columns";
-import {  useGetUserTransactions } from "@/lib/hook";
+import { useGetUserOrders } from "@/lib/hook";
 import { useSession } from "next-auth/react";
 
 const UserInvoice = () => {
   const session = useSession();
-  const userTransactions = useGetUserTransactions(session.data?.user.id ?? "");
-  const data: ITransaction[] = userTransactions ?? [];
+  const userTransactions = useGetUserOrders(session.data?.user.id ?? "");
+  const data: IOrder[] = userTransactions ?? [];
 
   return (
     <div>

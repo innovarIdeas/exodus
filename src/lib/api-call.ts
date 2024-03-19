@@ -150,6 +150,11 @@ export const firstTimeOrder = async (id: string): Promise<IApiResponse<IFirstTim
     { method: "POST" }));
 };
 
+export const workInProgressFirstTimeOrder = async (id: string): Promise<IApiResponse<IFirstTimeOrderResponse>> => {
+  return handleApiCalls(await fetch(process.env.NEXT_PUBLIC_BROWSER_URL + "/api/work-in-progress/" + id,
+    { method: "POST" }));
+};
+
 export const editUser = async (id: string, data: z.infer <typeof UpdateUserSchema>): Promise<IApiResponse<IUser[]>> => {
   return handleApiCalls(await fetch(process.env.NEXT_PUBLIC_BROWSER_URL + "/api/users/" + id,
     {
