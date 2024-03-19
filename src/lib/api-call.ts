@@ -12,6 +12,7 @@ import {
   updateBookSchema,
   updateConstantSchema,
   updateCouponSchema,
+  updateOrderSchema,
   updateRoleSchema,
   updateTransactionSchema,
   userSchema,
@@ -366,6 +367,14 @@ export const deleteCoupon = async (id: string): Promise<IApiResponse<ICoupon>> =
 
 export const updateCoupon = async (id: string, data: z.infer <typeof updateCouponSchema>): Promise<IApiResponse<ICoupon>> => {
   return handleApiCalls(await fetch(process.env.NEXT_PUBLIC_BROWSER_URL + "/api/coupon/" + id,
+    {
+      method: "PATCH",
+      body: JSON.stringify(data)
+    }));
+};
+
+export const updateOrderPrintStatus = async (id: string, data: z.infer <typeof updateOrderSchema>): Promise<IApiResponse<IOrder>> => {
+  return handleApiCalls(await fetch(process.env.NEXT_PUBLIC_BROWSER_URL + "/api/order/print-status/" + id,
     {
       method: "PATCH",
       body: JSON.stringify(data)

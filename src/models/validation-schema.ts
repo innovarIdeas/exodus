@@ -340,6 +340,8 @@ export const couponSchema = z.object({
 
 export const updateCouponSchema = z.object({ status: z.boolean() });
 
+export const updateOrderSchema = z.object({ print_status: z.string() });
+
 export const discountSchema = z.object({
   name: z.string(),
   percentage: z.coerce.number(),
