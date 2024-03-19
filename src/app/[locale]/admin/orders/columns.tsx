@@ -41,7 +41,7 @@ export const columns: ColumnDef<IOrder>[] = [
           <span>{book.book_variant.book?.client?.name}</span>
         </div>
       );
-    }
+    },
   },
   {
     accessorKey: "book_name",
@@ -55,7 +55,7 @@ export const columns: ColumnDef<IOrder>[] = [
           <span>{book.book_variant.book.title}</span>
         </div>
       );
-    }
+    },
   },
   {
     accessorKey: "book_variant",
@@ -69,7 +69,7 @@ export const columns: ColumnDef<IOrder>[] = [
           <span>{book.book_variant.variant_name}</span>
         </div>
       );
-    }
+    },
   },
   {
     accessorKey: "total",
@@ -77,7 +77,11 @@ export const columns: ColumnDef<IOrder>[] = [
   },
   {
     accessorKey: "status",
-    header: "Status",
+    header: "Print Status",
+  },
+  {
+    accessorKey: "payment_status",
+    header: "Payment Status",
   },
   {
     accessorKey: "timestamp",
@@ -89,7 +93,10 @@ export const columns: ColumnDef<IOrder>[] = [
       const order = row.original;
 
       return (
-        <Link href={`orders/${order.id}`} className="rounded-full h-[40px] w-fit bg-main text-white text-x flex items-center justify-center gap-2 cursor-pointer px-4 shadow-lg hover:shadow-none">
+        <Link
+          href={`orders/${order.id}`}
+          className="rounded-full h-[40px] w-fit bg-main text-white text-x flex items-center justify-center gap-2 cursor-pointer px-4 shadow-lg hover:shadow-none"
+        >
           View Order
         </Link>
       );
@@ -111,15 +118,13 @@ export const columns: ColumnDef<IOrder>[] = [
             <DialogHeader>
               <DialogTitle>Create Transaction</DialogTitle>
               <DialogDescription>
-                      Are you sure you want to create this Transaction?
+                Are you sure you want to create this Transaction?
               </DialogDescription>
 
-              <CreateTransaction order_id={order.id}/>
+              <CreateTransaction order_id={order.id} />
             </DialogHeader>
-
           </DialogContent>
         </Dialog>
-
       );
     },
   },
@@ -128,9 +133,7 @@ export const columns: ColumnDef<IOrder>[] = [
     cell: ({ row }) => {
       const order = row.original;
 
-      return (
-        <PayStackOrderPayment order={order}/>
-      );
+      return <PayStackOrderPayment order={order} />;
     },
-  }
+  },
 ];

@@ -51,6 +51,7 @@
     "react-dom": "^18",
     "react-hook-form": "^7.47.0",
     "react-icons": "^4.11.0",
+    "react-loader-spinner": "^6.1.6",
     "react-paystack": "^5.0.0",
     "react-select": "^5.8.0",
     "react-to-print": "^2.14.15",
