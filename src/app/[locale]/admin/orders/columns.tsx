@@ -1,7 +1,6 @@
 "use client";
 
 import { Sheet, SheetContent, SheetHeader, SheetTitle, SheetTrigger } from "@/components/ui/sheet";
-import { Checkbox } from "@/components/ui/checkbox";
 import { ColumnDef } from "@tanstack/react-table";
 import CreatePrintStatus from "@/components/CreatePrintStatus";
 import CreateTransaction from "@/components/CreateTransaction";
@@ -12,34 +11,20 @@ import React from "react";
 
 export const columns: ColumnDef<IOrder>[] = [
   {
-    id: "select",
-    header: ({ table }) => (
-      <Checkbox
-        checked={table.getIsAllPageRowsSelected()}
-        onCheckedChange={(value) => table.toggleAllPageRowsSelected(!!value)}
-        aria-label="Select all"
-      />
-    ),
-    cell: ({ row }) => (
-      <Checkbox
-        checked={row.getIsSelected()}
-        onCheckedChange={(value) => row.toggleSelected(!!value)}
-        aria-label="Select row"
-      />
-    ),
-    enableSorting: false,
-    enableHiding: false,
+    accessorKey: "serial_number",
+    header: "S/N",
+    cell: ({ row }) => row.index + 1,
   },
   {
     accessorKey: "client",
     header: "Client",
 
     cell: ({ row }) => {
-      const book = row.original;
+      const order = row.original;
 
       return (
         <div className="flex items-center gap-2">
-          <span>{book.book_variant.book?.client?.name}</span>
+          <span>{order.client?.name}</span>
         </div>
       );
     },

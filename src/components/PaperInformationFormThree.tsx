@@ -48,14 +48,14 @@ const PaperInformationFormThree = () => {
           <div onClick={()=>handleColoredPrint()} className="border flex justify-between items-center w-[360px] md:w-[450px] px-5 cursor-pointer py-3 rounded-xl bg-white shadow-md hover:bg-slate-50">
             <div className="flex items-center gap-6">
               <input checked={colorPrint} type="checkbox" name="" id="" />
-              <p className="text-lg">Coloured Prints</p>
+              <p className="text-lg">Printing all  pages in coloured</p>
             </div>
             <p className="flex justify-center items-center rounded-[50%] w-[40px] h-[40px] text-center text-white bg-blue-300">?</p>
           </div>
           <div onClick={()=>handleBoth()} className="border flex justify-between items-center w-[360px] md:w-[450px] px-5 cursor-pointer py-3 rounded-xl bg-white shadow-md hover:bg-slate-50">
             <div className="flex items-center gap-6">
               <input checked={bothPrint} type="checkbox" name="" id="" />
-              <p className="text-lg">Black & White with Coloured Prints</p>
+              <p className="text-lg">Black & White with few coloured pages</p>
             </div>
             <p className="flex justify-center items-center rounded-[50%] w-[40px] h-[40px] text-center text-white bg-blue-300">?</p>
           </div>

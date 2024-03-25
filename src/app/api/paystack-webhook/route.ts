@@ -1,5 +1,6 @@
 import { NextRequest, NextResponse } from "next/server";
 import { IWebhookEventResponse } from "@/models/models";
+import { PAYMENT_STATUS } from "@/lib/rbac";
 import crypto from "crypto";
 import prisma from "@/lib/prisma";
 
@@ -17,8 +18,12 @@ export async function POST (req: NextRequest) {
     if (hash == req.headers.get("x-paystack-signature")) {
       const event: IWebhookEventResponse | null = req.body as unknown as  IWebhookEventResponse;
       const id = event.data.reference;
+      const transactions =  await prisma.transactions.update({ where: { id }, data: { status: event.data.status } });
 
-      await prisma.transactions.update({ where: { id }, data: { status: event.data.status } });
+      if(transactions.status === "Sucess") {
+        await prisma.order.update({ where: { id: transactions.order_id }, data: { status: PAYMENT_STATUS.PAID } });
+      }
+
       console.error(event);
     }
 

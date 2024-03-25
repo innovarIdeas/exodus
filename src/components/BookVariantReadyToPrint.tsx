@@ -16,6 +16,7 @@ import {
 } from "@/components/ui/select";
 import { Button } from "./ui/button";
 import { Input } from "@/components/ui/input";
+import { PRINT_STATUS } from "@/lib/rbac";
 import { Switch } from "@/components/ui/switch";
 import { bookVariantSchema } from "@/models/validation-schema";
 import { createBookVariant } from "@/lib/api-call";
@@ -43,7 +44,7 @@ const BookVariantReadyToPrint = () => {
       ISBN: true,
       embossing: true,
       foiling: true,
-      status: "Ready to Print"
+      status: PRINT_STATUS.READY_TO_PRINT
     },
   });
   const books = useGetAllBook();

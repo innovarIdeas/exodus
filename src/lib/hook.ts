@@ -1,8 +1,8 @@
 "use client";
 
 import { IOrder, IPermission } from "@/models/models";
+import { PAYMENT_STATUS, PAYMENT_TYPE, QUERY_KEY } from "./rbac";
 import { createTransaction, getAllBookVariants, getAllBooks, getAllClients, getAllOrders, getAllTransactions, getSingleOrder, getSingleUser, getUserBookVariants, getUserBooks, getUserOrders, getUserTransactions } from "./api-call";
-import { QUERY_KEY } from "./rbac";
 import { useQuery } from "@tanstack/react-query";
 import { useSession } from "next-auth/react";
 
@@ -298,7 +298,7 @@ export const createTransactionTrigger =  (order: IOrder) =>{
   const { data } = useQuery({
     queryKey: [QUERY_KEY.GET_ALL_TRANSACTION],
     queryFn: async () => {
-      const { data, validationErrors, error } = await createTransaction({ order_id: order.id, status: "Pending", type: "Card" });
+      const { data, validationErrors, error } = await createTransaction({ order_id: order.id, status: PAYMENT_STATUS.NOT_PAID, type: PAYMENT_TYPE.CARD });
 
       if (validationErrors?.length) {
         console.error(validationErrors[0].message);

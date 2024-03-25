@@ -82,7 +82,7 @@ const BookForm = () => {
                 name="title"
                 render={({ field }) => (
                   <FormItem>
-                    <FormLabel> Title </FormLabel>
+                    <FormLabel className="hidden sm:display"> Title </FormLabel>
                     <FormControl>
                       <Input placeholder="Please enter a Title" {...field} />
                     </FormControl>
@@ -99,7 +99,7 @@ const BookForm = () => {
                 name="author"
                 render={({ field }) => (
                   <FormItem>
-                    <FormLabel> Author </FormLabel>
+                    <FormLabel className="hidden sm:display"> Author </FormLabel>
                     <FormControl>
                       <Input placeholder="Please enter an author name" {...field} />
                     </FormControl>
@@ -115,7 +115,7 @@ const BookForm = () => {
                 name="description"
                 render={({ field }) => (
                   <FormItem>
-                    <FormLabel> Description</FormLabel>
+                    <FormLabel className="hidden sm:display"> Description</FormLabel>
                     <FormControl>
                       <Textarea
                         placeholder="Tell us a little bit about the book"
@@ -136,7 +136,7 @@ const BookForm = () => {
                 render={({ field }) => (
                   <FormItem
                     className="w-full">
-                    <FormLabel>Publisher</FormLabel>
+                    <FormLabel className="hidden sm:display">Publisher</FormLabel>
                     <Select onValueChange={field.onChange} defaultValue={field.value}>
                       <FormControl>
                         <SelectTrigger>

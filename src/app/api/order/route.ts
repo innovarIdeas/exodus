@@ -1,6 +1,7 @@
-import {  CostOfCoverComponentPerBook, CostOfPerfectingBindingPerOrder, CostOfSpotLamnation, TotalCostOfBooks } from "@/lib/calculation-function";
-import { IPageSize, IPaperType } from "@/models/models";
+import {  CostOfCoverComponentPerBook, CostOfPerfectingBindingPerOrder, CostOfSpotLamnation, TotalCostForWorkInProgress, TotalCostOfBooks } from "@/lib/calculation-function";
+import { ICoverDesign, IIllustrationType, ILayoutType, IPageSize, IPaperType } from "@/models/models";
 import { NextRequest, NextResponse } from "next/server";
+import { PAYMENT_STATUS, PRINT_STATUS } from "@/lib/rbac";
 import { getServerSession } from "next-auth/next";
 import { options } from "@/app/api/auth/[...nextauth]/options";
 import { orderSchema } from "@/models/validation-schema";
@@ -45,29 +46,45 @@ export async function POST (req: NextRequest) {
       return NextResponse.json({ error: "Book variant not found" }, { status: 404 });
     }
 
-    const order = await prisma.order.create({
-      data: {
-        book: { connect: { id: book_variant.book_id } },
-        created_by_user: { connect: { id: session.user.id } },
-        client: { connect: { id: book_variant.created_by } },
-        book_variant: { connect: { id: book_variant.id } },
-        delivery_address: book_variant.shipping_address,
-        status: book_variant.status,
-        cover_cost: await CostOfCoverComponentPerBook(book_variant.book_size),
-        perfect_binding_cost: await CostOfPerfectingBindingPerOrder(book_variant.book_size, book_variant.number_of_pages, book_variant.no_of_books),
-        cover_total: await CostOfCoverComponentPerBook(book_variant.book_size),
-        lamination_cost: await CostOfSpotLamnation(book_variant.no_of_books),
-        total: await TotalCostOfBooks(
-          book_variant.no_of_books,
-          book_variant.book_size as IPageSize,
-          book_variant.number_of_pages,
-          book_variant.paper_type as IPaperType,
-          book_variant.quantity_of_Color ?? 2
-        )
-      }
-    });
+    if(book_variant.status === PRINT_STATUS.WORK_IN_PROGRESS) {
+      await prisma.order.create({
+        data: {
+          book: { connect: { id: book_variant.book_id } },
+          created_by_user: { connect: { id: session.user.id } },
+          client: { connect: { id: book_variant.created_by } },
+          status: PAYMENT_STATUS.NOT_PAID,
+          book_variant: { connect: { id: book_variant.id } },
+          total: await TotalCostForWorkInProgress(10, book_variant.art_illustration as boolean, book_variant.art_illustration_type as IIllustrationType,
+            book_variant.ISBN as boolean, book_variant.word_count as number, book_variant.inside_layout_type as ILayoutType, book_variant.inside_layout as boolean,
+            book_variant.cover_design_type as ICoverDesign, book_variant.cover_design as boolean, book_variant.editing as boolean, book_variant.proof_reading as boolean, book_variant.online_sale as boolean)
+        },
 
-    return NextResponse.json(order, { status: 200 });
+      });
+    }else if(book_variant.status === PRINT_STATUS.READY_TO_PRINT) {
+      await prisma.order.create({
+        data: {
+          book: { connect: { id: book_variant.book_id } },
+          created_by_user: { connect: { id: session.user.id } },
+          client: { connect: { id: book_variant.created_by } },
+          book_variant: { connect: { id: book_variant.id } },
+          delivery_address: book_variant.shipping_address,
+          status: PAYMENT_STATUS.NOT_PAID,
+          cover_cost: await CostOfCoverComponentPerBook(book_variant.book_size),
+          perfect_binding_cost: await CostOfPerfectingBindingPerOrder(book_variant.book_size, book_variant.number_of_pages, book_variant.no_of_books),
+          cover_total: await CostOfCoverComponentPerBook(book_variant.book_size),
+          lamination_cost: await CostOfSpotLamnation(book_variant.no_of_books),
+          total: await TotalCostOfBooks(
+            book_variant.no_of_books,
+            book_variant.book_size as IPageSize,
+            book_variant.number_of_pages,
+            book_variant.paper_type as IPaperType,
+            book_variant.quantity_of_Color ?? 2
+          )
+        }
+      });
+    }
+
+    return NextResponse.json(book_variant, { status: 200 });
   } catch (error) {
     console.error("Error in POST request:", error);
 
