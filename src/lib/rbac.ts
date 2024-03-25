@@ -44,3 +44,18 @@ export const COVER_DESIGN = {
   GRAPHICS_WITH_PREMIUM_IMAGES: "Graphics-with-premium-paid-image",
   ARTIST_ILLUSTRATED: "Artist-Illustrated"
 };
+
+export const PRINT_STATUS = {
+  WORK_IN_PROGRESS: "WORK_IN_PROGRESS",
+  READY_TO_PRINT: "READY_TO_PRINT"
+};
+
+export const PAYMENT_STATUS = {
+  NOT_PAID: "NOT_PAID",
+  PAID: "PAID"
+};
+
+export const PAYMENT_TYPE = {
+  CASH: "CASH",
+  CARD: "CARD"
+};

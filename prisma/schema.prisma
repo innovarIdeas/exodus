@@ -184,6 +184,7 @@ model Book {
     title           String
     deleted_at      DateTime?
     author          String?
+    publisher       String?
     created_by      String
     created_by_user User           @relation(name: "CreatedBooks", fields: [created_by], references: [id])
     client_id       String?

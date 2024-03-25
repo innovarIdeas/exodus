@@ -32,7 +32,7 @@ const BookPageInfo = () => {
         </div>
 
         <div className="flex flex-col gap-2">
-          <h2 className="font-bold">Select Book Size in Inches</h2>ss
+          <h2 className="font-bold">Select Book Size in Inches</h2>
           <p>Please note the A6, A5 and A4 are all trimmed variations</p>
 
           <div className="w-[100%] overflow-x-scroll bg-blue-100">
@@ -45,42 +45,42 @@ const BookPageInfo = () => {
 
                 </div>
 
-                <div onClick={()=>setBookSize("A5")} className={`w-[70%] relative bg-white shadow h-[42%] col-span-6 hover:shadow-xl ${bookSize == "5x8" && potrait ? "border-2 border-blue-400" : ""} cursor-pointer`}>
+                <div onClick={()=>setBookSize("A5")} className={`w-[70%] relative bg-white shadow h-[42%] col-span-6 hover:shadow-xl ${bookSize == "5x8" && potrait ? "border-2 border-blue" : ""} cursor-pointer`}>
                   <h1 className="absolute left-0 top-[-5%]">5x8</h1>
                   <div className="w-0.5 h-full absolute top-0 left-[50%] border-l border-l-gray"></div>
                 </div>
 
-                <div onClick={()=>setBookSize("A5")} className={`w-[80%] relative bg-white shadow h-[45%] col-span-8 hover:shadow-xl ${bookSize == "A5" && potrait ? "border-2 border-blue-400" : ""} cursor-pointer`}>
+                <div onClick={()=>setBookSize("A5")} className={`w-[80%] relative bg-white shadow h-[45%] col-span-8 hover:shadow-xl ${bookSize == "A5" && potrait ? "border-2 border-blue" : ""} cursor-pointer`}>
                   <h1 className="absolute left-0 top-[-5%]">A5</h1>
                   <div className="w-0.5 h-full absolute top-0 left-[50%] border-l border-l-gray"></div>
                 </div>
 
-                <div onClick={()=>setBookSize("A5")} className={`w-[90%] relative bg-white shadow h-[50%] col-span-7 hover:shadow-xl ${bookSize == "5.5x8.5" && potrait ? "border-2 border-blue-400" : ""} cursor-pointer`}>
+                <div onClick={()=>setBookSize("A5")} className={`w-[90%] relative bg-white shadow h-[50%] col-span-7 hover:shadow-xl ${bookSize == "5.5x8.5" && potrait ? "border-2 border-blue" : ""} cursor-pointer`}>
                   <h1 className="absolute left-0 top-[-5%]">5.5x8.5 </h1>
                   <div className="w-0.5 h-full absolute top-0 left-[50%] border-l border-l-gray"></div>
                 </div>
-                <div onClick={()=>setBookSize("A5")} className={`w-[100%] relative bg-white shadow h-[60%] col-span-9 hover:shadow-xl ${bookSize == "6x9" && potrait ? "border-2 border-blue-400" : ""} cursor-pointer`}>
+                <div onClick={()=>setBookSize("A5")} className={`w-[100%] relative bg-white shadow h-[60%] col-span-9 hover:shadow-xl ${bookSize == "6x9" && potrait ? "border-2 border-blue" : ""} cursor-pointer`}>
                   <h1 className="absolute left-0 top-[-5%]">6x9</h1>
                   <div className="w-0.5 h-full absolute top-0 left-[50%] border-l border-l-gray"></div>
                 </div>
-                <div onClick={()=>setBookSize("A4")} className={`w-[110%] relative bg-white shadow h-[70%] col-span-10 hover:shadow-xl ${bookSize == "7x10" && potrait ? "border-2 border-blue-400" : ""} cursor-pointer`}>
+                <div onClick={()=>setBookSize("A4")} className={`w-[110%] relative bg-white shadow h-[70%] col-span-10 hover:shadow-xl ${bookSize == "7x10" && potrait ? "border-2 border-blue" : ""} cursor-pointer`}>
                   <h1 className="absolute left-0 top-[-5%]">7x10</h1>
                   <div className="w-0.5 h-full absolute top-0 left-[50%] border-l border-l-gray"></div>
                 </div>
-                <div onClick={()=>setBookSize("A4")} className={`w-[120%] relative bg-white shadow h-[80%] col-span-12 hover:shadow-xl ${bookSize == "A4" && potrait ? "border-2 border-blue-400" : ""} cursor-pointer`}>
+                <div onClick={()=>setBookSize("A4")} className={`w-[120%] relative bg-white shadow h-[80%] col-span-12 hover:shadow-xl ${bookSize == "A4" && potrait ? "border-2 border-blue" : ""} cursor-pointer`}>
                   <h1 className="absolute left-0 top-[-5%]">A4</h1>
                   <div className="w-0.5 h-full absolute top-0 left-[50%] border-l border-l-gray"></div>
                 </div>
               </div> :
               <div className="bg-blue-100 flex w-[120%] h-[220px] gap-5 pb-10  items-end px-5">
 
-                <div onClick={()=>setBookSize("A4")} className={`w-[60%] relative bg-white shadow h-[15%] hover:shadow-xl ${bookSize == "A6" && !potrait ? "border-2 border-blue-400" : ""} cursor-pointer`}>
+                <div onClick={()=>setBookSize("A4")} className={`w-[60%] relative bg-white shadow h-[15%] hover:shadow-xl ${bookSize == "A6" && !potrait ? "border-2 border-blue" : ""} cursor-pointer`}>
                   <h1 className="absolute left-0 top-[-5%]">A6</h1>
                   <div className="w-0.5 h-full absolute top-0 left-[50%] border-l border-l-gray"></div>
 
                 </div>
 
-                <div onClick={()=>setBookSize("A4")} className={`w-[70%] relative bg-white shadow h-[25%] hover:shadow-xl ${bookSize == "5x8" ? "border-2 border-blue-400" : ""} cursor-pointer`}>
+                <div onClick={()=>setBookSize("A4")} className={`w-[70%] relative bg-white shadow h-[25%] hover:shadow-xl ${bookSize == "5x8" ? "border-2 border-blue" : ""} cursor-pointer`}>
                   <h1 className="absolute left-0 top-[-5%]">5x8</h1>
                   <div className="w-0.5 h-full absolute top-0 left-[50%] border-l border-l-gray"></div>
                 </div>

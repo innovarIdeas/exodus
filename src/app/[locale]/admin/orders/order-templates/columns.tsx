@@ -1,47 +1,37 @@
 "use client";
 
 import { Dialog, DialogContent, DialogDescription, DialogHeader, DialogTitle, DialogTrigger } from "@/components/ui/dialog";
-import { Checkbox } from "@/components/ui/checkbox";
 import { ColumnDef } from "@tanstack/react-table";
 import CreateOrder from "@/components/CreateOrder";
+import FormatDate from "@/components/FormatDate";
 import { IBookVariant } from "@/models/models";
 import React from "react";
 import ViewBookVariant from "@/components/ViewBookVariant";
 
 export const columns: ColumnDef<IBookVariant>[] = [
   {
-    id: "select",
-    header: ({ table }) => (
-      <Checkbox
-        checked={table.getIsAllPageRowsSelected()}
-        onCheckedChange={(value) => table.toggleAllPageRowsSelected(!!value)}
-        aria-label="Select all"
-      />
-    ),
-    cell: ({ row }) => (
-      <Checkbox
-        checked={row.getIsSelected()}
-        onCheckedChange={(value) => row.toggleSelected(!!value)}
-        aria-label="Select row"
-      />
-    ),
-    enableSorting: false,
-    enableHiding: false,
+    accessorKey: "serial_number",
+    header: "S/N",
+    cell: ({ row }) => row.index + 1,
   },
   {
     accessorKey: "variant_name",
-    header: "Variant Name",
+    header: "Order Template Name",
+  },
+  {
+    accessorKey: "status",
+    header: "Order Type",
   },
   {
     accessorKey: "book",
     header: "Book Name",
 
     cell: ({ row }) => {
-      const book = row.original;
+      const bookVariant = row.original;
 
       return (
         <div className="flex items-center gap-2">
-          <span>{book.book?.title}</span>
+          <span>{bookVariant.book?.title}</span>
         </div>
       );
     },
@@ -51,11 +41,11 @@ export const columns: ColumnDef<IBookVariant>[] = [
     header: "Description",
 
     cell: ({ row }) => {
-      const book = row.original;
+      const bookVariant = row.original;
 
       return (
         <div className="flex items-center gap-2">
-          <span>{book.book?.description}</span>
+          <span>{bookVariant.book?.description}</span>
         </div>
       );
     },
@@ -63,13 +53,21 @@ export const columns: ColumnDef<IBookVariant>[] = [
   {
     accessorKey: "created_at",
     header: "Date added",
+    cell: ({ row }) => {
+      const bookVariant = row.original;
+
+      return (
+        <>
+          <span><FormatDate date={bookVariant?.created_at}/></span>
+        </>
+
+      );
+    },
   },
   {
     id: "View",
     cell: ({ row }) => {
-      const book = row.original;
-
-      console.log(book);
+      const bookVariant = row.original;
 
       return (
         <Dialog>
@@ -84,44 +82,44 @@ export const columns: ColumnDef<IBookVariant>[] = [
               </DialogDescription>
               ;
               <ViewBookVariant
-                variant_name={book.variant_name}
-                book_name={book.book.title}
-                description={book.book.description ? book.book.description : ""}
-                number_of_words={book.number_of_words}
-                hard_cover={book?.hard_cover}
-                BW_print={book.BW_print}
-                both_print={book.both_print}
-                color_print={book.color_print}
-                cream_paper={book.cream_paper}
-                glossy_paper={book.glossy_paper}
-                news_print={book.news_print}
-                binding_type={book.binding}
-                white_paper={book.white_paper}
-                no_of_books={book.no_of_books}
-                portrait={book.portrait}
+                variant_name={bookVariant.variant_name}
+                book_name={bookVariant.book.title}
+                description={bookVariant.book.description ? bookVariant.book.description : ""}
+                number_of_words={bookVariant.number_of_words}
+                hard_cover={bookVariant?.hard_cover}
+                BW_print={bookVariant.BW_print}
+                both_print={bookVariant.both_print}
+                color_print={bookVariant.color_print}
+                cream_paper={bookVariant.cream_paper}
+                glossy_paper={bookVariant.glossy_paper}
+                news_print={bookVariant.news_print}
+                binding_type={bookVariant.binding}
+                white_paper={bookVariant.white_paper}
+                no_of_books={bookVariant.no_of_books}
+                portrait={bookVariant.portrait}
                 quantity_of_Color={
-                  book.quantity_of_Color && book.quantity_of_Color
+                  bookVariant.quantity_of_Color && bookVariant.quantity_of_Color
                 }
-                quantity_of_BW={book.quantity_of_BW}
-                book_size={book.book_size}
-                number_of_pages={book.number_of_pages}
-                inside_layout={book.inside_layout}
-                proof_reading={book.proof_reading}
-                cover_design={book.cover_design}
-                cover_design_type={book.cover_design_type}
-                editing={book.editing}
-                ISBN={book.ISBN}
-                online_sales={book.online_sale}
-                embossing={book.embossing}
-                lamination={book.lamination}
-                foiling={book.foiling}
-                project_type={book.project_type}
-                readyToPrint={book.ready_to_print}
-                published={book.published}
-                workInProgress={book.work_in_progress}
-                inside_layout_type={book.inside_layout_type}
-                art_illustration={book.art_illustration}
-                art_illustration_type={book.art_illustration_type}
+                quantity_of_BW={bookVariant.quantity_of_BW}
+                book_size={bookVariant.book_size}
+                number_of_pages={bookVariant.number_of_pages}
+                inside_layout={bookVariant.inside_layout}
+                proof_reading={bookVariant.proof_reading}
+                cover_design={bookVariant.cover_design}
+                cover_design_type={bookVariant.cover_design_type}
+                editing={bookVariant.editing}
+                ISBN={bookVariant.ISBN}
+                online_sales={bookVariant.online_sale}
+                embossing={bookVariant.embossing}
+                lamination={bookVariant.lamination}
+                foiling={bookVariant.foiling}
+                project_type={bookVariant.project_type}
+                readyToPrint={bookVariant.ready_to_print}
+                published={bookVariant.published}
+                workInProgress={bookVariant.work_in_progress}
+                inside_layout_type={bookVariant.inside_layout_type}
+                art_illustration={bookVariant.art_illustration}
+                art_illustration_type={bookVariant.art_illustration_type}
               />
             </DialogHeader>
           </DialogContent>
@@ -132,9 +130,7 @@ export const columns: ColumnDef<IBookVariant>[] = [
   {
     id: "Order",
     cell: ({ row }) => {
-      const book = row.original;
-
-      console.log(book);
+      const bookVariant = row.original;
 
       return (
         <Dialog>
@@ -148,7 +144,7 @@ export const columns: ColumnDef<IBookVariant>[] = [
                       Are you sure you want to create this order?
               </DialogDescription>
 
-              <CreateOrder book_variant_id={book.id} />
+              <CreateOrder book_variant_id={bookVariant.id} />
             </DialogHeader>
 
           </DialogContent>

@@ -17,7 +17,7 @@ export function PayStackOrderPayment ({ order }: PayStackOrderPaymentProp) {
       reference: (createTransactionTrigger(order))?.id
     },
     publicKey: process.env.NEXT_PUBLIC_PAYSTACK_PUBLIC_KEY as string,
-    text: "Payment Link",
+    text: "Pay",
     onSuccess: () =>{
       alert("Thanks for doing business with us! Come back soon!!");
     },
@@ -25,6 +25,9 @@ export function PayStackOrderPayment ({ order }: PayStackOrderPaymentProp) {
   };
 
   return(
-    <PaystackButton {...paystackProps} />
+    <div className="bg-green rounded-sm p-2 flex justify-center items-center text-white font-semibold">
+
+      <PaystackButton {...paystackProps} />
+    </div>
   );
 }

@@ -216,7 +216,7 @@ export interface IBookVariant extends IBase {
   tempbook_id: string ;
   paper_type: string;
   number_of_words: number ;
-  status?: string;
+  status?: "WORK_IN_PROGRESS" | "READY_TO_PRINT";
   hard_cover: boolean;
   BW_print: boolean;
   both_print: boolean;

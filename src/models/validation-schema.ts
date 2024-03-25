@@ -234,6 +234,7 @@ export const bookSchema = z.object({
     .max(100, { message: "Title must be at most 100 characters long" }),
   description: z.string().optional(),
   author: z.string(),
+  publisher: z.string().optional(),
   client_id: z.string(),
 });
 

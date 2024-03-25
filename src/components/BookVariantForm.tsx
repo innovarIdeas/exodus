@@ -1,6 +1,7 @@
 import React, { useState } from "react";
 import BookVariantInProgress from "./BookVariantInProgress";
 import BookVariantReadyToPrint from "./BookVariantReadyToPrint";
+import { PRINT_STATUS } from "@/lib/rbac";
 
 const BookVariantForm = () => {
   const [Category, setCategory] = useState("");
@@ -15,7 +16,7 @@ const BookVariantForm = () => {
           <div className="flex items-center justify-center gap-6">
             <div
               className="bg-white rounded-lg h-[150px] flex items-center justify-center w-fit p-7 group hover:bg-main mb-8 md:mb-[0px] border border-black hover:border cursor-pointer transition-colors duration-300 ease-in-out"
-              onClick={() => setCategory("print")}
+              onClick={() => setCategory(PRINT_STATUS.READY_TO_PRINT)}
             >
               <p className="text-main font-bold text-center group-hover:text-white text-lg">
                 Ready to Print
@@ -23,7 +24,7 @@ const BookVariantForm = () => {
             </div>
             <div
               className="bg-white rounded-lg h-[150px] flex items-center justify-center w-fit p-7 group hover:bg-main mb-8 md:mb-[0px] border border-black hover:border cursor-pointer transition-colors duration-300 ease-in-out"
-              onClick={() => setCategory("inprogress")}
+              onClick={() => setCategory(PRINT_STATUS.WORK_IN_PROGRESS)}
             >
               <p className="text-main font-bold text-center group-hover:text-white text-lg">
                 Work in Progress
@@ -33,8 +34,8 @@ const BookVariantForm = () => {
         </div>
       )}
 
-      {Category === "print" && <BookVariantReadyToPrint />}
-      {Category === "inprogress" && <BookVariantInProgress/>}
+      {Category === PRINT_STATUS.READY_TO_PRINT && <BookVariantReadyToPrint />}
+      {Category === PRINT_STATUS.WORK_IN_PROGRESS && <BookVariantInProgress/>}
     </>
   );
 };

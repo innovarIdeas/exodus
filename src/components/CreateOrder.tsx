@@ -36,7 +36,6 @@ const CreateOrder = ({ book_variant_id }: ICreateOrderProps) => {
                   description: "Order created successfully!",
                   title: "Success"
                 });
-                // redirect("/admin/oders/" + data.id);
 
                 form.reset();
               } else {
@@ -79,7 +78,9 @@ const CreateOrder = ({ book_variant_id }: ICreateOrderProps) => {
                       )}
                     />
                     <div className="flex items-end justify-end my-3">
-                      <Button type="submit" className="text-sm bg-blue py-2 px-4 create-button border border-1 border-blue rounded-sm   hover:font-semibold hover:bg-green">
+                      <Button type="submit"
+                        disabled={form.formState.isSubmitting}
+                        className="text-sm bg-blue py-2 px-4 create-button border border-1 border-blue rounded-sm   hover:font-semibold hover:bg-green">
                         Create Order
                       </Button>
                     </div>
