@@ -1,6 +1,7 @@
 "use client";
 
 import React, { useContext, useEffect } from "react";
+import { BOOK_FORMAT } from "@/lib/rbac";
 import { ContextStore } from "@/context/ContextStore";
 
 const BookInfo = () => {
@@ -34,8 +35,8 @@ const BookInfo = () => {
             <label htmlFor="no_of_page" className="">Current Book Format</label>
             <select value={currentBookFormat} onChange={(e)=>setCurrentBookFormat(e.target.value)} name="book-format" id="book-format" className="w-80 p-2 shadow-md border border-gray-400 rounded-lg outline-blue-800">
               <option value="">--Please select an option--</option>
-              <option value="ms-word">MS Word</option>
-              <option value="pdf">PDF (Text only)</option>
+              <option value={BOOK_FORMAT.MS_WORD}>MS Word</option>
+              <option value={BOOK_FORMAT.PDF}>PDF (Text only)</option>
             </select>
           </div>
         </div>

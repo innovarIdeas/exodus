@@ -247,11 +247,10 @@ export const updateBookSchema = z.object({
 });
 
 export const bookVariantSchema = z.object({
-  id: z.string().optional(),
-  variant_name: z.string(),
+  variant_name: z.string().optional(),
   book_id: z.string(),
   tempbook_id: z.string().optional(),
-  paper_type: z.string(),
+  paper_type: z.string().optional(),
   number_of_words: z.coerce.number().optional(),
   status: z.string(),
   hard_cover: z.boolean().optional(),

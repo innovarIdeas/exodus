@@ -1,11 +1,7 @@
 "use client";
 
-import { Dialog, DialogContent, DialogDescription, DialogHeader, DialogTitle, DialogTrigger } from "@/components/ui/dialog";
-import { DropdownMenu, DropdownMenuContent, DropdownMenuItem, DropdownMenuLabel, DropdownMenuSeparator, DropdownMenuTrigger } from "@/components/ui/dropdown-menu";
+import { BookMenuDropdown } from "@/components/BookMenuDropDown";
 import { ColumnDef } from "@tanstack/react-table";
-import DeleteBook from "@/components/DeleteBook";
-import { DotsHorizontalIcon } from "@radix-ui/react-icons";
-import EditBookForm from "@/components/EditBookForm";
 import FormatDate from "@/components/FormatDate";
 import { IBook } from "@/models/models";
 import React from "react";
@@ -31,7 +27,6 @@ export const columns: ColumnDef<IBook>[] = [
   {
     accessorKey: "client",
     header: "Publisher",
-
     cell: ({ row }) => {
       const book = row.original;
 
@@ -50,7 +45,7 @@ export const columns: ColumnDef<IBook>[] = [
 
       return (
         <div>
-          {<FormatDate date={book?.created_at}/>}
+          {< FormatDate date={book?.created_at}/>}
         </div>
       );
     }
@@ -61,54 +56,9 @@ export const columns: ColumnDef<IBook>[] = [
       const book = row.original;
 
       return (
-        <DropdownMenu>
-          <DropdownMenuTrigger>
-            <DotsHorizontalIcon className="h-4 w-4" />
-          </DropdownMenuTrigger>
-          <DropdownMenuContent>
-            <DropdownMenuLabel> More Actions</DropdownMenuLabel>
-            <DropdownMenuSeparator />
-
-            <DropdownMenuItem>
-              <Dialog>
-                <DialogTrigger className="">
-                  <span >Edit Book</span>
-                </DialogTrigger>
-                <DialogContent>
-                  <DialogHeader>
-                    <DialogTitle>Update Book</DialogTitle>
-                    <DialogDescription>
-                      Kindly update the book`s` information
-                    </DialogDescription>
-                    <EditBookForm id={book.id} title={book.title} description={book.description ? book.description : "no description"}/>
-                  </DialogHeader>
-
-                </DialogContent>
-              </Dialog>
-            </DropdownMenuItem>
-
-            <DropdownMenuSeparator />
-
-            <DropdownMenuItem>
-              <Dialog>
-                <DialogTrigger >
-                  <span >Delete Book</span>
-                </DialogTrigger>
-                <DialogContent>
-                  <DialogHeader>
-                    <DialogTitle>Delete Book</DialogTitle>
-                    <DialogDescription>
-                      Are you sure you want to delete this book?
-                    </DialogDescription>
-                    <DeleteBook id={book.id}/>
-                  </DialogHeader>
-
-                </DialogContent>
-              </Dialog>
-            </DropdownMenuItem>
-
-          </DropdownMenuContent>
-        </DropdownMenu>
+        <div>
+          <BookMenuDropdown book={book} />
+        </div>
 
       );
     },

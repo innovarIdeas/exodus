@@ -1,6 +1,7 @@
 "use client";
 
 import React, { useContext } from "react";
+import { COVER_DESIGN } from "@/lib/rbac";
 import { ContextStore } from "@/context/ContextStore";
 
 const BookService = () => {
@@ -58,9 +59,9 @@ const BookService = () => {
               <p>Please choose an option</p>
               <select value={coverDesignType} onChange={(e)=>setCoverDesignType(e.target.value)} name="" id="" className="border shadow-md p-2 rounded-md bg-white border-gray-400">
                 <option value="">--Please select an option--</option>
-                <option value="Graphics-with-online-images-or-author-supplied-image">Graphics with online images/author supplied image</option>
-                <option value="Graphics-with-premium-paid-image">Graphics with premium paid image</option>
-                <option value="Artist-Illustrated">Artist Illustrated</option>
+                <option value={COVER_DESIGN.GRAPHICS_WITH_ONLINE_IMAGES}>Graphics with online images/author supplied image</option>
+                <option value={COVER_DESIGN.GRAPHICS_WITH_PREMIUM_IMAGES}>Graphics with premium paid image</option>
+                <option value={COVER_DESIGN.ARTIST_ILLUSTRATED}>Artist Illustrated</option>
               </select>
             </div>}
           </div>

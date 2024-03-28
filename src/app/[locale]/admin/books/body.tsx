@@ -1,10 +1,10 @@
 "use client";
 
-import { Dialog, DialogContent, DialogDescription, DialogHeader, DialogTitle, DialogTrigger } from "@/components/ui/dialog";
 import React, { useState } from "react";
-import { BiPlusCircle } from "react-icons/bi";
+import { Sheet, SheetContent, SheetTrigger } from "@/components/ui/sheet";
 import { BookDataTable } from "./data-table";
 import BookForm from "@/components/BookForm";
+import { Button } from "@/components/ui/button";
 import { IBook } from "@/models/models";
 import { QUERY_KEY } from "@/lib/rbac";
 import { columns } from "./columns";
@@ -37,23 +37,17 @@ export default function BookBody () {
     <div>
       <div className="flex justify-end items-end float-right mx-5 my-5">
 
-        <Dialog>
-          <DialogTrigger className="rounded-md h-[40px] w-fit bg-main text-white text-x flex items-center justify-center gap-2 cursor-pointer px-4 shadow-lg hover:shadow-none">
-            <BiPlusCircle className="text-white text-2xl" />{" "}
-            <span className="text-white">Add New Book</span>
+        <Sheet>
+          <SheetTrigger asChild>
+            <Button className="ml-4 px-6 whitespace-nowrap bg-main">
+            Add New Book
+            </Button>
+          </SheetTrigger>
 
-          </DialogTrigger>
-          <DialogContent>
-            <DialogHeader>
-              <DialogTitle>Add Book</DialogTitle>
-              <DialogDescription>
-              Kindly fill the form with the book information
-              </DialogDescription>
-              <BookForm />
-            </DialogHeader>
-
-          </DialogContent>
-        </Dialog>
+          <SheetContent className="w-2/3 sm:w-full">
+            <BookForm />
+          </SheetContent>
+        </Sheet>
 
       </div>
       <div>
