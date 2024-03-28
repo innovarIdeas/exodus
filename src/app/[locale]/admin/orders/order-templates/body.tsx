@@ -1,10 +1,10 @@
 "use client";
 
-import { Dialog, DialogContent, DialogHeader, DialogTitle, DialogTrigger } from "@/components/ui/dialog";
 import React, {  useState } from "react";
-import { BiPlusCircle } from "react-icons/bi";
+import { Sheet, SheetContent, SheetTrigger } from "@/components/ui/sheet";
 import { BookDataTable } from "./data-table";
 import BookVariantForm from "@/components/BookVariantForm";
+import { Button } from "@/components/ui/button";
 import { IBookVariant } from "@/models/models";
 import { QUERY_KEY } from "@/lib/rbac";
 import { columns } from "./columns";
@@ -39,20 +39,17 @@ export default function BookBody () {
     <div>
       <div className="flex justify-end items-end float-right mx-5 my-5 overflow-hidden">
 
-        <Dialog >
-          <DialogTrigger className="rounded-md h-[40px] w-fit bg-main text-white text-x flex items-center justify-center gap-2 cursor-pointer px-4 shadow-lg hover:shadow-none">
-            <BiPlusCircle className="text-white text-2xl" />{" "}
-            <span className="text-white">Add Order Template</span>
+        <Sheet>
+          <SheetTrigger asChild>
+            <Button className="ml-4 px-6 whitespace-nowrap bg-main">
+            Add Order Template
+            </Button>
+          </SheetTrigger>
 
-          </DialogTrigger>
-          <DialogContent>
-            <DialogHeader>
-              <DialogTitle>Add Order Template</DialogTitle>
-              <BookVariantForm/>
-            </DialogHeader>
-
-          </DialogContent>
-        </Dialog>
+          <SheetContent className="w-2/3 sm:w-full overflow-y-auto">
+            <BookVariantForm/>
+          </SheetContent>
+        </Sheet>
 
       </div>
       <div>

@@ -25,7 +25,7 @@ export function PayStackOrderPayment ({ order }: PayStackOrderPaymentProp) {
   };
 
   return(
-    <div className="bg-green rounded-sm p-2 flex justify-center items-center text-white font-semibold">
+    <div className="bg-green rounded-sm px-5 py-1 flex justify-center items-center text-white font-semibold">
 
       <PaystackButton {...paystackProps} />
     </div>

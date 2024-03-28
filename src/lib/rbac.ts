@@ -59,3 +59,13 @@ export const PAYMENT_TYPE = {
   CASH: "CASH",
   CARD: "CARD"
 };
+
+export const BOOK_FORMAT = {
+  MS_WORD: "MS_WORD",
+  PDF: "PDF"
+};
+
+export const BOOK_SIZE = {
+  A4: "A4",
+  A5: "A5"
+};

@@ -1,9 +1,10 @@
 "use client";
 
-import { Sheet, SheetContent, SheetHeader, SheetTitle, SheetTrigger } from "@/components/ui/sheet";
+import { DropdownMenu, DropdownMenuContent, DropdownMenuItem, DropdownMenuLabel, DropdownMenuSeparator, DropdownMenuTrigger } from "@/components/ui/dropdown-menu";import { Sheet, SheetContent, SheetHeader, SheetTitle, SheetTrigger } from "@/components/ui/sheet";
 import { ColumnDef } from "@tanstack/react-table";
 import CreatePrintStatus from "@/components/CreatePrintStatus";
 import CreateTransaction from "@/components/CreateTransaction";
+import { DotsHorizontalIcon } from "@radix-ui/react-icons";
 import { IOrder } from "@/models/models";
 import Link from "next/link";
 import { PayStackOrderPayment } from "@/components/PayStackorderPayment";
@@ -71,7 +72,7 @@ export const columns: ColumnDef<IOrder>[] = [
     cell: ({ row }) => {
       const stats = row.original;
 
-      if(stats.print_status === null || stats.print_status.length === 0) {
+      if(stats?.print_status === null || stats?.print_status?.length === 0) {
         return(<p>Recieved</p>);
       } else{
         return <div>{stats.print_status}</div>;
@@ -90,39 +91,61 @@ export const columns: ColumnDef<IOrder>[] = [
 
       return (
         <div className=" flex gap-1 justify-start ">
-          <Link href={`orders/${order.id}`} className="rounded-full h-[40px] bg-main w-fix text-white text-x flex items-center justify-center cursor-pointer px-2 shadow-lg hover:shadow-none" >
+          <DropdownMenu>
+            <DropdownMenuTrigger asChild>
+              <DotsHorizontalIcon className="h-4 w-4" />
+            </DropdownMenuTrigger>
+            <DropdownMenuContent>
+              <DropdownMenuLabel> More Actions</DropdownMenuLabel>
+              <DropdownMenuSeparator />
+
+              <DropdownMenuItem asChild>
+
+                <Link href={`orders/${order.id}`} className="text-sm mx-2 my-2 cursor-pointer hover:font-semibold"  >
                     View Order
-          </Link>
+                </Link>
 
-          <Sheet>
-            <SheetTrigger asChild>
-              <span className="rounded-full h-[40px] bg-main w-fix text-white text-x flex items-center justify-center cursor-pointer px-2 shadow-lg hover:shadow-none">Create Transaction</span>
-            </SheetTrigger>
+              </DropdownMenuItem>
 
-            <SheetContent>
-              <SheetHeader>
-                <SheetTitle>
+              <DropdownMenuSeparator />
+
+              <DropdownMenuItem asChild>
+                <Sheet>
+                  <SheetTrigger asChild>
+                    <span  className="text-sm mx-2 my-2 cursor-pointer hover:font-semibold">Create Transaction</span>
+                  </SheetTrigger>
+
+                  <SheetContent>
+                    <SheetHeader>
+                      <SheetTitle>
               Create Transaction
-                </SheetTitle>
-              </SheetHeader>
-              <CreateTransaction order_id={order.id}/>
-            </SheetContent>
-          </Sheet>
+                      </SheetTitle>
+                    </SheetHeader>
+                    <CreateTransaction order_id={order.id}/>
+                  </SheetContent>
+                </Sheet>
+              </DropdownMenuItem>
+              <DropdownMenuSeparator />
 
-          <Sheet>
-            <SheetTrigger asChild>
-              <span className="rounded-full h-[40px] bg-main w-fix text-white text-x flex items-center justify-center cursor-pointer px-2 shadow-lg hover:shadow-none">Update Status</span>
-            </SheetTrigger>
+              <DropdownMenuItem asChild>
+                <Sheet>
+                  <SheetTrigger asChild>
+                    <span  className="text-sm mx-2 my-2 cursor-pointer hover:font-semibold">Update Status</span>
+                  </SheetTrigger>
 
-            <SheetContent>
-              <SheetHeader>
-                <SheetTitle>
+                  <SheetContent>
+                    <SheetHeader>
+                      <SheetTitle>
               Update Status
-                </SheetTitle>
-              </SheetHeader>
-              <CreatePrintStatus order_id={order.id}/>
-            </SheetContent>
-          </Sheet>
+                      </SheetTitle>
+                    </SheetHeader>
+                    <CreatePrintStatus order_id={order.id}/>
+                  </SheetContent>
+                </Sheet>
+              </DropdownMenuItem>
+
+            </DropdownMenuContent>
+          </DropdownMenu>
 
         </div>
       );

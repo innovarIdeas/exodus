@@ -40,14 +40,14 @@ export default function UserBody () {
         <h1 className="text-3xl font-semibold text-black">User Management</h1>
         <div className="flex items-center space-x-4 my-4">
           <Link
-            href="/users/roles"
+            href="/admin/users/roles"
             className="text-main border border-main rounded-lg text-md py-1 px-3 hover:bg-main hover:text-white"
           >
             Manage Roles
           </Link>
 
           <Link
-            href="/users/permissions"
+            href="/admin/users/permissions"
             className="text-main border border-main rounded-lg text-md py-1 px-3 hover:bg-main hover:text-white"
           >
             View Permissions

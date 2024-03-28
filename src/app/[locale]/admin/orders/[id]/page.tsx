@@ -1,7 +1,9 @@
 "use client";
 
 import React, { useRef } from "react";
+import { IOrder } from "@/models/models";
 import Link from "next/link";
+import { PayStackOrderPayment } from "@/components/PayStackorderPayment";
 import { TailSpin } from "react-loader-spinner";
 import { useGetSingleOrder } from "@/lib/hook";
 import { useParams } from "next/navigation";
@@ -32,7 +34,7 @@ const SingleInvoice = ()=>{
 
   return (
     <>
-      <div className="flex gap-4">
+      <div className="flex gap-4 pl-10">
         <p>
           <Link href="/dashboard"> Dashboard</Link>
         </p>
@@ -71,8 +73,8 @@ const SingleInvoice = ()=>{
             </div>
           </div>
         </div>
-        <h1 className="mt-[-30px]  text-center text-blue font-bold text-xl">
-          {order?.status}
+        <h1 className="mt-[-30px]  text-right">
+        Order Status: <span className="mt-[-30px]  text-center text-blue font-bold text-xl"> {" "} {order?.status} </span>
         </h1>
 
         <div className="pt-8  pb-8 px-10 border border-b-gray">
@@ -191,14 +193,15 @@ const SingleInvoice = ()=>{
           </div>
         </div>
       </div>
-      <div className="mt-[10px] grid grid-cols-5  md:gap-[5%] bg-white py-5 px-5 rounded-xl shadow">
-        <div className="flex gap-2 col-span-2">
+      <div className="">
+        <div className="flex gap-5 col-span-2 justify-center py-5">
           <button
-            className="text-xs lg:text-base bg-white text-blue lg:ml-5"
+            className="text-xs lg:text-base bg-main text-white px-5 py-1 rounded-sm font-semibold lg:ml-5"
             onClick={handlePrint}
           >
             Print
           </button>
+          <PayStackOrderPayment order={order as IOrder}/>
         </div>
       </div>
     </>
