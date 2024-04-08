@@ -2,7 +2,7 @@
 
 import { IOrder, IPermission } from "@/models/models";
 import { PAYMENT_STATUS, PAYMENT_TYPE, QUERY_KEY } from "./rbac";
-import { createTransaction, getAllBookVariants, getAllBooks, getAllClients, getAllOrders, getAllTransactions, getSingleOrder, getSingleUser, getUserBookVariants, getUserBooks, getUserOrders, getUserTransactions } from "./api-call";
+import { createTransaction, getAllBookVariants, getAllBooks, getAllClients, getAllOrders, getAllPublishers, getAllTransactions, getSingleOrder, getSingleUser, getUserBookVariants, getUserBooks, getUserOrders, getUserTransactions } from "./api-call";
 import { useQuery } from "@tanstack/react-query";
 import { useSession } from "next-auth/react";
 
@@ -71,6 +71,33 @@ export const useGetAllUser = () => {
     queryKey: [QUERY_KEY.GET_ALL_USERS],
     queryFn: async () => {
       const { data, validationErrors, error } = await getAllClients();
+
+      if (validationErrors?.length) {
+        console.error(validationErrors[0].message);
+
+        return;
+      }
+
+      if (error) {
+        console.log(error);
+
+        return;
+      }
+
+      return data;
+    }
+  });
+
+  if (!data) return [];
+
+  return data;
+};
+
+export const useGetAllPublishers = () => {
+  const { data } = useQuery({
+    queryKey: [QUERY_KEY.GET_ALL_PULISHERS],
+    queryFn: async () => {
+      const { data, validationErrors, error } = await getAllPublishers();
 
       if (validationErrors?.length) {
         console.error(validationErrors[0].message);

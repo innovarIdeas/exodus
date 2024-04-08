@@ -13,14 +13,13 @@ type TBreadCrumbProps = {
   capitalizeLinks?: boolean;
 };
 
-const NextBreadcrumb = ({ homeElement, separator, containerClasses, listClasses, activeClasses, capitalizeLinks }: TBreadCrumbProps) => {
+const NextBreadcrumb = ({  separator, containerClasses, listClasses, activeClasses, capitalizeLinks }: TBreadCrumbProps) => {
   const paths = usePathname();
   const pathNames = paths.split("/").filter(path => path);
 
   return (
     <div>
       <ul className={containerClasses}>
-        <li className={listClasses}><Link href={"/"}>{homeElement}</Link></li>
         {pathNames.length > 0 && separator}
         {
           pathNames.map((link, index) => {
