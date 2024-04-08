@@ -23,7 +23,7 @@ import { Textarea } from "@/components/ui/textarea";
 import { bookSchema } from "@/models/validation-schema";
 import { createBook } from "@/lib/api-call";
 import { useForm } from "react-hook-form";
-import { useGetAllUser } from "@/lib/hook";
+import { useGetAllPublishers } from "@/lib/hook";
 import { useQueryClient } from "@tanstack/react-query";
 import { useToast } from "@/components/ui/use-toast";
 import z from "zod";
@@ -36,7 +36,7 @@ const BookForm = () => {
       type TFormData = z.infer<typeof bookSchema>;
 
       const form = useForm<TFormData>({ resolver: zodResolver(bookSchema) });
-      const users: IUser[] = useGetAllUser();
+      const users: IUser[] = useGetAllPublishers();
 
       const onSubmit = async (input: TFormData) => {
         const { data, error, validationErrors } = await createBook(input);
