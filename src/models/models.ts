@@ -121,6 +121,9 @@ export interface IBook extends IBase {
   created_by_user: IUser;
   client: IUser;
   description: string | null;
+  transactions: ITransaction[];
+  Order: IOrder[];
+  book_variants: IBookVariant[];
 
 }
 
@@ -359,10 +362,10 @@ export interface IBookData {
 }
 
 export interface IOrder extends IBase {
-  id:                  string;
+  id:                   string;
   book:                 IBook;
   temp_book_id:         string;
-  created_by: string;
+  created_by:           string;
   client_id:            string;
   client:               IUser;
   created_by_user:      IUser;
@@ -375,18 +378,18 @@ export interface IOrder extends IBase {
   cover_total:          number;
   inner_total:          number;
   delivery_fee:         number;
-  coupon_id:           string;
+  coupon_id:            string;
   coupon_by_id:         ICoupon;
   inner_page_cost:      number;
   cover_cost:           number;
   perfect_binding_cost: number;
   lamination_cost:      number;
   wrapping_cost:        number;
-  trim_cost:           number;
+  trim_cost:            number;
   embossing_cost:       number;
   spot_lamination_cost: number;
   foil_cost:            number;
-  book_cost:           number;
+  book_cost:            number;
   service_cost:         number;
   markup:               number;
   transactions:         number;

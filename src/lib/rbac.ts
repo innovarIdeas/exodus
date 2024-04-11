@@ -22,6 +22,7 @@ export const QUERY_KEY = {
   GET_ALL_COUPONS: "getAllCoupons",
   GET_ALL_DISCOUNTS: "getAllCoupons",
   GET_ALL_PULISHERS: "getAllPublishers",
+  GET_SINGLE_BOOK: "getSingleBook"
 };
 
 export const LAYOUT_TYPE = {
@@ -48,6 +49,11 @@ export const COVER_DESIGN = {
 export const PRINT_STATUS = {
   WORK_IN_PROGRESS: "WORK_IN_PROGRESS",
   READY_TO_PRINT: "READY_TO_PRINT"
+};
+
+export const VARIANT_STATUS = {
+  WORK_IN_PROGRESS: "Work in Progress",
+  READY_TO_PRINT: "Ready to Print"
 };
 
 export const PAYMENT_STATUS = {

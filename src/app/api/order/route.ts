@@ -1,7 +1,7 @@
 import {  CostOfCoverComponentPerBook, CostOfPerfectingBindingPerOrder, CostOfSpotLamnation, TotalCostForWorkInProgress, TotalCostOfBooks } from "@/lib/calculation-function";
 import { ICoverDesign, IIllustrationType, ILayoutType, IPageSize, IPaperType } from "@/models/models";
 import { NextRequest, NextResponse } from "next/server";
-import { PAYMENT_STATUS, PRINT_STATUS } from "@/lib/rbac";
+import { PAYMENT_STATUS, VARIANT_STATUS } from "@/lib/rbac";
 import { getServerSession } from "next-auth/next";
 import { options } from "@/app/api/auth/[...nextauth]/options";
 import { orderSchema } from "@/models/validation-schema";
@@ -46,7 +46,7 @@ export async function POST (req: NextRequest) {
       return NextResponse.json({ error: "Book variant not found" }, { status: 404 });
     }
 
-    if(book_variant.status === PRINT_STATUS.WORK_IN_PROGRESS) {
+    if(book_variant.status === VARIANT_STATUS.WORK_IN_PROGRESS) {
       await prisma.order.create({
         data: {
           book: { connect: { id: book_variant.book_id } },
@@ -60,7 +60,7 @@ export async function POST (req: NextRequest) {
         },
 
       });
-    }else if(book_variant.status === PRINT_STATUS.READY_TO_PRINT) {
+    }else if(book_variant.status === VARIANT_STATUS.READY_TO_PRINT) {
       await prisma.order.create({
         data: {
           book: { connect: { id: book_variant.book_id } },
