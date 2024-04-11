@@ -172,6 +172,10 @@ export const getAllBooks = async (): Promise<IApiResponse<IBook[]>> => {
   return handleApiCalls(await fetch(process.env.NEXT_PUBLIC_BROWSER_URL + "/api/books", { method: "GET" }));
 };
 
+export const getSingleBook = async (id: string): Promise<IApiResponse<IBook>> => {
+  return handleApiCalls(await fetch(process.env.NEXT_PUBLIC_BROWSER_URL + "/api/books/" + id, { method: "GET" }));
+};
+
 export const getUserBooks = async (id: string): Promise<IApiResponse<IBook[]>> => {
   return handleApiCalls(await fetch(process.env.NEXT_PUBLIC_BROWSER_URL + "/api/users/books/" + id,
     { method: "GET" }));

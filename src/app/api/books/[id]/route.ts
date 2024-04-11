@@ -33,7 +33,7 @@ export async function GET (req: NextRequest, { params }: { params: { id: string 
   const { id } = params;
 
   try {
-    const book = await prisma.book.findUnique({ where: { id: id }, include: { created_by_user: true, client: true }  });
+    const book = await prisma.book.findUnique({ where: { id: id }, include: { created_by_user: true, client: true, Order: true, transactions: true, book_variants: true }  });
 
     if (!book) return NextResponse.json({ message: "User not found" }, { status: 404 });
 

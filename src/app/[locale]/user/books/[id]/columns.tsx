@@ -8,10 +8,11 @@ import {
   DialogTitle,
   DialogTrigger,
 } from "@/components/ui/dialog";
+import { IBookVariant, IOrder, ITransaction } from "@/models/models";
 import { ColumnDef } from "@tanstack/react-table";
 import CreateOrder from "@/components/CreateOrder";
 import FormatDate from "@/components/FormatDate";
-import { IBookVariant } from "@/models/models";
+import Link from "next/link";
 import React from "react";
 
 export type BookProps = {
@@ -21,7 +22,7 @@ export type BookProps = {
   description: string;
 };
 
-export const columns: ColumnDef<IBookVariant>[] = [
+export const orderColumns: ColumnDef<IBookVariant>[] = [
   {
     header: "Variant Name",
     id: "variant_name",
@@ -62,16 +63,14 @@ export const columns: ColumnDef<IBookVariant>[] = [
     cell: ({ row }) => {
       const book = row.original;
 
-      console.log(book);
-
       return (
         <Dialog>
           <DialogTrigger className="rounded-sm h-[40px] w-fit bg-main text-white text-x flex items-center justify-center gap-2 cursor-pointer px-4 shadow-lg hover:shadow-none">
-            <span className="text-white">Create Order</span>
+            <span className="text-white">Place Order</span>
           </DialogTrigger>
           <DialogContent className="w-1/2 overflow-auto">
             <DialogHeader>
-              <DialogTitle>Create Order</DialogTitle>
+              <DialogTitle>Place Order</DialogTitle>
               <DialogDescription>
                 Are you sure you want to create this order?
               </DialogDescription>
@@ -83,4 +82,63 @@ export const columns: ColumnDef<IBookVariant>[] = [
       );
     },
   },
+];
+
+export const invoiceColumns: ColumnDef<IOrder>[] = [
+  {
+    accessorKey: "client_id",
+    header: "Client Id",
+  },
+  {
+    accessorKey: "status",
+    header: "Status",
+  },
+  {
+    accessorKey: "created_at",
+    header: "Created At",
+  },
+  {
+    accessorKey: "total",
+    header: "Total",
+  },
+  {
+    id: "View",
+    cell: ({ row }) => {
+      const invoice = row.original;
+
+      return (
+        <Link
+          href={`/user/invoices/pdf/${invoice.id}`}
+          className="rounded-sm h-[40px] w-fit bg-main text-white text-x flex items-center justify-center gap-2 cursor-pointer px-4 shadow-lg hover:shadow-none"
+        >
+          View
+        </Link>
+      );
+    },
+  },
+
+];
+
+export const transactionColumns: ColumnDef<ITransaction>[] = [
+  {
+    accessorKey: "title",
+    header: "Book Name",
+  },
+  {
+    accessorKey: "author",
+    header: "Payment Reference",
+  },
+  {
+    accessorKey: "description",
+    header: "Status",
+  },
+  {
+    accessorKey: "description",
+    header: "Date Added",
+  },
+  {
+    accessorKey: "description",
+    header: "Total",
+  },
+
 ];

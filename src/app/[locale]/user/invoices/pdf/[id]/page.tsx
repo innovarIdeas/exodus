@@ -3,7 +3,7 @@
 import React, { useRef } from "react";
 import Link from "next/link";
 import { PayStackOrderPayment } from "@/components/PayStackorderPayment";
-import { TailSpin } from "react-loader-spinner";
+// import { TailSpin } from "react-loader-spinner";
 import { useGetSingleOrder } from "@/lib/hook";
 import { useParams } from "next/navigation";
 import { useReactToPrint } from "react-to-print";
@@ -17,7 +17,7 @@ const SingleInvoice = ()=>{
   if (isLoading) {
     return (
       <div className="flex items-center justify-center h-screen">
-        <TailSpin
+        {/* <TailSpin
           visible={true}
           height="70"
           width="70"
@@ -26,7 +26,8 @@ const SingleInvoice = ()=>{
           radius="1"
           wrapperStyle={{}}
           wrapperClass=""
-        />
+        /> */}
+        Loading...
       </div>
     );
   }
