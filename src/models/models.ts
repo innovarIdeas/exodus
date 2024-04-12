@@ -120,6 +120,7 @@ export interface IBook extends IBase {
   createdBy: string;
   created_by_user: IUser;
   client: IUser;
+  status: string;
   description: string | null;
   transactions: ITransaction[];
   Order: IOrder[];

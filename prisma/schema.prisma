@@ -190,6 +190,7 @@ model Book {
     client_id       String?
     client          User?          @relation(name: "book_client", fields: [client_id], references: [id])
     description     String?
+    status          String?
     created_at      DateTime       @default(now())
     transactions    Transactions[]
     book_variants   Book_variant[]

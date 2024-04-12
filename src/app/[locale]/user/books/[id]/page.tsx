@@ -2,12 +2,16 @@
 
 import { IBook, IBookVariant, IOrder, ITransaction } from "@/models/models";
 import React, { useState } from "react";
+import { Sheet, SheetContent, SheetHeader, SheetTitle, SheetTrigger } from "@/components/ui/sheet";
 import { Tabs, TabsContent, TabsList, TabsTrigger } from "@/components/ui/tabs";
 import { invoiceColumns, orderColumns, transactionColumns } from "./columns";
 import { BookInvoiceTable } from "./data-table-2";
 import { BookTransactionTable } from "./data-table-3";
-import DashboardTitle from "@/components/DashboardTitle";
+import { Button } from "@/components/ui/button";
+import Link from "next/link";
 import { OrderRequestTable } from "./data-table";
+import OrderTemplateFormReadyToPrint from "@/components/OrderTemplateFormReadyToPrint";
+import OrderTemplateFormWorkInProgress from "@/components/OrderTemplateFormWorkInProgress";
 import { QUERY_KEY } from "@/lib/rbac";
 import { getSingleBook } from "@/lib/api-call";
 import { useParams } from "next/navigation";
@@ -19,6 +23,7 @@ const UserBooks = () => {
   const [bookVariant, setBookVariant] = useState<IBookVariant[]>([]);
   const [bookInvoice, setBookInvoice] = useState<IOrder[]>([]);
   const [bookTransaction, setBookTransaction] = useState<ITransaction[]>([]);
+  const [tabButton, setTabButton] = useState("orderRequest");
 
   useQuery({
     queryKey: [QUERY_KEY.GET_SINGLE_BOOK],
@@ -50,9 +55,13 @@ const UserBooks = () => {
   });
 
   return (
-    <div>
+    <div className="ml-8">
       <div className="mb-10">
-        <DashboardTitle title="Book Details" />
+        <div className="flex items-center gap-1 text-[17px] font-semibold">
+          <Link href={"/user/books"}>Books </Link>
+          <p>{">"}</p>
+          <p>Book Details</p>
+        </div>
       </div>
       <div className="grid grid-cols-2 my-10 w-[60%] min-w-72 text-lg font-semibold">
 
@@ -68,11 +77,32 @@ const UserBooks = () => {
 
       <Tabs defaultValue="order-request">
         <TabsList className="w-full flex justify-start my-2 border">
-          <TabsTrigger value="order-request" >Order Request</TabsTrigger>
-          <TabsTrigger value="book-invoice"> Book Invoice</TabsTrigger>
-          <TabsTrigger value="book-transaction">Book Transactions</TabsTrigger>
+          <TabsTrigger onClick={()=> setTabButton("orderRequest")} value="order-request" className={`px-2 py-1.5 ${tabButton === "orderRequest" ? "bg-slate-400 text-white" : ""}`} >Order Request</TabsTrigger>
+          <TabsTrigger onClick={()=> setTabButton("bookInovoice")} value="book-invoice" className={`px-2 py-1.5 ${tabButton === "bookInovoice" ? "bg-slate-400 text-white" : ""}`}> Book Invoice</TabsTrigger>
+          <TabsTrigger onClick={()=> setTabButton("bookTransaction")} value="book-transaction" className={`px-2 py-1.5 ${tabButton === "bookTransaction" ? "bg-slate-400 text-white" : ""}`}>Book Transactions</TabsTrigger>
 
         </TabsList>
+
+        <div className="mt-2">
+
+          <div className="flex justify-end items-end float-right mx-5 my-2 overflow-hidden">
+            <Sheet>
+              <SheetTrigger asChild>
+                <Button className="ml-4 px-6 whitespace-nowrap bg-main">
+                New Order Request
+                </Button>
+              </SheetTrigger>
+
+              <SheetContent className="w-2/3 sm:w-full">
+                <SheetHeader>
+                  <SheetTitle>New Order Requestss</SheetTitle>
+                </SheetHeader>
+                {bookData?.status === "Ready to Print" ? <OrderTemplateFormReadyToPrint data={bookData} /> : <OrderTemplateFormWorkInProgress />}
+              </SheetContent>
+            </Sheet>
+          </div>
+        </div>
+
         <TabsContent value="order-request" >
           <OrderRequestTable columns={orderColumns} data={bookVariant} />
         </TabsContent>

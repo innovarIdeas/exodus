@@ -236,6 +236,7 @@ export const bookSchema = z.object({
   author: z.string(),
   publisher: z.string().optional(),
   client_id: z.string(),
+  status: z.string(),
 });
 
 export const updateBookSchema = z.object({

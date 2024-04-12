@@ -6,6 +6,13 @@ import {
   FormLabel,
   FormMessage,
 } from "@/components/ui/form";
+import {
+  Select,
+  SelectContent,
+  SelectItem,
+  SelectTrigger,
+  SelectValue,
+} from "@/components/ui/select";
 import { Button } from "./ui/button";
 import { DialogClose } from "./ui/dialog";
 import { Input } from "@/components/ui/input";
@@ -105,6 +112,31 @@ const UserBookForm = () => {
         <div className="py-1">
           <FormField
             control={form.control}
+            name="status"
+            render={({ field }) => (
+              <FormItem className="w-full">
+                <FormLabel>Select Status</FormLabel>
+                <Select
+                  onValueChange={field.onChange}
+                  defaultValue={field.value}
+                >
+                  <FormControl>
+                    <SelectTrigger>
+                      <SelectValue placeholder="Select book status" />
+                    </SelectTrigger>
+                  </FormControl>
+                  <SelectContent>
+                    <SelectItem value={"Ready to Print"}>Ready to Print</SelectItem>
+                    <SelectItem value={"Work in Progress"}>Work in Progress</SelectItem>
+                  </SelectContent>
+                </Select>
+              </FormItem>
+            )}
+          />
+        </div>
+        <div className="py-1">
+          <FormField
+            control={form.control}
             name="description"
             render={({ field }) => (
               <FormItem>
@@ -120,6 +152,7 @@ const UserBookForm = () => {
             )}
           />
         </div>
+
         <div className="flex gap-5 py-1">
           <div className="py-2 ">
             <Button
