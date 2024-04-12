@@ -49,7 +49,7 @@ const SideBar = (props: Props) => {
             href: "/user/books",
           },
           {
-            title: "Order Request",
+            title: "Order Template",
             label: "",
             icon: PenBox,
             variant: "ghost",

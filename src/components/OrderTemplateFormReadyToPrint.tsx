@@ -89,7 +89,7 @@ const OrderTemplateFormReadyToPrint = (props: Props) => {
 
       form.reset();
       refetch();
-      queryClient.invalidateQueries([QUERY_KEY.GET_SINGLE_BOOK]);
+      queryClient.invalidateQueries({ queryKey: [QUERY_KEY.GET_SINGLE_BOOK] });
     } else {
       toast({
         variant: "destructive",

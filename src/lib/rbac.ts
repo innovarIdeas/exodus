@@ -22,7 +22,8 @@ export const QUERY_KEY = {
   GET_ALL_COUPONS: "getAllCoupons",
   GET_ALL_DISCOUNTS: "getAllCoupons",
   GET_ALL_PULISHERS: "getAllPublishers",
-  GET_SINGLE_BOOK: "getSingleBook"
+  GET_SINGLE_BOOK: "getSingleBook",
+  GET_SINGLE_BOOK_VARIANT: "getSingleBookVariant"
 };
 
 export const LAYOUT_TYPE = {

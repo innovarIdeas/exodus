@@ -12,6 +12,7 @@ import { ColumnDef } from "@tanstack/react-table";
 import CreateOrder from "@/components/CreateOrder";
 import FormatDate from "@/components/FormatDate";
 import { IBookVariant } from "@/models/models";
+import Link from "next/link";
 import React from "react";
 
 export type BookProps = {
@@ -56,6 +57,16 @@ export const columns: ColumnDef<IBookVariant>[] = [
         <p>{book.status}</p>
       );
     }
+  },
+  {
+    id: "view",
+    cell: ({ row }) => {
+      const book = row.original;
+
+      return (
+        <Link href={`/user/book-variant/${book.id}`} ><button className="rounded-sm h-[40px] w-fit bg-main text-white text-x flex items-center justify-center gap-2 cursor-pointer px-4 shadow-lg hover:shadow-none">View</button></Link>
+      );
+    },
   },
   {
     id: "Order",
