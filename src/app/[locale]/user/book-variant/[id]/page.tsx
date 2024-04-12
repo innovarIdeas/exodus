@@ -10,7 +10,7 @@ import { useQuery } from "@tanstack/react-query";
 
 const OrderTemplateDetails = () => {
   const params = useParams() as { id: string };
-  const [bookVariant, setBookVariant] = useState<IBookVariant>([]);
+  const [bookVariant, setBookVariant] = useState<IBookVariant>();
 
   const { isLoading } = useQuery({
     queryKey: [QUERY_KEY.GET_SINGLE_BOOK],
@@ -64,37 +64,37 @@ const OrderTemplateDetails = () => {
         <p>{bookVariant?.paper_type}</p>
 
         <p>Hard Cover</p>
-        <p>{bookVariant.hard_cover}</p>
+        <p>{bookVariant?.hard_cover}</p>
 
         <p>No of Copies: </p>
-        <p>{bookVariant.no_of_books}</p>
+        <p>{bookVariant?.no_of_books}</p>
 
         <p>No of Pages:</p>
-        <p>{bookVariant.number_of_pages}</p>
+        <p>{bookVariant?.number_of_pages}</p>
 
         <p>Book Size: </p>
-        <p>{bookVariant.book_size}</p>
+        <p>{bookVariant?.book_size}</p>
 
         <p>Project Type:</p>
-        <p>{bookVariant.project_type}</p>
+        <p>{bookVariant?.project_type}</p>
 
         <p>Pick Up:</p>
-        <p>{bookVariant.pick_up}</p>
+        <p>{bookVariant?.pick_up}</p>
 
         <p>Published:</p>
-        <p>{bookVariant.published}</p>
+        <p>{bookVariant?.published}</p>
 
         <p>Inside Layoout Type:</p>
-        <p>{bookVariant.inside_layout_type}</p>
+        <p>{bookVariant?.inside_layout_type}</p>
 
         <p>Editing:</p>
-        <p>{bookVariant.editing}</p>
+        <p>{bookVariant?.editing}</p>
 
         <p>Online Sale:</p>
-        <p>{bookVariant.online_sale}</p>
+        <p>{bookVariant?.online_sale}</p>
 
         <p>Proof Reading:</p>
-        <p>{bookVariant.proof_reading}</p>
+        <p>{bookVariant?.proof_reading}</p>
       </div>
 
     </div>
