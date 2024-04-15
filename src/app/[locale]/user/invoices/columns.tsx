@@ -1,6 +1,7 @@
 "use client";
 
 import { ColumnDef } from "@tanstack/react-table";
+import FormatDate from "@/components/FormatDate";
 import { IOrder } from "@/models/models";
 import Link from "next/link";
 import React from "react";
@@ -14,16 +15,28 @@ export type BookProps = {
 
 export const columns: ColumnDef<IOrder>[] = [
   {
+    accessorKey: "id",
+    header: "Invoice Number"
+  },
+  {
+    id: "book_title",
+    header: "Book Title",
+    cell: ({ row }) => {
+      const invoice = row.original;
+
+      return (
+        <div>{invoice.book.title}</div>
+      );
+    }
+  },
+  {
     accessorKey: "status",
     header: "Status",
   },
   {
-    accessorKey: "created_at",
+    id: "created_at",
     header: "Created At",
-  },
-  {
-    accessorKey: "type",
-    header: "Type",
+    cell: ({ row }) => <FormatDate date={row.original.created_at} />,
   },
   {
     accessorKey: "total",
@@ -44,4 +57,5 @@ export const columns: ColumnDef<IOrder>[] = [
       );
     },
   },
+
 ];

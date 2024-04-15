@@ -24,7 +24,7 @@ export type BookProps = {
 
 export const orderColumns: ColumnDef<IBookVariant>[] = [
   {
-    header: "Variant Name",
+    header: "Request Id",
     id: "variant_name",
     cell: ({ row }) => {
       const book = row.original;
@@ -96,16 +96,17 @@ export const orderColumns: ColumnDef<IBookVariant>[] = [
 
 export const invoiceColumns: ColumnDef<IOrder>[] = [
   {
-    accessorKey: "client_id",
-    header: "Client Id",
+    accessorKey: "id",
+    header: "Invoice Number"
   },
   {
     accessorKey: "status",
     header: "Status",
   },
   {
-    accessorKey: "created_at",
+    id: "created_at",
     header: "Created At",
+    cell: ({ row }) => <FormatDate date={row.original.created_at} />,
   },
   {
     accessorKey: "total",

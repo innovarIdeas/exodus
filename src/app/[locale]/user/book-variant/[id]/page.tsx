@@ -1,7 +1,17 @@
 "use client";
 
+import {
+  Dialog,
+  DialogContent,
+  DialogDescription,
+  DialogHeader,
+  DialogTitle,
+  DialogTrigger,
+} from "@/components/ui/dialog";
 import React, { useState } from "react";
+import CreateOrder from "@/components/CreateOrder";
 import DashboardTitle from "@/components/DashboardTitle";
+import FormatDate from "@/components/FormatDate";
 import { IBookVariant } from "@/models/models";
 import { QUERY_KEY } from "@/lib/rbac";
 import { getBookVariant } from "@/lib/api-call";
@@ -49,22 +59,22 @@ const OrderTemplateDetails = () => {
       <div className="mb-10">
         <DashboardTitle title="Order Template Details" />
       </div>
-      <div className="grid grid-cols-2 gap-y-1 my-10 w-[60%] min-w-72 font-semibold">
+      {bookVariant !== undefined && bookVariant?.status === "Ready to Print" ? <div className="grid grid-cols-2 gap-y-1 my-10 w-[60%] min-w-72 font-semibold">
 
-        <p>Variant Name: </p>
-        <p>{bookVariant?.variant_name}</p>
+        <p>Book Title: </p>
+        <p>{bookVariant?.book.title}</p>
+
+        <p>Author: </p>
+        <p>{bookVariant?.book.author}</p>
 
         <p>Status: </p>
         <p>{bookVariant?.status}</p>
 
         <p>Date of Request: </p>
-        <p>{bookVariant?.created_at}</p>
+        <p> <FormatDate date={bookVariant?.created_at} /> </p>
 
         <p>Paper Type:</p>
         <p>{bookVariant?.paper_type}</p>
-
-        <p>Hard Cover</p>
-        <p>{bookVariant?.hard_cover}</p>
 
         <p>No of Copies: </p>
         <p>{bookVariant?.no_of_books}</p>
@@ -75,26 +85,94 @@ const OrderTemplateDetails = () => {
         <p>Book Size: </p>
         <p>{bookVariant?.book_size}</p>
 
-        <p>Project Type:</p>
-        <p>{bookVariant?.project_type}</p>
-
-        <p>Pick Up:</p>
-        <p>{bookVariant?.pick_up}</p>
-
         <p>Published:</p>
-        <p>{bookVariant?.published}</p>
+        <p>{bookVariant?.published ? "True" : "False"}</p>
 
-        <p>Inside Layoout Type:</p>
+        <p>Layout Type:</p>
         <p>{bookVariant?.inside_layout_type}</p>
 
-        <p>Editing:</p>
-        <p>{bookVariant?.editing}</p>
+        <p>Paper Size:</p>
+        <p>{bookVariant?.book_size}</p>
 
-        <p>Online Sale:</p>
-        <p>{bookVariant?.online_sale}</p>
+        <p>No of Books:</p>
+        <p>{bookVariant?.no_of_books}</p>
 
-        <p>Proof Reading:</p>
-        <p>{bookVariant?.proof_reading}</p>
+        <p>Binding:</p>
+        <p>{bookVariant?.binding}</p>
+
+        <p>ISBN:</p>
+        <p>{bookVariant?.ISBN ? "True" : "False"}</p>
+
+        <p>Embossing:</p>
+        <p>{bookVariant?.embossing ? "True" : "False"}</p>
+
+        <p>Foiling:</p>
+        <p>{bookVariant?.foiling ? "True" : "False"}</p>
+
+        <p>Lamination:</p>
+        <p>{bookVariant?.lamination}</p>
+      </div> :
+        bookVariant !== undefined &&
+        <div className="grid grid-cols-2 gap-y-1 my-10 w-[60%] min-w-72 font-semibold">
+
+          <p>Book Title: </p>
+          <p>{bookVariant?.book.title}</p>
+
+          <p>Author: </p>
+          <p>{bookVariant?.book.author}</p>
+
+          <p>Status: </p>
+          <p>{bookVariant?.status}</p>
+
+          <p>Date of Request: </p>
+          <p> <FormatDate date={bookVariant.created_at} /> </p>
+
+          <p>Book Format:</p>
+          <p>{bookVariant?.current_book_format}</p>
+
+          <p>No of Words: </p>
+          <p>{bookVariant?.number_of_words}</p>
+
+          <p>Book Size: </p>
+          <p>{bookVariant?.book_size}</p>
+
+          <p>Editing:</p>
+          <p>{bookVariant?.editing ? "True" : "False"}</p>
+
+          <p>ISBN:</p>
+          <p>{bookVariant?.ISBN ? "True" : "False"}</p>
+
+          <p>Proof Reading:</p>
+          <p>{bookVariant?.proof_reading ? "True" : "False"}</p>
+
+          <p>Layout Type:</p>
+          <p>{bookVariant?.inside_layout_type}</p>
+
+          <p>Cover Design:</p>
+          <p>{bookVariant?.cover_design}</p>
+
+          <p>Online Sales:</p>
+          <p>{bookVariant?.online_sale}</p>
+        </div>
+      }
+
+      <div className="mb-6">
+        {bookVariant &&
+        <Dialog>
+          <DialogTrigger className="rounded-sm h-[40px] w-fit bg-main text-white text-x flex items-center justify-center gap-2 cursor-pointer px-4 shadow-lg hover:shadow-none">
+            <span className="text-white">Place Order</span>
+          </DialogTrigger>
+          <DialogContent className="w-1/2 overflow-auto">
+            <DialogHeader>
+              <DialogTitle>Place Order</DialogTitle>
+              <DialogDescription>
+                  Are you sure you want to plqce this order?
+              </DialogDescription>
+              <CreateOrder book_variant_id={bookVariant?.id} />
+            </DialogHeader>
+          </DialogContent>
+        </Dialog>
+        }
       </div>
 
     </div>

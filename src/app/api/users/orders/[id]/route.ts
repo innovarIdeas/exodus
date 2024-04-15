@@ -5,7 +5,7 @@ export async function GET (req: NextRequest, { params }: { params: { id: string 
   const { id } = params;
 
   try {
-    const orders = await prisma.order.findMany({ where: { created_by: id } });
+    const orders = await prisma.order.findMany({ where: { created_by: id }, include: { book: true } });
 
     if (!orders) return NextResponse.json({ message: "User not found" }, { status: 404 });
 
