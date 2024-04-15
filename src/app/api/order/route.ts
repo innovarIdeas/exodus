@@ -46,8 +46,10 @@ export async function POST (req: NextRequest) {
       return NextResponse.json({ error: "Book variant not found" }, { status: 404 });
     }
 
+    let order;
+
     if(book_variant.status === VARIANT_STATUS.WORK_IN_PROGRESS) {
-      await prisma.order.create({
+      order = await prisma.order.create({
         data: {
           book: { connect: { id: book_variant.book_id } },
           created_by_user: { connect: { id: session.user.id } },
@@ -61,7 +63,7 @@ export async function POST (req: NextRequest) {
 
       });
     }else if(book_variant.status === VARIANT_STATUS.READY_TO_PRINT) {
-      await prisma.order.create({
+      order = await prisma.order.create({
         data: {
           book: { connect: { id: book_variant.book_id } },
           created_by_user: { connect: { id: session.user.id } },
@@ -84,7 +86,7 @@ export async function POST (req: NextRequest) {
       });
     }
 
-    return NextResponse.json(book_variant, { status: 200 });
+    return NextResponse.json(order, { status: 200 });
   } catch (error) {
     console.error("Error in POST request:", error);
 

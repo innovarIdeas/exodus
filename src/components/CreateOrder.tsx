@@ -1,3 +1,5 @@
+"use client";
+
 import {
   Form,
   FormControl,
@@ -12,6 +14,7 @@ import React from "react";
 import { createOrder } from "@/lib/api-call";
 import { orderSchema } from "@/models/validation-schema";
 import { useForm } from "react-hook-form";
+import { useRouter } from "next/navigation";
 import { useToast } from "@/components/ui/use-toast";
 import z from "zod";
 import { zodResolver } from "@hookform/resolvers/zod";
@@ -22,6 +25,7 @@ interface ICreateOrderProps {
 
 const CreateOrder = ({ book_variant_id }: ICreateOrderProps) => {
   const { toast } = useToast();
+  const router = useRouter();
 
             type TFormData = z.infer<typeof orderSchema>;
 
@@ -38,6 +42,7 @@ const CreateOrder = ({ book_variant_id }: ICreateOrderProps) => {
                 });
 
                 form.reset();
+                router.push(`/user/invoices/pdf/${data.id}`);
               } else {
                 console.error("Failed to Create Order", error);
 

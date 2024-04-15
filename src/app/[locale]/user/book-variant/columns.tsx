@@ -24,7 +24,7 @@ export type BookProps = {
 
 export const columns: ColumnDef<IBookVariant>[] = [
   {
-    header: "Variant Name",
+    header: "Request Id",
     id: "variant_name",
     cell: ({ row }) => {
       const book = row.original;
@@ -78,7 +78,7 @@ export const columns: ColumnDef<IBookVariant>[] = [
       return (
         <Dialog>
           <DialogTrigger className="rounded-sm h-[40px] w-fit bg-main text-white text-x flex items-center justify-center gap-2 cursor-pointer px-4 shadow-lg hover:shadow-none">
-            <span className="text-white">Create Order</span>
+            <span className="text-white">Place Order</span>
           </DialogTrigger>
           <DialogContent className="w-1/2 overflow-auto">
             <DialogHeader>
