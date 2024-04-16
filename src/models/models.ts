@@ -128,6 +128,12 @@ export interface IBook extends IBase {
 
 }
 
+export interface IBookAndUser {
+  existingUser: IUser;
+  book: IBook;
+
+}
+
 type WebhookEvent =
   | "charge.dispute.create"
   | "charge.dispute.remind"
@@ -314,6 +320,13 @@ export interface ITempBook extends IBase  {
   art_illustration: boolean;
   art_illustration_type: string;
   bindong: string;
+}
+
+export interface IFirstLogin {
+  email: string;
+  book_name: string;
+  name: string;
+  phone_number: string;
 }
 
 export interface IBookData {
