@@ -108,6 +108,15 @@ export const tempBookSchema = z.object({
   art_illustration_type: z.string().optional(),
 });
 
+export const firstLoginSchema = z.object({
+  email: z.string().email({ message: "Please enter a valid email" }),
+  title: z.string(),
+  name: z.string(),
+  phone_number: z.string(),
+  author: z.string(),
+  status: z.string(),
+});
+
 export const updateTempBookSchema = z.object({
   email: z.string().email({ message: "Please enter a valid email" })
     .optional(),

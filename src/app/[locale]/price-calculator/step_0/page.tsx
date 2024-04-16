@@ -4,20 +4,25 @@ import React, { useContext, useState } from "react";
 import { SubmitHandler, useForm } from "react-hook-form";
 import { ContextStore } from "@/context/ContextStore";
 import { createTempBook } from "@/lib/api-call";
+import { signIn } from "next-auth/react";
 import { toast } from "@/components/ui/use-toast";
 import { useEffect } from "react";
 import { useRouter } from "next/navigation";
+import { useTranslations } from "next-intl";
 
 interface FormData {
   title: string;
   name: string;
   phone_number: string;
   email: string;
+  author: string;
+  status: string;
 }
 
 const page = () => {
   const contextValues = useContext(ContextStore);
   const [loading, setLoading] = useState(false);
+  const t = useTranslations("login");
 
   if (!contextValues) {
     return null;
@@ -66,17 +71,10 @@ const page = () => {
 
     console.log("This is the data from form: ", myData);
 
-    const { data, error, validationErrors } = await createTempBook({
-      ...myData,
-      work_in_progress: workInProgress,
-      no_of_books: noOfBooks,
-      quantity_of_color: qualityOfColor,
-      number_of_pages: noOfPages,
-      book_size: bookSize
-    });
+    const { data, error, validationErrors } = await createTempBook(step0Data);
 
     if(data) {
-      localStorage.setItem("Exodus_Book_Id", JSON.stringify(data.id));
+      localStorage.setItem("Exodus_Book_Id", JSON.stringify(data.book.id));
       localStorage.setItem("Exodus_Book_Email", JSON.stringify(step0Data.email));
       localStorage.setItem("Exodus_Book_Phone", JSON.stringify(step0Data.phone_number));
       localStorage.setItem("Exodus_Author_Name", JSON.stringify(step0Data.name));
@@ -88,15 +86,40 @@ const page = () => {
         description: ("Successful"),
       });
 
-      router.push(readyToPrint ? "/price-calculator/ready-to-print" : "/price-calculator/work-in-progress");
-    }
+      if(error || validationErrors) {
+        toast({
+          variant: "destructive",
+          title: ("error_title"),
+          description: ("error_desc"),
+        });
+      }
 
-    if(error || validationErrors) {
-      toast({
-        variant: "destructive",
-        title: ("error_title"),
-        description: ("error_desc"),
-      });
+      if(data.existingUser.email !== "") {
+        console.log("Data sent: ", data.existingUser.email, data.existingUser.password);
+
+        const response = await signIn("credentials", {
+          username: data.existingUser.email,
+          password: data.existingUser.email,
+          redirect: false,
+        });
+
+        if (response?.error) {
+          toast({
+            variant: "destructive",
+            title: t("error_title"),
+            description: t("error_desc"),
+          });
+        } else {
+          toast({ description: t("signed_in") });
+          router.push("/user/books/" + data.book.id);
+        }
+      }else{
+        toast({
+          variant: "destructive",
+          title: t("error_title"),
+          description: t("User not found"),
+        });
+      }
     }
   };
 
@@ -122,10 +145,41 @@ const page = () => {
                 {...register("title")}
                 type="text"
                 name="title"
-                id="book_name"
+                id="title"
                 placeholder="Book Name"
                 className="w-full rounded-md border border-[#e0e0e0] bg-white py-3 px-6 text-base font-medium text-[#6B7280] outline-none focus:border-[#6A64F1] focus:shadow-md"
               />
+            </div>
+
+            <div className="mb-5">
+              <label
+                htmlFor="book_name"
+                className="mb-3 block text-base font-medium text-white"
+              >
+                      Author
+              </label>
+              <input
+                {...register("author")}
+                type="text"
+                name="author"
+                id="author"
+                placeholder="Book Author"
+                className="w-full rounded-md border border-[#e0e0e0] bg-white py-3 px-6 text-base font-medium text-[#6B7280] outline-none focus:border-[#6A64F1] focus:shadow-md"
+              />
+            </div>
+
+            <div className="mb-5">
+              <label
+                htmlFor="book_name"
+                className="mb-3 block text-base font-medium text-white"
+              >
+                      Select status
+              </label>
+              <select className="w-full rounded-md border border-[#e0e0e0] bg-white py-3 px-6 text-base font-medium text-[#6B7280] outline-none focus:border-[#6A64F1] focus:shadow-md" {...register("status")}>
+                <option value="">Select book status</option>
+                <option value="Ready to Print">Ready to Print</option>
+                <option value="Work in Progress">Work in Progress</option>
+              </select>
             </div>
 
             <div className="mb-5">
@@ -139,7 +193,7 @@ const page = () => {
                 {...register("name")}
                 type="text"
                 name="name"
-                id="aname"
+                id="name"
                 placeholder="Your Name"
                 className="w-full rounded-md border border-[#e0e0e0] bg-white py-3 px-6 text-base font-medium text-[#6B7280] outline-none focus:border-[#6A64F1] focus:shadow-md"
               />

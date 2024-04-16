@@ -1,10 +1,11 @@
-import { IApiError, IApiResponse, IBook, IBookVariant, IClaim, IConstant, ICoupon, IDiscount, IFirstTimeOrderResponse, IOrder,   IPermission, IRole, ISingleUser, ITempBook, ITransaction, IUser, IValidationError } from "@/models/models";
+import { IApiError, IApiResponse, IBook, IBookAndUser, IBookVariant, IClaim, IConstant, ICoupon, IDiscount, IFirstTimeOrderResponse, IOrder,   IPermission, IRole, ISingleUser, ITempBook, ITransaction, IUser, IValidationError } from "@/models/models";
 import {
   UpdateUserSchema,
   bookSchema,
   bookVariantSchema,
   claimSchema,
   couponSchema,
+  firstLoginSchema,
   orderSchema,
   roleSchema,
   tempBookSchema,
@@ -260,7 +261,7 @@ export const editBook = async (id: string, data: z.infer <typeof updateBookSchem
     }));
 };
 
-export const createTempBook = async (data: z.infer <typeof tempBookSchema>): Promise<IApiResponse<ITempBook>> => {
+export const createTempBook = async (data: z.infer <typeof firstLoginSchema>): Promise<IApiResponse<IBookAndUser>> => {
   return handleApiCalls(await fetch(process.env.NEXT_PUBLIC_BROWSER_URL + "/api/temp-books/",
     {
       method: "POST",
