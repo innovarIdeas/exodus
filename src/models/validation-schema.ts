@@ -376,3 +376,72 @@ export const updateConstantSchema = z.object(
     shortcode: z.string()
   });
 
+export const bulkBookSchema = z.array(
+  z.object({
+    title: z.string().min(1, "Title is required"),
+    author: z.string().optional(),
+    status: z.string().optional(),
+    description: z.string().optional(),
+  })
+);
+
+export const bulkBookVariantSchema = z.array(
+  z.object({
+    book_title: z.string(),
+    book_author: z.string(),
+    book_description: z.string().optional(),
+    variant_name: z.string(),
+    paper_type: z.string(),
+    status: z.string(),
+    book_size: z.string(),
+    number_of_pages: z.coerce.number(),
+    lamination: z.string(),
+    no_of_books: z.coerce.number(),
+    tempbook_id: z.string().optional(),
+    number_of_words: z.coerce.number().optional(),
+    hard_cover: z.boolean().optional(),
+    BW_print: z.boolean().optional(),
+    both_print: z.boolean().optional(),
+    color_print: z.boolean().optional(),
+    cream_paper: z.boolean().optional(),
+    glossy_paper: z.boolean().optional(),
+    news_print: z.boolean().optional(),
+    binding: z.string().optional(),
+    white_paper: z.boolean().optional(),
+    portrait: z.boolean().optional(),
+    quantity_of_Color: z.coerce.number().optional(),
+    quantity_of_BW: z.coerce.number().optional(),
+    inside_layout: z.boolean().optional()
+      .default(true),
+    proof_reading: z.boolean().optional()
+      .default(true),
+    cover_design: z.boolean().optional()
+      .default(true),
+    cover_design_type: z.string().optional(),
+    editing: z.boolean().optional()
+      .default(true),
+    ISBN: z.boolean().optional()
+      .default(true),
+    online_sale: z.boolean().optional()
+      .default(true),
+    embossing: z.boolean().optional()
+      .default(true),
+    foiling: z.boolean().optional()
+      .default(true),
+    delivery_name: z.string().optional(),
+    delivery_phone: z.string().optional(),
+    pick_up: z.boolean().optional(),
+    shipping_address: z.string().optional(),
+    shipping_state: z.string().optional(),
+    shipping_instruction: z.string().optional(),
+    project_type: z.string().optional(),
+    ready_to_print: z.boolean().optional(),
+    published: z.boolean().optional(),
+    work_in_progress: z.boolean().optional(),
+    word_count: z.coerce.number().optional(),
+    current_book_format: z.string().optional(),
+    inside_layout_type: z.string().optional(),
+    art_illustration: z.boolean().optional(),
+    art_illustration_type: z.string().optional(),
+  })
+);
