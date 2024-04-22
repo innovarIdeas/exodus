@@ -21,6 +21,11 @@ export const POST = async (req: NextRequest) => {
       validation.data.map(async (rowData, index) => {
         try {
           const { title, author, description, client_id } = rowData as { [key: string]: string };
+          const client = await prisma.user.findUnique({ where: { id: client_id } });
+
+          if (!client) {
+            return NextResponse.json({ error: "Client not found" }, { status: 401 });
+          }
 
           await prisma.book.create({
             data: {
