@@ -3,6 +3,8 @@ import {
   UpdateUserSchema,
   bookSchema,
   bookVariantSchema,
+  bulkBookSchema,
+  bulkBookVariantSchema,
   claimSchema,
   couponSchema,
   firstLoginSchema,
@@ -466,4 +468,16 @@ export const updateConstant = async (
     )
   );
 };
+
+export const uploadBulkBooks = async (data:  z.infer<typeof bulkBookSchema>): Promise<IApiResponse<boolean>> => {
+  return handleApiCalls(await fetch(`${process.env.NEXT_PUBLIC_BROWSER_URL}/api/create-bulk-book`, {
+    method: "POST",
+    body: JSON.stringify(data),
+  }));};
+
+export const uploadBulkBookVariants = async (data:  z.infer<typeof bulkBookVariantSchema>): Promise<IApiResponse<boolean>> => {
+  return handleApiCalls(await fetch(`${process.env.NEXT_PUBLIC_BROWSER_URL}/api/create-bulk-book-variant`, {
+    method: "POST",
+    body: JSON.stringify(data),
+  }));};
 
