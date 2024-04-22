@@ -11,7 +11,7 @@ const DownloadBookTemplate = () => {
 
     try {
       const templateData = [
-        ["title", "author", "status", "description"]
+        ["title", "author", "status", "description", "client_id"]
       ];
       const workbook = XLSX.utils.book_new();
       const worksheet = XLSX.utils.aoa_to_sheet(templateData);

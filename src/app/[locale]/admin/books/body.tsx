@@ -6,6 +6,7 @@ import { BookDataTable } from "./data-table";
 import BookForm from "@/components/BookForm";
 import BulkBookForm from "@/components/BulkBookForm";
 import { Button } from "@/components/ui/button";
+import ExportAllBook from "@/components/ExportAllBook";
 import { IBook } from "@/models/models";
 import { QUERY_KEY } from "@/lib/rbac";
 import { columns } from "./columns";
@@ -37,6 +38,8 @@ export default function BookBody () {
   return(
     <div>
       <div className="flex justify-end items-end float-right mx-5 my-5">
+
+        <ExportAllBook />
 
         <Sheet>
           <SheetTrigger asChild>

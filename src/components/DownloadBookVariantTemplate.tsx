@@ -11,7 +11,7 @@ const DownloadBookVariantTemplate = () => {
 
     try {
       const templateData = [
-        ["book_title", "book_author", "book_description", "variant_name", "tempbook_id", "paper_type", "number_of_words", "status", "hard_cover", "BW_print", "color_print", "cream_paper", "glossy_paper", "news_print", "binding", "white_paper", "no_of_books", "portrait", "quantity_of_Color", "quantity_of_BW", "book_size", "number_of_pages", "inside_layout", "proof_reading", "cover_design", "cover_design_type", "editing", "ISBN", "online_sale", "embossing", "foiling", "lamination", "delivery_name", "delivery_phone", "pick_up", "shipping_address", "shipping_state", "shipping_instruction", "project_type", "ready_to_print", "published", "work_in_progress", "word_count", "current_book_format", "inside_layout_type", "art_illustration", "art_illustration_type"]
+        ["book_id", "variant_name", "tempbook_id", "paper_type", "number_of_words", "status", "hard_cover", "BW_print", "color_print", "cream_paper", "glossy_paper", "news_print", "binding", "white_paper", "no_of_books", "portrait", "quantity_of_Color", "quantity_of_BW", "book_size", "number_of_pages", "inside_layout", "proof_reading", "cover_design", "cover_design_type", "editing", "ISBN", "online_sale", "embossing", "foiling", "lamination", "delivery_name", "delivery_phone", "pick_up", "shipping_address", "shipping_state", "shipping_instruction", "project_type", "ready_to_print", "published", "work_in_progress", "word_count", "current_book_format", "inside_layout_type", "art_illustration", "art_illustration_type"]
       ];
 
       const workbook = XLSX.utils.book_new();

@@ -20,13 +20,14 @@ export const POST = async (req: NextRequest) => {
     await Promise.all(
       validation.data.map(async (rowData, index) => {
         try {
-          const { title, author, description } = rowData as { [key: string]: string };
+          const { title, author, description, client_id } = rowData as { [key: string]: string };
 
           await prisma.book.create({
             data: {
               title,
               author,
               description,
+              client_id,
               created_by: session.user.id
             }
           });
