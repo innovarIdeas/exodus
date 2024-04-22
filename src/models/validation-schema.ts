@@ -379,6 +379,7 @@ export const updateConstantSchema = z.object(
 export const bulkBookSchema = z.array(
   z.object({
     title: z.string().min(1, "Title is required"),
+    client_id: z.string(),
     author: z.string().optional(),
     status: z.string().optional(),
     description: z.string().optional(),
@@ -387,9 +388,7 @@ export const bulkBookSchema = z.array(
 
 export const bulkBookVariantSchema = z.array(
   z.object({
-    book_title: z.string(),
-    book_author: z.string(),
-    book_description: z.string().optional(),
+    book_id: z.string(),
     variant_name: z.string(),
     paper_type: z.string(),
     status: z.string(),

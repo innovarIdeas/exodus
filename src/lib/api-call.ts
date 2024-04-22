@@ -481,3 +481,14 @@ export const uploadBulkBookVariants = async (data:  z.infer<typeof bulkBookVaria
     body: JSON.stringify(data),
   }));};
 
+export const exportAllBooks = async (): Promise<IApiResponse<IBook[]>> => {
+  return handleApiCalls(await fetch(`${process.env.NEXT_PUBLIC_BROWSER_URL}/api/export-all-books/`, { method: "GET" }));
+};
+
+export const exportAllBookVariants = async (): Promise<IApiResponse<IBookVariant[]>> => {
+  return handleApiCalls(await fetch(`${process.env.NEXT_PUBLIC_BROWSER_URL}/api/export-all-book-variant/`, { method: "GET" }));
+};
+
+export const exportAllUsers = async (): Promise<IApiResponse<IUser[]>> => {
+  return handleApiCalls(await fetch(`${process.env.NEXT_PUBLIC_BROWSER_URL}/api/export-all-users/`, { method: "GET" }));
+};

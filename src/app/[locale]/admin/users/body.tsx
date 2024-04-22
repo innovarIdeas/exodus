@@ -4,6 +4,7 @@ import React, { useState } from "react";
 import { Sheet, SheetContent,  SheetTrigger } from "@/components/ui/sheet";
 import AddNewUser from "@/components/AddNewUser";
 import { Button } from "@/components/ui/button";
+import ExportAllUsers from "@/components/ExportAllUsers";
 import { IUser } from "@/models/models";
 import Link from "next/link";
 import { QUERY_KEY } from "@/lib/rbac";
@@ -55,6 +56,7 @@ export default function UserBody () {
         </div>
       </div>
       <div className="flex justify-end items-end float-right mx-5 my-5">
+        <ExportAllUsers />
         <Sheet>
           <SheetTrigger asChild>
             <Button className="ml-4 px-6 whitespace-nowrap bg-main">

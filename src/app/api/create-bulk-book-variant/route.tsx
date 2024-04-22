@@ -20,16 +20,12 @@ export const POST = async (req: NextRequest) => {
     await Promise.all(
       validation.data.map(async (rowData, index) => {
         try {
-          const { book_title, book_author, book_description, variant_name, paper_type, number_of_pages, no_of_books, lamination, book_size, number_of_words, hard_cover, BW_print, both_print, color_print, cream_paper, glossy_paper, news_print, binding, white_paper, portrait, quantity_of_BW, quantity_of_Color, inside_layout, inside_layout_type, proof_reading, cover_design, cover_design_type, editing, ISBN, online_sale, embossing, foiling, delivery_name, delivery_phone, pick_up, shipping_address, shipping_instruction, shipping_state, project_type, ready_to_print, published, work_in_progress, word_count, current_book_format, art_illustration, art_illustration_type } = rowData;
+          const { book_id, variant_name, paper_type, number_of_pages, no_of_books, lamination, book_size, number_of_words, hard_cover, BW_print, both_print, color_print, cream_paper, glossy_paper, news_print, binding, white_paper, portrait, quantity_of_BW, quantity_of_Color, inside_layout, inside_layout_type, proof_reading, cover_design, cover_design_type, editing, ISBN, online_sale, embossing, foiling, delivery_name, delivery_phone, pick_up, shipping_address, shipping_instruction, shipping_state, project_type, ready_to_print, published, work_in_progress, word_count, current_book_format, art_illustration, art_illustration_type } = rowData;
+          const book = await prisma.book.findUnique({ where: { id: book_id } });
 
-          const book = await prisma.book.create({
-            data: {
-              title: book_title,
-              author: book_author,
-              description: book_description,
-              created_by: session.user.id
-            }
-          });
+          if (!book) {
+            return NextResponse.json({ error: "book not found" }, { status: 401 });
+          }
 
           await prisma.book_variant.create({
             data: {
