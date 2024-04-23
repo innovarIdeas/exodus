@@ -102,7 +102,7 @@ export interface ISingleUser extends IBase {
   name: string;
   email: string;
   password: string;
-  created_books: IBook[];
+  client: IBook[];
   transactions: ITransaction[];
   order: IOrder[];
   book_variant: IBookVariant[];

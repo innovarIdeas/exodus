@@ -10,7 +10,7 @@ interface PayStackOrderPaymentProp {
 export function PayStackOrderPayment ({ order }: PayStackOrderPaymentProp) {
   const paystackProps = {
     email: order.client.email,
-    amount: order.total,
+    amount: order.total * 100,
     custom_fields: {
       name: order.client.name,
       phone: order.client.email,
