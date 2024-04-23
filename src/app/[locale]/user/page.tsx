@@ -32,7 +32,7 @@ export default function CustomerDashboard () {
       label: "Books",
       icon: BookAIcon,
       description: "Current number of user's books",
-      total: user?.created_books.length
+      total: user?.client.length
     },
     {
       label: "Transaction",
@@ -48,7 +48,7 @@ export default function CustomerDashboard () {
     },
   ];
 
-  const data: IBook[] = user?.created_books ?? [];
+  const data: IBook[] = user?.client ?? [];
 
   return (
     <div className="">
