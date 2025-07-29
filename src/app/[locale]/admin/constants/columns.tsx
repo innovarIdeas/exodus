@@ -52,7 +52,11 @@ const HandleDelete = ({ constant }: handleDeleteProps) => {
         description: "Constant deleted successfully",
       });
 
-      queryClient.invalidateQueries({ queryKey: [QUERY_KEY.GET_ALL_CONSTANTS] });
+      // Invalidate all paginated queries for constants
+      queryClient.invalidateQueries({ 
+        queryKey: [QUERY_KEY.GET_ALL_CONSTANTS],
+        exact: false 
+      });
     }
 
     if (error) {

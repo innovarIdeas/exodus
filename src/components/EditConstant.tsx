@@ -72,7 +72,11 @@ export function EditConstant ({ constant }: EditConstantProps) {
         description: "Constant updated!",
       });
 
-      queryClient.invalidateQueries({ queryKey: [QUERY_KEY.GET_ALL_CONSTANTS] });
+      // Invalidate all paginated queries for constants to maintain pagination state
+      queryClient.invalidateQueries({ 
+        queryKey: [QUERY_KEY.GET_ALL_CONSTANTS],
+        exact: false 
+      });
     }
   };
 

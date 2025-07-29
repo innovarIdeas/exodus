@@ -4,14 +4,42 @@ import { updateConstantSchema } from "@/models/validation-schema";
 
 export const dynamic = "force-dynamic";
 
-export async function GET () {
+export async function GET (req: NextRequest) {
   try {
-    const constantdata = await prisma.constants.findMany({
-      where: { deleted_at: null },
-      orderBy: { created_at: "desc" },
-    });
+    const { searchParams } = new URL(req.url);
+    const page = parseInt(searchParams.get("page") || "0");
+    const pageSize = parseInt(searchParams.get("pageSize") || "10");
+    const search = searchParams.get("search") || "";
 
-    return NextResponse.json(constantdata);
+    const where = {
+      deleted_at: null,
+      ...(search && {
+        OR: [
+          { name: { contains: search, mode: "insensitive" as const } },
+          { shortcode: { contains: search, mode: "insensitive" as const } },
+        ],
+      }),
+    };
+
+    const [constantdata, total] = await Promise.all([
+      prisma.constants.findMany({
+        where,
+        orderBy: { created_at: "desc" },
+        skip: page * pageSize,
+        take: pageSize,
+      }),
+      prisma.constants.count({ where }),
+    ]);
+
+    return NextResponse.json({
+      data: constantdata,
+      pagination: {
+        page,
+        pageSize,
+        total,
+        totalPages: Math.ceil(total / pageSize),
+      },
+    });
   } catch (error) {
     console.error("Error in GET request:", error);
 
