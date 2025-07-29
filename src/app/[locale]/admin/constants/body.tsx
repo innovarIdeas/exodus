@@ -1,6 +1,6 @@
 "use client";
 
-import React, { useState } from "react";
+import React, { useCallback, useMemo, useState } from "react";
 import { Sheet, SheetContent, SheetTrigger } from "@/components/ui/sheet";
 import AddNewConstant from "@/components/AddNewConstant";
 import { Button } from "@/components/ui/button";
@@ -8,32 +8,76 @@ import { ConstantDataTable } from "./data-table";
 import { IConstant } from "@/models/models";
 import { QUERY_KEY } from "@/lib/rbac";
 import { columns } from "./columns";
-import { getAllConstants } from "@/lib/api-call";
+import { useDebounce } from "@/lib/hooks/useDebounce";
 import { useQuery } from "@tanstack/react-query";
 
-export default function ConstantBody () {
-  const [constantData, setConstantData] = useState<IConstant[]>([]);
+interface PaginationState {
+  page: number;
+  pageSize: number;
+}
 
-  useQuery({
-    queryKey: [QUERY_KEY.GET_ALL_CONSTANTS],
-    queryFn: async () => {
-      const { data, error, validationErrors } = await getAllConstants();
+interface PaginatedResponse {
+  data: IConstant[];
+  pagination: {
+    page: number;
+    pageSize: number;
+    total: number;
+    totalPages: number;
+  };
+}
 
-      if(data) setConstantData(data);
-
-      if(validationErrors?.length) {
-        console.error(validationErrors);
-
-        return;
-      }
-
-      if (error) {
-        console.error(error);
-
-        return;
-      }
-    }
+const fetchConstants = async (page: number, pageSize: number, search: string): Promise<PaginatedResponse> => {
+  const params = new URLSearchParams({
+    page: page.toString(),
+    pageSize: pageSize.toString(),
+    ...(search && { search }),
   });
+
+  const response = await fetch(`/api/constants?${params}`);
+
+  if (!response.ok) {
+    throw new Error("Failed to fetch constants");
+  }
+
+  return response.json();
+};
+
+export default function ConstantBody () {
+  const [pagination, setPagination] = useState<PaginationState>({
+    page: 0,
+    pageSize: 10,
+  });
+  const [searchValue, setSearchValue] = useState("");
+  const debouncedSearch = useDebounce(searchValue, 300);
+
+  const queryKey = useMemo(
+    () => [QUERY_KEY.GET_ALL_CONSTANTS, pagination.page, pagination.pageSize, debouncedSearch],
+    [pagination.page, pagination.pageSize, debouncedSearch]
+  );
+
+  const { data, isLoading, error } = useQuery({
+    queryKey,
+    queryFn: () => fetchConstants(pagination.page, pagination.pageSize, debouncedSearch),
+    staleTime: 5 * 60 * 1000, // 5 minutes
+    refetchOnWindowFocus: false,
+  });
+
+  const handlePaginationChange = useCallback((page: number, pageSize: number) => {
+    setPagination({ page, pageSize });
+  }, []);
+
+  const handleSearchChange = useCallback((search: string) => {
+    setSearchValue(search);
+    setPagination(prev => ({ ...prev, page: 0 })); // Reset to first page on search
+  }, []);
+
+  if (error) {
+    return (
+      <div className="flex items-center justify-center h-32">
+        <p className="text-red-500">Error loading constants: {error.message}</p>
+      </div>
+    );
+  }
 
   return (
     <div>
@@ -51,7 +95,15 @@ export default function ConstantBody () {
         </Sheet>
       </div>
       <div>
-        <ConstantDataTable columns={columns} data={constantData} />
+        <ConstantDataTable
+          columns={columns}
+          data={data?.data || []}
+          pagination={data?.pagination || { page: 0, pageSize: 10, total: 0, totalPages: 0 }}
+          onPaginationChange={handlePaginationChange}
+          onSearchChange={handleSearchChange}
+          searchValue={searchValue}
+          isLoading={isLoading}
+        />
       </div>
     </div>
   );

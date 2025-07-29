@@ -4,8 +4,6 @@ import {
   ColumnDef,
   flexRender,
   getCoreRowModel,
-  getFilteredRowModel,
-  getPaginationRowModel,
   useReactTable,
 } from "@tanstack/react-table";
 import {
@@ -20,36 +18,56 @@ import { Button } from "@/components/ui/button";
 import { Input } from "@/components/ui/input";
 import React from "react";
 
+interface PaginationInfo {
+  page: number;
+  pageSize: number;
+  total: number;
+  totalPages: number;
+}
+
 interface DataTableProps<TData, TValue> {
   columns: ColumnDef<TData, TValue>[];
   data: TData[];
+  pagination: PaginationInfo;
+  onPaginationChange: (page: number, pageSize: number) => void;
+  onSearchChange: (search: string) => void;
+  searchValue: string;
+  isLoading?: boolean;
 }
 
 export function ConstantDataTable<TData, TValue> ({
   columns,
   data,
+  pagination,
+  onPaginationChange,
+  onSearchChange,
+  searchValue,
+  isLoading = false,
 }: DataTableProps<TData, TValue>) {
-  const [columnFilters, setColumnFilters] = React.useState("");
-
   const table = useReactTable({
     data,
     columns,
     getCoreRowModel: getCoreRowModel(),
-    onGlobalFilterChange: setColumnFilters,
-    getFilteredRowModel: getFilteredRowModel(),
-    getPaginationRowModel: getPaginationRowModel(),
-    state: { globalFilter: columnFilters },
+    manualPagination: true,
+    pageCount: pagination.totalPages,
   });
 
   return (
     <div className="rounded-md border">
-      <div className="flex items-center py-4 px-4">
+      <div className="flex items-center justify-between py-4 px-4">
         <Input
           placeholder="Search Constant..."
-          value={columnFilters}
-          onChange={(e) => setColumnFilters(e.target.value)}
+          value={searchValue}
+          onChange={(e) => onSearchChange(e.target.value)}
           className="w-64 h-10 px-3 rounded-md border"
         />
+        <div className="flex items-center space-x-2 text-sm text-gray-600">
+          <span>
+            Showing {pagination.page * pagination.pageSize + 1} to{" "}
+            {Math.min((pagination.page + 1) * pagination.pageSize, pagination.total)} of{" "}
+            {pagination.total} entries
+          </span>
+        </div>
       </div>
       <Table>
         <TableHeader>
@@ -71,7 +89,13 @@ export function ConstantDataTable<TData, TValue> ({
           ))}
         </TableHeader>
         <TableBody>
-          {table.getRowModel().rows?.length ? (
+          {isLoading ? (
+            <TableRow>
+              <TableCell colSpan={columns.length} className="h-24 text-center">
+                Loading...
+              </TableCell>
+            </TableRow>
+          ) : table.getRowModel().rows?.length ? (
             table.getRowModel().rows.map((row) => (
               <TableRow
                 key={row.id}
@@ -93,23 +117,30 @@ export function ConstantDataTable<TData, TValue> ({
           )}
         </TableBody>
       </Table>
-      <div className="flex items-center justify-end space-x-2 py-4">
-        <Button
-          variant="outline"
-          size="sm"
-          onClick={() => table.previousPage()}
-          disabled={!table.getCanPreviousPage()}
-        >
-          Previous
-        </Button>
-        <Button
-          variant="outline"
-          size="sm"
-          onClick={() => table.nextPage()}
-          disabled={!table.getCanNextPage()}
-        >
-          Next
-        </Button>
+      <div className="flex items-center justify-between py-4 px-4">
+        <div className="flex items-center space-x-2">
+          <span className="text-sm text-gray-600">
+            Page {pagination.page + 1} of {pagination.totalPages}
+          </span>
+        </div>
+        <div className="flex items-center space-x-2">
+          <Button
+            variant="outline"
+            size="sm"
+            onClick={() => onPaginationChange(pagination.page - 1, pagination.pageSize)}
+            disabled={pagination.page === 0 || isLoading}
+          >
+            Previous
+          </Button>
+          <Button
+            variant="outline"
+            size="sm"
+            onClick={() => onPaginationChange(pagination.page + 1, pagination.pageSize)}
+            disabled={pagination.page >= pagination.totalPages - 1 || isLoading}
+          >
+            Next
+          </Button>
+        </div>
       </div>
     </div>
   );
