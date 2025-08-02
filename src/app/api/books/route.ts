@@ -29,14 +29,29 @@ export async function POST (req: NextRequest) {
     const validation = bookSchema.safeParse(await req.json());
 
     if (!validation.success) {
-      return NextResponse.json({ error: validation.error.issues }, { status: 400 });
+      const { error } = validation as import("zod").SafeParseError<typeof bookSchema>;
+
+      return NextResponse.json({ error: error.issues }, { status: 400 });
     }
 
     if (!session) {
       return NextResponse.json({ error: "Unauthorized" }, { status: 401 });
     }
 
-    const book = await prisma.book.create({ data: { ...validation.data, created_by: session.user.id } });
+    const { client_id, title, ...rest } = validation.data;
+
+    if (!title || typeof title !== "string") {
+      return NextResponse.json({ error: "Missing required field: title" }, { status: 400 });
+    }
+
+    const book = await prisma.book.create({
+      data: {
+        ...rest,
+        ...(client_id && { client: { connect: { id: client_id } } }),
+        created_by_user: { connect: { id: session.user.id } },
+        title,
+      }
+    });
 
     return NextResponse.json(book, { status: 201 });
   } catch (error) {

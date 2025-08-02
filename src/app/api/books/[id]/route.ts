@@ -7,7 +7,9 @@ export async function PATCH (req: NextRequest, { params }: { params: { id: strin
   const validation = updateBookSchema.safeParse(await req.json());
 
   if (!validation.success) {
-    return NextResponse.json({ error: validation.error.issues }, { status: 400 });
+    const { error } = validation as import("zod").SafeParseError<typeof updateBookSchema>;
+
+    return NextResponse.json({ error: error.issues }, { status: 400 });
   }
 
   const updatedBook = await prisma.book.update({

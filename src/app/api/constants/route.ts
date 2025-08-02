@@ -55,13 +55,36 @@ export async function POST (req: NextRequest) {
     const validation = updateConstantSchema.safeParse(await req.json());
 
     if (!validation.success) {
+      const { error } = validation as import("zod").SafeParseError<typeof updateConstantSchema>;
+
       return NextResponse.json(
-        { error: validation.error.issues },
+        { error: error.issues },
         { status: 400 }
       );
     }
 
-    const constant = await prisma.constants.create({ data: validation.data });
+    const { shortcode, name, value, ...rest } = validation.data;
+
+    if (!shortcode || typeof shortcode !== "string") {
+      return NextResponse.json({ error: "Missing required field: shortcode" }, { status: 400 });
+    }
+
+    if (!name || typeof name !== "string") {
+      return NextResponse.json({ error: "Missing required field: name" }, { status: 400 });
+    }
+
+    if (typeof value !== "number") {
+      return NextResponse.json({ error: "Missing required field: value" }, { status: 400 });
+    }
+
+    const constant = await prisma.constants.create({
+      data: {
+        ...rest,
+        shortcode,
+        name,
+        value,
+      }
+    });
 
     return NextResponse.json(constant, { status: 201 });
   } catch (error) {

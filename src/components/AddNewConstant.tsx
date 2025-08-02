@@ -40,9 +40,9 @@ const ConstantForm = () => {
       //   setUserID(data.id);
 
       // Invalidate all paginated queries for constants to maintain pagination state
-      queryClient.invalidateQueries({ 
+      queryClient.invalidateQueries({
         queryKey: [QUERY_KEY.GET_ALL_CONSTANTS],
-        exact: false 
+        exact: false
       });
       form.reset();
     } else {

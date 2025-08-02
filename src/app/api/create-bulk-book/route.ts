@@ -9,7 +9,9 @@ export const POST = async (req: NextRequest) => {
   const session = await getServerSession(options);
 
   if (!validation.success) {
-    return NextResponse.json({ error: validation.error.issues }, { status: 400 });
+    const { error } = validation as import("zod").SafeParseError<typeof bulkBookSchema>;
+
+    return NextResponse.json({ error: error.issues }, { status: 400 });
   }
 
   if (!session) {

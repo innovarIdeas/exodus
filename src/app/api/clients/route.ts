@@ -25,7 +25,9 @@ export async function POST (req: NextRequest) {
     const validation = userSchema.safeParse(await req.json());
 
     if (!validation.success) {
-      return NextResponse.json({ error: validation.error.issues }, { status: 400 });
+      const { error } = validation as import("zod").SafeParseError<typeof userSchema>;
+
+      return NextResponse.json({ error: error.issues }, { status: 400 });
     }
 
     const hashedPassword = await bcrypt.hash(validation.data.password, 10);

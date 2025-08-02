@@ -53,9 +53,9 @@ const HandleDelete = ({ constant }: handleDeleteProps) => {
       });
 
       // Invalidate all paginated queries for constants
-      queryClient.invalidateQueries({ 
+      queryClient.invalidateQueries({
         queryKey: [QUERY_KEY.GET_ALL_CONSTANTS],
-        exact: false 
+        exact: false
       });
     }
 

@@ -13,6 +13,8 @@ const nextConfig = {
     ];
   },
   compiler: { removeConsole: { exclude: ["error"] } },
+  // Disable SWC minification to fix Windows compatibility issues
+  swcMinify: false,
 };
 
 const withNextIntl = require("next-intl/plugin")("./i18n.ts");

@@ -9,7 +9,9 @@ export const POST = async (req: NextRequest) => {
   const session = await getServerSession(options);
 
   if (!validation.success) {
-    return NextResponse.json({ error: validation.error.issues }, { status: 400 });
+    const { error } = validation as import("zod").SafeParseError<typeof bulkBookVariantSchema>;
+
+    return NextResponse.json({ error: error.issues }, { status: 400 });
   }
 
   if (!session) {
@@ -33,8 +35,8 @@ export const POST = async (req: NextRequest) => {
               book_id: book.id,
               created_by: session.user.id,
               paper_type: paper_type ?? "",
-              number_of_pages: number_of_pages ?? "",
-              no_of_books: no_of_books ?? "",
+              number_of_pages: number_of_pages ?? 0,
+              no_of_books: no_of_books ?? 0,
               lamination: lamination ?? "",
               book_size,
               number_of_words, hard_cover, BW_print, both_print, color_print, cream_paper, glossy_paper, news_print, binding, white_paper, portrait, quantity_of_BW, quantity_of_Color, inside_layout, inside_layout_type, proof_reading, cover_design, cover_design_type, editing, ISBN, online_sale, embossing, foiling, delivery_name, delivery_phone, pick_up, shipping_address, shipping_instruction, shipping_state, project_type, ready_to_print, published, work_in_progress, word_count, current_book_format, art_illustration, art_illustration_type

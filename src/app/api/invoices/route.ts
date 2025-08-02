@@ -29,10 +29,54 @@ export async function POST (req: NextRequest) {
     const validation = invoiceSchema.safeParse(await req.json());
 
     if (!validation.success) {
-      return NextResponse.json({ error: validation.error.issues }, { status: 400 });
+      const { error } = validation as import("zod").SafeParseError<typeof invoiceSchema>;
+
+      return NextResponse.json({ error: error.issues }, { status: 400 });
     }
 
-    const invoice = await prisma.invoice.create({ data: { ...validation.data, invoice_no: await generateInvoiceNumber() } });
+    const { email, title, name, status, no_of_books, number_of_pages, lamination, ...rest } = validation.data;
+
+    if (!email || typeof email !== "string") {
+      return NextResponse.json({ error: "Missing required field: email" }, { status: 400 });
+    }
+
+    if (!title || typeof title !== "string") {
+      return NextResponse.json({ error: "Missing required field: title" }, { status: 400 });
+    }
+
+    if (!name || typeof name !== "string") {
+      return NextResponse.json({ error: "Missing required field: name" }, { status: 400 });
+    }
+
+    if (!status || typeof status !== "string") {
+      return NextResponse.json({ error: "Missing required field: status" }, { status: 400 });
+    }
+
+    if (typeof no_of_books !== "number") {
+      return NextResponse.json({ error: "Missing required field: no_of_books" }, { status: 400 });
+    }
+
+    if (typeof number_of_pages !== "number") {
+      return NextResponse.json({ error: "Missing required field: number_of_pages" }, { status: 400 });
+    }
+
+    if (!lamination || typeof lamination !== "string") {
+      return NextResponse.json({ error: "Missing required field: lamination" }, { status: 400 });
+    }
+
+    const invoice = await prisma.invoice.create({
+      data: {
+        ...rest,
+        email,
+        title,
+        name,
+        status,
+        no_of_books,
+        number_of_pages,
+        lamination,
+        invoice_no: await generateInvoiceNumber(),
+      }
+    });
 
     return NextResponse.json(invoice, { status: 201 });
   } catch (error) {

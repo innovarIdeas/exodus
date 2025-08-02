@@ -23,14 +23,33 @@ export async function POST (req: NextRequest) {
     const validation = couponSchema.safeParse(await req.json());
 
     if (!validation.success) {
-      return NextResponse.json({ error: validation.error.issues }, { status: 400 });
+      const { error } = validation as import("zod").SafeParseError<typeof couponSchema>;
+
+      return NextResponse.json({ error: error.issues }, { status: 400 });
     }
 
     if (!session) {
       return NextResponse.json({ error: "Unauthorized" }, { status: 401 });
     }
 
-    const user = await prisma.coupon.create({ data: { ...validation.data, created_by: session.user.id } });
+    const { name, percentage, ...rest } = validation.data;
+
+    if (!name || typeof name !== "string") {
+      return NextResponse.json({ error: "Missing required field: name" }, { status: 400 });
+    }
+
+    if (typeof percentage !== "number") {
+      return NextResponse.json({ error: "Missing required field: percentage" }, { status: 400 });
+    }
+
+    const user = await prisma.coupon.create({
+      data: {
+        ...rest,
+        name,
+        percentage,
+        created_by_user: { connect: { id: session.user.id } },
+      }
+    });
 
     return NextResponse.json(user, { status: 201 });
   } catch (error) {
