@@ -26,8 +26,10 @@ export async function PATCH (
   const validation = updateBookSchema.safeParse(await req.json());
 
   if (!validation.success) {
+    const { issues } = (validation as import("zod").SafeParseError<unknown>).error;
+
     return NextResponse.json(
-      { error: validation.error.issues },
+      { error: issues },
       { status: 400 }
     );
   }

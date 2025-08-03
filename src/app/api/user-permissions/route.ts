@@ -19,7 +19,9 @@ export async function POST (req: NextRequest) {
     const validation = claimSchema.safeParse(await req.json());
 
     if (!validation.success) {
-      return NextResponse.json({ error: validation.error.issues }, { status: 400 });
+      const { error } = validation as import("zod").SafeParseError<typeof claimSchema>;
+
+      return NextResponse.json({ error: error.issues }, { status: 400 });
     }
 
     if (validation.data.type === "ROLE") {

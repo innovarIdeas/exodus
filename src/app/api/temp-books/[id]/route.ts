@@ -7,7 +7,9 @@ export async function PATCH (req: NextRequest, { params }: { params: { id: strin
   const validation = updateTempBookSchema.safeParse(await req.json());
 
   if(!validation.success) {
-    return NextResponse.json({ error: validation.error.issues }, { status: 400 });
+    const { error } = validation as import("zod").SafeParseError<typeof updateTempBookSchema>;
+
+    return NextResponse.json({ error: error.issues }, { status: 400 });
   }
 
   try {

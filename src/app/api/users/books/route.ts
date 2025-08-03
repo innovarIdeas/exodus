@@ -11,8 +11,10 @@ export async function POST (req: NextRequest) {
     const validation = bookSchema.safeParse(await req.json());
 
     if (!validation.success) {
+      const { issues } = (validation as import("zod").SafeParseError<unknown>).error;
+
       return NextResponse.json(
-        { error: validation.error.issues },
+        { error: issues },
         { status: 400 }
       );
     }
@@ -21,7 +23,20 @@ export async function POST (req: NextRequest) {
       return NextResponse.json({ error: "Unauthorized" }, { status: 401 });
     }
 
-    const book = await prisma.book.create({ data: { ...validation.data, created_by: session.user.id } });
+    const book = await prisma.book.create({
+      data: {
+        created_by_user: { connect: { id: session.user.id } },
+        ...(() => {
+          const { client_id, title, ...rest } = validation.data;
+
+          return {
+            title,
+            ...rest,
+            ...(client_id ? { client: { connect: { id: client_id } } } : {}),
+          };
+        })(),
+      },
+    });
 
     return NextResponse.json(book, { status: 201 });
   } catch (error) {

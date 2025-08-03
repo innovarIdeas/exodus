@@ -12,8 +12,11 @@ export async function POST (req: NextRequest) {
     const validation = bookVariantSchema.safeParse(await req.json());
 
     if (!validation.success) {
+      // TypeScript: validation is SafeParseError here
+      const { issues } = (validation as import("zod").SafeParseError<unknown>).error;
+
       return NextResponse.json(
-        { error: validation.error.issues },
+        { error: issues },
         { status: 400 }
       );
     }
@@ -22,12 +25,20 @@ export async function POST (req: NextRequest) {
       return NextResponse.json({ error: "Unauthorized" }, { status: 401 });
     }
 
+    // Remove book_id from spread and use nested connect for book
+    const { book_id, ...rest } = validation.data;
+
     const book = await prisma.book_variant.create({
       data: {
         variant_name: generateVariantName(),
-        ...validation.data,
-        created_by: session.user.id,
-        paper_type: validation.data.paper_type ?? "WHITE_PAPER_LARGE"
+        ...rest,
+        no_of_books: validation.data.no_of_books,
+        number_of_pages: validation.data.number_of_pages,
+        book_size: validation.data.book_size,
+        lamination: validation.data.lamination,
+        created_by_user: { connect: { id: session.user.id } },
+        paper_type: validation.data.paper_type ?? "WHITE_PAPER_LARGE",
+        book: { connect: { id: book_id } }
       }
     });
 

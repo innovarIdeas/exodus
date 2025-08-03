@@ -31,7 +31,9 @@ export async function POST (req: NextRequest) {
     const validation = firstLoginSchema.safeParse(await req.json());
 
     if (!validation.success) {
-      return NextResponse.json({ error: validation.error.issues }, { status: 400 });
+      const { error } = validation as import("zod").SafeParseError<typeof firstLoginSchema>;
+
+      return NextResponse.json({ error: error.issues }, { status: 400 });
     }
 
     let existingUser;

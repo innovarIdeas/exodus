@@ -21,7 +21,9 @@ export async function POST (req: NextRequest) {
     const validation = roleSchema.safeParse(await req.json());
 
     if (!validation.success) {
-      return NextResponse.json({ error: validation.error.issues }, { status: 400 });
+      const { error } = validation as import("zod").SafeParseError<typeof roleSchema>;
+
+      return NextResponse.json({ error: error.issues }, { status: 400 });
     }
 
     const role = await prisma.role.create({
