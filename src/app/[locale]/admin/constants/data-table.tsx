@@ -7,6 +7,13 @@ import {
   useReactTable,
 } from "@tanstack/react-table";
 import {
+  Select,
+  SelectContent,
+  SelectItem,
+  SelectTrigger,
+  SelectValue,
+} from "@/components/ui/select";
+import {
   Table,
   TableBody,
   TableCell,
@@ -25,6 +32,11 @@ interface PaginationInfo {
   totalPages: number;
 }
 
+interface SortState {
+  sortBy: string;
+  sortOrder: "asc" | "desc";
+}
+
 interface DataTableProps<TData, TValue> {
   columns: ColumnDef<TData, TValue>[];
   data: TData[];
@@ -32,6 +44,8 @@ interface DataTableProps<TData, TValue> {
   onPaginationChange: (page: number, pageSize: number) => void;
   onSearchChange: (search: string) => void;
   searchValue: string;
+  sort: SortState;
+  onSortChange: (sortBy: string, sortOrder: "asc" | "desc") => void;
   isLoading?: boolean;
 }
 
@@ -42,6 +56,8 @@ export function ConstantDataTable<TData, TValue> ({
   onPaginationChange,
   onSearchChange,
   searchValue,
+  sort,
+  onSortChange,
   isLoading = false,
 }: DataTableProps<TData, TValue>) {
   const table = useReactTable({
@@ -61,12 +77,54 @@ export function ConstantDataTable<TData, TValue> ({
           onChange={(e) => onSearchChange(e.target.value)}
           className="w-64 h-10 px-3 rounded-md border"
         />
-        <div className="flex items-center space-x-2 text-sm text-gray-600">
-          <span>
-            Showing {pagination.page * pagination.pageSize + 1} to{" "}
-            {Math.min((pagination.page + 1) * pagination.pageSize, pagination.total)} of{" "}
-            {pagination.total} entries
-          </span>
+        <div className="flex items-center space-x-4 text-xs">
+          <div className="flex items-center space-x-2">
+            <span className="text-sm text-gray-600">Sort by:</span>
+            <Select
+              value={sort.sortBy}
+              onValueChange={(value) => {
+                onSortChange(value, sort.sortOrder);
+              }}
+              disabled={isLoading}
+            >
+              <div className="flex items-center space-x-2">
+                <SelectTrigger className="w-[20px] border">
+                </SelectTrigger>
+                <SelectValue />
+              </div>
+              <SelectContent>
+                <SelectItem value="created_at">Date Created</SelectItem>
+                <SelectItem value="updated_at">Most Recently Used</SelectItem>
+                <SelectItem value="name">Name</SelectItem>
+                <SelectItem value="shortcode">Short Code</SelectItem>
+                <SelectItem value="value">Value</SelectItem>
+              </SelectContent>
+            </Select>
+            <Select
+              value={sort.sortOrder}
+              onValueChange={(value) => {
+                onSortChange(sort.sortBy, value as "asc" | "desc");
+              }}
+              disabled={isLoading}
+            >
+              <div className="flex items-center space-x-2">
+                <SelectTrigger className="w-[20px] border">
+                </SelectTrigger>
+                <SelectValue />
+              </div>
+              <SelectContent>
+                <SelectItem value="desc">Descending</SelectItem>
+                <SelectItem value="asc">Ascending</SelectItem>
+              </SelectContent>
+            </Select>
+          </div>
+          <div className="flex items-center space-x-2 text-sm text-gray-600">
+            <span>
+              Showing {pagination.page * pagination.pageSize + 1} to{" "}
+              {Math.min((pagination.page + 1) * pagination.pageSize, pagination.total)} of{" "}
+              {pagination.total} entries
+            </span>
+          </div>
         </div>
       </div>
       <Table>
@@ -118,10 +176,35 @@ export function ConstantDataTable<TData, TValue> ({
         </TableBody>
       </Table>
       <div className="flex items-center justify-between py-4 px-4">
-        <div className="flex items-center space-x-2">
+        <div className="flex items-center space-x-4">
           <span className="text-sm text-gray-600">
             Page {pagination.page + 1} of {pagination.totalPages}
           </span>
+          <div className="flex items-center space-x-2">
+            <span className="text-sm text-gray-600">Rows per page:</span>
+            <Select
+              value={pagination.pageSize.toString()}
+              onValueChange={(value) => {
+                const newPageSize = parseInt(value);
+
+                // Reset to first page when changing page size
+                onPaginationChange(0, newPageSize);
+              }}
+              disabled={isLoading}
+            >
+              <div className="flex items-center space-x-2">
+                <SelectTrigger className="w-[20px] border">
+                </SelectTrigger>
+                <SelectValue />
+              </div>
+              <SelectContent>
+                <SelectItem value="10">10</SelectItem>
+                <SelectItem value="25">25</SelectItem>
+                <SelectItem value="50">50</SelectItem>
+                <SelectItem value="100">100</SelectItem>
+              </SelectContent>
+            </Select>
+          </div>
         </div>
         <div className="flex items-center space-x-2">
           <Button

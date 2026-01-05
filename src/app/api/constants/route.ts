@@ -10,6 +10,8 @@ export async function GET (req: NextRequest) {
     const page = parseInt(searchParams.get("page") || "0");
     const pageSize = parseInt(searchParams.get("pageSize") || "10");
     const search = searchParams.get("search") || "";
+    const sortBy = searchParams.get("sortBy") || "created_at";
+    const sortOrder = searchParams.get("sortOrder") || "desc";
 
     const where = {
       deleted_at: null,
@@ -21,10 +23,15 @@ export async function GET (req: NextRequest) {
       }),
     };
 
+    // Validate sortBy field
+    const validSortFields = ["created_at", "updated_at", "name", "shortcode", "value"];
+    const sortField = validSortFields.includes(sortBy) ? sortBy : "created_at";
+    const orderDirection = sortOrder === "asc" ? "asc" : "desc";
+
     const [constantdata, total] = await Promise.all([
       prisma.constants.findMany({
         where,
-        orderBy: { created_at: "desc" },
+        orderBy: { [sortField]: orderDirection },
         skip: page * pageSize,
         take: pageSize,
       }),
@@ -75,6 +82,24 @@ export async function POST (req: NextRequest) {
 
     if (typeof value !== "number") {
       return NextResponse.json({ error: "Missing required field: value" }, { status: 400 });
+    }
+
+    // Check if a constant with the same name already exists (case-insensitive, excluding deleted)
+    const existingConstant = await prisma.constants.findFirst({
+      where: {
+        name: {
+          equals: name,
+          mode: "insensitive",
+        },
+        deleted_at: null,
+      },
+    });
+
+    if (existingConstant) {
+      return NextResponse.json(
+        { error: "A constant with this name already exists" },
+        { status: 409 }
+      );
     }
 
     const constant = await prisma.constants.create({

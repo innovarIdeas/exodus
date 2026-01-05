@@ -1,7 +1,8 @@
 "use client";
 
-import React, { useCallback, useMemo, useState } from "react";
+import React, { useCallback, useEffect, useMemo, useState } from "react";
 import { Sheet, SheetContent, SheetTrigger } from "@/components/ui/sheet";
+import { useRouter, useSearchParams } from "next/navigation";
 import AddNewConstant from "@/components/AddNewConstant";
 import { Button } from "@/components/ui/button";
 import { ConstantDataTable } from "./data-table";
@@ -16,6 +17,11 @@ interface PaginationState {
   pageSize: number;
 }
 
+interface SortState {
+  sortBy: string;
+  sortOrder: "asc" | "desc";
+}
+
 interface PaginatedResponse {
   data: IConstant[];
   pagination: {
@@ -26,10 +32,18 @@ interface PaginatedResponse {
   };
 }
 
-const fetchConstants = async (page: number, pageSize: number, search: string): Promise<PaginatedResponse> => {
+const fetchConstants = async (
+  page: number,
+  pageSize: number,
+  search: string,
+  sortBy: string,
+  sortOrder: "asc" | "desc"
+): Promise<PaginatedResponse> => {
   const params = new URLSearchParams({
     page: page.toString(),
     pageSize: pageSize.toString(),
+    sortBy,
+    sortOrder,
     ...(search && { search }),
   });
 
@@ -43,21 +57,142 @@ const fetchConstants = async (page: number, pageSize: number, search: string): P
 };
 
 export default function ConstantBody () {
-  const [pagination, setPagination] = useState<PaginationState>({
-    page: 0,
-    pageSize: 10,
+  const router = useRouter();
+  const searchParams = useSearchParams();
+
+  // Initialize state from URL params
+  const [pagination, setPagination] = useState<PaginationState>(() => {
+    const page = parseInt(searchParams.get("page") || "0");
+    const pageSize = parseInt(searchParams.get("pageSize") || "10");
+
+    return { page, pageSize };
   });
-  const [searchValue, setSearchValue] = useState("");
+
+  const [searchValue, setSearchValue] = useState(() => {
+    return searchParams.get("search") || "";
+  });
+
+  const [sort, setSort] = useState<SortState>(() => {
+    const sortBy = searchParams.get("sortBy") || "created_at";
+    const sortOrder = (searchParams.get("sortOrder") || "desc") as "asc" | "desc";
+
+    return { sortBy, sortOrder };
+  });
+
   const debouncedSearch = useDebounce(searchValue, 300);
 
+  // Sync state with URL params when they change (e.g., browser back/forward)
+  useEffect(() => {
+    const urlPage = parseInt(searchParams.get("page") || "0");
+    const urlPageSize = parseInt(searchParams.get("pageSize") || "10");
+    const urlSearch = searchParams.get("search") || "";
+    const urlSortBy = searchParams.get("sortBy") || "created_at";
+    const urlSortOrder = (searchParams.get("sortOrder") || "desc") as "asc" | "desc";
+
+    // Only update state if URL params differ from current state
+    // This prevents unnecessary updates when we're the ones updating the URL
+    if (urlPage !== pagination.page || urlPageSize !== pagination.pageSize) {
+      setPagination({ page: urlPage, pageSize: urlPageSize });
+    }
+
+    if (urlSearch !== searchValue) {
+      setSearchValue(urlSearch);
+    }
+
+    if (urlSortBy !== sort.sortBy || urlSortOrder !== sort.sortOrder) {
+      setSort({ sortBy: urlSortBy, sortOrder: urlSortOrder });
+    }
+  }, [searchParams, pagination.page, pagination.pageSize, searchValue, sort.sortBy, sort.sortOrder]);
+
+  // Update URL params when pagination, search, or sort changes
+  useEffect(() => {
+    const currentPage = searchParams.get("page");
+    const currentPageSize = searchParams.get("pageSize");
+    const currentSearch = searchParams.get("search") || "";
+    const currentSortBy = searchParams.get("sortBy") || "created_at";
+    const currentSortOrder = searchParams.get("sortOrder") || "desc";
+    const params = new URLSearchParams(searchParams.toString());
+    let hasChanges = false;
+
+    // Update page param
+    if (pagination.page === 0) {
+      if (currentPage !== null) {
+        params.delete("page");
+        hasChanges = true;
+      }
+    } else {
+      if (currentPage !== pagination.page.toString()) {
+        params.set("page", pagination.page.toString());
+        hasChanges = true;
+      }
+    }
+
+    // Update pageSize param
+    if (pagination.pageSize === 10) {
+      if (currentPageSize !== null) {
+        params.delete("pageSize");
+        hasChanges = true;
+      }
+    } else {
+      if (currentPageSize !== pagination.pageSize.toString()) {
+        params.set("pageSize", pagination.pageSize.toString());
+        hasChanges = true;
+      }
+    }
+
+    // Update search param
+    if (debouncedSearch) {
+      if (currentSearch !== debouncedSearch) {
+        params.set("search", debouncedSearch);
+        hasChanges = true;
+      }
+    } else {
+      if (currentSearch !== "") {
+        params.delete("search");
+        hasChanges = true;
+      }
+    }
+
+    // Update sort params
+    if (sort.sortBy === "created_at") {
+      if (currentSortBy !== "created_at") {
+        params.delete("sortBy");
+        hasChanges = true;
+      }
+    } else {
+      if (currentSortBy !== sort.sortBy) {
+        params.set("sortBy", sort.sortBy);
+        hasChanges = true;
+      }
+    }
+
+    if (sort.sortOrder === "desc") {
+      if (currentSortOrder !== "desc") {
+        params.delete("sortOrder");
+        hasChanges = true;
+      }
+    } else {
+      if (currentSortOrder !== sort.sortOrder) {
+        params.set("sortOrder", sort.sortOrder);
+        hasChanges = true;
+      }
+    }
+
+    if (hasChanges) {
+      const newUrl = params.toString() ? `?${params.toString()}` : window.location.pathname;
+
+      router.replace(newUrl, { scroll: false });
+    }
+  }, [pagination.page, pagination.pageSize, debouncedSearch, sort.sortBy, sort.sortOrder, router, searchParams]);
+
   const queryKey = useMemo(
-    () => [QUERY_KEY.GET_ALL_CONSTANTS, pagination.page, pagination.pageSize, debouncedSearch],
-    [pagination.page, pagination.pageSize, debouncedSearch]
+    () => [QUERY_KEY.GET_ALL_CONSTANTS, pagination.page, pagination.pageSize, debouncedSearch, sort.sortBy, sort.sortOrder],
+    [pagination.page, pagination.pageSize, debouncedSearch, sort.sortBy, sort.sortOrder]
   );
 
   const { data, isLoading, error } = useQuery({
     queryKey,
-    queryFn: () => fetchConstants(pagination.page, pagination.pageSize, debouncedSearch),
+    queryFn: () => fetchConstants(pagination.page, pagination.pageSize, debouncedSearch, sort.sortBy, sort.sortOrder),
     staleTime: 5 * 60 * 1000, // 5 minutes
     refetchOnWindowFocus: false,
   });
@@ -69,6 +204,11 @@ export default function ConstantBody () {
   const handleSearchChange = useCallback((search: string) => {
     setSearchValue(search);
     setPagination(prev => ({ ...prev, page: 0 })); // Reset to first page on search
+  }, []);
+
+  const handleSortChange = useCallback((sortBy: string, sortOrder: "asc" | "desc") => {
+    setSort({ sortBy, sortOrder });
+    setPagination(prev => ({ ...prev, page: 0 })); // Reset to first page on sort change
   }, []);
 
   if (error) {
@@ -102,6 +242,8 @@ export default function ConstantBody () {
           onPaginationChange={handlePaginationChange}
           onSearchChange={handleSearchChange}
           searchValue={searchValue}
+          sort={sort}
+          onSortChange={handleSortChange}
           isLoading={isLoading}
         />
       </div>
