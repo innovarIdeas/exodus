@@ -1,6 +1,6 @@
 "use client";
 
-import React, { useCallback, useEffect, useMemo, useState } from "react";
+import React, { useCallback, useEffect, useMemo, useRef, useState } from "react";
 import { Sheet, SheetContent, SheetTrigger } from "@/components/ui/sheet";
 import { useRouter, useSearchParams } from "next/navigation";
 import AddNewConstant from "@/components/AddNewConstant";
@@ -80,9 +80,15 @@ export default function ConstantBody () {
   });
 
   const debouncedSearch = useDebounce(searchValue, 300);
+  const isUpdatingUrlRef = useRef(false);
 
   // Sync state with URL params when they change (e.g., browser back/forward)
   useEffect(() => {
+    // Skip if we're the ones updating the URL
+    if (isUpdatingUrlRef.current) {
+      return;
+    }
+
     const urlPage = parseInt(searchParams.get("page") || "0");
     const urlPageSize = parseInt(searchParams.get("pageSize") || "10");
     const urlSearch = searchParams.get("search") || "";
@@ -90,7 +96,6 @@ export default function ConstantBody () {
     const urlSortOrder = (searchParams.get("sortOrder") || "desc") as "asc" | "desc";
 
     // Only update state if URL params differ from current state
-    // This prevents unnecessary updates when we're the ones updating the URL
     if (urlPage !== pagination.page || urlPageSize !== pagination.pageSize) {
       setPagination({ page: urlPage, pageSize: urlPageSize });
     }
@@ -102,10 +107,15 @@ export default function ConstantBody () {
     if (urlSortBy !== sort.sortBy || urlSortOrder !== sort.sortOrder) {
       setSort({ sortBy: urlSortBy, sortOrder: urlSortOrder });
     }
-  }, [searchParams, pagination.page, pagination.pageSize, searchValue, sort.sortBy, sort.sortOrder]);
+  }, [searchParams]);
 
   // Update URL params when pagination, search, or sort changes
   useEffect(() => {
+    // Skip if we're syncing from URL (browser navigation)
+    if (isUpdatingUrlRef.current) {
+      return;
+    }
+
     const currentPage = searchParams.get("page");
     const currentPageSize = searchParams.get("pageSize");
     const currentSearch = searchParams.get("search") || "";
@@ -179,11 +189,17 @@ export default function ConstantBody () {
     }
 
     if (hasChanges) {
+      isUpdatingUrlRef.current = true;
       const newUrl = params.toString() ? `?${params.toString()}` : window.location.pathname;
 
       router.replace(newUrl, { scroll: false });
+
+      // Reset the flag after URL update completes
+      setTimeout(() => {
+        isUpdatingUrlRef.current = false;
+      }, 0);
     }
-  }, [pagination.page, pagination.pageSize, debouncedSearch, sort.sortBy, sort.sortOrder, router, searchParams]);
+  }, [pagination.page, pagination.pageSize, debouncedSearch, sort.sortBy, sort.sortOrder, router]);
 
   const queryKey = useMemo(
     () => [QUERY_KEY.GET_ALL_CONSTANTS, pagination.page, pagination.pageSize, debouncedSearch, sort.sortBy, sort.sortOrder],
